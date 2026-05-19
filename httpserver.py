@@ -187,6 +187,8 @@ button {
 
 
 PAGE_SCRIPT = """
+const POLL_INTERVAL_MS = 500;
+
 async function postApi(url) {
     const response = await fetch(url, {method: "POST"});
     const data = await response.json();
@@ -219,8 +221,8 @@ async function refreshLogs() {
     box.scrollTop = box.scrollHeight;
 }
 
-setInterval(refreshStatus, 100);
-setInterval(refreshLogs, 1000);
+setInterval(refreshStatus, POLL_INTERVAL_MS);
+setInterval(refreshLogs, POLL_INTERVAL_MS);
 window.onload = async function() {
     await refreshStatus();
     await refreshLogs();

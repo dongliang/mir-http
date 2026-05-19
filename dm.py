@@ -126,7 +126,7 @@ def get_next_screenshot_file():
 
 
 def bind_game_window():
-    return bind_window_by_title("纵横四海")
+    return bind_window_by_title("闪电侠")
 
 
 def bind_window_by_title(title_part):
