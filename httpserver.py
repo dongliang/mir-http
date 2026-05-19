@@ -32,7 +32,7 @@ def create_server(player_info, update_frame):
                 H2("Mir2Auto"),
                 Div(
                     *create_buttons(),
-                    cls="buttons",
+                    cls="controls",
                 ),
                 Div(
                     Div("绑定窗口: ", Span("未绑定", id="bound-title")),
@@ -83,6 +83,15 @@ def create_server(player_info, update_frame):
             "status": get_status(player_info),
         })
 
+    @rt("/api/move/{action}/{direction}")
+    def post(action: str, direction: str):
+        result = api.move_player(action, direction)
+        log.write(result["message"])
+        return JSONResponse({
+            "move": result,
+            "status": get_status(player_info),
+        })
+
     @rt("/api/screenshot")
     def post():
         success, path, message = dm.capture_bound_window()
@@ -108,16 +117,44 @@ def create_server(player_info, update_frame):
 
 
 def create_buttons():
-    buttons = [
+    utility_buttons = [
         Button("绑定窗口", onclick="postApi('/api/window/bind')"),
         Button("测试坐标", onclick="postApi('/api/coordinate/read')"),
         Button("截图", onclick="takeScreenshot()"),
     ]
 
-    for number in range(4, 11):
-        buttons.append(Button(f"测试按钮 {number}", onclick=f"postApi('/api/test/{number}')"))
+    return [
+        Div(*utility_buttons, cls="utility-buttons"),
+        Div(
+            create_move_pad("走", "walk"),
+            create_move_pad("跑", "run"),
+            cls="move-pads",
+        ),
+    ]
 
-    return buttons
+
+def create_move_pad(title, action):
+    buttons = [
+        ("左上", "up_left"),
+        ("上", "up"),
+        ("右上", "up_right"),
+        ("左", "left"),
+        (title, ""),
+        ("右", "right"),
+        ("左下", "down_left"),
+        ("下", "down"),
+        ("右下", "down_right"),
+    ]
+
+    return Div(
+        *[
+            Button(label, disabled=True, cls="move-center")
+            if not direction
+            else Button(label, onclick=f"postApi('/api/move/{action}/{direction}')")
+            for label, direction in buttons
+        ],
+        cls="move-pad",
+    )
 
 
 def get_status(player_info):
@@ -149,15 +186,34 @@ body {
 h2 {
     margin: 0 0 12px 0;
 }
-.buttons {
+.controls {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
     gap: 8px;
     margin-bottom: 12px;
 }
+.utility-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+.move-pads {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 260px));
+    gap: 8px;
+}
+.move-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
 button {
-    height: 30px;
+    height: 34px;
+    font-size: 12px;
     cursor: pointer;
+}
+.move-center {
+    cursor: default;
+    font-weight: bold;
 }
 .status {
     display: grid;

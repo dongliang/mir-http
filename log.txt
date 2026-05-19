@@ -1,11 +1,36 @@
-[19:43:02] 日志开始
-[19:43:02] 程序启动: HTTP 服务模式
-[19:43:02] 开始初始化大漠
-[19:43:08] 大漠版本: 7.2607
-[19:43:08] 大漠注册成功 last_error=0
-[19:43:08] 大漠初始化成功
-[19:43:08] 启动时自动绑定窗口
-[19:43:13] 绑定成功 hwnd=2428164 display=dx2 force=1 last_error=0
-[19:43:13] 自动绑定窗口成功: ^纵横四海 - 闪电侠
-[19:43:13] HTTP 服务启动: http://127.0.0.1:8765
-[19:43:13] OCR子进程启动 pid=28280
+[20:12:13] 日志开始
+[20:12:13] 程序启动: HTTP 服务模式
+[20:12:13] 开始初始化大漠
+[20:12:19] 大漠版本: 7.2607
+[20:12:19] 大漠注册成功 last_error=0
+[20:12:19] 大漠初始化成功
+[20:12:19] 启动时自动绑定窗口
+[20:12:24] 绑定成功 hwnd=2428164 display=dx2 force=1 last_error=0
+[20:12:24] 自动绑定窗口成功: ^纵横四海 - 闪电侠
+[20:12:24] HTTP 服务启动: http://127.0.0.1:8765
+[20:12:24] OCR子进程启动 pid=25500
+[20:19:07] 点击成功 button=left x=815 y=495 last_error=0
+[20:19:08] 点击成功 button=left x=815 y=560 last_error=0
+[20:19:10] 点击成功 button=left x=815 y=560 last_error=0
+[20:19:11] 点击成功 button=left x=815 y=560 last_error=0
+[20:19:12] 点击成功 button=left x=815 y=495 last_error=0
+[20:19:13] 点击成功 button=left x=815 y=495 last_error=0
+[20:19:14] 点击成功 button=left x=815 y=560 last_error=0
+[20:19:15] 点击成功 button=left x=815 y=495 last_error=0
+[20:19:15] 点击成功 button=left x=815 y=430 last_error=0
+[20:19:17] 点击成功 button=left x=815 y=430 last_error=0
+[20:19:18] 点击成功 button=left x=815 y=430 last_error=0
+[20:19:19] 点击成功 button=left x=815 y=430 last_error=0
+[20:19:20] 点击成功 button=left x=945 y=495 last_error=0
+[20:19:21] 点击成功 button=left x=945 y=560 last_error=0
+[20:19:22] 点击成功 button=left x=945 y=560 last_error=0
+[20:19:33] 点击成功 button=right x=750 y=625 last_error=0
+[20:19:35] 点击成功 button=left x=815 y=560 last_error=0
+[20:19:37] 点击成功 button=right x=750 y=625 last_error=0
+[20:19:38] 点击成功 button=right x=750 y=495 last_error=0
+[20:19:39] 点击成功 button=right x=750 y=495 last_error=0
+[20:19:40] 点击成功 button=right x=750 y=365 last_error=0
+[20:19:41] 点击成功 button=right x=1010 y=365 last_error=0
+[20:19:43] 点击成功 button=right x=1010 y=625 last_error=0
+[20:19:44] 点击成功 button=right x=1010 y=495 last_error=0
+[20:19:45] 点击成功 button=right x=750 y=495 last_error=0

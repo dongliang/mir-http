@@ -92,6 +92,28 @@ def get_bound_client_size():
     return right - left, bottom - top
 
 
+def click_bound_client(x, y, button):
+    if not bound_hwnd:
+        return False, "还没有绑定窗口"
+
+    dm = get_dm()
+    move_result = dm.MoveTo(int(x), int(y))
+
+    if button == "left":
+        click_result = dm.LeftClick()
+    elif button == "right":
+        click_result = dm.RightClick()
+    else:
+        return False, f"未知鼠标按钮: {button}"
+
+    last_error = dm.GetLastError()
+
+    if move_result == 1 and click_result == 1:
+        return True, f"点击成功 button={button} x={int(x)} y={int(y)} last_error={last_error}"
+
+    return False, f"点击失败 button={button} x={int(x)} y={int(y)} move={move_result} click={click_result} last_error={last_error}"
+
+
 def capture_bound_window():
     if not bound_hwnd:
         return False, "", "还没有绑定窗口"
