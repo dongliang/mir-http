@@ -1,5 +1,6 @@
 import os
 import platform
+from pathlib import Path
 
 
 # 为了方便本地使用，你可以把注册码和附加码填在这里。
@@ -10,6 +11,7 @@ DM_EXTRA_CODE = "hyjrip4m5kzwao34"
 dm_object = None
 bound_hwnd = None
 bound_title = ""
+screenshot_dir = Path(__file__).resolve().parent / "screenshots"
 
 
 def create_dm():
@@ -71,6 +73,14 @@ def is_window_bound():
     return bound_hwnd is not None
 
 
+def get_bound_window():
+    return {
+        "is_bound": bound_hwnd is not None,
+        "hwnd": bound_hwnd,
+        "title": bound_title,
+    }
+
+
 def get_bound_client_size():
     if not bound_hwnd:
         return 0, 0
@@ -79,6 +89,40 @@ def get_bound_client_size():
 
     left, top, right, bottom = win32gui.GetClientRect(bound_hwnd)
     return right - left, bottom - top
+
+
+def capture_bound_window():
+    if not bound_hwnd:
+        return False, "", "还没有绑定窗口"
+
+    width, height = get_bound_client_size()
+
+    if width <= 0 or height <= 0:
+        return False, "", f"窗口尺寸异常 size={width}x{height}"
+
+    screenshot_file = get_next_screenshot_file()
+    dm = get_dm()
+    result = dm.Capture(0, 0, width, height, str(screenshot_file))
+    last_error = dm.GetLastError()
+
+    if result == 1 and screenshot_file.exists():
+        return True, str(screenshot_file), f"绑定窗口截图成功 path={screenshot_file} size={width}x{height} last_error={last_error}"
+
+    return False, str(screenshot_file), f"截图失败 result={result} last_error={last_error}"
+
+
+def get_next_screenshot_file():
+    screenshot_dir.mkdir(exist_ok=True)
+
+    index = 1
+
+    while True:
+        screenshot_file = screenshot_dir / f"screenshot_{index:04d}.bmp"
+
+        if not screenshot_file.exists():
+            return screenshot_file
+
+        index += 1
 
 
 def bind_game_window():
@@ -99,7 +143,7 @@ def bind_window_by_title(title_part):
     force_result = dm.ForceUnBindWindow(hwnd)
     result = dm.BindWindowEx(
         hwnd,
-        "normal",
+        "gdi2",
         "dx.mouse.position.lock.api|dx.mouse.input.lock.api3|dx.mouse.state.api|dx.mouse.api",
         "windows",
         "dx.public.active.api",

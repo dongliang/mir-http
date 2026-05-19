@@ -50,3 +50,12 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# FastHTML local session key
+.sesskey
+
+# Runtime screenshots/log captures
+screenshot.bmp
+screenshots/
+server.out.log
+server.err.log

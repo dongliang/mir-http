@@ -2,13 +2,7 @@ from datetime import datetime
 from pathlib import Path
 
 
-text_box = None
 log_file = Path(__file__).resolve().parent / "log.txt"
-
-
-def set_text_box(box):
-    global text_box
-    text_box = box
 
 
 def start_log():
@@ -23,6 +17,9 @@ def write(message):
     with log_file.open("a", encoding="utf-8") as file:
         file.write(line + "\n")
 
-    if text_box:
-        text_box.insert("end", line + "\n")
-        text_box.see("end")
+
+def read():
+    if not log_file.exists():
+        return ""
+
+    return log_file.read_text(encoding="utf-8")
