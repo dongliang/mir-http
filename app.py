@@ -19,7 +19,7 @@ def main() -> None:
     log.start_log()
     log.write("程序启动: HTTP 服务模式")
     if start_dm():
-        bind_game_window()
+        start_bind_game_window()
     start_update_loop()
     httpserver.run_server(current_player, update_frame)
 
@@ -31,6 +31,11 @@ def update_frame():
 
 def start_update_loop():
     thread = threading.Thread(target=update_loop, daemon=True)
+    thread.start()
+
+
+def start_bind_game_window():
+    thread = threading.Thread(target=bind_game_window, daemon=True)
     thread.start()
 
 

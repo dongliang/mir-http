@@ -121,9 +121,35 @@ def stop_ocr_worker():
 
     pid = process.pid
 
+    close_stdin(process)
+    terminate_process_tree(process)
+
+    log.write(f"OCR子进程已停止 pid={pid}")
+
+
+def close_stdin(process):
     try:
         if process.stdin:
             process.stdin.close()
+    except Exception:
+        pass
+
+
+def terminate_process_tree(process):
+    if process.poll() is not None:
+        return
+
+    taskkill = getattr(subprocess, "DEVNULL", None)
+
+    try:
+        subprocess.run(
+            ["taskkill", "/PID", str(process.pid), "/T", "/F"],
+            stdout=taskkill,
+            stderr=taskkill,
+            check=False,
+        )
+        process.wait(timeout=3)
+        return
     except Exception:
         pass
 
@@ -135,5 +161,3 @@ def stop_ocr_worker():
         except subprocess.TimeoutExpired:
             process.kill()
             process.wait(timeout=3)
-
-    log.write(f"OCR子进程已停止 pid={pid}")

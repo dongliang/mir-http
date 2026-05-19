@@ -261,7 +261,7 @@ async function refreshStatus() {
     refreshStatus.busy = true;
 
     try {
-        const frameResponse = await fetch("/api/frame", {method: "POST"});
+        const frameResponse = await fetch("/api/status");
         const data = await frameResponse.json();
         document.getElementById("map-name").textContent = data.player.map_name;
         document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
