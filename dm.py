@@ -12,6 +12,7 @@ dm_object = None
 bound_hwnd = None
 bound_title = ""
 screenshot_dir = Path(__file__).resolve().parent / "screenshots"
+display_mode = "dx2"
 
 
 def create_dm():
@@ -143,7 +144,7 @@ def bind_window_by_title(title_part):
     force_result = dm.ForceUnBindWindow(hwnd)
     result = dm.BindWindowEx(
         hwnd,
-        "gdi2",
+        display_mode,
         "dx.mouse.position.lock.api|dx.mouse.input.lock.api3|dx.mouse.state.api|dx.mouse.api",
         "windows",
         "dx.public.active.api",
@@ -154,9 +155,9 @@ def bind_window_by_title(title_part):
     if result == 1:
         bound_hwnd = hwnd
         bound_title = title
-        return True, title, f"绑定成功 hwnd={hwnd} force={force_result} last_error={last_error}"
+        return True, title, f"绑定成功 hwnd={hwnd} display={display_mode} force={force_result} last_error={last_error}"
 
-    return False, title, f"绑定失败 hwnd={hwnd} result={result} last_error={last_error}"
+    return False, title, f"绑定失败 hwnd={hwnd} display={display_mode} result={result} last_error={last_error}"
 
 
 def find_window_by_title(title_part):

@@ -18,6 +18,7 @@ dist/
 
 # Virtual environments
 .venv
+.venv-ocr/
 env/
 venv/
 

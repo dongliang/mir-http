@@ -50,7 +50,6 @@ def create_server(player_info, update_frame):
 
     @rt("/api/frame")
     def post():
-        update_frame_safely(update_frame)
         return JSONResponse(get_status(player_info))
 
     @rt("/api/dm/start")
@@ -77,14 +76,10 @@ def create_server(player_info, update_frame):
     @rt("/api/coordinate/read")
     def post():
         update_frame_safely(update_frame)
-        text, region = api.get_map_coordinate_text()
-        map_name, x, y = api.parse_map_coordinate_text(text)
         return JSONResponse({
-            "text": text,
-            "region": region,
-            "map_name": map_name,
-            "x": x,
-            "y": y,
+            "map_name": player_info["map_name"],
+            "x": player_info["x"],
+            "y": player_info["y"],
             "status": get_status(player_info),
         })
 
@@ -206,11 +201,18 @@ async function takeScreenshot() {
 }
 
 async function refreshStatus() {
-    const frameResponse = await fetch("/api/frame", {method: "POST"});
-    const data = await frameResponse.json();
-    document.getElementById("map-name").textContent = data.player.map_name;
-    document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
-    document.getElementById("bound-title").textContent = data.bound_window.title || "未绑定";
+    if (refreshStatus.busy) return;
+    refreshStatus.busy = true;
+
+    try {
+        const frameResponse = await fetch("/api/frame", {method: "POST"});
+        const data = await frameResponse.json();
+        document.getElementById("map-name").textContent = data.player.map_name;
+        document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
+        document.getElementById("bound-title").textContent = data.bound_window.title || "未绑定";
+    } finally {
+        refreshStatus.busy = false;
+    }
 }
 
 async function refreshLogs() {

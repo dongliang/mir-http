@@ -1,10 +1,18 @@
+import atexit
+import threading
+import time
+
 import api
 import httpserver
 import log
+import ocr_client
 import player
 
 
 current_player = player.create_player()
+stop_event = threading.Event()
+atexit.register(ocr_client.stop_ocr_worker)
+atexit.register(stop_event.set)
 
 
 def main() -> None:
@@ -12,12 +20,31 @@ def main() -> None:
     log.write("程序启动: HTTP 服务模式")
     if start_dm():
         bind_game_window()
+    start_update_loop()
     httpserver.run_server(current_player, update_frame)
 
 
 def update_frame():
     map_name, x, y = api.get_map_coordinate()
     player.set_map_coordinate(current_player, map_name, x, y)
+
+
+def start_update_loop():
+    thread = threading.Thread(target=update_loop, daemon=True)
+    thread.start()
+
+
+def update_loop():
+    while not stop_event.is_set():
+        started = time.time()
+
+        try:
+            update_frame()
+        except Exception as error:
+            log.write(f"后台刷新坐标异常: {error}")
+
+        elapsed = time.time() - started
+        stop_event.wait(max(0.0, 0.5 - elapsed))
 
 
 def start_dm():
