@@ -1,0 +1,139 @@
+import os
+import platform
+
+
+# 为了方便本地使用，你可以把注册码和附加码填在这里。
+# 更安全的做法仍然是用环境变量 DM_REG_CODE 和 DM_EXTRA_CODE。
+DM_REG_CODE = "hetufei41c42d8e1975be9acb4faccb77204e9a"
+DM_EXTRA_CODE = "hyjrip4m5kzwao34"
+
+dm_object = None
+bound_hwnd = None
+bound_title = ""
+
+
+def create_dm():
+    if platform.architecture()[0] != "32bit":
+        raise RuntimeError("当前是 64 位 Python，但 dm.dll 是 32 位。请用 32 位 Python 运行。")
+
+    import win32com.client
+
+    return win32com.client.Dispatch("dm.dmsoft")
+
+
+def start_dm():
+    global dm_object
+
+    dm_object = create_dm()
+    version = dm_object.Ver()
+    success, message = register_dm(dm_object)
+
+    return success, version, message
+
+
+def get_dm():
+    global dm_object
+
+    if dm_object is None:
+        dm_object = create_dm()
+
+    return dm_object
+
+
+def get_dm_version():
+    if dm_object:
+        return dm_object.Ver()
+
+    dm = create_dm()
+    return dm.Ver()
+
+
+def register_dm(dm):
+    reg_code = os.environ.get("DM_REG_CODE") or DM_REG_CODE
+    extra_code = os.environ.get("DM_EXTRA_CODE") or DM_EXTRA_CODE
+
+    if not reg_code:
+        return False, "缺少注册码，请设置 DM_REG_CODE 或填写 dm.py 里的 DM_REG_CODE"
+
+    if not extra_code:
+        return False, "缺少附加码，请设置 DM_EXTRA_CODE 或填写 dm.py 里的 DM_EXTRA_CODE"
+
+    result = dm.Reg(reg_code, extra_code)
+    last_error = dm.GetLastError()
+
+    if result == 1:
+        return True, f"大漠注册成功 last_error={last_error}"
+
+    return False, f"大漠注册失败 result={result} last_error={last_error}"
+
+
+def is_window_bound():
+    return bound_hwnd is not None
+
+
+def get_bound_client_size():
+    if not bound_hwnd:
+        return 0, 0
+
+    import win32gui
+
+    left, top, right, bottom = win32gui.GetClientRect(bound_hwnd)
+    return right - left, bottom - top
+
+
+def bind_game_window():
+    return bind_window_by_title("纵横四海")
+
+
+def bind_window_by_title(title_part):
+    global bound_hwnd
+    global bound_title
+
+    hwnd, title = find_window_by_title(title_part)
+
+    if not hwnd:
+        return False, "", f"找不到标题包含 {title_part} 的窗口"
+
+    dm = get_dm()
+
+    force_result = dm.ForceUnBindWindow(hwnd)
+    result = dm.BindWindowEx(
+        hwnd,
+        "normal",
+        "dx.mouse.position.lock.api|dx.mouse.input.lock.api3|dx.mouse.state.api|dx.mouse.api",
+        "windows",
+        "dx.public.active.api",
+        0,
+    )
+    last_error = dm.GetLastError()
+
+    if result == 1:
+        bound_hwnd = hwnd
+        bound_title = title
+        return True, title, f"绑定成功 hwnd={hwnd} force={force_result} last_error={last_error}"
+
+    return False, title, f"绑定失败 hwnd={hwnd} result={result} last_error={last_error}"
+
+
+def find_window_by_title(title_part):
+    import win32gui
+
+    result = []
+
+    def check_window(hwnd, extra):
+        if not win32gui.IsWindowVisible(hwnd):
+            return True
+
+        title = win32gui.GetWindowText(hwnd)
+
+        if title_part in title:
+            result.append((hwnd, title))
+
+        return True
+
+    win32gui.EnumWindows(check_window, None)
+
+    if result:
+        return result[0]
+
+    return None, ""

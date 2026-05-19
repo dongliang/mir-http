@@ -1,0 +1,1 @@
+@powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process -Verb RunAs -WorkingDirectory '%~dp0' -FilePath 'C:\Users\dongliang\AppData\Local\Programs\Python\Python311-32\python.exe' -ArgumentList 'app.py'"
