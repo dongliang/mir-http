@@ -8,6 +8,7 @@ import ocr_client
 
 coordinate_image = Path(__file__).resolve().parent / "screenshots" / "map_coordinate.bmp"
 coordinate_lock = threading.Lock()
+BOTTOM_UI_HEIGHT = 155
 
 directions = {
     "up": (0, -1),
@@ -21,25 +22,25 @@ directions = {
 }
 
 walk_click_directions = {
-    "up": (0, -2),
+    "up": (0, -1),
     "down": (0, 1),
-    "left": (-1, -0.75),
-    "right": (1, -0.75),
-    "up_left": (-1, -2),
-    "up_right": (1, -2),
-    "down_left": (-1, 0),
-    "down_right": (1, 0),
+    "left": (-1, 0),
+    "right": (1, 0),
+    "up_left": (-1, -1),
+    "up_right": (1, -1),
+    "down_left": (-1, 1),
+    "down_right": (1, 1),
 }
 
 run_click_directions = {
-    "up": (0, -2),
+    "up": (0, -1),
     "down": (0, 1),
-    "left": (-1, -0.5),
-    "right": (1, -0.5),
-    "up_left": (-1, -2),
-    "up_right": (1, -2),
-    "down_left": (-1, 0),
-    "down_right": (1, 0),
+    "left": (-1, 0),
+    "right": (1, 0),
+    "up_left": (-1, -1),
+    "up_right": (1, -1),
+    "down_left": (-1, 1),
+    "down_right": (1, 1),
 }
 
 move_actions = {
@@ -127,16 +128,20 @@ def calculate_move(action, direction, width, height):
     dx, dy = directions[direction]
     config = move_actions[action]
     click_dx, click_dy = get_click_direction(action, direction)
-    center_x = width // 2
-    center_y = height // 2
+    origin_x, origin_y = get_move_origin(width, height)
 
     return {
         "button": config["button"],
-        "click_x": round(center_x + click_dx * config["offset"]),
-        "click_y": round(center_y + click_dy * config["offset"]),
+        "click_x": round(origin_x + click_dx * config["offset"]),
+        "click_y": round(origin_y + click_dy * config["offset"]),
         "delta_x": dx * config["step"],
         "delta_y": dy * config["step"],
     }
+
+
+def get_move_origin(width, height):
+    play_area_height = max(1, height - BOTTOM_UI_HEIGHT)
+    return width // 2, play_area_height // 2
 
 
 def get_click_direction(action, direction):
