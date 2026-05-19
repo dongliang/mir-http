@@ -10,6 +10,9 @@ import player
 
 
 current_player = player.create_player()
+app_settings = {
+    "overlay_enabled": True,
+}
 stop_event = threading.Event()
 atexit.register(ocr_client.stop_ocr_worker)
 atexit.register(stop_event.set)
@@ -18,10 +21,11 @@ atexit.register(stop_event.set)
 def main() -> None:
     log.start_log()
     log.write("程序启动: HTTP 服务模式")
+    apply_app_settings()
     if start_dm():
         start_bind_game_window()
     start_update_loop()
-    httpserver.run_server(current_player, update_frame)
+    httpserver.run_server(current_player, update_frame, app_settings)
 
 
 def update_frame():
@@ -32,6 +36,12 @@ def update_frame():
 def start_update_loop():
     thread = threading.Thread(target=update_loop, daemon=True)
     thread.start()
+
+
+def apply_app_settings():
+    import dm
+
+    dm.set_overlay_enabled(app_settings["overlay_enabled"])
 
 
 def start_bind_game_window():

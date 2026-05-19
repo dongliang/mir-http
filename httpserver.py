@@ -11,13 +11,13 @@ SERVER_HOST = "127.0.0.1"
 SERVER_PORT = 8765
 
 
-def run_server(player_info, update_frame):
-    app = create_server(player_info, update_frame)
+def run_server(player_info, update_frame, app_settings):
+    app = create_server(player_info, update_frame, app_settings)
     log.write(f"HTTP 服务启动: http://{SERVER_HOST}:{SERVER_PORT}")
     uvicorn.run(app, host=SERVER_HOST, port=SERVER_PORT, log_level="warning")
 
 
-def create_server(player_info, update_frame):
+def create_server(player_info, update_frame, app_settings):
     app, rt = fast_app()
 
     @rt("/")
@@ -31,7 +31,7 @@ def create_server(player_info, update_frame):
             Body(
                 H2("Mir2Auto"),
                 Div(
-                    *create_buttons(),
+                    *create_buttons(app_settings),
                     cls="controls",
                 ),
                 Div(
@@ -46,11 +46,11 @@ def create_server(player_info, update_frame):
 
     @rt("/api/status")
     def get():
-        return JSONResponse(get_status(player_info))
+        return JSONResponse(get_status(player_info, app_settings))
 
     @rt("/api/frame")
     def post():
-        return JSONResponse(get_status(player_info))
+        return JSONResponse(get_status(player_info, app_settings))
 
     @rt("/api/dm/start")
     def post():
@@ -70,7 +70,7 @@ def create_server(player_info, update_frame):
             "success": success,
             "title": title,
             "message": message,
-            "status": get_status(player_info),
+            "status": get_status(player_info, app_settings),
         })
 
     @rt("/api/coordinate/read")
@@ -80,7 +80,7 @@ def create_server(player_info, update_frame):
             "map_name": player_info["map_name"],
             "x": player_info["x"],
             "y": player_info["y"],
-            "status": get_status(player_info),
+            "status": get_status(player_info, app_settings),
         })
 
     @rt("/api/move/{action}/{direction}")
@@ -89,7 +89,20 @@ def create_server(player_info, update_frame):
         log.write(result["message"])
         return JSONResponse({
             "move": result,
-            "status": get_status(player_info),
+            "status": get_status(player_info, app_settings),
+        })
+
+    @rt("/api/overlay/toggle")
+    def post():
+        app_settings["overlay_enabled"] = not app_settings["overlay_enabled"]
+        dm.set_overlay_enabled(app_settings["overlay_enabled"])
+        state = "开启" if app_settings["overlay_enabled"] else "关闭"
+        message = f"点击提示 Overlay 已{state}"
+        log.write(message)
+        return JSONResponse({
+            "success": True,
+            "message": message,
+            "status": get_status(player_info, app_settings),
         })
 
     @rt("/api/screenshot")
@@ -100,7 +113,7 @@ def create_server(player_info, update_frame):
             "success": success,
             "path": path,
             "message": message,
-            "status": get_status(player_info),
+            "status": get_status(player_info, app_settings),
         })
 
     @rt("/api/test/{number}")
@@ -116,11 +129,12 @@ def create_server(player_info, update_frame):
     return app
 
 
-def create_buttons():
+def create_buttons(app_settings):
     utility_buttons = [
         Button("绑定窗口", onclick="postApi('/api/window/bind')"),
         Button("测试坐标", onclick="postApi('/api/coordinate/read')"),
         Button("截图", onclick="takeScreenshot()"),
+        Button(get_overlay_button_text(app_settings), id="overlay-button", onclick="toggleOverlay()"),
     ]
 
     return [
@@ -157,7 +171,7 @@ def create_move_pad(title, action):
     )
 
 
-def get_status(player_info):
+def get_status(player_info, app_settings):
     bound = dm.get_bound_window()
 
     return {
@@ -167,7 +181,14 @@ def get_status(player_info):
             "y": player_info["y"],
         },
         "bound_window": bound,
+        "settings": {
+            "overlay_enabled": app_settings["overlay_enabled"],
+        },
     }
+
+
+def get_overlay_button_text(app_settings):
+    return "Overlay: 开" if app_settings["overlay_enabled"] else "Overlay: 关"
 
 
 def update_frame_safely(update_frame):
@@ -193,7 +214,7 @@ h2 {
 }
 .utility-buttons {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
 }
 .move-pads {
@@ -256,6 +277,10 @@ async function takeScreenshot() {
     await refreshLogs();
 }
 
+async function toggleOverlay() {
+    await postApi("/api/overlay/toggle");
+}
+
 async function refreshStatus() {
     if (refreshStatus.busy) return;
     refreshStatus.busy = true;
@@ -266,6 +291,7 @@ async function refreshStatus() {
         document.getElementById("map-name").textContent = data.player.map_name;
         document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
         document.getElementById("bound-title").textContent = data.bound_window.title || "未绑定";
+        document.getElementById("overlay-button").textContent = data.settings.overlay_enabled ? "Overlay: 开" : "Overlay: 关";
     } finally {
         refreshStatus.busy = false;
     }

@@ -15,6 +15,23 @@ bound_hwnd = None
 bound_title = ""
 screenshot_dir = Path(__file__).resolve().parent / "screenshots"
 display_mode = "dx2"
+overlay_enabled = True
+
+
+def set_overlay_enabled(enabled):
+    global overlay_enabled
+
+    overlay_enabled = bool(enabled)
+
+    if not overlay_enabled:
+        try:
+            overlay.hide()
+        except Exception:
+            pass
+
+
+def get_overlay_enabled():
+    return overlay_enabled
 
 
 def create_dm():
@@ -98,10 +115,11 @@ def click_bound_client(x, y, button):
     if not bound_hwnd:
         return False, "还没有绑定窗口"
 
-    try:
-        overlay.hide()
-    except Exception:
-        pass
+    if overlay_enabled:
+        try:
+            overlay.hide()
+        except Exception:
+            pass
 
     dm = get_dm()
     move_result = dm.MoveTo(int(x), int(y))
@@ -116,10 +134,11 @@ def click_bound_client(x, y, button):
     last_error = dm.GetLastError()
 
     if move_result == 1 and click_result == 1:
-        try:
-            overlay.show_click(bound_hwnd, int(x), int(y))
-        except Exception:
-            pass
+        if overlay_enabled:
+            try:
+                overlay.show_click(bound_hwnd, int(x), int(y))
+            except Exception:
+                pass
 
         return True, f"点击成功 button={button} x={int(x)} y={int(y)} last_error={last_error}"
 
