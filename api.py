@@ -20,6 +20,17 @@ directions = {
     "down_right": (1, 1),
 }
 
+walk_click_directions = {
+    "up": (0, -2),
+    "down": (0, 1),
+    "left": (-1, -1),
+    "right": (1, -1),
+    "up_left": (-1, -2),
+    "up_right": (1, -2),
+    "down_left": (-1, 0),
+    "down_right": (1, 0),
+}
+
 move_actions = {
     "walk": {"button": "left", "offset": 65, "step": 1},
     "run": {"button": "right", "offset": 130, "step": 2},
@@ -104,13 +115,21 @@ def move_player(action, direction):
 def calculate_move(action, direction, width, height):
     dx, dy = directions[direction]
     config = move_actions[action]
+    click_dx, click_dy = get_click_direction(action, direction)
     center_x = width // 2
     center_y = height // 2
 
     return {
         "button": config["button"],
-        "click_x": center_x + dx * config["offset"],
-        "click_y": center_y + dy * config["offset"],
+        "click_x": center_x + click_dx * config["offset"],
+        "click_y": center_y + click_dy * config["offset"],
         "delta_x": dx * config["step"],
         "delta_y": dy * config["step"],
     }
+
+
+def get_click_direction(action, direction):
+    if action == "walk":
+        return walk_click_directions[direction]
+
+    return directions[direction]
