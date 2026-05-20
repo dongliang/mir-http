@@ -7,15 +7,15 @@ import win32gui
 
 
 YELLOW = win32api.RGB(255, 220, 0)
-RADIUS = 16
+RADIUS = 14
 LINE_WIDTH = 3
-FRAME_INTERVAL = 0.04
+FRAME_INTERVAL = 0.016
 
 marker_lock = threading.Lock()
 marker_version = 0
 
 
-def show_click(target_hwnd, x, y, duration_ms=220):
+def show_click(target_hwnd, x, y, duration_ms=700, scale=1.0):
     """Flash a yellow ring at a client-area click point without creating a window."""
     global marker_version
 
@@ -52,13 +52,24 @@ def is_current_marker(version):
 
 
 def draw_ring(target_hwnd, x, y):
+    draw_ring_on_window(target_hwnd, x, y)
+
+
+def draw_ring_on_window(target_hwnd, x, y):
     hdc = win32gui.GetDC(target_hwnd)
 
     try:
-        pen = win32gui.CreatePen(win32con.PS_SOLID, LINE_WIDTH, YELLOW)
-        old_pen = win32gui.SelectObject(hdc, pen)
-        old_brush = win32gui.SelectObject(hdc, win32gui.GetStockObject(win32con.NULL_BRUSH))
+        draw_ring_on_dc(hdc, x, y)
+    finally:
+        win32gui.ReleaseDC(target_hwnd, hdc)
 
+
+def draw_ring_on_dc(hdc, x, y):
+    pen = win32gui.CreatePen(win32con.PS_SOLID, LINE_WIDTH, YELLOW)
+    old_pen = win32gui.SelectObject(hdc, pen)
+    old_brush = win32gui.SelectObject(hdc, win32gui.GetStockObject(win32con.NULL_BRUSH))
+
+    try:
         win32gui.Ellipse(
             hdc,
             x - RADIUS,
@@ -66,9 +77,7 @@ def draw_ring(target_hwnd, x, y):
             x + RADIUS,
             y + RADIUS,
         )
-
+    finally:
         win32gui.SelectObject(hdc, old_brush)
         win32gui.SelectObject(hdc, old_pen)
         win32gui.DeleteObject(pen)
-    finally:
-        win32gui.ReleaseDC(target_hwnd, hdc)

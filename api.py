@@ -111,6 +111,7 @@ def move_player(action, direction):
 
     move = calculate_move(action, direction, width, height)
     success, message = dm.click_bound_client(move["click_x"], move["click_y"], move["button"])
+    message = f"{message} client_size={width}x{height}"
 
     return {
         "success": success,

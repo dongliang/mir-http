@@ -18,7 +18,6 @@ dist/
 
 # Virtual environments
 .venv
-.venv-ocr/
 env/
 venv/
 
@@ -57,6 +56,7 @@ $RECYCLE.BIN/
 
 # Runtime screenshots/log captures
 screenshot.bmp
+log.txt
 screenshots/
 server.out.log
 server.err.log

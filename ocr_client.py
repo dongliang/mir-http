@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 import threading
 from pathlib import Path
@@ -7,7 +8,7 @@ import log
 
 
 base_dir = Path(__file__).resolve().parent
-worker_python = base_dir / ".venv-ocr" / "Scripts" / "python.exe"
+worker_python = base_dir / "runtime" / "python310" / "python.exe"
 worker_script = base_dir / "ocr_worker.py"
 
 ocr_process = None
@@ -87,7 +88,7 @@ def start_ocr_worker():
 
     if not worker_python.exists():
         if not missing_environment_logged:
-            log.write("找不到 OCR 环境，请先运行 setup_ocr.bat")
+            log.write("找不到项目内 Python 运行时，请先运行 setup_ocr.bat")
             missing_environment_logged = True
         return None
 
@@ -96,6 +97,7 @@ def start_ocr_worker():
     ocr_process = subprocess.Popen(
         [str(worker_python), str(worker_script)],
         cwd=str(base_dir),
+        env=create_worker_env(),
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.DEVNULL,
@@ -108,6 +110,17 @@ def start_ocr_worker():
     log.write(f"OCR子进程启动 pid={ocr_process.pid}")
 
     return ocr_process
+
+
+def create_worker_env():
+    env = os.environ.copy()
+    cache_dir = base_dir / "runtime" / "cache"
+    env["PADDLE_PDX_CACHE_HOME"] = str(cache_dir / "paddlex")
+    env["HF_HOME"] = str(cache_dir / "huggingface")
+    env["HUGGINGFACE_HUB_CACHE"] = str(cache_dir / "huggingface" / "hub")
+    env["MODELSCOPE_CACHE"] = str(cache_dir / "modelscope")
+    env["PADDLE_PDX_MODEL_SOURCE"] = "huggingface"
+    return env
 
 
 def stop_ocr_worker():

@@ -59,21 +59,21 @@ def update_loop():
 def start_dm():
     import dm
 
-    log.write("开始初始化大漠")
+    log.write("开始初始化 OP")
 
     try:
         success, version, message = dm.start_dm()
-        log.write(f"大漠版本: {version}")
+        log.write(f"OP 版本: {version}")
         log.write(message)
 
         if success:
-            log.write("大漠初始化成功")
+            log.write("OP 初始化成功")
             return True
         else:
-            log.write("大漠初始化失败")
+            log.write("OP 初始化失败")
             return False
     except Exception as error:
-        log.write(f"大漠初始化异常: {error}")
+        log.write(f"OP 初始化异常: {error}")
         return False
 
 

@@ -1,10 +1,30 @@
 import contextlib
 import json
+import os
 import sys
 from pathlib import Path
 
 
 paddle_ocr = None
+base_dir = Path(__file__).resolve().parent
+runtime_dir = base_dir / "runtime"
+cache_dir = runtime_dir / "cache"
+paddlex_cache_dir = cache_dir / "paddlex"
+official_models_dir = paddlex_cache_dir / "official_models"
+
+
+def configure_runtime_cache():
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    paddlex_cache_dir.mkdir(parents=True, exist_ok=True)
+
+    os.environ.setdefault("PADDLE_PDX_CACHE_HOME", str(paddlex_cache_dir))
+    os.environ.setdefault("HF_HOME", str(cache_dir / "huggingface"))
+    os.environ.setdefault("HUGGINGFACE_HUB_CACHE", str(cache_dir / "huggingface" / "hub"))
+    os.environ.setdefault("MODELSCOPE_CACHE", str(cache_dir / "modelscope"))
+    os.environ.setdefault("PADDLE_PDX_MODEL_SOURCE", "huggingface")
+
+
+configure_runtime_cache()
 
 
 def main():
@@ -53,7 +73,13 @@ def get_paddle_ocr():
 
             paddle_ocr = PaddleOCR(
                 text_detection_model_name="PP-OCRv4_mobile_det",
+                text_detection_model_dir=str(
+                    official_models_dir / "PP-OCRv4_mobile_det"
+                ),
                 text_recognition_model_name="PP-OCRv5_server_rec",
+                text_recognition_model_dir=str(
+                    official_models_dir / "PP-OCRv5_server_rec"
+                ),
                 device="cpu",
                 enable_mkldnn=False,
                 cpu_threads=4,

@@ -1,6 +1,12 @@
 @echo off
 set "BASE_DIR=%~dp0"
-set "PYTHON_EXE=C:\Users\dongliang\AppData\Local\Programs\Python\Python311-32\python.exe"
+set "PYTHON_EXE=%BASE_DIR%runtime\python310\python.exe"
+
+if not exist "%PYTHON_EXE%" (
+  echo Missing portable Python runtime: %PYTHON_EXE%
+  pause
+  exit /b 1
+)
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$base='%BASE_DIR%';" ^
