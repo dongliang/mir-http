@@ -1,7 +1,13 @@
+import math
 import re
+import tempfile
 import threading
 import time
 from pathlib import Path
+
+import cv2
+import numpy as np
+from PIL import Image
 
 import ocr_client
 import op
@@ -13,14 +19,63 @@ import win32
 base_dir = Path(__file__).resolve().parent.parent
 # 截图目录：保存绑定窗口截图和调试图片。
 screenshot_dir = base_dir / "screenshots"
+# 调试图片目录：保存怪物名 OCR 前后的输入图，便于排查识别失败。
+debug_image_dir = base_dir / "DebugImage"
 # 地图坐标截图路径：保存游戏底部坐标区域截图，供 OCR 识别使用。
 coordinate_image = screenshot_dir / "map_coordinate.bmp"
+# PNG 资源目录：保存血条特征图等图像匹配资源。
+png_dir = base_dir / "png"
+# 怪物血条特征图：血条最左侧小片段，用于统一查找满血和残血怪物。
+monster_blood_feature_image = png_dir / "残血血条特征图.png"
+# 红色血条模板：用于读取血条标准宽高。
+red_blood_bar_image = png_dir / "红色血条.png"
 # 坐标读取锁：串行化截图和 OCR 流程，避免并发读写同一张截图。
 coordinate_lock = threading.Lock()
+# 怪物扫描锁：串行化截图、鼠标悬停和 OCR 流程。
+monster_scan_lock = threading.Lock()
 # 底部界面高度：估算游戏底栏高度，用来计算角色移动点击原点。
 BOTTOM_UI_HEIGHT = 155
 # 默认键盘测试键：用于页面测试按钮验证后台键盘输入链路。
 keyboard_test_key = "M"
+# 怪物悬停偏移：血条底边到怪物名字中点的位置，兼作怪物位置和鼠标悬停点。
+MONSTER_HOVER_OFFSET_Y = 45
+# 怪物名 OCR 横向半宽：约 5.5 个中文字总宽，避免两侧复杂背景干扰。
+MONSTER_NAME_HALF_WIDTH = 33
+# 怪物名 OCR 上边距：血条底边向下到名字区域顶部的距离。
+MONSTER_NAME_TOP_OFFSET = 30
+# 怪物名 OCR 下边距：血条底边向下到名字区域底部的距离。
+MONSTER_NAME_BOTTOM_OFFSET = 60
+# 血量 OCR 裁剪范围：基于血条左上角向周围扩展。
+MONSTER_HP_LEFT_PADDING = 8
+MONSTER_HP_RIGHT_OFFSET = 72
+MONSTER_HP_TOP_OFFSET = 42
+MONSTER_HP_BOTTOM_OFFSET = 2
+# 血条特征匹配阈值：0 表示完全一致，保留极小容差兼容截图格式差异。
+MONSTER_FEATURE_MATCH_THRESHOLD = 0.001
+# 怪物名字显示等待时间：鼠标悬停后等待游戏显示名字。
+MONSTER_HOVER_WAIT_SECONDS = 0.25
+# 怪物名字 OCR 最大截图次数：第一次未截到字或 OCR 为空时短暂重试。
+MONSTER_NAME_OCR_MAX_ATTEMPTS = 2
+# 怪物名字 OCR 重试等待时间：给 hover 名字显示留出额外缓冲。
+MONSTER_NAME_OCR_RETRY_DELAY_SECONDS = 0.2
+# 怪物名字白字阈值：用于从复杂背景中提取白色文字。
+MONSTER_NAME_WHITE_THRESHOLD = 155
+# 怪物名字白字像素阈值：低于此值时认为很可能还没有截到名字。
+MONSTER_NAME_WHITE_PIXEL_MIN = 12
+# 怪物名字白字连通块过滤：去除草地高光等单点噪声。
+MONSTER_NAME_COMPONENT_PIXEL_MIN = 2
+# 怪物名字 OCR 放大倍数：小号白字放大后再交给 PaddleOCR。
+MONSTER_NAME_MASK_SCALE = 4
+# 怪物血条刷新搜索范围：识别名字前围绕旧血条局部重扫，降低怪物移动影响。
+MONSTER_REFRESH_SEARCH_HALF_WIDTH = 180
+MONSTER_REFRESH_SEARCH_TOP_OFFSET = 100
+MONSTER_REFRESH_SEARCH_BOTTOM_OFFSET = 160
+MONSTER_REFRESH_MAX_DISTANCE = 180
+# 血量候选白色像素阈值：血条上方有足够白字时才执行血量 OCR。
+MONSTER_HP_WHITE_PIXEL_MIN = 60
+# 血量候选连通块阈值：残血文字会形成多个较大的白色字形块，背景高光通常只是零散点。
+MONSTER_HP_COMPONENT_PIXEL_MIN = 18
+MONSTER_HP_COMPONENT_COUNT_MIN = 2
 
 # 移动方向向量：把方向名称映射为地图坐标变化量。
 directions = {
@@ -227,6 +282,66 @@ def get_bound_client_size():
     return max(1, round(raw_width * scale)), max(1, round(raw_height * scale))
 
 
+# 获取绑定窗口尺寸诊断：同时返回原始尺寸和 OP 有效坐标尺寸。
+def get_bound_client_info():
+    bound = op.get_bound_window()
+    raw_width, raw_height = win32.get_client_size(bound["hwnd"])
+    scale = op.get_bind_coordinate_scale()
+
+    if raw_width <= 0 or raw_height <= 0:
+        width, height = raw_width, raw_height
+    else:
+        width = max(1, round(raw_width * scale))
+        height = max(1, round(raw_height * scale))
+
+    screen = win32.get_screen_info()
+
+    return {
+        "width": width,
+        "height": height,
+        "raw_width": raw_width,
+        "raw_height": raw_height,
+        "bind_scale": scale,
+        "screen_width": screen["width"],
+        "screen_height": screen["height"],
+        "dpi_scale_percent": screen["scale_percent"],
+    }
+
+
+# 获取玩家当前屏幕位置：复用移动原点算法得到角色脚站地块位置。
+def get_player_screen_position():
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "player_x": 0,
+            "player_y": 0,
+            "message": "还没有绑定窗口",
+        }
+
+    client = get_bound_client_info()
+    width, height = client["width"], client["height"]
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "player_x": 0,
+            "player_y": 0,
+            "client": client,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    player_x, player_y = get_move_origin(width, height)
+
+    return {
+        "success": True,
+        "player_x": player_x,
+        "player_y": player_y,
+        "client": client,
+        "bottom_ui_height": BOTTOM_UI_HEIGHT,
+        "message": f"玩家屏幕位置 x={player_x} y={player_y} client_size={width}x{height}",
+    }
+
+
 # 截图：截取当前绑定窗口并返回截图保存路径。
 def capture_screenshot():
     if not op.is_window_bound():
@@ -248,7 +363,7 @@ def capture_screenshot():
 
     # 截图文件路径：为本次截图选择一个未占用的文件名。
     screenshot_file = get_next_screenshot_file()
-    success, message = op.capture_bound_client(0, 0, width, height, screenshot_file)
+    success, message = capture_bound_client_checked(0, 0, width, height, screenshot_file)
 
     if success and screenshot_file.exists():
         return {
@@ -262,6 +377,38 @@ def capture_screenshot():
         "path": str(screenshot_file),
         "message": message,
     }
+
+
+# 截取绑定窗口区域并检测黑屏：黑屏时重启 OP 后重试一次。
+def capture_bound_client_checked(x1, y1, x2, y2, file_path):
+    success, message = op.capture_bound_client(x1, y1, x2, y2, file_path)
+
+    if success and Path(file_path).exists() and image_has_content(file_path):
+        return True, message
+
+    if not success:
+        return success, message
+
+    rebind_success, _, rebind_message = op.restart_and_rebind_window()
+
+    if not rebind_success:
+        return False, f"{message}；截图黑屏，自动重启绑定失败: {rebind_message}"
+
+    retry_success, retry_message = op.capture_bound_client(x1, y1, x2, y2, file_path)
+
+    if retry_success and Path(file_path).exists() and image_has_content(file_path):
+        return True, f"{message}；首次截图黑屏，已自动重启绑定: {rebind_message}；{retry_message}"
+
+    return False, f"{message}；截图黑屏，自动重启绑定后仍失败: {rebind_message}；{retry_message}"
+
+
+# 判断截图是否有非黑内容。
+def image_has_content(image_file):
+    try:
+        with Image.open(image_file) as image:
+            return image.convert("RGB").getbbox() is not None
+    except Exception:
+        return False
 
 
 # 获取下一张截图文件：在截图目录中生成递增编号文件名。
@@ -280,6 +427,911 @@ def get_next_screenshot_file():
 
         # 下一截图序号：当前文件已存在时继续向后查找。
         index += 1
+
+
+# 扫描怪物：查找血条、读取血量，并计算到玩家的距离。
+def scan_monsters(show_overlay=True):
+    with monster_scan_lock:
+        try:
+            return scan_monsters_locked(show_overlay)
+        except Exception as error:
+            return {
+                "success": False,
+                "monsters": [],
+                "message": f"怪物扫描异常: {error}",
+            }
+
+
+# 执行怪物扫描：由锁保护的实际扫描流程。
+def scan_monsters_locked(show_overlay=True):
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "monsters": [],
+            "message": "还没有绑定窗口",
+        }
+
+    if not monster_blood_feature_image.exists():
+        return {
+            "success": False,
+            "monsters": [],
+            "message": f"找不到血条特征图: {monster_blood_feature_image}",
+        }
+
+    if not red_blood_bar_image.exists():
+        return {
+            "success": False,
+            "monsters": [],
+            "message": f"找不到红色血条模板: {red_blood_bar_image}",
+        }
+
+    client = get_bound_client_info()
+    width, height = client["width"], client["height"]
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "monsters": [],
+            "client": client,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    player_x, player_y = get_move_origin(width, height)
+    blood_width, blood_height = get_image_size(red_blood_bar_image)
+    debug_points = [
+        make_debug_point(player_x, player_y, "blue"),
+    ]
+
+    with tempfile.TemporaryDirectory(prefix="mir2_monster_scan_") as temp_dir:
+        temp_path = Path(temp_dir)
+        scan_file = temp_path / "screen.bmp"
+        success, capture_message = capture_bound_client_checked(
+            0,
+            0,
+            width - 1,
+            height - 1,
+            scan_file,
+        )
+
+        if not success or not scan_file.exists():
+            return {
+                "success": False,
+                "monsters": [],
+                "client": client,
+                "message": f"怪物扫描截图失败: {capture_message}",
+            }
+
+        matches = find_blood_feature_matches(scan_file)
+        monsters = []
+
+        with Image.open(scan_file) as scan_image:
+            for index, match in enumerate(matches, start=1):
+                monster = read_monster_from_match(
+                    index,
+                    match,
+                    scan_image,
+                    temp_path,
+                    width,
+                    height,
+                    blood_width,
+                    blood_height,
+                    player_x,
+                    player_y,
+                )
+                monsters.append(monster)
+                debug_points.extend(monster["debug_points"])
+
+    monsters.sort(key=lambda monster: monster["distance"])
+
+    for index, monster in enumerate(monsters, start=1):
+        monster["id"] = index
+
+    if show_overlay:
+        show_scan_overlay(debug_points)
+
+    return {
+        "success": True,
+        "monsters": monsters,
+        "count": len(monsters),
+        "player": {
+            "x": player_x,
+            "y": player_y,
+        },
+        "client": client,
+        "debug_points": debug_points,
+        "message": f"怪物扫描完成 count={len(monsters)} player={player_x},{player_y} client_size={width}x{height}",
+    }
+
+
+# 根据一个血条匹配点读取怪物信息。
+def read_monster_from_match(index, match, scan_image, temp_path, width, height, blood_width, blood_height, player_x, player_y):
+    bar_left = match["x"]
+    bar_top = match["y"]
+    match_blood_width = match.get("width", blood_width)
+    match_blood_height = match.get("height", blood_height)
+    bar_right = min(width, bar_left + match_blood_width)
+    bar_bottom = min(height, bar_top + match_blood_height)
+    blood_bar = {
+        "left": bar_left,
+        "top": bar_top,
+        "right": bar_right,
+        "bottom": bar_bottom,
+    }
+    hover_x, hover_y = get_monster_hover_from_bar(blood_bar, width, height)
+    bar_center_x = round((bar_left + bar_right) / 2)
+
+    hp_box = clamp_box(
+        bar_left - MONSTER_HP_LEFT_PADDING,
+        bar_top - MONSTER_HP_TOP_OFFSET,
+        bar_left + MONSTER_HP_RIGHT_OFFSET,
+        bar_top - MONSTER_HP_BOTTOM_OFFSET,
+        width,
+        height,
+    )
+    name_box = clamp_box(
+        bar_center_x - MONSTER_NAME_HALF_WIDTH,
+        bar_bottom + MONSTER_NAME_TOP_OFFSET,
+        bar_center_x + MONSTER_NAME_HALF_WIDTH,
+        bar_bottom + MONSTER_NAME_BOTTOM_OFFSET,
+        width,
+        height,
+    )
+
+    hp_text = ""
+
+    if has_hp_text_candidate(scan_image, hp_box):
+        hp_text = recognize_image_box(scan_image, hp_box, temp_path / f"hp_{index:03d}.bmp")
+
+    hp = parse_hp_text(hp_text)
+    distance = round(math.dist((player_x, player_y), (hover_x, hover_y)))
+
+    return {
+        "id": index,
+        "name": "未识别",
+        "distance": distance,
+        "hp_percent": hp["percent"],
+        "hp_text": hp_text,
+        "hp_current": hp["current"],
+        "hp_max": hp["maximum"],
+        "is_low_hp": hp["is_low_hp"],
+        "name_text": "",
+        "position": {
+            "x": hover_x,
+            "y": hover_y,
+        },
+        "blood_bar": blood_bar,
+        "ocr_boxes": {
+            "hp": hp_box,
+            "name": name_box,
+        },
+        "debug_points": [
+            make_debug_point(bar_left, bar_top, "red"),
+            make_debug_point(hover_x, hover_y, "orange"),
+            make_debug_point(*box_center(hp_box), "cyan"),
+            make_debug_point(*box_center(name_box), "purple"),
+        ],
+    }
+
+
+# 识别单个怪物名称：按表格传入的位置和血条信息补充名称。
+def recognize_monster_name(position_x, position_y, blood_bar=None, show_overlay=True):
+    with monster_scan_lock:
+        try:
+            return recognize_monster_name_locked(position_x, position_y, blood_bar, show_overlay)
+        except Exception as error:
+            return {
+                "success": False,
+                "name": "未识别",
+                "name_text": "",
+                "message": f"怪物名称识别异常: {error}",
+            }
+
+
+# 执行单个怪物名称识别：只悬停并 OCR 当前指定怪物。
+def recognize_monster_name_locked(position_x, position_y, blood_bar=None, show_overlay=True):
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "name": "未识别",
+            "name_text": "",
+            "message": "还没有绑定窗口",
+        }
+
+    client = get_bound_client_info()
+    width, height = client["width"], client["height"]
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "name": "未识别",
+            "name_text": "",
+            "client": client,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    active_blood_bar = None
+
+    if blood_bar and is_valid_blood_bar(blood_bar):
+        active_blood_bar = refresh_monster_blood_bar(blood_bar, width, height)
+
+    if active_blood_bar:
+        hover_x, hover_y = get_monster_hover_from_bar(active_blood_bar, width, height)
+        name_box = get_monster_name_box_from_bar(active_blood_bar, width, height)
+    else:
+        hover_x = clamp_number(position_x, 0, width - 1)
+        hover_y = clamp_number(position_y, 0, height - 1)
+        name_box = get_monster_name_box_from_position(hover_x, hover_y, width, height)
+
+    move_success, move_message = op.move_bound_client(hover_x, hover_y)
+
+    if move_success:
+        time.sleep(MONSTER_HOVER_WAIT_SECONDS)
+
+    name_result = recognize_monster_name_box(name_box)
+    name_text = name_result["text"]
+    name = name_result["name"]
+    debug_points = []
+
+    if active_blood_bar:
+        debug_points.append(make_debug_point(active_blood_bar["left"], active_blood_bar["top"], "red"))
+
+    debug_points.extend([
+        make_debug_point(hover_x, hover_y, "orange"),
+        make_debug_point(*box_center(name_box), "purple"),
+    ])
+
+    if show_overlay:
+        show_scan_overlay(debug_points)
+
+    return {
+        "success": True,
+        "name": name,
+        "name_text": name_text,
+        "position": {
+            "x": hover_x,
+            "y": hover_y,
+        },
+        "ocr_box": name_box,
+        "blood_bar": active_blood_bar,
+        "raw_text": name_result["raw_text"],
+        "mask_text": name_result["mask_text"],
+        "used_attempt": name_result["used_attempt"],
+        "reject_reason": name_result["reject_reason"],
+        "debug_images": name_result["debug_images"],
+        "move_success": move_success,
+        "move_message": move_message,
+        "client": client,
+        "debug_points": debug_points,
+        "message": (
+            f"怪物名称识别完成 name={name} text={name_text} "
+            f"raw={name_result['raw_text']} mask={name_result['mask_text']} "
+            f"attempt={name_result['used_attempt']} reject={name_result['reject_reason']} "
+            f"bar={active_blood_bar} pos={hover_x},{hover_y}"
+        ),
+    }
+
+
+# 根据血条位置计算怪物名 OCR 区域。
+def get_monster_name_box_from_bar(blood_bar, width, height):
+    bar_left = int(blood_bar["left"])
+    bar_right = int(blood_bar["right"])
+    bar_bottom = int(blood_bar["bottom"])
+    bar_center_x = round((bar_left + bar_right) / 2)
+
+    return clamp_box(
+        bar_center_x - MONSTER_NAME_HALF_WIDTH,
+        bar_bottom + MONSTER_NAME_TOP_OFFSET,
+        bar_center_x + MONSTER_NAME_HALF_WIDTH,
+        bar_bottom + MONSTER_NAME_BOTTOM_OFFSET,
+        width,
+        height,
+    )
+
+
+# 根据怪物位置反推怪物名 OCR 区域：用于没有血条信息时兜底。
+def get_monster_name_box_from_position(x, y, width, height):
+    return clamp_box(
+        x - MONSTER_NAME_HALF_WIDTH,
+        y - (MONSTER_HOVER_OFFSET_Y - MONSTER_NAME_TOP_OFFSET),
+        x + MONSTER_NAME_HALF_WIDTH,
+        y - (MONSTER_HOVER_OFFSET_Y - MONSTER_NAME_BOTTOM_OFFSET),
+        width,
+        height,
+    )
+
+
+# 判断血条字典是否可用。
+def is_valid_blood_bar(blood_bar):
+    return (
+        isinstance(blood_bar, dict)
+        and {"left", "top", "right", "bottom"}.issubset(blood_bar)
+        and int(blood_bar["right"]) > int(blood_bar["left"])
+        and int(blood_bar["bottom"]) > int(blood_bar["top"])
+    )
+
+
+# 根据血条位置计算怪物悬停/距离点。
+def get_monster_hover_from_bar(blood_bar, width, height):
+    bar_left = int(blood_bar["left"])
+    bar_right = int(blood_bar["right"])
+    bar_bottom = int(blood_bar["bottom"])
+    bar_center_x = round((bar_left + bar_right) / 2)
+    return (
+        clamp_number(bar_center_x, 0, width - 1),
+        clamp_number(bar_bottom + MONSTER_HOVER_OFFSET_Y, 0, height - 1),
+    )
+
+
+# 名字识别前刷新血条位置：怪物可能在列表扫描和点按钮之间移动。
+def refresh_monster_blood_bar(blood_bar, width, height):
+    if not is_valid_blood_bar(blood_bar):
+        return None
+
+    original = normalize_blood_bar(blood_bar, width, height)
+    center_x = round((original["left"] + original["right"]) / 2)
+    search_box = clamp_box(
+        center_x - MONSTER_REFRESH_SEARCH_HALF_WIDTH,
+        original["top"] - MONSTER_REFRESH_SEARCH_TOP_OFFSET,
+        center_x + MONSTER_REFRESH_SEARCH_HALF_WIDTH,
+        original["top"] + MONSTER_REFRESH_SEARCH_BOTTOM_OFFSET,
+        width,
+        height,
+    )
+
+    with tempfile.TemporaryDirectory(prefix="mir2_monster_refresh_") as temp_dir:
+        search_file = Path(temp_dir) / "search.bmp"
+        success, _ = capture_bound_client_checked(
+            search_box["left"],
+            search_box["top"],
+            search_box["right"] - 1,
+            search_box["bottom"] - 1,
+            search_file,
+        )
+
+        if not success or not search_file.exists():
+            return original
+
+        matches = find_blood_feature_matches(search_file)
+
+    if not matches:
+        return original
+
+    original_local_center = (
+        center_x - search_box["left"],
+        round((original["top"] + original["bottom"]) / 2) - search_box["top"],
+    )
+    nearest = min(
+        matches,
+        key=lambda match: math.dist(
+            original_local_center,
+            (
+                match["x"] + match.get("width", 0) / 2,
+                match["y"] + match.get("height", 0) / 2,
+            ),
+        ),
+    )
+    nearest_distance = math.dist(
+        original_local_center,
+        (
+            nearest["x"] + nearest.get("width", 0) / 2,
+            nearest["y"] + nearest.get("height", 0) / 2,
+        ),
+    )
+
+    if nearest_distance > MONSTER_REFRESH_MAX_DISTANCE:
+        return original
+
+    return {
+        "left": search_box["left"] + int(nearest["x"]),
+        "top": search_box["top"] + int(nearest["y"]),
+        "right": search_box["left"] + int(nearest["x"]) + int(nearest.get("width", 0)),
+        "bottom": search_box["top"] + int(nearest["y"]) + int(nearest.get("height", 0)),
+    }
+
+
+# 规范化血条范围：限制到客户区内。
+def normalize_blood_bar(blood_bar, width, height):
+    return clamp_box(
+        int(blood_bar["left"]),
+        int(blood_bar["top"]),
+        int(blood_bar["right"]),
+        int(blood_bar["bottom"]),
+        width,
+        height,
+    )
+
+
+# 识别怪物名 OCR 框：保留调试图，并用白字 mask 放大图增强小字识别。
+def recognize_monster_name_box(box):
+    empty_result = {
+        "name": "未识别",
+        "text": "",
+        "raw_text": "",
+        "mask_text": "",
+        "used_attempt": 0,
+        "reject_reason": "",
+        "debug_images": [],
+    }
+
+    if not is_valid_box(box):
+        return empty_result
+
+    debug_image_dir.mkdir(exist_ok=True)
+    debug_prefix = get_debug_image_prefix("monster_name")
+    last_result = empty_result
+
+    for attempt in range(1, MONSTER_NAME_OCR_MAX_ATTEMPTS + 1):
+        if attempt > 1:
+            time.sleep(MONSTER_NAME_OCR_RETRY_DELAY_SECONDS)
+
+        raw_file = debug_image_dir / f"{debug_prefix}_raw_{attempt}.bmp"
+        mask_file = debug_image_dir / f"{debug_prefix}_mask_{attempt}.png"
+        success, _ = capture_bound_client_checked(
+            box["left"],
+            box["top"],
+            box["right"] - 1,
+            box["bottom"] - 1,
+            raw_file,
+        )
+
+        if not success:
+            last_result = {
+                **last_result,
+                "used_attempt": attempt,
+                "debug_images": [
+                    *last_result["debug_images"],
+                    {
+                        "attempt": attempt,
+                        "raw": str(raw_file),
+                        "mask": "",
+                        "raw_text": "",
+                        "mask_text": "",
+                        "white_pixels": 0,
+                    },
+                ],
+            }
+            continue
+
+        raw_text = ocr_client.recognize_text(raw_file)
+        white_pixels = create_monster_name_mask(raw_file, mask_file)
+        mask_text = ""
+
+        if white_pixels >= MONSTER_NAME_WHITE_PIXEL_MIN:
+            mask_text = ocr_client.recognize_text(mask_file)
+
+        selected_text = select_monster_name_text(raw_text, mask_text)
+        selected_name = clean_monster_name(selected_text)
+        reject_reason = get_monster_name_reject_reason(selected_name)
+        debug_images = [
+            *last_result["debug_images"],
+            {
+                "attempt": attempt,
+                "raw": str(raw_file),
+                "mask": str(mask_file),
+                "raw_text": raw_text,
+                "mask_text": mask_text,
+                "white_pixels": white_pixels,
+            },
+        ]
+
+        if reject_reason:
+            return {
+                "name": "未识别",
+                "text": selected_text,
+                "raw_text": raw_text,
+                "mask_text": mask_text,
+                "used_attempt": attempt,
+                "reject_reason": reject_reason,
+                "debug_images": debug_images,
+            }
+
+        last_result = {
+            "name": selected_name,
+            "text": selected_text,
+            "raw_text": raw_text,
+            "mask_text": mask_text,
+            "used_attempt": attempt,
+            "reject_reason": "",
+            "debug_images": debug_images,
+        }
+
+        if selected_name != "未识别" and white_pixels >= MONSTER_NAME_WHITE_PIXEL_MIN:
+            return last_result
+
+    return last_result
+
+
+# 创建本次调试图片文件名前缀：时间戳加短序号，便于按一次识别归档。
+def get_debug_image_prefix(prefix):
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    sequence = time.time_ns() % 1_000_000
+    return f"{prefix}_{timestamp}_{sequence:06d}"
+
+
+# 生成黑底白字的怪物名 mask：去背景、去单点噪声并放大。
+def create_monster_name_mask(raw_file, mask_file):
+    with Image.open(raw_file) as image:
+        pixels = np.array(image.convert("RGB"))
+
+    white_mask = (
+        (pixels[:, :, 0] >= MONSTER_NAME_WHITE_THRESHOLD)
+        & (pixels[:, :, 1] >= MONSTER_NAME_WHITE_THRESHOLD)
+        & (pixels[:, :, 2] >= MONSTER_NAME_WHITE_THRESHOLD)
+    )
+    filtered_mask = filter_small_components(white_mask, MONSTER_NAME_COMPONENT_PIXEL_MIN)
+    white_pixels = int(filtered_mask.sum())
+    mask_pixels = (filtered_mask.astype(np.uint8) * 255)
+    mask_image = Image.fromarray(mask_pixels, mode="L")
+    mask_image = crop_mask_with_margin(mask_image, filtered_mask, 6)
+    mask_image = mask_image.resize(
+        (
+            max(1, mask_image.width * MONSTER_NAME_MASK_SCALE),
+            max(1, mask_image.height * MONSTER_NAME_MASK_SCALE),
+        ),
+        Image.Resampling.NEAREST,
+    )
+    mask_image.save(mask_file)
+    return white_pixels
+
+
+# 过滤白色 mask 中的单点噪声。
+def filter_small_components(mask, minimum_area):
+    component_count, labels, stats, _ = cv2.connectedComponentsWithStats(
+        mask.astype(np.uint8),
+        8,
+    )
+    filtered = np.zeros(mask.shape, dtype=np.uint8)
+
+    for component_index in range(1, component_count):
+        area = stats[component_index, cv2.CC_STAT_AREA]
+
+        if area >= minimum_area:
+            filtered[labels == component_index] = 1
+
+    return filtered.astype(bool)
+
+
+# 裁掉 mask 四周大块空白，保留少量边距帮助 OCR 检测文本。
+def crop_mask_with_margin(mask_image, mask, margin):
+    ys, xs = np.where(mask)
+
+    if len(xs) == 0 or len(ys) == 0:
+        return mask_image
+
+    left = max(0, int(xs.min()) - margin)
+    top = max(0, int(ys.min()) - margin)
+    right = min(mask_image.width, int(xs.max()) + margin + 1)
+    bottom = min(mask_image.height, int(ys.max()) + margin + 1)
+    return mask_image.crop((left, top, right, bottom))
+
+
+# 从原图 OCR 和 mask OCR 中选择更可信的怪物名文本。
+def select_monster_name_text(raw_text, mask_text):
+    candidates = [raw_text or "", mask_text or ""]
+    return max(candidates, key=score_monster_name_text)
+
+
+# 怪物名文本评分：优先中文更多、更长的候选。
+def score_monster_name_text(text):
+    name = clean_monster_name(text)
+
+    if name == "未识别":
+        return (0, 0, 0)
+
+    chinese_count = len(re.findall(r"[\u4e00-\u9fff]", name))
+    return (1 if chinese_count else 0, chinese_count, len(name))
+
+
+# 判断 OCR 结果是否像是误读到了主角名。
+def get_monster_name_reject_reason(name):
+    if name == "未识别":
+        return ""
+
+    player_name = get_bound_player_name()
+
+    if not player_name:
+        return ""
+
+    if name in player_name or player_name in name:
+        return "player_name_contamination"
+
+    return ""
+
+
+# 从窗口标题中提取主角名，例如“^纵横四海 - 闪电侠”。
+def get_bound_player_name():
+    title = op.get_bound_window().get("title", "")
+    match = re.search(r"[-－]\s*([^\s\-－]+)\s*$", title)
+
+    if not match:
+        return ""
+
+    return re.sub(r"[^\u4e00-\u9fffA-Za-z0-9_]", "", match.group(1))
+
+
+# 查找血条左侧特征：返回所有精确匹配的左上角坐标。
+def find_blood_feature_matches(screen_file):
+    screen = read_cv2_image(screen_file)
+    templates = get_blood_feature_templates()
+    matches = []
+
+    for template in templates:
+        image = template["image"]
+
+        if image.shape[0] > screen.shape[0] or image.shape[1] > screen.shape[1]:
+            continue
+
+        result = cv2.matchTemplate(screen, image, cv2.TM_SQDIFF_NORMED)
+        ys, xs = np.where(result <= MONSTER_FEATURE_MATCH_THRESHOLD)
+
+        for y, x in zip(ys, xs):
+            matches.append({
+                "x": int(x),
+                "y": int(y),
+                "width": template["blood_width"],
+                "height": template["blood_height"],
+            })
+
+    if not matches:
+        matches = find_red_bar_component_matches(screen)
+
+    return dedupe_matches(matches)
+
+
+# 获取血条特征模板：同时尝试原始尺寸和 dx2 有效截图里的半尺寸。
+def get_blood_feature_templates():
+    feature = read_cv2_image(monster_blood_feature_image)
+    blood_width, blood_height = get_image_size(red_blood_bar_image)
+    templates = []
+
+    for scale in (1.0, 0.5):
+        width = max(1, round(feature.shape[1] * scale))
+        height = max(1, round(feature.shape[0] * scale))
+        resized = cv2.resize(feature, (width, height), interpolation=cv2.INTER_NEAREST)
+        templates.append({
+            "image": resized,
+            "blood_width": max(1, round(blood_width * scale)),
+            "blood_height": max(1, round(blood_height * scale)),
+        })
+
+    return templates
+
+
+# 查找红色水平血条组件：作为特征模板未命中时的兜底。
+def find_red_bar_component_matches(screen):
+    red_mask = (
+        (screen[:, :, 2] > 140)
+        & (screen[:, :, 1] < 100)
+        & (screen[:, :, 0] < 100)
+    )
+    component_count, _, stats, _ = cv2.connectedComponentsWithStats(red_mask.astype("uint8"), 8)
+    matches = []
+    play_area_bottom = max(1, screen.shape[0] - BOTTOM_UI_HEIGHT)
+
+    for index in range(1, component_count):
+        x, y, width, height, area = stats[index]
+
+        if y >= play_area_bottom:
+            continue
+
+        if width < 8 or width > 90:
+            continue
+
+        if height < 1 or height > 4:
+            continue
+
+        if area < width * height * 0.8:
+            continue
+
+        matches.append({
+            "x": max(0, int(x) - 1),
+            "y": max(0, int(y) - 1),
+            "width": int(width) + 2,
+            "height": int(height) + 2,
+        })
+
+    return matches
+
+
+# 读取 OpenCV 图片：兼容 Windows 中文路径。
+def read_cv2_image(image_file):
+    image_path = Path(image_file)
+    data = np.fromfile(str(image_path), dtype=np.uint8)
+    image = cv2.imdecode(data, cv2.IMREAD_COLOR)
+
+    if image is None:
+        raise RuntimeError(f"读取图片失败: {image_path}")
+
+    return image
+
+
+# 去重匹配点：避免同一血条附近重复命中。
+def dedupe_matches(matches):
+    deduped = []
+
+    for match in sorted(matches, key=lambda item: (item["y"], item["x"])):
+        duplicate = False
+
+        for existing in deduped:
+            x_limit = max(4, min(match.get("width", 4), existing.get("width", 4)) // 2)
+            y_limit = max(4, min(match.get("height", 4), existing.get("height", 4)) * 2)
+
+            if (
+                abs(match["x"] - existing["x"]) <= x_limit
+                and abs(match["y"] - existing["y"]) <= y_limit
+            ):
+                duplicate = True
+                break
+
+        if not duplicate:
+            deduped.append(match)
+
+    return deduped
+
+
+# 获取图片尺寸：用于血条模板宽高。
+def get_image_size(image_file):
+    with Image.open(image_file) as image:
+        return image.size
+
+
+# 识别已有截图中的裁剪区域。
+def recognize_image_box(image, box, crop_file):
+    if not is_valid_box(box):
+        return ""
+
+    crop = image.crop((box["left"], box["top"], box["right"], box["bottom"]))
+    crop.save(crop_file)
+    return ocr_client.recognize_text(crop_file)
+
+
+# 判断血量区域是否像是有白色血量文字。
+def has_hp_text_candidate(image, box):
+    if not is_valid_box(box):
+        return False
+
+    crop = image.crop((box["left"], box["top"], box["right"], box["bottom"]))
+    pixels = np.array(crop.convert("RGB"))
+    white_mask = (
+        (pixels[:, :, 0] > 180)
+        & (pixels[:, :, 1] > 180)
+        & (pixels[:, :, 2] > 180)
+    )
+    if int(white_mask.sum()) < MONSTER_HP_WHITE_PIXEL_MIN:
+        return False
+
+    component_count, _, stats, _ = cv2.connectedComponentsWithStats(
+        white_mask.astype(np.uint8),
+        8,
+    )
+    large_components = 0
+
+    for component_index in range(1, component_count):
+        if stats[component_index, cv2.CC_STAT_AREA] >= MONSTER_HP_COMPONENT_PIXEL_MIN:
+            large_components += 1
+
+    return large_components >= MONSTER_HP_COMPONENT_COUNT_MIN
+
+
+# 截取绑定窗口中的裁剪区域并 OCR。
+def recognize_bound_client_box(box, crop_file):
+    if not is_valid_box(box):
+        return ""
+
+    success, _ = capture_bound_client_checked(
+        box["left"],
+        box["top"],
+        box["right"] - 1,
+        box["bottom"] - 1,
+        crop_file,
+    )
+
+    if not success:
+        return ""
+
+    return ocr_client.recognize_text(crop_file)
+
+
+# 解析怪物血量文本：识别到 x/y 时计算百分比，否则按满血。
+def parse_hp_text(text):
+    hp_text = (text or "").strip()
+    match = re.search(r"(\d{1,5})\s*[/／\\]\s*(\d{1,5})", hp_text)
+
+    if not match:
+        return {
+            "percent": 100,
+            "current": None,
+            "maximum": None,
+            "is_low_hp": False,
+        }
+
+    current = int(match.group(1))
+    maximum = int(match.group(2))
+
+    if maximum <= 0:
+        return {
+            "percent": 100,
+            "current": current,
+            "maximum": maximum,
+            "is_low_hp": False,
+        }
+
+    percent = round(current * 100 / maximum)
+    percent = clamp_number(percent, 0, 100)
+
+    return {
+        "percent": percent,
+        "current": current,
+        "maximum": maximum,
+        "is_low_hp": True,
+    }
+
+
+# 清理怪物名 OCR 文本：优先取 4 个以内中文字符。
+def clean_monster_name(text):
+    cleaned = re.sub(r"\s+", "", text or "")
+    match = re.search(r"[\u4e00-\u9fff]{1,6}", cleaned)
+
+    if match:
+        return match.group(0)[:4]
+
+    if cleaned:
+        return cleaned[:8]
+
+    return "未识别"
+
+
+# 限制矩形范围：使用 right/bottom 作为开区间。
+def clamp_box(left, top, right, bottom, width, height):
+    left = clamp_number(round(left), 0, max(0, width - 1))
+    top = clamp_number(round(top), 0, max(0, height - 1))
+    right = clamp_number(round(right), left + 1, width)
+    bottom = clamp_number(round(bottom), top + 1, height)
+
+    return {
+        "left": left,
+        "top": top,
+        "right": right,
+        "bottom": bottom,
+    }
+
+
+# 判断矩形是否可用于截图。
+def is_valid_box(box):
+    return box["right"] > box["left"] and box["bottom"] > box["top"]
+
+
+# 获取矩形中心点。
+def box_center(box):
+    return round((box["left"] + box["right"]) / 2), round((box["top"] + box["bottom"]) / 2)
+
+
+# 限制数值范围。
+def clamp_number(value, minimum, maximum):
+    return max(minimum, min(maximum, int(value)))
+
+
+# 创建 Overlay 调试点。
+def make_debug_point(x, y, color):
+    return {
+        "x": int(x),
+        "y": int(y),
+        "color": color,
+    }
+
+
+# 显示怪物扫描调试点。
+def show_scan_overlay(points):
+    try:
+        bound = op.get_bound_window()
+        overlay.show_points(
+            bound["hwnd"],
+            points,
+            duration_ms=1500,
+            scale=op.get_bind_coordinate_scale(),
+        )
+    except Exception:
+        pass
 
 
 # 获取地图坐标：对外提供线程安全的地图坐标读取入口。

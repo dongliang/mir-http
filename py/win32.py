@@ -1,3 +1,6 @@
+import ctypes
+
+import win32api
 import win32gui
 
 
@@ -43,3 +46,23 @@ def get_window_title(hwnd):
         return ""
 
     return win32gui.GetWindowText(hwnd)
+
+
+# 获取屏幕和 DPI 信息：用于页面调试坐标换算。
+def get_screen_info():
+    # 屏幕宽高：Win32 返回当前进程看到的桌面尺寸。
+    width = win32api.GetSystemMetrics(0)
+    height = win32api.GetSystemMetrics(1)
+    # DPI 缩放：优先读取 Windows 的百分比缩放，失败时使用 100%。
+    scale_percent = 100
+
+    try:
+        scale_percent = int(ctypes.windll.shcore.GetScaleFactorForDevice(0))
+    except Exception:
+        pass
+
+    return {
+        "width": width,
+        "height": height,
+        "scale_percent": scale_percent,
+    }

@@ -191,6 +191,33 @@ def bind_window(hwnd, title=""):
     )
 
 
+# 重启 OP 并重新绑定当前窗口：用于截图黑屏时恢复 OP 内部状态。
+def restart_and_rebind_window():
+    global op_object
+    global bound_hwnd
+    global bound_title
+    global active_bind_mode
+
+    if not bound_hwnd:
+        return False, "", "当前没有绑定窗口"
+
+    # 当前窗口：保留重启前的目标窗口，随后重建 OP 对象再重新绑定。
+    hwnd = bound_hwnd
+    title = bound_title
+    bound_hwnd = None
+    bound_title = ""
+    active_bind_mode = None
+
+    try:
+        op_object = create_op()
+        op_object.SetShowErrorMsg(0)
+    except Exception as error:
+        op_object = None
+        return False, title, f"OP 重启失败 hwnd={hwnd} title={title} error={error}"
+
+    return bind_window(hwnd, title)
+
+
 # 解绑窗口：释放当前 OP 窗口绑定并清理本地状态。
 def unbind_window():
     global bound_hwnd
@@ -240,6 +267,24 @@ def click_bound_client(x, y, button):
         return True, f"点击成功 button={button} method={click_method} x={int(x)} y={int(y)} last_error={last_error}"
 
     return False, f"点击失败 button={button} method={click_method} x={int(x)} y={int(y)} move={move_result} click={click_result} last_error={last_error}"
+
+
+# 移动绑定客户端鼠标：只移动鼠标，不执行点击。
+def move_bound_client(x, y):
+    if not bound_hwnd:
+        return False, "还没有绑定窗口"
+
+    # OP 实例：执行绑定窗口内鼠标移动。
+    op = get_op()
+    # 移动结果：记录 MoveTo 是否成功到达目标点。
+    move_result = op.MoveTo(int(x), int(y))
+    # 最后错误码：保留 OP 最近一次调用的错误码用于诊断。
+    last_error = op.GetLastError()
+
+    if move_result == 1:
+        return True, f"鼠标移动成功 x={int(x)} y={int(y)} last_error={last_error}"
+
+    return False, f"鼠标移动失败 x={int(x)} y={int(y)} result={move_result} last_error={last_error}"
 
 
 # 点击鼠标按钮：根据绑定模式选择直接点击或按下抬起方案。

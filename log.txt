@@ -1,17 +1,21 @@
-[01:07:22] 日志开始
-[01:07:22] 程序启动: HTTP 服务模式
-[01:07:22] 开始初始化 OP
-[01:07:22] OP 版本: 0.4.5.0
-[01:07:22] OP 初始化成功（64 位免注册）
-[01:07:22] OP 初始化成功
-[01:07:22] HTTP 服务启动: http://127.0.0.1:8765
-[01:07:28] 绑定成功 hwnd=23202836 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
-[01:07:28] OCR子进程启动 pid=1664
-[01:07:29] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[01:07:34] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[01:07:35] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[01:07:35] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[01:07:37] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
-[01:07:37] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
-[01:07:38] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
-[01:07:38] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
+[04:37:12] 日志开始
+[04:37:12] 程序启动: HTTP 服务模式
+[04:37:12] 开始初始化 OP
+[04:37:12] OP 版本: 0.4.5.0
+[04:37:12] OP 初始化成功（64 位免注册）
+[04:37:12] OP 初始化成功
+[04:37:12] HTTP 服务启动: http://127.0.0.1:8765
+[04:37:28] 绑定成功 hwnd=23202836 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
+[04:37:28] OCR子进程启动 pid=25676
+[04:37:32] 怪物扫描完成 count=3 player=880,417 client_size=1760x990
+[04:37:32] 怪物 name=未识别 distance=51 hp=100% hp_text= name_text= bar=814,359,846,363 pos=830,408
+[04:37:32] 怪物 name=未识别 distance=233 hp=100% hp_text= name_text= bar=862,135,894,139 pos=878,184
+[04:37:32] 怪物 name=未识别 distance=275 hp=100% hp_text= name_text= bar=1102,231,1134,235 pos=1118,280
+[04:37:41] 怪物名称识别完成 name=鹿 text=鹿 raw=鹿 mask=1 鹿 attempt=1 reject= bar={'left': 862, 'top': 391, 'right': 894, 'bottom': 395} pos=878,440
+[04:37:46] 怪物名称识别完成 name=鹿 text=鹿 raw= mask=鹿 attempt=1 reject= bar={'left': 910, 'top': 423, 'right': 942, 'bottom': 427} pos=926,472
+[04:37:51] 怪物名称识别完成 name=鸡 text=鸡 raw= mask=鸡 attempt=1 reject= bar={'left': 910, 'top': 167, 'right': 942, 'bottom': 171} pos=926,216
+[04:37:54] 怪物名称识别完成 name=鹿 text=鹿 raw= mask=鹿 attempt=1 reject= bar={'left': 1102, 'top': 231, 'right': 1134, 'bottom': 235} pos=1118,280
+[04:37:59] 怪物扫描完成 count=3 player=880,417 client_size=1760x990
+[04:37:59] 怪物 name=未识别 distance=128 hp=100% hp_text= name_text= bar=958,455,990,459 pos=974,504
+[04:37:59] 怪物 name=未识别 distance=206 hp=100% hp_text= name_text= bar=910,167,942,171 pos=926,216
+[04:37:59] 怪物 name=未识别 distance=275 hp=100% hp_text= name_text= bar=1102,231,1134,235 pos=1118,280

@@ -58,5 +58,6 @@ $RECYCLE.BIN/
 screenshot.bmp
 log.txt
 screenshots/
+DebugImage/
 server.out.log
 server.err.log

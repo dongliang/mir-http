@@ -36,9 +36,20 @@
 
 ## OP 细节
 
-- OP 绑定模式自动尝试，优先 `dx2/windows/windows` 做后台鼠标和键盘。
+- OP 绑定、点击、截图、OCR 坐标统一优先使用 `dx2/windows/windows/0`，不要在后续任务里随意切到其它显示模式。
 - `windows` 鼠标模式下不要用 `LeftClick/RightClick`，要用 `Down + Up`。
 - 后台键盘优先用绑定后的 `KeyDown + 短暂停留 + KeyUp`，不要只依赖过短的 `KeyPress`。
 - `dx2` 下 OP/Win32 返回的窗口尺寸是 2 倍，点击、截图和 OCR 使用 0.5 后的有效客户区尺寸。
+- `gdi` 在当前环境截图会黑屏；截图黑屏时优先重启 OP 并重新绑定 `dx2/windows/windows/0`。
+- Overlay 直接沿用业务有效客户区坐标，不额外再乘除 DPI。
 - 后台键盘 HTTP API 是 `/api/keyboard/press?key=M&hold_ms=120&repeat=1&interval_ms=80`。
 - 截图 API 保存到 `screenshots/screenshot_0001.bmp` 这种自增文件，并返回路径。
+
+## 截图测量调试
+
+- 遇到坐标偏移、OCR 区域不准、悬停点不准时，默认先用当前 OP 截图做测量图，不只靠口述经验值。
+- 测量图用 `PIL.Image` 打开截图，用 `PIL.ImageDraw` 画辅助线。
+- 用 `draw.rectangle(...)` 标出血条框、当前 OCR 框、候选 OCR 框。
+- 用 `draw.ellipse(...)` 标出当前悬停点、候选悬停点、玩家位置等关键点。
+- 用 `draw.text(...)` 给怪物或目标编号，方便对照日志里的 `bar`、`pos`、`distance`。
+- 测量图写到系统临时目录，例如 `%TEMP%\mir2_monster_measure.png`，不要提交到项目。

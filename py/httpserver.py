@@ -46,6 +46,27 @@ def create_server(player_info, update_frame, app_settings):
                     Div("坐标: ", Span(f"{player_info['x']}:{player_info['y']}", id="coordinate")),
                     cls="status",
                 ),
+                Div(
+                    H3("怪物列表"),
+                    Table(
+                        Thead(
+                            Tr(
+                                Th("怪物名称"),
+                                Th("距离玩家"),
+                                Th("怪物血量"),
+                                Th("怪物位置"),
+                                Th("操作"),
+                            )
+                        ),
+                        Tbody(
+                            Tr(
+                                Td("暂无数据", colspan="5"),
+                            ),
+                            id="monster-body",
+                        ),
+                    ),
+                    cls="monster-panel",
+                ),
                 Pre("", id="log-box"),
             ),
         )
@@ -141,6 +162,79 @@ def create_server(player_info, update_frame, app_settings):
             "status": get_status(player_info, app_settings),
         })
 
+    # 玩家屏幕位置接口：返回按移动原点算法计算出的角色屏幕坐标。
+    @rt("/api/player/screen-position")
+    def post():
+        # 玩家屏幕位置结果：记录当前客户区和 DPI 诊断信息。
+        result = api.get_player_screen_position()
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "player_x": result["player_x"],
+            "player_y": result["player_y"],
+            "client": result.get("client", {}),
+            "bottom_ui_height": result.get("bottom_ui_height", api.BOTTOM_UI_HEIGHT),
+            "message": result["message"],
+            "status": get_status(player_info, app_settings),
+        })
+
+    # 怪物扫描接口：快速查找屏幕怪物并返回位置、距离和血量百分比。
+    @rt("/api/monsters/scan")
+    def post():
+        # 怪物扫描结果：记录扫描摘要并把明细写入日志。
+        result = api.scan_monsters(app_settings["overlay_enabled"])
+        log.write(result["message"])
+        log_monster_scan_details(result)
+        return JSONResponse({
+            "success": result["success"],
+            "monsters": result.get("monsters", []),
+            "count": result.get("count", 0),
+            "player": result.get("player", {}),
+            "client": result.get("client", {}),
+            "debug_points": result.get("debug_points", []),
+            "message": result["message"],
+            "status": get_status(player_info, app_settings),
+        })
+
+    # 怪物名称识别接口：按表格传入的单个怪物位置补充名称。
+    @rt("/api/monsters/name")
+    def post(
+        x: int = 0,
+        y: int = 0,
+        bar_left: int = -1,
+        bar_top: int = -1,
+        bar_right: int = -1,
+        bar_bottom: int = -1,
+    ):
+        # 血条信息：有完整血条坐标时用它计算名字 OCR 区域。
+        blood_bar = None
+
+        if bar_right > bar_left and bar_bottom > bar_top:
+            blood_bar = {
+                "left": bar_left,
+                "top": bar_top,
+                "right": bar_right,
+                "bottom": bar_bottom,
+            }
+
+        result = api.recognize_monster_name(x, y, blood_bar, app_settings["overlay_enabled"])
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "name": result.get("name", "未识别"),
+            "name_text": result.get("name_text", ""),
+            "raw_text": result.get("raw_text", ""),
+            "mask_text": result.get("mask_text", ""),
+            "used_attempt": result.get("used_attempt", 0),
+            "reject_reason": result.get("reject_reason", ""),
+            "debug_images": result.get("debug_images", []),
+            "position": result.get("position", {}),
+            "ocr_box": result.get("ocr_box", {}),
+            "blood_bar": result.get("blood_bar", {}),
+            "message": result["message"],
+            "status": get_status(player_info, app_settings),
+        })
+
     # 后台键盘输入接口：向当前绑定窗口发送指定按键。
     @rt("/api/keyboard/press")
     def post(key: str = "", hold_ms: int = 120, repeat: int = 1, interval_ms: int = 80):
@@ -191,6 +285,7 @@ def create_buttons(app_settings):
         Button("截图", onclick="takeScreenshot()"),
         Button(get_overlay_button_text(app_settings), id="overlay-button", onclick="toggleOverlay()"),
         Button("测试键盘(M)", onclick="pressKeyboard('M')"),
+        Button("检测怪物列表", onclick="scanMonsters()"),
     ]
 
     return [
@@ -260,6 +355,26 @@ def update_frame_safely(update_frame):
         log.write(f"刷新帧异常: {error}")
 
 
+# 写入怪物扫描明细日志：表格之外的调试信息保留在日志里。
+def log_monster_scan_details(result):
+    if not result.get("success"):
+        return
+
+    for monster in result.get("monsters", []):
+        bar = monster.get("blood_bar", {})
+        position = monster.get("position", {})
+        log.write(
+            "怪物 "
+            f"name={monster.get('name', '')} "
+            f"distance={monster.get('distance', '')} "
+            f"hp={monster.get('hp_percent', '')}% "
+            f"hp_text={monster.get('hp_text', '')} "
+            f"name_text={monster.get('name_text', '')} "
+            f"bar={bar.get('left')},{bar.get('top')},{bar.get('right')},{bar.get('bottom')} "
+            f"pos={position.get('x')},{position.get('y')}"
+        )
+
+
 # 页面样式：定义本地控制台的布局、按钮和日志区域样式。
 PAGE_STYLE = """
 body {
@@ -282,7 +397,7 @@ h2 {
 }
 .utility-buttons {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 8px;
 }
 input {
@@ -323,6 +438,29 @@ button {
     border: 1px solid #ddd;
     padding: 8px;
 }
+.monster-panel {
+    margin-bottom: 12px;
+}
+.monster-panel h3 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #ddd;
+}
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: 12px;
+}
+th {
+    background: #eee;
+}
 #log-box {
     height: 420px;
     overflow: auto;
@@ -344,6 +482,7 @@ button {
 # 页面脚本：定义前端轮询、按钮请求和状态刷新逻辑。
 PAGE_SCRIPT = """
 const POLL_INTERVAL_MS = 500;
+let currentMonsters = [];
 
 async function postApi(url) {
     const response = await fetch(url, {method: "POST"});
@@ -384,6 +523,134 @@ async function toggleOverlay() {
 async function pressKeyboard(key) {
     const params = new URLSearchParams({key});
     await postApi("/api/keyboard/press?" + params.toString());
+}
+
+async function scanMonsters() {
+    const response = await fetch("/api/monsters/scan", {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    updateMonsterTable(data.monsters || []);
+    await refreshStatus();
+    await refreshLogs();
+}
+
+function updateMonsterTable(monsters) {
+    currentMonsters = monsters;
+    const body = document.getElementById("monster-body");
+    body.textContent = "";
+
+    if (!monsters.length) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 5;
+        cell.textContent = "暂无数据";
+        row.appendChild(cell);
+        body.appendChild(row);
+        return;
+    }
+
+    for (const monster of monsters) {
+        const row = document.createElement("tr");
+        row.dataset.monsterId = String(monster.id);
+        appendCell(row, monster.name || "未识别", "name");
+        appendCell(row, String(monster.distance ?? ""));
+        appendCell(row, String(monster.hp_percent ?? 100) + "%");
+        appendCell(row, getMonsterPositionText(monster), "position");
+        appendActionCell(row, monster);
+        body.appendChild(row);
+    }
+}
+
+function appendCell(row, text, role = "") {
+    const cell = document.createElement("td");
+    cell.textContent = text;
+    if (role) {
+        cell.dataset.role = role;
+    }
+    row.appendChild(cell);
+}
+
+function appendActionCell(row, monster) {
+    const cell = document.createElement("td");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "识别名称";
+    button.onclick = () => recognizeMonsterName(monster.id);
+    cell.appendChild(button);
+    row.appendChild(cell);
+}
+
+function getMonsterPositionText(monster) {
+    const position = monster.position || {};
+    return String(position.x ?? "") + "," + String(position.y ?? "");
+}
+
+async function recognizeMonsterName(id) {
+    const monster = currentMonsters.find((item) => item.id === id);
+    if (!monster || !monster.position) return;
+
+    const row = document.querySelector(`tr[data-monster-id="${id}"]`);
+    const button = row ? row.querySelector("button") : null;
+
+    if (button) {
+        button.disabled = true;
+        button.textContent = "识别中";
+    }
+
+    const params = new URLSearchParams({
+        x: String(monster.position.x),
+        y: String(monster.position.y),
+    });
+    const bar = monster.blood_bar || {};
+
+    for (const key of ["left", "top", "right", "bottom"]) {
+        if (bar[key] !== undefined) {
+            params.set("bar_" + key, String(bar[key]));
+        }
+    }
+
+    try {
+        const response = await fetch("/api/monsters/name?" + params.toString(), {method: "POST"});
+        const data = await response.json();
+        console.log(data);
+
+        if (data.name) {
+            monster.name = data.name;
+            updateMonsterNameCell(id, data.name);
+        }
+        if (data.position && data.position.x !== undefined) {
+            monster.position = data.position;
+            updateMonsterPositionCell(id, getMonsterPositionText(monster));
+        }
+        if (data.blood_bar && data.blood_bar.left !== undefined) {
+            monster.blood_bar = data.blood_bar;
+        }
+
+        await refreshLogs();
+    } finally {
+        if (button) {
+            button.disabled = false;
+            button.textContent = "识别名称";
+        }
+    }
+}
+
+function updateMonsterNameCell(id, name) {
+    const row = document.querySelector(`tr[data-monster-id="${id}"]`);
+    const cell = row ? row.querySelector('td[data-role="name"]') : null;
+
+    if (cell) {
+        cell.textContent = name || "未识别";
+    }
+}
+
+function updateMonsterPositionCell(id, text) {
+    const row = document.querySelector(`tr[data-monster-id="${id}"]`);
+    const cell = row ? row.querySelector('td[data-role="position"]') : null;
+
+    if (cell) {
+        cell.textContent = text;
+    }
 }
 
 async function refreshStatus() {
