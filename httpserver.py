@@ -63,8 +63,19 @@ def create_server(player_info, update_frame, app_settings):
         })
 
     @rt("/api/window/bind")
+    def post(keyword: str = ""):
+        success, title, message = dm.bind_window_by_title(keyword)
+        log.write(message)
+        return JSONResponse({
+            "success": success,
+            "title": title,
+            "message": message,
+            "status": get_status(player_info, app_settings),
+        })
+
+    @rt("/api/window/unbind")
     def post():
-        success, title, message = dm.bind_game_window()
+        success, title, message = dm.unbind_window()
         log.write(message)
         return JSONResponse({
             "success": success,
@@ -131,13 +142,24 @@ def create_server(player_info, update_frame, app_settings):
 
 def create_buttons(app_settings):
     utility_buttons = [
-        Button("绑定窗口", onclick="postApi('/api/window/bind')"),
         Button("测试坐标", onclick="postApi('/api/coordinate/read')"),
         Button("截图", onclick="takeScreenshot()"),
         Button(get_overlay_button_text(app_settings), id="overlay-button", onclick="toggleOverlay()"),
     ]
 
     return [
+        Div(
+            Input(
+                id="bind-keyword",
+                type="text",
+                value="闪电侠",
+                placeholder="窗口标题关键字",
+                autocomplete="off",
+            ),
+            Button("绑定", onclick="bindWindow()"),
+            Button("解除绑定", onclick="unbindWindow()"),
+            cls="bind-controls",
+        ),
         Div(*utility_buttons, cls="utility-buttons"),
         Div(
             create_move_pad("走", "walk"),
@@ -212,10 +234,23 @@ h2 {
     gap: 8px;
     margin-bottom: 12px;
 }
+.bind-controls {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) 96px 96px;
+    gap: 8px;
+}
 .utility-buttons {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
+}
+input {
+    height: 34px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    border: 1px solid #bbb;
+    background: white;
+    font-size: 12px;
 }
 .move-pads {
     display: grid;
@@ -255,6 +290,13 @@ button {
     color: #eee;
     padding: 12px;
 }
+@media (max-width: 640px) {
+    .bind-controls,
+    .utility-buttons,
+    .status {
+        grid-template-columns: 1fr;
+    }
+}
 """
 
 
@@ -267,6 +309,22 @@ async function postApi(url) {
     console.log(data);
     await refreshStatus();
     await refreshLogs();
+}
+
+async function bindWindow() {
+    const input = document.getElementById("bind-keyword");
+    const keyword = input.value.trim();
+    const params = new URLSearchParams({keyword});
+
+    await postApi("/api/window/bind?" + params.toString());
+
+    if (!keyword) {
+        input.focus();
+    }
+}
+
+async function unbindWindow() {
+    await postApi("/api/window/unbind");
 }
 
 async function takeScreenshot() {

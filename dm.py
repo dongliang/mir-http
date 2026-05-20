@@ -179,13 +179,14 @@ def get_next_screenshot_file():
         index += 1
 
 
-def bind_game_window():
-    return bind_window_by_title("闪电侠")
-
-
 def bind_window_by_title(title_part):
     global bound_hwnd
     global bound_title
+
+    title_part = (title_part or "").strip()
+
+    if not title_part:
+        return False, "", "绑定关键字不能为空"
 
     hwnd, title = find_window_by_title(title_part)
 
@@ -193,6 +194,13 @@ def bind_window_by_title(title_part):
         return False, "", f"找不到标题包含 {title_part} 的窗口"
 
     dm = get_dm()
+
+    unbind_result = 0
+
+    if bound_hwnd:
+        unbind_result = dm.UnBindWindow()
+        bound_hwnd = None
+        bound_title = ""
 
     force_result = dm.ForceUnBindWindow(hwnd)
     result = dm.BindWindowEx(
@@ -208,9 +216,41 @@ def bind_window_by_title(title_part):
     if result == 1:
         bound_hwnd = hwnd
         bound_title = title
-        return True, title, f"绑定成功 hwnd={hwnd} display={display_mode} force={force_result} last_error={last_error}"
+        return True, title, f"绑定成功 hwnd={hwnd} display={display_mode} unbind={unbind_result} force={force_result} last_error={last_error}"
 
-    return False, title, f"绑定失败 hwnd={hwnd} display={display_mode} result={result} last_error={last_error}"
+    return False, title, f"绑定失败 hwnd={hwnd} display={display_mode} unbind={unbind_result} force={force_result} result={result} last_error={last_error}"
+
+
+def unbind_window():
+    global bound_hwnd
+    global bound_title
+
+    if not bound_hwnd:
+        return True, "", "当前没有绑定窗口"
+
+    hwnd = bound_hwnd
+    title = bound_title
+    dm = get_dm()
+    result = dm.UnBindWindow()
+    force_result = 0
+    last_error = dm.GetLastError()
+
+    if result != 1:
+        force_result = dm.ForceUnBindWindow(hwnd)
+        last_error = dm.GetLastError()
+
+    if result == 1 or force_result == 1:
+        bound_hwnd = None
+        bound_title = ""
+
+        try:
+            overlay.hide()
+        except Exception:
+            pass
+
+        return True, title, f"解除绑定成功 hwnd={hwnd} result={result} force={force_result} last_error={last_error}"
+
+    return False, title, f"解除绑定失败 hwnd={hwnd} result={result} force={force_result} last_error={last_error}"
 
 
 def find_window_by_title(title_part):

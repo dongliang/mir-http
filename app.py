@@ -22,8 +22,7 @@ def main() -> None:
     log.start_log()
     log.write("程序启动: HTTP 服务模式")
     apply_app_settings()
-    if start_dm():
-        start_bind_game_window()
+    start_dm()
     start_update_loop()
     httpserver.run_server(current_player, update_frame, app_settings)
 
@@ -42,11 +41,6 @@ def apply_app_settings():
     import dm
 
     dm.set_overlay_enabled(app_settings["overlay_enabled"])
-
-
-def start_bind_game_window():
-    thread = threading.Thread(target=bind_game_window, daemon=True)
-    thread.start()
 
 
 def update_loop():
@@ -81,23 +75,6 @@ def start_dm():
     except Exception as error:
         log.write(f"大漠初始化异常: {error}")
         return False
-
-
-def bind_game_window():
-    import dm
-
-    log.write("启动时自动绑定窗口")
-
-    try:
-        success, title, message = dm.bind_game_window()
-        log.write(message)
-
-        if success:
-            log.write(f"自动绑定窗口成功: {title}")
-        else:
-            log.write("自动绑定窗口失败")
-    except Exception as error:
-        log.write(f"自动绑定窗口异常: {error}")
 
 
 if __name__ == "__main__":
