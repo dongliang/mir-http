@@ -24,12 +24,12 @@ def create_server(player_info, update_frame, app_settings):
     def get():
         return Html(
             Head(
-                Title("Mir2Auto"),
+                Title("httpserver"),
                 Style(PAGE_STYLE),
                 Script(PAGE_SCRIPT),
             ),
             Body(
-                H2("Mir2Auto"),
+                H2("httpserver"),
                 Div(
                     *create_buttons(app_settings),
                     cls="controls",
