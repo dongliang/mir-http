@@ -1,176 +1,21 @@
-[15:29:59] 日志开始
-[15:29:59] 程序启动: HTTP 服务模式
-[15:29:59] 开始初始化 OP
-[15:29:59] OP 版本: 0.4.5.0
-[15:29:59] OP 初始化成功（64 位免注册）
-[15:29:59] OP 初始化成功
-[15:29:59] HTTP 服务启动: http://127.0.0.1:8765
-[15:30:03] 绑定成功 hwnd=1115412 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
-[15:30:03] OCR子进程启动 pid=29936
-[15:30:05] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
-[15:30:06] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
-[15:30:08] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:08] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:08] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:09] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:10] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:10] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:10] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:10] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:10] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:11] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:11] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:18] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:19] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:19] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:19] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:19] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:19] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:20] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:20] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:20] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:20] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:20] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:21] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:21] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:21] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:21] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:21] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:29] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:29] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:30] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:30] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:30] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:30] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:30] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:30] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:31] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:31] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:31] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:31] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:31] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:32] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:32] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:32] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:32] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:32] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:33] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:33] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:33] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:33] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:33] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:34] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:34] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:34] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:34] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:34] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:35] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:35] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:35] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:35] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:35] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:36] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:36] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:36] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:36] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:37] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:37] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:37] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:37] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:38] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:38] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:38] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:38] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:39] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:39] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:39] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:39] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:39] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:40] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:40] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:40] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:40] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:40] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:42] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:42] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:42] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:42] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:43] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:43] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:43] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:43] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:43] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:44] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:44] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:44] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:44] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:44] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:45] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:45] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:45] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:45] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:46] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:46] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:46] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:46] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:47] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:47] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:47] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:47] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[15:30:48] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:48] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:48] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:49] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:49] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:49] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:49] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:50] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:50] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:50] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[15:30:51] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[15:30:51] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[15:30:51] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[15:30:51] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[15:30:52] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[15:30:52] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[15:30:52] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[15:30:52] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[15:30:52] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[15:30:52] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[15:30:53] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:53] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:54] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:54] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:54] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:54] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:55] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:55] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:55] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:55] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:55] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:56] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:56] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:56] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:56] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:56] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:57] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:57] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:57] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:57] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:57] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:30:58] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[15:31:04] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:04] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:04] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:05] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:05] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:05] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:05] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:05] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:05] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:06] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:06] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:06] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:06] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:07] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
-[15:31:07] 点击成功 button=left method=down_up(1,1) x=815 y=482 last_error=0 client_size=1760x990
+[22:01:46] 日志开始
+[22:01:46] 程序启动: HTTP 服务模式
+[22:01:46] 开始初始化 OP
+[22:01:46] OP 版本: 0.4.5.0
+[22:01:46] OP 初始化成功（64 位免注册）
+[22:01:46] OP 初始化成功
+[22:01:46] HTTP 服务启动: http://127.0.0.1:8765
+[22:02:13] 绑定成功 hwnd=23202836 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
+[22:02:13] OCR子进程启动 pid=9340
+[22:02:14] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[22:02:15] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
+[22:02:17] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
+[22:02:20] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[22:02:21] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
+[22:02:22] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
+[22:02:22] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
+[22:02:23] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
+[22:02:32] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
+[22:02:32] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
+[22:02:33] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
+[22:02:41] 点击成功 button=left method=down_up(1,1) x=945 y=352 last_error=0 client_size=1760x990

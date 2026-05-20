@@ -3,7 +3,7 @@ from starlette.responses import JSONResponse, PlainTextResponse
 import uvicorn
 
 import api
-import dm
+import op
 import log
 
 
@@ -62,10 +62,10 @@ def create_server(player_info, update_frame, app_settings):
         return JSONResponse(get_status(player_info, app_settings))
 
     # OP 启动接口：初始化 OP 并返回版本与结果消息。
-    @rt("/api/dm/start")
+    @rt("/api/op/start")
     def post():
         # OP 启动结果：保存初始化成功状态、版本和说明。
-        success, version, message = dm.start_dm()
+        success, version, message = op.start_op()
         log.write(message)
         return JSONResponse({
             "success": success,
@@ -77,7 +77,7 @@ def create_server(player_info, update_frame, app_settings):
     @rt("/api/window/bind")
     def post(keyword: str = ""):
         # 绑定结果：记录窗口绑定是否成功、标题和说明消息。
-        success, title, message = dm.bind_window_by_title(keyword)
+        success, title, message = op.bind_window_by_title(keyword)
         log.write(message)
         return JSONResponse({
             "success": success,
@@ -90,7 +90,7 @@ def create_server(player_info, update_frame, app_settings):
     @rt("/api/window/unbind")
     def post():
         # 解绑结果：记录窗口解绑是否成功、标题和说明消息。
-        success, title, message = dm.unbind_window()
+        success, title, message = op.unbind_window()
         log.write(message)
         return JSONResponse({
             "success": success,
@@ -126,7 +126,7 @@ def create_server(player_info, update_frame, app_settings):
     def post():
         # Overlay 开关设置：反转当前点击提示启用状态。
         app_settings["overlay_enabled"] = not app_settings["overlay_enabled"]
-        dm.set_overlay_enabled(app_settings["overlay_enabled"])
+        op.set_overlay_enabled(app_settings["overlay_enabled"])
         # Overlay 状态文本：把布尔开关转换为用户可读中文状态。
         state = "开启" if app_settings["overlay_enabled"] else "关闭"
         # Overlay 返回消息：描述本次切换后的提示状态。
@@ -142,7 +142,7 @@ def create_server(player_info, update_frame, app_settings):
     @rt("/api/screenshot")
     def post():
         # 截图结果：记录截图是否成功、路径和说明消息。
-        success, path, message = dm.capture_bound_window()
+        success, path, message = op.capture_bound_window()
         log.write(message)
         return JSONResponse({
             "success": success,
@@ -227,7 +227,7 @@ def create_move_pad(title, action):
 # 获取状态：聚合玩家坐标、绑定窗口和应用设置。
 def get_status(player_info, app_settings):
     # 绑定窗口状态：读取当前窗口绑定信息用于 API 返回。
-    bound = dm.get_bound_window()
+    bound = op.get_bound_window()
 
     return {
         "player": {

@@ -7,7 +7,7 @@ from pathlib import Path
 import overlay
 
 # OP 对象：缓存当前进程使用的 OP 自动化实例。
-dm_object = None
+op_object = None
 # 绑定窗口句柄：记录当前已绑定的游戏窗口 hwnd。
 bound_hwnd = None
 # 绑定窗口标题：缓存当前绑定窗口的标题用于页面展示。
@@ -57,7 +57,7 @@ def get_overlay_enabled():
 
 
 # 创建 OP 对象：加载 pyop 并实例化 64 位免注册 OP。
-def create_dm():
+def create_op():
     if platform.architecture()[0] != "64bit":
         raise RuntimeError("OP 64 位免注册模式需要 64 位 Python。")
 
@@ -89,36 +89,36 @@ def load_pyop():
 
 
 # 启动 OP：创建并缓存 OP 实例，同时读取版本信息。
-def start_dm():
-    global dm_object
+def start_op():
+    global op_object
 
     # OP 实例：保存新创建的自动化对象供全局复用。
-    dm_object = create_dm()
-    dm_object.SetShowErrorMsg(0)
+    op_object = create_op()
+    op_object.SetShowErrorMsg(0)
     # OP 版本号：用于确认当前加载的组件版本。
-    version = dm_object.Ver()
+    version = op_object.Ver()
     return True, version, "OP 初始化成功（64 位免注册）"
 
 
 # 获取 OP 对象：惰性创建并返回全局 OP 实例。
-def get_dm():
-    global dm_object
+def get_op():
+    global op_object
 
-    if dm_object is None:
+    if op_object is None:
         # OP 实例：在首次需要时创建自动化对象。
-        dm_object = create_dm()
+        op_object = create_op()
 
-    return dm_object
+    return op_object
 
 
 # 获取 OP 版本：读取已有或临时 OP 实例的版本号。
-def get_dm_version():
-    if dm_object:
-        return dm_object.Ver()
+def get_op_version():
+    if op_object:
+        return op_object.Ver()
 
     # 临时 OP 实例：用于未初始化时单次读取版本信息。
-    dm = create_dm()
-    return dm.Ver()
+    op = create_op()
+    return op.Ver()
 
 
 # 判断窗口绑定：检查当前是否已有绑定窗口句柄。
@@ -179,14 +179,14 @@ def click_bound_client(x, y, button):
             pass
 
     # OP 实例：执行鼠标移动、点击和错误码读取。
-    dm = get_dm()
+    op = get_op()
     # 移动结果：记录鼠标移动到目标坐标是否成功。
-    move_result = dm.MoveTo(int(x), int(y))
+    move_result = op.MoveTo(int(x), int(y))
     # 点击结果：记录按钮点击结果和实际使用的点击方法。
-    click_result, click_method = click_button(dm, button)
+    click_result, click_method = click_button(op, button)
 
     # 最后错误码：保留 OP 最近一次调用的错误码用于诊断。
-    last_error = dm.GetLastError()
+    last_error = op.GetLastError()
 
     if move_result == 1 and click_result == 1:
         if overlay_enabled:
@@ -206,25 +206,25 @@ def click_bound_client(x, y, button):
 
 
 # 点击鼠标按钮：根据绑定模式选择直接点击或按下抬起方案。
-def click_button(dm, button):
+def click_button(op, button):
     if is_background_mouse_mode():
-        return click_button_down_up(dm, button)
+        return click_button_down_up(op, button)
 
     if button == "left":
         # 左键点击结果：优先尝试 OP 的左键单击接口。
-        click_result = dm.LeftClick()
+        click_result = op.LeftClick()
         if click_result == 1:
             return click_result, "click"
 
-        return click_button_down_up(dm, button)
+        return click_button_down_up(op, button)
 
     if button == "right":
         # 右键点击结果：优先尝试 OP 的右键单击接口。
-        click_result = dm.RightClick()
+        click_result = op.RightClick()
         if click_result == 1:
             return click_result, "click"
 
-        return click_button_down_up(dm, button)
+        return click_button_down_up(op, button)
 
     return 0, f"unknown({button})"
 
@@ -235,21 +235,21 @@ def is_background_mouse_mode():
 
 
 # 按下抬起点击：用 down/up 组合模拟一次鼠标点击。
-def click_button_down_up(dm, button):
+def click_button_down_up(op, button):
     if button == "left":
         # 左键按下结果：记录 LeftDown 是否成功。
-        down_result = dm.LeftDown()
+        down_result = op.LeftDown()
         time.sleep(0.05)
         # 左键抬起结果：记录 LeftUp 是否成功。
-        up_result = dm.LeftUp()
+        up_result = op.LeftUp()
         return 1 if down_result == 1 and up_result == 1 else 0, f"down_up({down_result},{up_result})"
 
     if button == "right":
         # 右键按下结果：记录 RightDown 是否成功。
-        down_result = dm.RightDown()
+        down_result = op.RightDown()
         time.sleep(0.05)
         # 右键抬起结果：记录 RightUp 是否成功。
-        up_result = dm.RightUp()
+        up_result = op.RightUp()
         return 1 if down_result == 1 and up_result == 1 else 0, f"down_up({down_result},{up_result})"
 
     return 0, f"unknown({button})"
@@ -269,11 +269,11 @@ def capture_bound_window():
     # 截图文件路径：为本次截图选择一个未占用的文件名。
     screenshot_file = get_next_screenshot_file()
     # OP 实例：执行窗口截图操作。
-    dm = get_dm()
+    op = get_op()
     # 截图结果：记录 OP Capture 接口返回状态。
-    result = dm.Capture(0, 0, width, height, str(screenshot_file))
+    result = op.Capture(0, 0, width, height, str(screenshot_file))
     # 最后错误码：保留截图调用后的 OP 错误码。
-    last_error = dm.GetLastError()
+    last_error = op.GetLastError()
 
     if result == 1 and screenshot_file.exists():
         return True, str(screenshot_file), f"绑定窗口截图成功 path={screenshot_file} size={width}x{height} last_error={last_error}"
@@ -318,14 +318,14 @@ def bind_window_by_title(title_part):
         return False, "", f"找不到标题包含 {title_part} 的窗口"
 
     # OP 实例：用于解除旧绑定并尝试绑定目标窗口。
-    dm = get_dm()
+    op = get_op()
 
     # 解绑结果：记录切换窗口前解除旧绑定的结果。
     unbind_result = 0
 
     if bound_hwnd:
         # 旧窗口解绑结果：记录切换目标窗口前解除旧绑定是否成功。
-        unbind_result = dm.UnBindWindow()
+        unbind_result = op.UnBindWindow()
         # 绑定窗口句柄清空：移除旧窗口句柄，避免后续状态误用。
         bound_hwnd = None
         # 绑定窗口标题清空：移除旧窗口标题，等待新绑定写入。
@@ -340,9 +340,9 @@ def bind_window_by_title(title_part):
     for display_mode, mouse_mode, keypad_mode, mode in bind_mode_candidates:
         try:
             # 绑定结果：记录当前模式调用 BindWindow 是否成功。
-            result = dm.BindWindow(hwnd, display_mode, mouse_mode, keypad_mode, mode)
+            result = op.BindWindow(hwnd, display_mode, mouse_mode, keypad_mode, mode)
             # 最后错误码：记录当前绑定尝试后的 OP 错误码。
-            last_error = dm.GetLastError()
+            last_error = op.GetLastError()
         # 绑定异常对象：保存当前模式抛出的异常内容。
         except Exception as error:
             attempts.append(
@@ -388,11 +388,11 @@ def unbind_window():
     # 待解绑窗口标题：保留解绑前的标题用于返回结果。
     title = bound_title
     # OP 实例：调用底层 UnBindWindow 接口。
-    dm = get_dm()
+    op = get_op()
     # 解绑结果：记录 OP 解除绑定是否成功。
-    result = dm.UnBindWindow()
+    result = op.UnBindWindow()
     # 最后错误码：记录解绑调用后的 OP 错误码。
-    last_error = dm.GetLastError()
+    last_error = op.GetLastError()
 
     if result == 1:
         # 绑定窗口句柄清空：解除绑定成功后移除当前 hwnd。

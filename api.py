@@ -2,7 +2,7 @@ import re
 import threading
 from pathlib import Path
 
-import dm
+import op
 import ocr_client
 
 
@@ -64,11 +64,11 @@ def get_map_coordinate():
 
 # 读取地图坐标：从绑定窗口截图底部区域并交给 OCR 解析坐标。
 def read_map_coordinate():
-    if not dm.is_window_bound():
+    if not op.is_window_bound():
         return "", "", ""
 
     # 绑定窗口尺寸：用于确定坐标区域截图范围。
-    width, height = dm.get_bound_client_size()
+    width, height = op.get_bound_client_size()
     if width <= 0 or height <= 0:
         return "", "", ""
 
@@ -79,7 +79,7 @@ def read_map_coordinate():
 
     coordinate_image.parent.mkdir(exist_ok=True)
     # 截图结果：记录 OP 截图接口是否成功保存坐标图片。
-    result = dm.get_dm().Capture(x1, y1, x2, y2, str(coordinate_image))
+    result = op.get_op().Capture(x1, y1, x2, y2, str(coordinate_image))
 
     if result != 1:
         return "", "", ""
@@ -124,11 +124,11 @@ def move_player(action, direction):
     if direction not in directions:
         return {"success": False, "message": f"未知方向: {direction}"}
 
-    if not dm.is_window_bound():
+    if not op.is_window_bound():
         return {"success": False, "message": "还没有绑定窗口"}
 
     # 绑定窗口尺寸：用于把动作方向换算成屏幕点击坐标。
-    width, height = dm.get_bound_client_size()
+    width, height = op.get_bound_client_size()
 
     if width <= 0 or height <= 0:
         return {"success": False, "message": f"窗口尺寸异常 size={width}x{height}"}
@@ -136,7 +136,7 @@ def move_player(action, direction):
     # 移动点击参数：保存本次动作的按钮、坐标和地图增量。
     move = calculate_move(action, direction, width, height)
     # 点击执行结果：记录 OP 鼠标点击是否成功及其说明。
-    success, message = dm.click_bound_client(move["click_x"], move["click_y"], move["button"])
+    success, message = op.click_bound_client(move["click_x"], move["click_y"], move["button"])
     # 返回消息：补充窗口尺寸，便于排查点击位置问题。
     message = f"{message} client_size={width}x{height}"
 
