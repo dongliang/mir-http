@@ -1,21 +1,42 @@
-[22:01:46] 日志开始
-[22:01:46] 程序启动: HTTP 服务模式
-[22:01:46] 开始初始化 OP
-[22:01:46] OP 版本: 0.4.5.0
-[22:01:46] OP 初始化成功（64 位免注册）
-[22:01:46] OP 初始化成功
-[22:01:46] HTTP 服务启动: http://127.0.0.1:8765
-[22:02:13] 绑定成功 hwnd=23202836 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
-[22:02:13] OCR子进程启动 pid=9340
-[22:02:14] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[22:02:15] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[22:02:17] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
-[22:02:20] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[22:02:21] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
-[22:02:22] 点击成功 button=right method=down_up(1,1) x=750 y=287 last_error=0 client_size=1760x990
-[22:02:22] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
-[22:02:23] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[22:02:32] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[22:02:32] 点击成功 button=right method=down_up(1,1) x=1010 y=547 last_error=0 client_size=1760x990
-[22:02:33] 点击成功 button=right method=down_up(1,1) x=750 y=547 last_error=0 client_size=1760x990
-[22:02:41] 点击成功 button=left method=down_up(1,1) x=945 y=352 last_error=0 client_size=1760x990
+[23:04:54] 日志开始
+[23:04:54] 程序启动: HTTP 服务模式
+[23:04:54] 开始初始化 OP
+[23:04:54] OP 版本: 0.4.5.0
+[23:04:54] OP 初始化成功（64 位免注册）
+[23:04:54] OP 初始化成功
+[23:04:54] HTTP 服务启动: http://127.0.0.1:8765
+[23:04:59] 还没有绑定窗口
+[23:04:59] 还没有绑定窗口
+[23:05:01] 绑定成功 hwnd=23202836 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
+[23:05:01] OCR子进程启动 pid=21108
+[23:05:02] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:02] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:03] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:04] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:04] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:05] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:05] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:05] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:06] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:06] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:06] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:07] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:09] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:09] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:09] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:20] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:21] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:41] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:05:41] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:05:41] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:05:41] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:05:42] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:05:42] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:05:42] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:05:42] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:05:45] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:46] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:05:47] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:05:48] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:48] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[23:05:49] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0

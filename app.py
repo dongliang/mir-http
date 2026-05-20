@@ -47,9 +47,7 @@ def start_update_loop():
 
 # 应用运行设置：把内存中的应用设置同步到底层模块。
 def apply_app_settings():
-    import op
-
-    op.set_overlay_enabled(app_settings["overlay_enabled"])
+    api.apply_app_settings(app_settings)
 
 
 # 后台刷新循环：按固定节奏刷新玩家坐标并控制退出。
@@ -71,26 +69,25 @@ def update_loop():
 
 # 启动 OP：初始化 OP 自动化对象并记录初始化结果。
 def start_op():
-    import op
-
     log.write("开始初始化 OP")
 
-    try:
-        # OP 初始化结果：包含成功状态、版本号和说明消息。
-        success, version, message = op.start_op()
-        log.write(f"OP 版本: {version}")
-        log.write(message)
+    # OP 初始化结果：包含成功状态、版本号和说明消息。
+    result = api.start_op()
+    success = result["success"]
+    version = result["version"]
+    message = result["message"]
 
-        if success:
-            log.write("OP 初始化成功")
-            return True
-        else:
-            log.write("OP 初始化失败")
-            return False
-    # OP 初始化异常：捕获底层依赖或加载失败的错误信息。
-    except Exception as error:
-        log.write(f"OP 初始化异常: {error}")
-        return False
+    if version:
+        log.write(f"OP 版本: {version}")
+
+    log.write(message)
+
+    if success:
+        log.write("OP 初始化成功")
+        return True
+
+    log.write("OP 初始化失败")
+    return False
 
 
 if __name__ == "__main__":

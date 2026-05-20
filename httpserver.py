@@ -3,7 +3,6 @@ from starlette.responses import JSONResponse, PlainTextResponse
 import uvicorn
 
 import api
-import op
 import log
 
 
@@ -65,24 +64,20 @@ def create_server(player_info, update_frame, app_settings):
     @rt("/api/op/start")
     def post():
         # OP 启动结果：保存初始化成功状态、版本和说明。
-        success, version, message = op.start_op()
-        log.write(message)
-        return JSONResponse({
-            "success": success,
-            "version": version,
-            "message": message,
-        })
+        result = api.start_op()
+        log.write(result["message"])
+        return JSONResponse(result)
 
     # 窗口绑定接口：按标题关键字查找并绑定游戏窗口。
     @rt("/api/window/bind")
     def post(keyword: str = ""):
         # 绑定结果：记录窗口绑定是否成功、标题和说明消息。
-        success, title, message = op.bind_window_by_title(keyword)
-        log.write(message)
+        result = api.bind_window(keyword)
+        log.write(result["message"])
         return JSONResponse({
-            "success": success,
-            "title": title,
-            "message": message,
+            "success": result["success"],
+            "title": result["title"],
+            "message": result["message"],
             "status": get_status(player_info, app_settings),
         })
 
@@ -90,12 +85,12 @@ def create_server(player_info, update_frame, app_settings):
     @rt("/api/window/unbind")
     def post():
         # 解绑结果：记录窗口解绑是否成功、标题和说明消息。
-        success, title, message = op.unbind_window()
-        log.write(message)
+        result = api.unbind_window()
+        log.write(result["message"])
         return JSONResponse({
-            "success": success,
-            "title": title,
-            "message": message,
+            "success": result["success"],
+            "title": result["title"],
+            "message": result["message"],
             "status": get_status(player_info, app_settings),
         })
 
@@ -114,7 +109,7 @@ def create_server(player_info, update_frame, app_settings):
     @rt("/api/move/{action}/{direction}")
     def post(action: str, direction: str):
         # 移动结果：保存点击移动的成功状态和诊断消息。
-        result = api.move_player(action, direction)
+        result = api.move_player(action, direction, app_settings["overlay_enabled"])
         log.write(result["message"])
         return JSONResponse({
             "move": result,
@@ -124,17 +119,12 @@ def create_server(player_info, update_frame, app_settings):
     # Overlay 切换接口：反转点击提示开关并同步到底层模块。
     @rt("/api/overlay/toggle")
     def post():
-        # Overlay 开关设置：反转当前点击提示启用状态。
-        app_settings["overlay_enabled"] = not app_settings["overlay_enabled"]
-        op.set_overlay_enabled(app_settings["overlay_enabled"])
-        # Overlay 状态文本：把布尔开关转换为用户可读中文状态。
-        state = "开启" if app_settings["overlay_enabled"] else "关闭"
-        # Overlay 返回消息：描述本次切换后的提示状态。
-        message = f"点击提示 Overlay 已{state}"
-        log.write(message)
+        # Overlay 切换结果：由业务层维护开关并同步绘制层。
+        result = api.toggle_overlay(app_settings)
+        log.write(result["message"])
         return JSONResponse({
-            "success": True,
-            "message": message,
+            "success": result["success"],
+            "message": result["message"],
             "status": get_status(player_info, app_settings),
         })
 
@@ -142,12 +132,38 @@ def create_server(player_info, update_frame, app_settings):
     @rt("/api/screenshot")
     def post():
         # 截图结果：记录截图是否成功、路径和说明消息。
-        success, path, message = op.capture_bound_window()
-        log.write(message)
+        result = api.capture_screenshot()
+        log.write(result["message"])
         return JSONResponse({
-            "success": success,
-            "path": path,
-            "message": message,
+            "success": result["success"],
+            "path": result["path"],
+            "message": result["message"],
+            "status": get_status(player_info, app_settings),
+        })
+
+    # 后台键盘输入接口：向当前绑定窗口发送指定按键。
+    @rt("/api/keyboard/press")
+    def post(key: str = "", hold_ms: int = 120, repeat: int = 1, interval_ms: int = 80):
+        # 键盘输入结果：记录 OP 后台按键是否成功发送。
+        result = api.press_keyboard(key, hold_ms, repeat, interval_ms)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "keyboard": result,
+            "status": get_status(player_info, app_settings),
+        })
+
+    # 后台键盘测试接口：用默认 M 按键复用通用键盘输入封装。
+    @rt("/api/keyboard/test")
+    def post():
+        # 键盘测试结果：记录 OP 后台按键是否成功发送。
+        result = api.test_keyboard()
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "keyboard": result,
             "status": get_status(player_info, app_settings),
         })
 
@@ -174,6 +190,7 @@ def create_buttons(app_settings):
         Button("测试坐标", onclick="postApi('/api/coordinate/read')"),
         Button("截图", onclick="takeScreenshot()"),
         Button(get_overlay_button_text(app_settings), id="overlay-button", onclick="toggleOverlay()"),
+        Button("测试键盘(M)", onclick="pressKeyboard('M')"),
     ]
 
     return [
@@ -226,20 +243,7 @@ def create_move_pad(title, action):
 
 # 获取状态：聚合玩家坐标、绑定窗口和应用设置。
 def get_status(player_info, app_settings):
-    # 绑定窗口状态：读取当前窗口绑定信息用于 API 返回。
-    bound = op.get_bound_window()
-
-    return {
-        "player": {
-            "map_name": player_info["map_name"],
-            "x": player_info["x"],
-            "y": player_info["y"],
-        },
-        "bound_window": bound,
-        "settings": {
-            "overlay_enabled": app_settings["overlay_enabled"],
-        },
-    }
+    return api.get_status(player_info, app_settings)
 
 
 # 获取 Overlay 按钮文本：根据开关状态生成按钮显示文案。
@@ -278,7 +282,7 @@ h2 {
 }
 .utility-buttons {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
 }
 input {
@@ -375,6 +379,11 @@ async function takeScreenshot() {
 
 async function toggleOverlay() {
     await postApi("/api/overlay/toggle");
+}
+
+async function pressKeyboard(key) {
+    const params = new URLSearchParams({key});
+    await postApi("/api/keyboard/press?" + params.toString());
 }
 
 async function refreshStatus() {
