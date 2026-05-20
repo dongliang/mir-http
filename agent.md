@@ -10,7 +10,7 @@
 - `log.py` 统一写 `log.txt`。
 - 服务地址固定 `http://127.0.0.1:8765`。
 - 用项目内 `runtime/python310/python.exe` 运行，因为 OP 的 `_pyop.pyd` 依赖 `python310.dll`。
-- OP 绑定窗口标题包含 `闪电侠`。
+- `vendor/` 是第三方 OP 文件，`runtime/` 是内置 Python/依赖运行时；搜索和改代码默认排除这两个目录。
 - OP 绑定模式自动尝试，优先 `dx2/windows/windows` 做后台鼠标；`windows` 鼠标模式下不要用 `LeftClick/RightClick`，要用 `Down + Up`。
 - `dx2` 下 OP/Win32 返回的窗口尺寸是 2 倍，点击、截图和 OCR 使用 0.5 后的有效客户区尺寸。
 - 截图 API 只保存到 `screenshots/screenshot_0001.bmp` 这种自增文件，并返回路径。
