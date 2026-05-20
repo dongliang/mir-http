@@ -1,42 +1,17 @@
-[23:04:54] 日志开始
-[23:04:54] 程序启动: HTTP 服务模式
-[23:04:54] 开始初始化 OP
-[23:04:54] OP 版本: 0.4.5.0
-[23:04:54] OP 初始化成功（64 位免注册）
-[23:04:54] OP 初始化成功
-[23:04:54] HTTP 服务启动: http://127.0.0.1:8765
-[23:04:59] 还没有绑定窗口
-[23:04:59] 还没有绑定窗口
-[23:05:01] 绑定成功 hwnd=23202836 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
-[23:05:01] OCR子进程启动 pid=21108
-[23:05:02] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:02] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:03] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:04] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:04] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:05] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:05] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:05] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:06] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:06] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:06] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:07] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:09] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:09] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:09] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:20] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:21] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:41] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:05:41] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:05:41] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:05:41] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:05:42] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:05:42] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:05:42] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:05:42] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:05:45] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:46] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:05:47] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:05:48] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:48] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
-[23:05:49] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[01:07:22] 日志开始
+[01:07:22] 程序启动: HTTP 服务模式
+[01:07:22] 开始初始化 OP
+[01:07:22] OP 版本: 0.4.5.0
+[01:07:22] OP 初始化成功（64 位免注册）
+[01:07:22] OP 初始化成功
+[01:07:22] HTTP 服务启动: http://127.0.0.1:8765
+[01:07:28] 绑定成功 hwnd=23202836 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
+[01:07:28] OCR子进程启动 pid=1664
+[01:07:29] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[01:07:34] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[01:07:35] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[01:07:35] 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[01:07:37] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
+[01:07:37] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
+[01:07:38] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
+[01:07:38] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990

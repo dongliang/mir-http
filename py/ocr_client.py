@@ -8,11 +8,11 @@ import log
 
 
 # 项目根目录：作为 OCR 运行时和工作脚本路径的基准。
-base_dir = Path(__file__).resolve().parent
+base_dir = Path(__file__).resolve().parent.parent
 # OCR 子进程 Python：指向项目内置的 Python 解释器。
 worker_python = base_dir / "runtime" / "python310" / "python.exe"
 # OCR 子进程脚本：指向负责实际识别的 worker 入口。
-worker_script = base_dir / "ocr_worker.py"
+worker_script = base_dir / "py" / "ocr_worker.py"
 
 # OCR 子进程对象：缓存当前存活的 OCR worker 进程。
 ocr_process = None

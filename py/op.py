@@ -14,7 +14,7 @@ bound_title = ""
 # OP DLL 目录句柄：保存 add_dll_directory 返回值，防止目录句柄被释放。
 op_dll_directory = None
 # 项目根目录：作为运行时和 vendor 路径的基准目录。
-base_dir = Path(__file__).resolve().parent
+base_dir = Path(__file__).resolve().parent.parent
 # OP 运行目录：定位免注册 OP 组件和 Python 包装文件。
 op_runtime_dir = base_dir / "vendor" / "op"
 # 绑定模式候选：按优先级列出可尝试的显示、鼠标和键盘绑定组合。

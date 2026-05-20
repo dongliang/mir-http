@@ -9,8 +9,8 @@ import overlay
 import win32
 
 
-# 项目根目录：作为截图和运行资源路径的基准目录。
-base_dir = Path(__file__).resolve().parent
+# 项目根目录：业务脚本在 py/ 下，运行资源仍在项目根目录。
+base_dir = Path(__file__).resolve().parent.parent
 # 截图目录：保存绑定窗口截图和调试图片。
 screenshot_dir = base_dir / "screenshots"
 # 地图坐标截图路径：保存游戏底部坐标区域截图，供 OCR 识别使用。

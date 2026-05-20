@@ -10,13 +10,20 @@ echo.
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$root = (Resolve-Path -LiteralPath '%ROOT%').Path; " ^
+  "$projectScripts = @((Join-Path $root 'py\app.py'), (Join-Path $root 'py\ocr_worker.py'), (Join-Path $root 'app.py'), (Join-Path $root 'ocr_worker.py')); " ^
+  "function Test-ProjectCommandLine($commandLine) { " ^
+  "  foreach ($path in $projectScripts) { " ^
+  "    $slashPath = $path -replace '\\', '/'; " ^
+  "    if ($commandLine -like ('*' + $path + '*') -or $commandLine -like ('*' + $slashPath + '*')) { return $true } " ^
+  "  } " ^
+  "  return $false " ^
+  "} " ^
   "function Get-ProjectProcesses { " ^
   "  $portPids = @(Get-NetTCPConnection -LocalPort 8765 -ErrorAction SilentlyContinue | Where-Object { $_.State -eq 'Listen' } | Select-Object -ExpandProperty OwningProcess -Unique); " ^
   "  Get-CimInstance Win32_Process | Where-Object { " ^
   "    ($_.Name -eq 'python.exe' -or $_.Name -eq 'pythonw.exe') -and $_.CommandLine -and " ^
-  "    ($_.CommandLine -like ('*' + $root + '*app.py*') -or " ^
-  "     $_.CommandLine -like ('*' + $root + '*ocr_worker.py*') -or " ^
-  "     (($portPids -contains $_.ProcessId) -and $_.CommandLine -like '*app.py*')) " ^
+  "    ((Test-ProjectCommandLine $_.CommandLine) -or " ^
+  "     (($portPids -contains $_.ProcessId) -and ($_.CommandLine -like '*py\app.py*' -or $_.CommandLine -like '*py/app.py*' -or $_.CommandLine -like '*app.py*'))) " ^
   "  } " ^
   "} " ^
   "for ($round = 1; $round -le 5; $round++) { " ^
@@ -33,7 +40,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "} " ^
   "$remaining = Get-CimInstance Win32_Process | Where-Object { " ^
   "  ($_.Name -eq 'python.exe' -or $_.Name -eq 'pythonw.exe') -and $_.CommandLine -and " ^
-  "  ($_.CommandLine -like ('*' + $root + '*app.py*') -or $_.CommandLine -like ('*' + $root + '*ocr_worker.py*')) " ^
+  "  (Test-ProjectCommandLine $_.CommandLine) " ^
   "}; " ^
   "$listeners = Get-NetTCPConnection -LocalPort 8765 -ErrorAction SilentlyContinue | Where-Object { $_.State -eq 'Listen' }; " ^
   "if ($remaining) { " ^

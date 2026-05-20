@@ -8,7 +8,7 @@ from pathlib import Path
 # PaddleOCR 实例：缓存模型对象，避免每次请求重复加载。
 paddle_ocr = None
 # 项目根目录：作为 runtime 和缓存目录的路径基准。
-base_dir = Path(__file__).resolve().parent
+base_dir = Path(__file__).resolve().parent.parent
 # 内置运行时目录：保存项目自带 Python、模型和依赖缓存。
 runtime_dir = base_dir / "runtime"
 # 总缓存目录：集中放置 OCR 相关外部模型缓存。

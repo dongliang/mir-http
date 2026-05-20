@@ -4,6 +4,7 @@ setlocal
 cd /d "%~dp0"
 
 set "PYTHON_EXE=%~dp0runtime\python310\python.exe"
+set "PYTHONPATH=%~dp0py;%PYTHONPATH%"
 
 if not exist "%PYTHON_EXE%" (
   echo Missing portable Python runtime: %PYTHON_EXE%

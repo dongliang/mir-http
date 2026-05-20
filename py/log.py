@@ -4,7 +4,7 @@ import sys
 
 
 # 日志文件路径：保存程序运行过程中的控制台和操作日志。
-log_file = Path(__file__).resolve().parent / "log.txt"
+log_file = Path(__file__).resolve().parent.parent / "log.txt"
 
 
 # 启动日志：清空旧日志并写入新的开始标记。

@@ -13,7 +13,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$python='%PYTHON_EXE%';" ^
   "$shell=(Get-Command pwsh.exe -ErrorAction SilentlyContinue).Source;" ^
   "if (-not $shell) { $shell='powershell.exe' }" ^
-  "$command='& ''' + $python + ''' app.py';" ^
+  "$command='& ''' + $python + ''' py\app.py';" ^
   "if (Get-Command wt.exe -ErrorAction SilentlyContinue) {" ^
   "  Start-Process -Verb RunAs -FilePath 'wt.exe' -ArgumentList @('-d', $base, $shell, '-NoExit', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', $command)" ^
   "} else {" ^
