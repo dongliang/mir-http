@@ -13,7 +13,7 @@ SERVER_PORT = 8765
 
 def run_server(player_info, update_frame, app_settings):
     app = create_server(player_info, update_frame, app_settings)
-    log.write(f"HTTP 服务启动: http://{SERVER_HOST}:{SERVER_PORT}")
+    log.write_console(f"HTTP 服务启动: http://{SERVER_HOST}:{SERVER_PORT}")
     uvicorn.run(app, host=SERVER_HOST, port=SERVER_PORT, log_level="warning")
 
 
