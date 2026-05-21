@@ -66,6 +66,12 @@ MONSTER_REFRESH_SEARCH_HALF_WIDTH = 180
 MONSTER_REFRESH_SEARCH_TOP_OFFSET = 100
 MONSTER_REFRESH_SEARCH_BOTTOM_OFFSET = 160
 MONSTER_REFRESH_MAX_DISTANCE = 180
+# 血条模板几何：来自 png/红色血条.png，填充区 x=2..61，总填充长度 60。
+HEALTH_BAR_TEMPLATE_WIDTH = 64
+HEALTH_BAR_FILL_START_X = 2
+HEALTH_BAR_FULL_FILL_PIXELS = 60
+# 红色血条填充色：来自 png/红色血条.png，填充像素为纯 RGB(255, 0, 0)。
+RED_HEALTH_BAR_RGB = (255, 0, 0)
 
 # 移动方向向量：把方向名称映射为地图坐标变化量。
 directions = {
@@ -560,12 +566,13 @@ def read_monster_from_match(index, match, scan_image, temp_path, width, height, 
     )
 
     distance = round(math.dist((player_x, player_y), (hover_x, hover_y)))
+    hp_percent = calculate_health_bar_percent(scan_image, blood_bar, RED_HEALTH_BAR_RGB)
 
     return {
         "id": index,
         "name": "未识别",
         "distance": distance,
-        "hp_percent": 100,
+        "hp_percent": hp_percent,
         "name_text": "",
         "position": {
             "x": hover_x,
@@ -809,6 +816,72 @@ def normalize_blood_bar(blood_bar, width, height):
         width,
         height,
     )
+
+
+# 计算血条百分比：按目标颜色连续填充长度计算，适用于任意颜色血条。
+def calculate_health_bar_percent(image, health_bar, target_rgb, tolerance=20):
+    if not is_valid_box(health_bar):
+        return 0
+
+    pixels = np.array(image.convert("RGB"))
+    image_height, image_width = pixels.shape[:2]
+    box = normalize_blood_bar(health_bar, image_width, image_height)
+    bar_width = box["right"] - box["left"]
+    bar_height = box["bottom"] - box["top"]
+
+    if bar_width <= 0 or bar_height <= 0:
+        return 0
+
+    fill_start = scale_health_bar_value(HEALTH_BAR_FILL_START_X, bar_width)
+    full_fill_pixels = scale_health_bar_value(HEALTH_BAR_FULL_FILL_PIXELS, bar_width)
+
+    if full_fill_pixels <= 0:
+        return 0
+
+    crop = pixels[box["top"]:box["bottom"], box["left"]:box["right"]]
+    fill_rows = get_health_bar_fill_rows(bar_height)
+    fill_pixels = 0
+
+    for column_index in range(fill_start, min(bar_width, fill_start + full_fill_pixels)):
+        column = crop[fill_rows, column_index, :]
+
+        if not is_health_bar_filled_column(column, target_rgb, tolerance):
+            break
+
+        fill_pixels += 1
+
+    percent = round(fill_pixels * 100 / full_fill_pixels)
+    return clamp_number(percent, 0, 100)
+
+
+# 按模板宽度把血条几何常量换算到当前截图血条宽度。
+def scale_health_bar_value(value, bar_width):
+    return max(0, round(value * bar_width / HEALTH_BAR_TEMPLATE_WIDTH))
+
+
+# 获取血条内部填充行：排除上下黑边，兼容 64x8 和 dx2 半尺寸 32x4。
+def get_health_bar_fill_rows(bar_height):
+    if bar_height <= 2:
+        return np.arange(0, bar_height)
+
+    top = max(0, round(2 * bar_height / 8))
+    bottom = min(bar_height, round(6 * bar_height / 8))
+
+    if bottom <= top:
+        return np.arange(0, bar_height)
+
+    return np.arange(top, bottom)
+
+
+# 判断一列是否接近目标血条颜色。
+def is_health_bar_filled_column(column, target_rgb, tolerance):
+    if len(column) == 0:
+        return False
+
+    target = np.array(target_rgb, dtype=np.int16)
+    delta = np.abs(column.astype(np.int16) - target)
+    matching_pixels = np.all(delta <= tolerance, axis=1)
+    return int(matching_pixels.sum()) * 2 >= len(column)
 
 
 # 识别怪物名 OCR 框：保留调试图，并用白字 mask 放大图增强小字识别。
