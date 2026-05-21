@@ -19,3 +19,13 @@
 [04:37:59] 怪物 name=未识别 distance=128 hp=100% hp_text= name_text= bar=958,455,990,459 pos=974,504
 [04:37:59] 怪物 name=未识别 distance=206 hp=100% hp_text= name_text= bar=910,167,942,171 pos=926,216
 [04:37:59] 怪物 name=未识别 distance=275 hp=100% hp_text= name_text= bar=1102,231,1134,235 pos=1118,280
+[04:39:28] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[04:39:29] 点击成功 button=right method=down_up(1,1) x=1010 y=287 last_error=0 client_size=1760x990
+[04:39:30] 点击成功 button=right method=down_up(1,1) x=880 y=287 last_error=0 client_size=1760x990
+[04:39:31] 点击成功 button=right method=down_up(1,1) x=880 y=287 last_error=0 client_size=1760x990
+[04:39:31] 点击成功 button=right method=down_up(1,1) x=880 y=287 last_error=0 client_size=1760x990
+[04:39:33] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
+[04:39:34] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
+[04:39:34] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
+[04:39:35] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
+[04:39:36] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990

@@ -368,7 +368,6 @@ def log_monster_scan_details(result):
             f"name={monster.get('name', '')} "
             f"distance={monster.get('distance', '')} "
             f"hp={monster.get('hp_percent', '')}% "
-            f"hp_text={monster.get('hp_text', '')} "
             f"name_text={monster.get('name_text', '')} "
             f"bar={bar.get('left')},{bar.get('top')},{bar.get('right')},{bar.get('bottom')} "
             f"pos={position.get('x')},{position.get('y')}"

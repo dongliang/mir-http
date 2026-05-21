@@ -45,11 +45,6 @@ MONSTER_NAME_HALF_WIDTH = 33
 MONSTER_NAME_TOP_OFFSET = 30
 # 怪物名 OCR 下边距：血条底边向下到名字区域底部的距离。
 MONSTER_NAME_BOTTOM_OFFSET = 60
-# 血量 OCR 裁剪范围：基于血条左上角向周围扩展。
-MONSTER_HP_LEFT_PADDING = 8
-MONSTER_HP_RIGHT_OFFSET = 72
-MONSTER_HP_TOP_OFFSET = 42
-MONSTER_HP_BOTTOM_OFFSET = 2
 # 血条特征匹配阈值：0 表示完全一致，保留极小容差兼容截图格式差异。
 MONSTER_FEATURE_MATCH_THRESHOLD = 0.001
 # 怪物名字显示等待时间：鼠标悬停后等待游戏显示名字。
@@ -71,11 +66,6 @@ MONSTER_REFRESH_SEARCH_HALF_WIDTH = 180
 MONSTER_REFRESH_SEARCH_TOP_OFFSET = 100
 MONSTER_REFRESH_SEARCH_BOTTOM_OFFSET = 160
 MONSTER_REFRESH_MAX_DISTANCE = 180
-# 血量候选白色像素阈值：血条上方有足够白字时才执行血量 OCR。
-MONSTER_HP_WHITE_PIXEL_MIN = 60
-# 血量候选连通块阈值：残血文字会形成多个较大的白色字形块，背景高光通常只是零散点。
-MONSTER_HP_COMPONENT_PIXEL_MIN = 18
-MONSTER_HP_COMPONENT_COUNT_MIN = 2
 
 # 移动方向向量：把方向名称映射为地图坐标变化量。
 directions = {
@@ -560,14 +550,6 @@ def read_monster_from_match(index, match, scan_image, temp_path, width, height, 
     hover_x, hover_y = get_monster_hover_from_bar(blood_bar, width, height)
     bar_center_x = round((bar_left + bar_right) / 2)
 
-    hp_box = clamp_box(
-        bar_left - MONSTER_HP_LEFT_PADDING,
-        bar_top - MONSTER_HP_TOP_OFFSET,
-        bar_left + MONSTER_HP_RIGHT_OFFSET,
-        bar_top - MONSTER_HP_BOTTOM_OFFSET,
-        width,
-        height,
-    )
     name_box = clamp_box(
         bar_center_x - MONSTER_NAME_HALF_WIDTH,
         bar_bottom + MONSTER_NAME_TOP_OFFSET,
@@ -577,23 +559,13 @@ def read_monster_from_match(index, match, scan_image, temp_path, width, height, 
         height,
     )
 
-    hp_text = ""
-
-    if has_hp_text_candidate(scan_image, hp_box):
-        hp_text = recognize_image_box(scan_image, hp_box, temp_path / f"hp_{index:03d}.bmp")
-
-    hp = parse_hp_text(hp_text)
     distance = round(math.dist((player_x, player_y), (hover_x, hover_y)))
 
     return {
         "id": index,
         "name": "未识别",
         "distance": distance,
-        "hp_percent": hp["percent"],
-        "hp_text": hp_text,
-        "hp_current": hp["current"],
-        "hp_max": hp["maximum"],
-        "is_low_hp": hp["is_low_hp"],
+        "hp_percent": 100,
         "name_text": "",
         "position": {
             "x": hover_x,
@@ -601,13 +573,11 @@ def read_monster_from_match(index, match, scan_image, temp_path, width, height, 
         },
         "blood_bar": blood_bar,
         "ocr_boxes": {
-            "hp": hp_box,
             "name": name_box,
         },
         "debug_points": [
             make_debug_point(bar_left, bar_top, "red"),
             make_debug_point(hover_x, hover_y, "orange"),
-            make_debug_point(*box_center(hp_box), "cyan"),
             make_debug_point(*box_center(name_box), "purple"),
         ],
     }
@@ -1175,44 +1145,6 @@ def get_image_size(image_file):
         return image.size
 
 
-# 识别已有截图中的裁剪区域。
-def recognize_image_box(image, box, crop_file):
-    if not is_valid_box(box):
-        return ""
-
-    crop = image.crop((box["left"], box["top"], box["right"], box["bottom"]))
-    crop.save(crop_file)
-    return ocr_client.recognize_text(crop_file)
-
-
-# 判断血量区域是否像是有白色血量文字。
-def has_hp_text_candidate(image, box):
-    if not is_valid_box(box):
-        return False
-
-    crop = image.crop((box["left"], box["top"], box["right"], box["bottom"]))
-    pixels = np.array(crop.convert("RGB"))
-    white_mask = (
-        (pixels[:, :, 0] > 180)
-        & (pixels[:, :, 1] > 180)
-        & (pixels[:, :, 2] > 180)
-    )
-    if int(white_mask.sum()) < MONSTER_HP_WHITE_PIXEL_MIN:
-        return False
-
-    component_count, _, stats, _ = cv2.connectedComponentsWithStats(
-        white_mask.astype(np.uint8),
-        8,
-    )
-    large_components = 0
-
-    for component_index in range(1, component_count):
-        if stats[component_index, cv2.CC_STAT_AREA] >= MONSTER_HP_COMPONENT_PIXEL_MIN:
-            large_components += 1
-
-    return large_components >= MONSTER_HP_COMPONENT_COUNT_MIN
-
-
 # 截取绑定窗口中的裁剪区域并 OCR。
 def recognize_bound_client_box(box, crop_file):
     if not is_valid_box(box):
@@ -1230,41 +1162,6 @@ def recognize_bound_client_box(box, crop_file):
         return ""
 
     return ocr_client.recognize_text(crop_file)
-
-
-# 解析怪物血量文本：识别到 x/y 时计算百分比，否则按满血。
-def parse_hp_text(text):
-    hp_text = (text or "").strip()
-    match = re.search(r"(\d{1,5})\s*[/／\\]\s*(\d{1,5})", hp_text)
-
-    if not match:
-        return {
-            "percent": 100,
-            "current": None,
-            "maximum": None,
-            "is_low_hp": False,
-        }
-
-    current = int(match.group(1))
-    maximum = int(match.group(2))
-
-    if maximum <= 0:
-        return {
-            "percent": 100,
-            "current": current,
-            "maximum": maximum,
-            "is_low_hp": False,
-        }
-
-    percent = round(current * 100 / maximum)
-    percent = clamp_number(percent, 0, 100)
-
-    return {
-        "percent": percent,
-        "current": current,
-        "maximum": maximum,
-        "is_low_hp": True,
-    }
 
 
 # 清理怪物名 OCR 文本：优先取 4 个以内中文字符。
