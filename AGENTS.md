@@ -1,5 +1,55 @@
 # Agent
 
+## 仓库贡献指南
+
+### 项目结构与模块组织
+
+- 这是一个 Windows Python 自动化项目，业务代码统一放在 `py/`。
+- `py/app.py` 是启动入口，负责应用启动、后台刷新循环和退出清理。
+- `py/httpserver.py` 负责 HTTP 与页面层，只调用 `api.py`。
+- `py/api.py` 是业务层，封装窗口绑定、截图、坐标读取、移动、键盘输入、Overlay 和状态聚合。
+- `py/op.py` 只封装 OP 插件能力，`py/win32.py` 只封装 Win32 API。
+- OCR 由 `py/ocr_client.py` 管理子进程，`py/ocr_worker.py` 执行识别。
+- 资源图片放在 `png/` 和 `ref/`；OP 依赖放在 `vendor/op/`；内置 Python 与 OCR 运行时放在 `runtime/`。
+- `screenshots/`、`DebugImage/`、`log.txt` 是运行输出，不要提交。
+
+### 构建、测试与本地运行
+
+- `start.bat`：使用内置 Python 启动 `py/app.py`，通常会以管理员权限运行。
+- `runtime\python310\python.exe py\app.py`：从项目根目录直接启动服务。
+- `setup_ocr.bat`：在 `runtime/python310` 内安装 OCR 依赖。
+- `safe_shutdown.bat`：停止本项目 Python 进程，并检查 `8765` 端口。
+- `runtime\python310\python.exe -m compileall py`：快速检查 `py/` 代码语法。
+
+本地服务地址固定为 `http://127.0.0.1:8765`。
+
+### 代码风格与命名
+
+- 使用 Python 3.10、四空格缩进。
+- 函数和变量用 `snake_case`，常量用 `UPPER_CASE`。
+- 代码保持直白，优先函数，只有在明显降低复杂度时才引入类。
+- 项目路径优先使用 `pathlib.Path`，路径基准保持为项目根目录。
+- 遵守下方依赖方向：页面层调用业务层，业务层调用底层封装，不要跨层直接调用。
+
+### 测试与验证
+
+- 当前没有正式测试框架或覆盖率要求。
+- 提交前至少运行 `runtime\python310\python.exe -m compileall py`。
+- 修改 HTTP、页面、OCR、截图、坐标或 Overlay 逻辑时，要手动验证相关功能。
+- OCR 和坐标类问题应使用新截图对照 `png/` 或 `ref/`，临时诊断图不要提交。
+
+### 提交与 PR 规范
+
+- Git 历史使用简短中文提交信息，例如 `新增大地图交互区域矩形计算函数`。
+- 提交信息应描述实际行为变化，不要只写工具操作。
+- PR 需要说明改动摘要、验证步骤、影响模块；涉及 UI、OCR、Overlay 或坐标变化时，补充截图或调试说明。
+- 修改 `runtime/` 或 `vendor/` 时必须明确说明原因，因为这些文件影响 OP 和 OCR 运行。
+
+### 安全与配置
+
+- 不要提交 `.sesskey`、日志、截图、调试图或本地运行输出。
+- 不要随意替换 `runtime/` 和 `vendor/` 下的二进制或依赖文件。
+
 ## 编码偏好
 
 - 代码要少、直白，适合 Python 新手。
