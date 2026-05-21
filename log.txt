@@ -1,94 +1,116 @@
-[13:42:16] 日志开始
-[13:42:16] 程序启动: HTTP 服务模式
-[13:42:16] 开始初始化 OP
-[13:42:16] OP 版本: 0.4.5.0
-[13:42:16] OP 初始化成功（64 位免注册）
-[13:42:16] OP 初始化成功
-[13:42:17] HTTP 服务启动: http://127.0.0.1:8765
-[13:42:27] 绑定成功 hwnd=23399444 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
-[13:42:27] OCR子进程启动 pid=17276
-[13:42:29] 怪物扫描完成 count=10 player=880,417 client_size=1760x990
-[13:42:29] 怪物 name=未识别 distance=51 hp=100% name_text= bar=814,359,846,363 pos=830,408
-[13:42:29] 怪物 name=未识别 distance=270 hp=100% name_text= bar=622,487,654,491 pos=638,536
-[13:42:29] 怪物 name=未识别 distance=393 hp=100% name_text= bar=574,103,606,107 pos=590,152
-[13:42:29] 怪物 name=未识别 distance=450 hp=30% name_text= bar=766,807,798,811 pos=782,856
-[13:42:29] 怪物 name=未识别 distance=478 hp=100% name_text= bar=430,167,462,171 pos=446,216
-[13:42:29] 怪物 name=未识别 distance=501 hp=100% name_text= bar=382,231,414,235 pos=398,280
-[13:42:29] 怪物 name=未识别 distance=649 hp=100% name_text= bar=334,743,366,747 pos=350,792
-[13:42:29] 怪物 name=未识别 distance=732 hp=100% name_text= bar=142,487,174,491 pos=158,536
-[13:42:29] 怪物 name=未识别 distance=766 hp=100% name_text= bar=1630,359,1662,363 pos=1646,408
-[13:42:29] 怪物 name=未识别 distance=804 hp=100% name_text= bar=190,807,222,811 pos=206,856
-[13:42:37] 怪物名称识别完成 name=稻草人 text=稻草人 raw=稻草人 mask=稻草 attempt=1 reject= bar={'left': 814, 'top': 359, 'right': 846, 'bottom': 363} pos=830,408
-[13:42:53] 怪物扫描完成 count=17 player=880,417 client_size=1760x990
-[13:42:53] 怪物 name=未识别 distance=55 hp=10% name_text= bar=814,391,846,395 pos=830,440
-[13:42:53] 怪物 name=未识别 distance=194 hp=100% name_text= bar=670,359,702,363 pos=686,408
-[13:42:53] 怪物 name=未识别 distance=301 hp=100% name_text= bar=1054,135,1086,139 pos=1070,184
-[13:42:53] 怪物 name=未识别 distance=313 hp=100% name_text= bar=1006,647,1038,651 pos=1022,696
-[13:42:53] 怪物 name=未识别 distance=343 hp=100% name_text= bar=862,711,894,715 pos=878,760
-[13:42:53] 怪物 name=未识别 distance=393 hp=100% name_text= bar=526,167,558,171 pos=542,216
-[13:42:53] 怪物 name=未识别 distance=410 hp=100% name_text= bar=814,775,846,779 pos=830,824
-[13:42:53] 怪物 name=未识别 distance=431 hp=100% name_text= bar=1294,391,1326,395 pos=1310,440
-[13:42:53] 怪物 name=未识别 distance=436 hp=100% name_text= bar=1150,39,1182,43 pos=1166,88
-[13:42:53] 怪物 name=未识别 distance=526 hp=100% name_text= bar=1246,7,1278,11 pos=1262,56
-[13:42:53] 怪物 name=未识别 distance=553 hp=100% name_text= bar=430,711,462,715 pos=446,760
-[13:42:53] 怪物 name=未识别 distance=578 hp=100% name_text= bar=286,359,318,363 pos=302,408
-[13:42:53] 怪物 name=未识别 distance=631 hp=100% name_text= bar=382,775,414,779 pos=398,824
-[13:42:53] 怪物 name=未识别 distance=669 hp=100% name_text= bar=1438,711,1470,715 pos=1454,760
-[13:42:53] 怪物 name=未识别 distance=723 hp=100% name_text= bar=142,327,174,331 pos=158,376
-[13:42:53] 怪物 name=未识别 distance=724 hp=100% name_text= bar=190,103,222,107 pos=206,152
-[13:42:53] 怪物 name=未识别 distance=829 hp=100% name_text= bar=142,775,174,779 pos=158,824
-[13:42:56] 怪物名称识别完成 name=稻草人 text=稻草人 raw=稻草 mask=稻草人 attempt=1 reject= bar={'left': 814, 'top': 391, 'right': 846, 'bottom': 395} pos=830,440
-[13:43:06] 怪物名称识别完成 name=鹿 text=鹿 raw= mask=鹿 attempt=1 reject= bar={'left': 862, 'top': 391, 'right': 894, 'bottom': 395} pos=878,440
-[13:43:07] 怪物扫描完成 count=20 player=880,417 client_size=1760x990
-[13:43:07] 怪物 name=未识别 distance=23 hp=3% name_text= bar=862,391,894,395 pos=878,440
-[13:43:07] 怪物 name=未识别 distance=47 hp=10% name_text= bar=910,359,942,363 pos=926,408
-[13:43:07] 怪物 name=未识别 distance=223 hp=100% name_text= bar=718,199,750,203 pos=734,248
-[13:43:07] 怪物 name=未识别 distance=387 hp=100% name_text= bar=478,391,510,395 pos=494,440
-[13:43:07] 怪物 name=未识别 distance=390 hp=100% name_text= bar=1198,167,1230,171 pos=1214,216
-[13:43:07] 怪物 name=未识别 distance=420 hp=100% name_text= bar=1054,743,1086,747 pos=1070,792
-[13:43:07] 怪物 name=未识别 distance=451 hp=100% name_text= bar=670,775,702,779 pos=686,824
-[13:43:07] 怪物 name=未识别 distance=456 hp=100% name_text= bar=1198,679,1230,683 pos=1214,728
-[13:43:07] 怪物 name=未识别 distance=461 hp=30% name_text= bar=1006,807,1038,811 pos=1022,856
-[13:43:07] 怪物 name=未识别 distance=526 hp=100% name_text= bar=574,807,606,811 pos=590,856
-[13:43:07] 怪物 name=未识别 distance=530 hp=100% name_text= bar=334,359,366,363 pos=350,408
-[13:43:07] 怪物 name=未识别 distance=535 hp=100% name_text= bar=382,135,414,139 pos=398,184
-[13:43:07] 怪物 name=未识别 distance=563 hp=100% name_text= bar=1342,71,1374,75 pos=1358,120
-[13:43:07] 怪物 name=未识别 distance=624 hp=100% name_text= bar=1486,423,1518,427 pos=1502,472
-[13:43:07] 怪物 name=未识别 distance=662 hp=100% name_text= bar=1438,39,1470,43 pos=1454,88
-[13:43:07] 怪物 name=未识别 distance=688 hp=100% name_text= bar=334,807,366,811 pos=350,856
-[13:43:07] 怪物 name=未识别 distance=785 hp=100% name_text= bar=94,519,126,523 pos=110,568
-[13:43:07] 怪物 name=未识别 distance=829 hp=100% name_text= bar=142,775,174,779 pos=158,824
-[13:43:07] 怪物 name=未识别 distance=850 hp=100% name_text= bar=94,7,126,11 pos=110,56
-[13:43:07] 怪物 name=未识别 distance=853 hp=100% name_text= bar=1630,743,1662,747 pos=1646,792
-[13:43:24] 怪物扫描完成 count=15 player=880,417 client_size=1760x990
-[13:43:24] 怪物 name=未识别 distance=51 hp=43% name_text= bar=814,359,846,363 pos=830,408
-[13:43:24] 怪物 name=未识别 distance=215 hp=10% name_text= bar=862,583,894,587 pos=878,632
-[13:43:24] 怪物 name=未识别 distance=252 hp=100% name_text= bar=814,615,846,619 pos=830,664
-[13:43:24] 怪物 name=未识别 distance=268 hp=3% name_text= bar=862,636,894,640 pos=878,685
-[13:43:24] 怪物 name=未识别 distance=374 hp=100% name_text= bar=1198,199,1230,203 pos=1214,248
-[13:43:24] 怪物 name=未识别 distance=414 hp=100% name_text= bar=478,519,510,523 pos=494,568
-[13:43:24] 怪物 name=未识别 distance=461 hp=100% name_text= bar=1150,7,1182,11 pos=1166,56
-[13:43:24] 怪物 name=未识别 distance=481 hp=100% name_text= bar=1294,583,1326,587 pos=1310,632
-[13:43:24] 怪物 name=未识别 distance=526 hp=100% name_text= bar=574,807,606,811 pos=590,856
-[13:43:24] 怪物 name=未识别 distance=586 hp=100% name_text= bar=1438,487,1470,491 pos=1454,536
-[13:43:24] 怪物 name=未识别 distance=595 hp=100% name_text= bar=430,775,462,779 pos=446,824
-[13:43:24] 怪物 name=未识别 distance=676 hp=100% name_text= bar=190,423,222,427 pos=206,472
-[13:43:24] 怪物 name=未识别 distance=676 hp=100% name_text= bar=1534,455,1566,459 pos=1550,504
-[13:43:24] 怪物 name=未识别 distance=724 hp=100% name_text= bar=190,103,222,107 pos=206,152
-[13:43:24] 怪物 name=未识别 distance=823 hp=100% name_text= bar=46,455,78,459 pos=62,504
-[13:50:42] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[13:50:43] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
-[13:50:43] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
-[13:50:45] 点击成功 button=right method=down_up(1,1) x=750 y=417 last_error=0 client_size=1760x990
-[13:50:47] 点击成功 button=left method=down_up(1,1) x=815 y=417 last_error=0 client_size=1760x990
-[13:51:00] 怪物扫描完成 count=10 player=880,417 client_size=1760x990
-[13:51:00] 怪物 name=未识别 distance=55 hp=3% name_text= bar=814,391,846,395 pos=830,440
-[13:51:00] 怪物 name=未识别 distance=177 hp=100% name_text= bar=1006,263,1038,267 pos=1022,312
-[13:51:00] 怪物 name=未识别 distance=235 hp=100% name_text= bar=958,583,990,587 pos=974,632
-[13:51:00] 怪物 name=未识别 distance=328 hp=100% name_text= bar=670,103,702,107 pos=686,152
-[13:51:00] 怪物 name=未识别 distance=381 hp=100% name_text= bar=574,615,606,619 pos=590,664
-[13:51:00] 怪物 name=未识别 distance=458 hp=100% name_text= bar=478,615,510,619 pos=494,664
-[13:51:00] 怪物 name=未识别 distance=527 hp=100% name_text= bar=1390,391,1422,395 pos=1406,440
-[13:51:00] 怪物 name=未识别 distance=628 hp=100% name_text= bar=1390,711,1422,715 pos=1406,760
-[13:51:00] 怪物 name=未识别 distance=650 hp=100% name_text= bar=286,71,318,75 pos=302,120
-[13:51:00] 怪物 name=未识别 distance=722 hp=100% name_text= bar=142,391,174,395 pos=158,440
+[23:24:55] 日志开始
+[23:24:55] 程序启动: HTTP 服务模式
+[23:24:55] 开始初始化 OP
+[23:24:55] OP 版本: 0.4.5.0
+[23:24:55] OP 初始化成功（64 位免注册）
+[23:24:55] OP 初始化成功
+[23:24:56] HTTP 服务启动: http://127.0.0.1:8765
+[23:26:25] 绑定成功 hwnd=29693774 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
+[23:26:26] OCR子进程启动 pid=17484
+[23:26:26] 点击成功 button=right method=down_up(1,1) x=930 y=372 last_error=0 client_size=1600x900
+[23:26:27] 点击成功 button=right method=down_up(1,1) x=670 y=372 last_error=0 client_size=1600x900
+[23:27:48] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0117.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0117.bmp range=0,0,1600,900 last_error=0；首次截图黑屏，已自动重启绑定: 绑定成功 hwnd=29693774 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0117.bmp range=0,0,1600,900 last_error=0
+[23:29:04] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0118.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0118.bmp range=0,0,1600,900 last_error=0；首次截图黑屏，已自动重启绑定: 绑定成功 hwnd=29693774 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0118.bmp range=0,0,1600,900 last_error=0
+[23:29:04] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0119.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0119.bmp range=0,0,1600,900 last_error=0
+[23:29:05] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0120.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0120.bmp range=0,0,1600,900 last_error=0
+[23:29:05] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0121.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0121.bmp range=0,0,1600,900 last_error=0
+[23:29:06] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0122.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0122.bmp range=0,0,1600,900 last_error=0
+[23:29:06] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0123.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0123.bmp range=0,0,1600,900 last_error=0
+[23:29:06] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0124.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0124.bmp range=0,0,1600,900 last_error=0
+[23:29:07] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0125.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0125.bmp range=0,0,1600,900 last_error=0
+[23:29:07] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0126.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0126.bmp range=0,0,1600,900 last_error=0
+[23:29:08] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0127.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0127.bmp range=0,0,1600,900 last_error=0
+[23:29:08] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0128.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0128.bmp range=0,0,1600,900 last_error=0
+[23:29:09] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0129.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0129.bmp range=0,0,1600,900 last_error=0
+[23:34:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:34:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:34:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:34:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:34:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:34:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[23:35:35] 绑定成功 hwnd=41685040 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=1 last_error=0
+[23:35:37] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
+[23:37:25] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0130.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0130.bmp range=0,0,1760,990 last_error=0
+[23:39:22] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0131.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0131.bmp range=0,0,1760,990 last_error=0；首次截图黑屏，已自动重启绑定: 绑定成功 hwnd=41685040 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0131.bmp range=0,0,1760,990 last_error=0
+[23:39:22] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0132.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0132.bmp range=0,0,1760,990 last_error=0
+[23:39:23] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0133.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0133.bmp range=0,0,1760,990 last_error=0
+[23:39:23] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0134.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0134.bmp range=0,0,1760,990 last_error=0
+[23:39:24] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0135.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0135.bmp range=0,0,1760,990 last_error=0
+[23:39:24] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0136.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0136.bmp range=0,0,1760,990 last_error=0
+[23:39:25] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0137.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0137.bmp range=0,0,1760,990 last_error=0
+[23:39:25] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0138.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0138.bmp range=0,0,1760,990 last_error=0
+[23:39:26] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0139.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0139.bmp range=0,0,1760,990 last_error=0
+[23:39:26] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0140.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0140.bmp range=0,0,1760,990 last_error=0
+[23:39:27] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0141.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0141.bmp range=0,0,1760,990 last_error=0
+[23:39:27] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0142.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0142.bmp range=0,0,1760,990 last_error=0
+[23:39:28] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0143.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0143.bmp range=0,0,1760,990 last_error=0
+[23:39:28] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0144.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0144.bmp range=0,0,1760,990 last_error=0

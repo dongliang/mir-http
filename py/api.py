@@ -304,6 +304,13 @@ def get_bound_client_info():
     }
 
 
+# 获取大地图交互矩形：大地图固定 550x350，按 OP 有效客户区居中。
+def get_map_rect(width, height):
+    left = round((width - 550) / 2)
+    top = round((height - 350) / 2)
+    return left, top, left + 550, top + 350
+
+
 # 获取玩家当前屏幕位置：复用移动原点算法得到角色脚站地块位置。
 def get_player_screen_position():
     if not op.is_window_bound():
