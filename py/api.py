@@ -646,7 +646,7 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None, show_o
         hover_y = clamp_number(position_y, 0, height - 1)
         name_box = get_monster_name_box_from_position(hover_x, hover_y, width, height)
 
-    move_success, move_message = op.move_bound_client(hover_x, hover_y)
+    move_success, move_message = op.move_mouse_to(hover_x, hover_y)
 
     if move_success:
         time.sleep(MONSTER_HOVER_WAIT_SECONDS)
@@ -1395,7 +1395,7 @@ def move_player(action, direction, show_overlay=True):
         hide_overlay_safely()
 
     # 点击执行结果：记录 OP 鼠标点击是否成功及其说明。
-    success, message = op.click_bound_client(move["click_x"], move["click_y"], move["button"])
+    success, message = op.click_mouse_at(move["click_x"], move["click_y"], move["button"])
 
     if success and show_overlay:
         show_click_overlay(move["click_x"], move["click_y"])

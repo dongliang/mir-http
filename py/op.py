@@ -248,8 +248,8 @@ def unbind_window():
     return False, title, f"解除绑定失败 hwnd={hwnd} result={result} last_error={last_error}"
 
 
-# 点击绑定客户端：在已绑定窗口的客户区坐标执行鼠标点击。
-def click_bound_client(x, y, button):
+# 点击鼠标：在已绑定窗口的客户区坐标执行鼠标点击。
+def click_mouse_at(x, y, button):
     if not bound_hwnd:
         return False, "还没有绑定窗口"
 
@@ -269,8 +269,8 @@ def click_bound_client(x, y, button):
     return False, f"点击失败 button={button} method={click_method} x={int(x)} y={int(y)} move={move_result} click={click_result} last_error={last_error}"
 
 
-# 移动绑定客户端鼠标：只移动鼠标，不执行点击。
-def move_bound_client(x, y):
+# 移动鼠标：在已绑定窗口的客户区坐标移动鼠标，不执行点击。
+def move_mouse_to(x, y):
     if not bound_hwnd:
         return False, "还没有绑定窗口"
 
