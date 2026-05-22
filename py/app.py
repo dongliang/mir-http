@@ -15,6 +15,14 @@ current_player = player.create_player()
 app_settings = {
     "overlay_enabled": True,
 }
+# 当前绑定的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
+current_map = {}
+# 当前地图巡逻点：保存网页确认后的逻辑坐标列表。
+patrol_points = []
+# 巡逻运行状态：记录下一次巡逻移动前的当前索引。
+patrol_state = {
+    "index": -1,
+}
 # 停止事件：通知后台刷新循环在程序退出时结束。
 stop_event = threading.Event()
 atexit.register(ocr_client.stop_ocr_worker)
@@ -28,7 +36,7 @@ def main() -> None:
     apply_app_settings()
     start_op()
     start_update_loop()
-    httpserver.run_server(current_player, update_frame, app_settings)
+    httpserver.run_server(current_player, update_frame, app_settings, current_map, patrol_points, patrol_state)
 
 
 # 刷新一帧：读取当前地图坐标并写回玩家状态。

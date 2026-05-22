@@ -25,6 +25,12 @@ debug_image_dir = base_dir / "DebugImage"
 coordinate_image = screenshot_dir / "map_coordinate.bmp"
 # PNG 资源目录：保存血条特征图等图像匹配资源。
 png_dir = base_dir / "png"
+# 参考资源目录：保存当前绑定的大地图图片。
+ref_dir = base_dir / "ref"
+# 当前地图图片：网页巡逻面板直接显示这张图。
+map_image_file = ref_dir / "map.png"
+# 地图最大坐标 OCR 截图：运行时诊断文件，不提交。
+map_max_coordinate_image = screenshot_dir / "map_max_coordinate.bmp"
 # 怪物血条特征图：血条最左侧小片段，用于统一查找满血和残血怪物。
 monster_blood_feature_image = png_dir / "残血血条特征图.png"
 # 红色血条模板：用于读取血条标准宽高。
@@ -37,6 +43,19 @@ monster_scan_lock = threading.Lock()
 BOTTOM_UI_HEIGHT = 155
 # 默认键盘测试键：用于页面测试按钮验证后台键盘输入链路。
 keyboard_test_key = "M"
+# 大地图图片宽度：游戏大地图固定宽度，用于网页和逻辑坐标换算。
+MAP_IMAGE_WIDTH = 550
+# 大地图图片高度：游戏大地图固定高度，用于网页和逻辑坐标换算。
+MAP_IMAGE_HEIGHT = 350
+# 最大逻辑坐标 OCR 框偏移：相对大地图右下角向内取一块区域。
+MAP_MAX_COORDINATE_OCR_OFFSET = {
+    "left": -190,
+    "top": -55,
+    "right": -2,
+    "bottom": -2,
+}
+# 地图右下角悬停等待：给游戏显示鼠标指向逻辑坐标留出时间。
+MAP_HOVER_WAIT_SECONDS = 0.25
 # 怪物悬停偏移：血条底边到怪物名字中点的位置，兼作怪物位置和鼠标悬停点。
 MONSTER_HOVER_OFFSET_Y = 45
 # 怪物名 OCR 横向半宽：约 5.5 个中文字总宽，避免两侧复杂背景干扰。
@@ -249,8 +268,8 @@ def toggle_overlay(app_settings):
     }
 
 
-# 获取状态：聚合玩家坐标、绑定窗口和应用设置。
-def get_status(player_info, app_settings):
+# 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图和巡逻点。
+def get_status(player_info, app_settings, current_map=None, patrol_points=None, patrol_state=None):
     return {
         "player": {
             "map_name": player_info["map_name"],
@@ -261,6 +280,41 @@ def get_status(player_info, app_settings):
         "settings": {
             "overlay_enabled": app_settings["overlay_enabled"],
         },
+        "map": make_map_status(current_map),
+        "patrol": make_patrol_status(patrol_points, patrol_state),
+    }
+
+
+# 生成地图状态：复制可序列化字段，避免前端拿到内部可变对象引用。
+def make_map_status(current_map):
+    if not current_map:
+        return {}
+
+    return {
+        "path": current_map.get("path", ""),
+        "url": current_map.get("url", ""),
+        "rect": dict(current_map.get("rect", {})),
+        "max_x": current_map.get("max_x", 0),
+        "max_y": current_map.get("max_y", 0),
+        "ocr_box": dict(current_map.get("ocr_box", {})),
+        "ocr_offset": dict(current_map.get("ocr_offset", {})),
+        "ocr_text": current_map.get("ocr_text", ""),
+    }
+
+
+# 生成巡逻状态：返回当前保存的巡逻点和索引。
+def make_patrol_status(patrol_points, patrol_state):
+    points = []
+
+    for point in patrol_points or []:
+        points.append({
+            "x": int(point.get("x", 0)),
+            "y": int(point.get("y", 0)),
+        })
+
+    return {
+        "points": points,
+        "index": int((patrol_state or {}).get("index", -1)),
     }
 
 
@@ -306,9 +360,285 @@ def get_bound_client_info():
 
 # 获取大地图交互矩形：大地图固定 550x350，按 OP 有效客户区居中。
 def get_map_rect(width, height):
-    left = round((width - 550) / 2)
-    top = round((height - 350) / 2)
-    return left, top, left + 550, top + 350
+    left = round((width - MAP_IMAGE_WIDTH) / 2)
+    top = round((height - MAP_IMAGE_HEIGHT) / 2)
+    return left, top, left + MAP_IMAGE_WIDTH, top + MAP_IMAGE_HEIGHT
+
+
+# 绑定当前大地图：截图保存地图图片，并 OCR 鼠标悬停右下角时的最大逻辑坐标。
+def bind_current_map(player_info=None):
+    with coordinate_lock:
+        try:
+            return bind_current_map_locked(player_info)
+        except Exception as error:
+            return {
+                "success": False,
+                "message": f"绑定地图异常: {error}",
+            }
+
+
+# 执行地图绑定：由锁保护截图、鼠标悬停和 OCR 过程。
+def bind_current_map_locked(player_info=None):
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口",
+        }
+
+    width, height = get_bound_client_size()
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    left, top, right, bottom = get_map_rect(width, height)
+    map_rect = make_map_rect(left, top, right, bottom)
+    hover_x, hover_y = right - 2, bottom - 2
+
+    move_success, move_message = op.move_mouse_to(hover_x, hover_y)
+
+    if not move_success:
+        return {
+            "success": False,
+            "message": f"地图右下角悬停失败: {move_message}",
+            "map": {},
+        }
+
+    time.sleep(MAP_HOVER_WAIT_SECONDS)
+
+    ref_dir.mkdir(exist_ok=True)
+    capture_success, capture_message = capture_bound_client_checked(
+        left,
+        top,
+        right - 1,
+        bottom - 1,
+        map_image_file,
+    )
+
+    if not capture_success:
+        return {
+            "success": False,
+            "message": f"地图截图失败: {capture_message}",
+            "map": {},
+        }
+
+    ocr_box = get_map_max_coordinate_ocr_box(map_rect, width, height)
+    crop_map_max_coordinate_image(map_rect, ocr_box)
+    text = ocr_client.recognize_text(map_max_coordinate_image)
+    max_x, max_y = parse_map_max_coordinate_text(text, player_info)
+
+    current_map = {
+        "path": str(map_image_file),
+        "url": f"/ref/map.png?v={int(time.time() * 1000)}",
+        "rect": map_rect,
+        "max_x": max_x,
+        "max_y": max_y,
+        "ocr_box": ocr_box,
+        "ocr_offset": dict(MAP_MAX_COORDINATE_OCR_OFFSET),
+        "ocr_text": text,
+    }
+
+    return {
+        "success": True,
+        "map": current_map,
+        "message": (
+            f"绑定地图成功 path={map_image_file} max={max_x}:{max_y} "
+            f"rect={left},{top},{right},{bottom} "
+            f"ocr_box={ocr_box['left']},{ocr_box['top']},{ocr_box['right']},{ocr_box['bottom']} "
+            f"text={text!r} hover={hover_x},{hover_y} {capture_message}"
+        ),
+    }
+
+
+# 创建地图矩形状态：统一 right/bottom 作为开区间。
+def make_map_rect(left, top, right, bottom):
+    return {
+        "left": int(left),
+        "top": int(top),
+        "right": int(right),
+        "bottom": int(bottom),
+        "width": int(right - left),
+        "height": int(bottom - top),
+    }
+
+
+# 获取最大坐标 OCR 框：按右下角偏移计算客户区坐标矩形。
+def get_map_max_coordinate_ocr_box(map_rect, width, height):
+    return clamp_box(
+        map_rect["right"] + MAP_MAX_COORDINATE_OCR_OFFSET["left"],
+        map_rect["bottom"] + MAP_MAX_COORDINATE_OCR_OFFSET["top"],
+        map_rect["right"] + MAP_MAX_COORDINATE_OCR_OFFSET["right"],
+        map_rect["bottom"] + MAP_MAX_COORDINATE_OCR_OFFSET["bottom"],
+        width,
+        height,
+    )
+
+
+# 从地图截图中裁出最大坐标 OCR 区域。
+def crop_map_max_coordinate_image(map_rect, ocr_box):
+    left = ocr_box["left"] - map_rect["left"]
+    top = ocr_box["top"] - map_rect["top"]
+    right = ocr_box["right"] - map_rect["left"]
+    bottom = ocr_box["bottom"] - map_rect["top"]
+
+    map_max_coordinate_image.parent.mkdir(exist_ok=True)
+
+    with Image.open(map_image_file) as image:
+        image.crop((left, top, right, bottom)).save(map_max_coordinate_image)
+
+
+# 解析地图最大逻辑坐标 OCR 文本。
+def parse_map_max_coordinate_text(text, player_info=None):
+    pairs = re.findall(r"(\d{1,4})\s*[:：,，/\\]\s*(\d{1,4})", text or "")
+
+    if pairs:
+        x_text, y_text = pairs[-1]
+    else:
+        numbers = re.findall(r"\d+", text or "")
+
+        if len(numbers) < 2:
+            raise ValueError(f"无法识别地图最大逻辑坐标 text={text!r}")
+
+        x_text, y_text = numbers[-2], numbers[-1]
+
+    max_x, max_y = int(x_text), int(y_text)
+
+    if max_x <= 0 or max_y <= 0:
+        raise ValueError(f"地图最大逻辑坐标异常 max={max_x}:{max_y} text={text!r}")
+
+    player_x, player_y = get_player_logic_coordinate(player_info)
+
+    if player_x is not None and max_x < player_x:
+        raise ValueError(f"地图最大 X 小于当前玩家 X max_x={max_x} player_x={player_x} text={text!r}")
+
+    if player_y is not None and max_y < player_y:
+        raise ValueError(f"地图最大 Y 小于当前玩家 Y max_y={max_y} player_y={player_y} text={text!r}")
+
+    return max_x, max_y
+
+
+# 读取玩家当前逻辑坐标：用于过滤明显误识别的最大地图坐标。
+def get_player_logic_coordinate(player_info):
+    if not player_info:
+        return None, None
+
+    return parse_optional_int(player_info.get("x")), parse_optional_int(player_info.get("y"))
+
+
+# 解析可选整数。
+def parse_optional_int(value):
+    try:
+        return int(str(value).strip())
+    except (TypeError, ValueError):
+        return None
+
+
+# 地图图片坐标转逻辑坐标。
+def map_pixel_to_logic(pixel_x, pixel_y, max_x, max_y):
+    max_x, max_y = validate_map_max_coordinate(max_x, max_y)
+    pixel_x = clamp_number(round(pixel_x), 0, MAP_IMAGE_WIDTH - 1)
+    pixel_y = clamp_number(round(pixel_y), 0, MAP_IMAGE_HEIGHT - 1)
+
+    return {
+        "x": round(pixel_x * max_x / (MAP_IMAGE_WIDTH - 1)),
+        "y": round(pixel_y * max_y / (MAP_IMAGE_HEIGHT - 1)),
+    }
+
+
+# 逻辑坐标转地图图片坐标。
+def logic_to_map_pixel(logic_x, logic_y, max_x, max_y):
+    max_x, max_y = validate_map_max_coordinate(max_x, max_y)
+    logic_x = clamp_number(round(logic_x), 0, max_x)
+    logic_y = clamp_number(round(logic_y), 0, max_y)
+
+    return {
+        "x": round(logic_x * (MAP_IMAGE_WIDTH - 1) / max_x),
+        "y": round(logic_y * (MAP_IMAGE_HEIGHT - 1) / max_y),
+    }
+
+
+# 校验地图最大坐标。
+def validate_map_max_coordinate(max_x, max_y):
+    max_x = int(max_x)
+    max_y = int(max_y)
+
+    if max_x <= 0 or max_y <= 0:
+        raise ValueError(f"地图最大逻辑坐标异常 max={max_x}:{max_y}")
+
+    return max_x, max_y
+
+
+# 逻辑坐标转客户区点击坐标。
+def logic_to_client_point(logic_x, logic_y, current_map):
+    if not current_map:
+        raise ValueError("还没有绑定地图")
+
+    rect = current_map.get("rect", {})
+    max_x, max_y = validate_map_max_coordinate(current_map.get("max_x", 0), current_map.get("max_y", 0))
+    pixel = logic_to_map_pixel(logic_x, logic_y, max_x, max_y)
+
+    return {
+        "client_x": int(rect.get("left", 0)) + pixel["x"],
+        "client_y": int(rect.get("top", 0)) + pixel["y"],
+        "map_x": pixel["x"],
+        "map_y": pixel["y"],
+    }
+
+
+# 移动到指定逻辑巡逻点：打开地图、点击目标点、关闭地图。
+def move_to_logic_point(point, current_map, show_overlay=True):
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口",
+        }
+
+    try:
+        logic_x = int(point.get("x", 0))
+        logic_y = int(point.get("y", 0))
+        target = logic_to_client_point(logic_x, logic_y, current_map)
+    except (TypeError, ValueError) as error:
+        return {
+            "success": False,
+            "message": str(error),
+        }
+
+    open_result = press_keyboard("M", hold_ms=120, repeat=2, interval_ms=120)
+
+    if not open_result["success"]:
+        return {
+            "success": False,
+            "point": {"x": logic_x, "y": logic_y},
+            "target": target,
+            "message": f"打开地图失败: {open_result['message']}",
+            "open_keyboard": open_result,
+        }
+
+    time.sleep(0.2)
+    click_success, click_message = op.click_mouse_at(target["client_x"], target["client_y"], "left")
+
+    if click_success and show_overlay:
+        show_click_overlay(target["client_x"], target["client_y"])
+
+    time.sleep(0.1)
+    close_result = press_keyboard("M", hold_ms=120, repeat=1, interval_ms=80)
+    success = click_success and close_result["success"]
+
+    return {
+        "success": success,
+        "point": {"x": logic_x, "y": logic_y},
+        "target": target,
+        "open_keyboard": open_result,
+        "close_keyboard": close_result,
+        "message": (
+            f"移动到巡逻点 {'成功' if success else '失败'} "
+            f"logic={logic_x}:{logic_y} map={target['map_x']},{target['map_y']} "
+            f"client={target['client_x']},{target['client_y']} "
+            f"click={click_message} close={close_result['message']}"
+        ),
+    }
 
 
 # 获取玩家当前屏幕位置：复用移动原点算法得到角色脚站地块位置。

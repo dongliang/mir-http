@@ -1,5 +1,6 @@
 from fasthtml.common import *
-from starlette.responses import JSONResponse, PlainTextResponse
+from starlette.requests import Request
+from starlette.responses import FileResponse, JSONResponse, PlainTextResponse
 import uvicorn
 
 import api
@@ -13,17 +14,21 @@ SERVER_PORT = 8765
 
 
 # 运行 HTTP 服务：创建应用并启动 uvicorn 本地服务。
-def run_server(player_info, update_frame, app_settings):
+def run_server(player_info, update_frame, app_settings, current_map, patrol_points, patrol_state):
     # FastHTML 应用：承载页面和所有 API 路由。
-    app = create_server(player_info, update_frame, app_settings)
+    app = create_server(player_info, update_frame, app_settings, current_map, patrol_points, patrol_state)
     log.write_console(f"HTTP 服务启动: http://{SERVER_HOST}:{SERVER_PORT}")
     uvicorn.run(app, host=SERVER_HOST, port=SERVER_PORT, log_level="warning")
 
 
 # 创建 HTTP 服务：注册控制台页面和后端操作 API。
-def create_server(player_info, update_frame, app_settings):
+def create_server(player_info, update_frame, app_settings, current_map, patrol_points, patrol_state):
     # 应用和路由器：由 FastHTML 创建页面应用和路由装饰器。
-    app, rt = fast_app()
+    app, rt = fast_app(static_path=str(api.base_dir))
+
+    # 当前页面状态：闭包绑定地图和巡逻运行时变量。
+    def current_status():
+        return get_status(player_info, app_settings, current_map, patrol_points, patrol_state)
 
     # 首页路由：渲染窗口绑定、移动控制和日志面板。
     @rt("/")
@@ -46,6 +51,7 @@ def create_server(player_info, update_frame, app_settings):
                     Div("坐标: ", Span(f"{player_info['x']}:{player_info['y']}", id="coordinate")),
                     cls="status",
                 ),
+                create_patrol_panel(),
                 Div(
                     H3("怪物列表"),
                     Table(
@@ -74,12 +80,71 @@ def create_server(player_info, update_frame, app_settings):
     # 状态读取接口：返回玩家、窗口绑定和应用设置状态。
     @rt("/api/status")
     def get():
-        return JSONResponse(get_status(player_info, app_settings))
+        return JSONResponse(current_status())
 
     # 帧状态接口：兼容前端 POST 轮询并返回当前状态。
     @rt("/api/frame")
     def post():
-        return JSONResponse(get_status(player_info, app_settings))
+        return JSONResponse(current_status())
+
+    # 当前地图图片：供网页巡逻面板显示 ref/map.png。
+    @rt("/ref/map.png")
+    def get():
+        if not api.map_image_file.exists():
+            return PlainTextResponse("map not found", status_code=404)
+
+        return FileResponse(api.map_image_file, media_type="image/png")
+
+    # 绑定地图接口：截图当前大地图，读取最大逻辑坐标并重置巡逻点。
+    @rt("/api/map/bind")
+    def post():
+        update_frame_safely(update_frame)
+        result = api.bind_current_map(player_info)
+        log.write(result["message"])
+
+        if result["success"]:
+            current_map.clear()
+            current_map.update(result["map"])
+            patrol_points.clear()
+            patrol_state["index"] = -1
+
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "map": result.get("map", {}),
+            "status": current_status(),
+        })
+
+    # 保存巡逻点接口：把网页当前点列表写入 app.py 的内存变量。
+    @rt("/api/patrol/save")
+    async def post(request: Request):
+        try:
+            data = await request.json()
+        except Exception:
+            data = {}
+
+        result = save_patrol_points(data, current_map, patrol_points, patrol_state)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "points": result.get("points", []),
+            "status": current_status(),
+        })
+
+    # 移动到下一个巡逻点接口：按循环索引取点并触发游戏地图点击。
+    @rt("/api/patrol/next")
+    def post():
+        result = move_to_next_patrol_point(current_map, patrol_points, patrol_state, app_settings)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "point": result.get("point", {}),
+            "index": patrol_state["index"],
+            "move": result.get("move", {}),
+            "status": current_status(),
+        })
 
     # OP 启动接口：初始化 OP 并返回版本与结果消息。
     @rt("/api/op/start")
@@ -99,7 +164,7 @@ def create_server(player_info, update_frame, app_settings):
             "success": result["success"],
             "title": result["title"],
             "message": result["message"],
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # 窗口解绑接口：解除当前绑定窗口并返回最新状态。
@@ -112,7 +177,7 @@ def create_server(player_info, update_frame, app_settings):
             "success": result["success"],
             "title": result["title"],
             "message": result["message"],
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # 坐标读取接口：主动刷新一次 OCR 坐标并返回页面状态。
@@ -123,7 +188,7 @@ def create_server(player_info, update_frame, app_settings):
             "map_name": player_info["map_name"],
             "x": player_info["x"],
             "y": player_info["y"],
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # 移动接口：根据动作和方向触发一次角色移动点击。
@@ -134,7 +199,7 @@ def create_server(player_info, update_frame, app_settings):
         log.write(result["message"])
         return JSONResponse({
             "move": result,
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # Overlay 切换接口：反转点击提示开关并同步到底层模块。
@@ -146,7 +211,7 @@ def create_server(player_info, update_frame, app_settings):
         return JSONResponse({
             "success": result["success"],
             "message": result["message"],
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # 截图接口：截取当前绑定窗口并返回截图保存路径。
@@ -159,7 +224,7 @@ def create_server(player_info, update_frame, app_settings):
             "success": result["success"],
             "path": result["path"],
             "message": result["message"],
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # 玩家屏幕位置接口：返回按移动原点算法计算出的角色屏幕坐标。
@@ -175,7 +240,7 @@ def create_server(player_info, update_frame, app_settings):
             "client": result.get("client", {}),
             "bottom_ui_height": result.get("bottom_ui_height", api.BOTTOM_UI_HEIGHT),
             "message": result["message"],
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # 怪物扫描接口：快速查找屏幕怪物并返回位置、距离和血量百分比。
@@ -193,7 +258,7 @@ def create_server(player_info, update_frame, app_settings):
             "client": result.get("client", {}),
             "debug_points": result.get("debug_points", []),
             "message": result["message"],
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # 怪物名称识别接口：按表格传入的单个怪物位置补充名称。
@@ -232,7 +297,7 @@ def create_server(player_info, update_frame, app_settings):
             "ocr_box": result.get("ocr_box", {}),
             "blood_bar": result.get("blood_bar", {}),
             "message": result["message"],
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # 后台键盘输入接口：向当前绑定窗口发送指定按键。
@@ -245,7 +310,7 @@ def create_server(player_info, update_frame, app_settings):
             "success": result["success"],
             "message": result["message"],
             "keyboard": result,
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # 后台键盘测试接口：用默认 M 按键复用通用键盘输入封装。
@@ -258,7 +323,7 @@ def create_server(player_info, update_frame, app_settings):
             "success": result["success"],
             "message": result["message"],
             "keyboard": result,
-            "status": get_status(player_info, app_settings),
+            "status": current_status(),
         })
 
     # 测试按钮接口：写入一条测试日志用于验证页面操作链路。
@@ -286,6 +351,9 @@ def create_buttons(app_settings):
         Button(get_overlay_button_text(app_settings), id="overlay-button", onclick="toggleOverlay()"),
         Button("测试键盘(M)", onclick="pressKeyboard('M')"),
         Button("检测怪物列表", onclick="scanMonsters()"),
+        Button("绑定地图", onclick="bindMap()"),
+        Button("保存巡逻点", onclick="savePatrolPoints()"),
+        Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
     ]
 
     return [
@@ -308,6 +376,21 @@ def create_buttons(app_settings):
             cls="move-pads",
         ),
     ]
+
+
+# 创建巡逻地图面板：显示当前地图图片和网页点选出的巡逻点。
+def create_patrol_panel():
+    return Div(
+        H3("巡逻地图"),
+        Div(
+            Img(id="patrol-map-image", cls="patrol-map-image", alt="当前地图"),
+            Div(id="patrol-map-points", cls="patrol-map-points"),
+            id="patrol-map-view",
+            cls="patrol-map-view empty",
+        ),
+        Div("未绑定地图", id="patrol-map-info", cls="patrol-map-info"),
+        cls="patrol-panel",
+    )
 
 
 # 创建移动九宫格：生成某个动作对应的八方向移动按钮。
@@ -336,9 +419,97 @@ def create_move_pad(title, action):
     )
 
 
-# 获取状态：聚合玩家坐标、绑定窗口和应用设置。
-def get_status(player_info, app_settings):
-    return api.get_status(player_info, app_settings)
+# 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图和巡逻点。
+def get_status(player_info, app_settings, current_map=None, patrol_points=None, patrol_state=None):
+    return api.get_status(player_info, app_settings, current_map, patrol_points, patrol_state)
+
+
+# 保存巡逻点：校验网页传来的逻辑坐标并写入内存列表。
+def save_patrol_points(data, current_map, patrol_points, patrol_state):
+    if not current_map:
+        return {
+            "success": False,
+            "message": "还没有绑定地图",
+        }
+
+    try:
+        max_x = int(current_map.get("max_x", 0))
+        max_y = int(current_map.get("max_y", 0))
+    except (TypeError, ValueError):
+        max_x, max_y = 0, 0
+
+    if max_x <= 0 or max_y <= 0:
+        return {
+            "success": False,
+            "message": "地图最大逻辑坐标异常",
+        }
+
+    points_data = data.get("points", []) if isinstance(data, dict) else []
+
+    if not isinstance(points_data, list):
+        return {
+            "success": False,
+            "message": "巡逻点数据格式错误",
+        }
+
+    points = []
+
+    try:
+        for index, point in enumerate(points_data):
+            x = int(point.get("x", 0))
+            y = int(point.get("y", 0))
+
+            if x < 0 or x > max_x or y < 0 or y > max_y:
+                return {
+                    "success": False,
+                    "message": f"第 {index + 1} 个巡逻点超出地图范围 point={x}:{y} max={max_x}:{max_y}",
+                }
+
+            points.append({"x": x, "y": y})
+    except (AttributeError, TypeError, ValueError):
+        return {
+            "success": False,
+            "message": "巡逻点坐标格式错误",
+        }
+
+    patrol_points[:] = points
+    patrol_state["index"] = -1
+
+    return {
+        "success": True,
+        "points": points,
+        "message": f"保存巡逻点成功 count={len(points)}",
+    }
+
+
+# 移动到下一个巡逻点：按保存顺序循环执行。
+def move_to_next_patrol_point(current_map, patrol_points, patrol_state, app_settings):
+    if not current_map:
+        return {
+            "success": False,
+            "message": "还没有绑定地图",
+        }
+
+    if not patrol_points:
+        return {
+            "success": False,
+            "message": "还没有保存巡逻点",
+        }
+
+    current_index = int(patrol_state.get("index", -1))
+    next_index = (current_index + 1) % len(patrol_points)
+    point = patrol_points[next_index]
+    move = api.move_to_logic_point(point, current_map, app_settings["overlay_enabled"])
+
+    if move["success"]:
+        patrol_state["index"] = next_index
+
+    return {
+        "success": move["success"],
+        "point": point,
+        "move": move,
+        "message": f"巡逻点 index={next_index} {move['message']}",
+    }
 
 
 # 获取 Overlay 按钮文本：根据开关状态生成按钮显示文案。
@@ -396,7 +567,7 @@ h2 {
 }
 .utility-buttons {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
     gap: 8px;
 }
 input {
@@ -436,6 +607,60 @@ button {
     background: white;
     border: 1px solid #ddd;
     padding: 8px;
+}
+.patrol-panel {
+    margin-bottom: 12px;
+}
+.patrol-panel h3 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+}
+.patrol-map-view {
+    position: relative;
+    width: min(550px, 100%);
+    aspect-ratio: 550 / 350;
+    border: 1px solid #bbb;
+    background: #222;
+    overflow: hidden;
+    cursor: crosshair;
+}
+.patrol-map-view.empty {
+    cursor: default;
+}
+.patrol-map-image {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+.patrol-map-points {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+.patrol-point {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    box-sizing: border-box;
+    border: 1px solid #111;
+    border-radius: 50%;
+    background: white;
+    transform: translate(-50%, -50%);
+}
+.patrol-point.active {
+    outline: 2px solid #2b7cff;
+}
+.patrol-map-info {
+    width: min(550px, 100%);
+    box-sizing: border-box;
+    margin-top: 6px;
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    background: white;
+    font-size: 12px;
 }
 .monster-panel {
     margin-bottom: 12px;
@@ -481,7 +706,14 @@ th {
 # 页面脚本：定义前端轮询、按钮请求和状态刷新逻辑。
 PAGE_SCRIPT = """
 const POLL_INTERVAL_MS = 500;
+const MAP_IMAGE_WIDTH = 550;
+const MAP_IMAGE_HEIGHT = 350;
 let currentMonsters = [];
+let currentMap = null;
+let currentMapUrl = "";
+let patrolPoints = [];
+let patrolIndex = -1;
+let patrolDirty = false;
 
 async function postApi(url) {
     const response = await fetch(url, {method: "POST"});
@@ -522,6 +754,39 @@ async function toggleOverlay() {
 async function pressKeyboard(key) {
     const params = new URLSearchParams({key});
     await postApi("/api/keyboard/press?" + params.toString());
+}
+
+async function bindMap() {
+    const response = await fetch("/api/map/bind", {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
+async function savePatrolPoints() {
+    const response = await fetch("/api/patrol/save", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({points: patrolPoints}),
+    });
+    const data = await response.json();
+    console.log(data);
+
+    if (data.success) {
+        patrolDirty = false;
+    }
+
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
+async function moveToNextPatrolPoint() {
+    const response = await fetch("/api/patrol/next", {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
 }
 
 async function scanMonsters() {
@@ -652,6 +917,141 @@ function updateMonsterPositionCell(id, text) {
     }
 }
 
+function setupPatrolMapEvents() {
+    const view = document.getElementById("patrol-map-view");
+    if (!view) return;
+
+    view.addEventListener("click", addPatrolPointFromEvent);
+    view.addEventListener("contextmenu", clearPatrolPointsFromEvent);
+}
+
+function addPatrolPointFromEvent(event) {
+    if (!currentMap || !currentMap.max_x || !currentMap.max_y) return;
+
+    const view = document.getElementById("patrol-map-view");
+    const rect = view.getBoundingClientRect();
+    const pixelX = clampNumber((event.clientX - rect.left) / rect.width * (MAP_IMAGE_WIDTH - 1), 0, MAP_IMAGE_WIDTH - 1);
+    const pixelY = clampNumber((event.clientY - rect.top) / rect.height * (MAP_IMAGE_HEIGHT - 1), 0, MAP_IMAGE_HEIGHT - 1);
+    const point = mapPixelToLogic(pixelX, pixelY);
+
+    patrolPoints.push(point);
+    patrolIndex = -1;
+    patrolDirty = true;
+    renderPatrolPoints();
+    updatePatrolMapInfo();
+}
+
+function clearPatrolPointsFromEvent(event) {
+    event.preventDefault();
+
+    if (!currentMap) return;
+
+    patrolPoints = [];
+    patrolIndex = -1;
+    patrolDirty = true;
+    renderPatrolPoints();
+    updatePatrolMapInfo();
+}
+
+function applyStatus(data) {
+    if (!data || !data.player) return;
+
+    document.getElementById("map-name").textContent = data.player.map_name;
+    document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
+    document.getElementById("bound-title").textContent = data.bound_window.title || "未绑定";
+    document.getElementById("overlay-button").textContent = data.settings.overlay_enabled ? "Overlay: 开" : "Overlay: 关";
+
+    const oldMapUrl = currentMapUrl;
+    updatePatrolMap(data.map || {});
+
+    if (data.patrol && (!patrolDirty || currentMapUrl !== oldMapUrl)) {
+        patrolPoints = data.patrol.points || [];
+        patrolIndex = data.patrol.index ?? -1;
+        patrolDirty = false;
+    }
+
+    renderPatrolPoints();
+    updatePatrolMapInfo();
+}
+
+function updatePatrolMap(mapInfo) {
+    const image = document.getElementById("patrol-map-image");
+    const view = document.getElementById("patrol-map-view");
+
+    if (!mapInfo || !mapInfo.url) {
+        currentMap = null;
+        currentMapUrl = "";
+        image.removeAttribute("src");
+        image.style.display = "none";
+        view.classList.add("empty");
+        return;
+    }
+
+    currentMap = mapInfo;
+    currentMapUrl = mapInfo.url;
+
+    if (image.getAttribute("src") !== mapInfo.url) {
+        image.src = mapInfo.url;
+    }
+
+    image.style.display = "block";
+    view.classList.remove("empty");
+}
+
+function renderPatrolPoints() {
+    const container = document.getElementById("patrol-map-points");
+    container.textContent = "";
+
+    if (!currentMap) return;
+
+    patrolPoints.forEach((point, index) => {
+        const pixel = logicToMapPixel(point.x, point.y);
+        const marker = document.createElement("div");
+        marker.className = "patrol-point" + (index === patrolIndex ? " active" : "");
+        marker.style.left = String(pixel.x / (MAP_IMAGE_WIDTH - 1) * 100) + "%";
+        marker.style.top = String(pixel.y / (MAP_IMAGE_HEIGHT - 1) * 100) + "%";
+        marker.title = String(point.x) + ":" + String(point.y);
+        container.appendChild(marker);
+    });
+}
+
+function updatePatrolMapInfo() {
+    const info = document.getElementById("patrol-map-info");
+
+    if (!currentMap) {
+        info.textContent = "未绑定地图";
+        return;
+    }
+
+    const dirtyText = patrolDirty ? " 未保存" : "";
+    info.textContent = "最大坐标: " + currentMap.max_x + ":" + currentMap.max_y
+        + " 巡逻点: " + patrolPoints.length + dirtyText;
+}
+
+function mapPixelToLogic(pixelX, pixelY) {
+    const maxX = Number(currentMap.max_x || 0);
+    const maxY = Number(currentMap.max_y || 0);
+
+    return {
+        x: Math.round(clampNumber(pixelX, 0, MAP_IMAGE_WIDTH - 1) * maxX / (MAP_IMAGE_WIDTH - 1)),
+        y: Math.round(clampNumber(pixelY, 0, MAP_IMAGE_HEIGHT - 1) * maxY / (MAP_IMAGE_HEIGHT - 1)),
+    };
+}
+
+function logicToMapPixel(logicX, logicY) {
+    const maxX = Number(currentMap.max_x || 1);
+    const maxY = Number(currentMap.max_y || 1);
+
+    return {
+        x: Math.round(clampNumber(logicX, 0, maxX) * (MAP_IMAGE_WIDTH - 1) / maxX),
+        y: Math.round(clampNumber(logicY, 0, maxY) * (MAP_IMAGE_HEIGHT - 1) / maxY),
+    };
+}
+
+function clampNumber(value, minimum, maximum) {
+    return Math.max(minimum, Math.min(maximum, Number(value)));
+}
+
 async function refreshStatus() {
     if (refreshStatus.busy) return;
     refreshStatus.busy = true;
@@ -659,10 +1059,7 @@ async function refreshStatus() {
     try {
         const frameResponse = await fetch("/api/status");
         const data = await frameResponse.json();
-        document.getElementById("map-name").textContent = data.player.map_name;
-        document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
-        document.getElementById("bound-title").textContent = data.bound_window.title || "未绑定";
-        document.getElementById("overlay-button").textContent = data.settings.overlay_enabled ? "Overlay: 开" : "Overlay: 关";
+        applyStatus(data);
     } finally {
         refreshStatus.busy = false;
     }
@@ -679,6 +1076,7 @@ async function refreshLogs() {
 setInterval(refreshStatus, POLL_INTERVAL_MS);
 setInterval(refreshLogs, POLL_INTERVAL_MS);
 window.onload = async function() {
+    setupPatrolMapEvents();
     await refreshStatus();
     await refreshLogs();
 };
