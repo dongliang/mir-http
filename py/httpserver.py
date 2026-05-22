@@ -48,6 +48,7 @@ def run_server(
     battle_control,
     current_state,
     auto_heal_state,
+    idle_stuck_state,
     game_data,
 ):
     # FastHTML 应用：承载页面和所有 API 路由。
@@ -62,6 +63,7 @@ def run_server(
         battle_control,
         current_state,
         auto_heal_state,
+        idle_stuck_state,
         game_data,
     )
     log.write_console(f"HTTP 服务启动: http://{SERVER_HOST}:{SERVER_PORT}")
@@ -80,6 +82,7 @@ def create_server(
     battle_control,
     current_state,
     auto_heal_state,
+    idle_stuck_state,
     game_data,
 ):
     # 应用和路由器：由 FastHTML 创建页面应用和路由装饰器。
@@ -97,6 +100,7 @@ def create_server(
             battle_control,
             current_state,
             auto_heal_state,
+            idle_stuck_state,
         )
 
     # 首页路由：渲染窗口绑定、移动控制和日志面板。
@@ -122,6 +126,7 @@ def create_server(
                     Div("巡逻: ", Span("关", id="patrol-enabled")),
                     Div("战斗: ", Span("关", id="battle-enabled")),
                     Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
+                    Div("卡住跳点: ", Span("开", id="idle-stuck-enabled-text")),
                     cls="status",
                 ),
                 create_patrol_panel(),
@@ -501,6 +506,23 @@ def create_server(
             "status": current_status(),
         })
 
+    # idle 卡住保护设置接口：保存页面开关和停留秒数。
+    @rt("/api/idle-stuck/settings")
+    async def post(request: Request):
+        try:
+            data = await request.json()
+        except Exception:
+            data = {}
+
+        result = api.update_idle_stuck_settings(app_settings, idle_stuck_state, data)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "idle_stuck": result.get("idle_stuck", {}),
+            "status": current_status(),
+        })
+
     # 地图 rect 右下角 Overlay 切换接口：显示或隐藏持久白色方块。
     @rt("/api/overlay/map-rect-corner/toggle")
     def post():
@@ -565,6 +587,7 @@ def create_buttons(app_settings):
             cls="bind-controls",
         ),
         create_auto_heal_controls(app_settings),
+        create_idle_stuck_controls(app_settings),
         Div(*utility_buttons, cls="utility-buttons"),
         Div(
             create_move_pad("走", "walk"),
@@ -619,6 +642,41 @@ def create_auto_heal_controls(app_settings):
         ),
         Div("", id="auto-heal-message", cls="auto-heal-message"),
         cls="auto-heal-controls",
+    )
+
+
+# 创建 idle 卡住保护控制栏：开关和停留秒数。
+def create_idle_stuck_controls(app_settings):
+    enabled_attrs = {
+        "id": "idle-stuck-enabled",
+        "type": "checkbox",
+        "onchange": "saveIdleStuckSettings()",
+    }
+
+    if app_settings.get("idle_stuck_enabled", True):
+        enabled_attrs["checked"] = True
+
+    return Div(
+        Label(
+            Input(**enabled_attrs),
+            Span("卡住跳点"),
+            cls="idle-stuck-toggle",
+        ),
+        Label(
+            Span("停留秒数"),
+            Input(
+                id="idle-stuck-seconds",
+                type="number",
+                min="5",
+                max="600",
+                step="1",
+                value=str(app_settings.get("idle_stuck_seconds", 30)),
+                onchange="saveIdleStuckSettings()",
+            ),
+            cls="idle-stuck-field",
+        ),
+        Div("", id="idle-stuck-message", cls="idle-stuck-message"),
+        cls="idle-stuck-controls",
     )
 
 
@@ -698,6 +756,7 @@ def get_status(
     battle_control=None,
     current_state=None,
     auto_heal_state=None,
+    idle_stuck_state=None,
 ):
     return api.get_status(
         player_info,
@@ -709,6 +768,7 @@ def get_status(
         battle_control,
         current_state,
         auto_heal_state,
+        idle_stuck_state,
     )
 
 
@@ -839,8 +899,16 @@ h2 {
     gap: 8px;
     align-items: center;
 }
+.idle-stuck-controls {
+    display: grid;
+    grid-template-columns: minmax(110px, 130px) minmax(120px, 150px) minmax(180px, 1fr);
+    gap: 8px;
+    align-items: center;
+}
 .auto-heal-toggle,
-.auto-heal-field {
+.auto-heal-field,
+.idle-stuck-toggle,
+.idle-stuck-field {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -851,16 +919,19 @@ h2 {
     padding: 0 8px;
     font-size: 12px;
 }
-.auto-heal-toggle input {
+.auto-heal-toggle input,
+.idle-stuck-toggle input {
     width: 16px;
     height: 16px;
     padding: 0;
 }
-.auto-heal-field input {
+.auto-heal-field input,
+.idle-stuck-field input {
     min-width: 0;
     flex: 1;
 }
-.auto-heal-message {
+.auto-heal-message,
+.idle-stuck-message {
     min-height: 34px;
     box-sizing: border-box;
     border: 1px solid #ddd;
@@ -1027,6 +1098,7 @@ th {
 @media (max-width: 640px) {
     .bind-controls,
     .auto-heal-controls,
+    .idle-stuck-controls,
     .utility-buttons,
     .status,
     .patrol-content {
@@ -1100,6 +1172,23 @@ async function saveAutoHealSettings() {
             enabled,
             threshold_percent: threshold,
             interval_ms: interval,
+        }),
+    });
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
+async function saveIdleStuckSettings() {
+    const enabled = document.getElementById("idle-stuck-enabled").checked;
+    const seconds = document.getElementById("idle-stuck-seconds").value;
+    const response = await fetch("/api/idle-stuck/settings", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            enabled,
+            seconds,
         }),
     });
     const data = await response.json();
@@ -1354,6 +1443,7 @@ function applyStatus(data) {
     document.getElementById("patrol-enabled").textContent = data.patrol && data.patrol.enabled ? "开" : "关";
     document.getElementById("battle-enabled").textContent = data.battle && data.battle.enabled ? "开" : "关";
     updateAutoHealPanel(data.auto_heal || {});
+    updateIdleStuckPanel(data.idle_stuck || {});
 
     const oldMapUrl = currentMapUrl;
     updatePatrolMap(data.map || {});
@@ -1382,6 +1472,23 @@ function updateAutoHealPanel(autoHeal) {
     document.getElementById("auto-heal-message").textContent =
         stateText + " hp=" + hpText + " threshold=" + (autoHeal.threshold_percent ?? 50) + "%" + triggeredText
         + (autoHeal.last_message ? " " + autoHeal.last_message : "");
+}
+
+function updateIdleStuckPanel(idleStuck) {
+    const enabled = !!idleStuck.enabled;
+    const stateText = enabled ? "开" : "关";
+    const coordinate = idleStuck.coordinate || {};
+    const coordinateText = coordinate.x === undefined
+        ? "-"
+        : String(coordinate.map_name || "未知") + " " + String(coordinate.x) + ":" + String(coordinate.y);
+    document.getElementById("idle-stuck-enabled-text").textContent = stateText;
+    document.getElementById("idle-stuck-enabled").checked = enabled;
+    setInputValueIfIdle("idle-stuck-seconds", idleStuck.seconds ?? 30);
+    document.getElementById("idle-stuck-message").textContent =
+        stateText + " coordinate=" + coordinateText
+        + " stationary=" + String(idleStuck.stationary_seconds ?? 0) + "s"
+        + " threshold=" + String(idleStuck.seconds ?? 30) + "s"
+        + (idleStuck.last_message ? " " + idleStuck.last_message : "");
 }
 
 function setInputValueIfIdle(id, value) {

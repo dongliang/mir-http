@@ -106,6 +106,10 @@ AUTO_HEAL_MIN_THRESHOLD_PERCENT = 1
 AUTO_HEAL_MAX_THRESHOLD_PERCENT = 100
 AUTO_HEAL_MIN_INTERVAL_MS = 500
 AUTO_HEAL_MAX_INTERVAL_MS = 60000
+# idle 卡住保护默认配置和边界。
+IDLE_STUCK_DEFAULT_SECONDS = 30
+IDLE_STUCK_MIN_SECONDS = 5
+IDLE_STUCK_MAX_SECONDS = 600
 
 # 移动方向向量：把方向名称映射为地图坐标变化量。
 directions = {
@@ -358,6 +362,7 @@ def get_status(
     battle_control=None,
     current_state=None,
     auto_heal_state=None,
+    idle_stuck_state=None,
 ):
     return {
         "player": {
@@ -375,6 +380,7 @@ def get_status(
         "battle": make_battle_status(battle_control),
         "state": make_state_status(current_state),
         "auto_heal": make_auto_heal_status(app_settings, auto_heal_state),
+        "idle_stuck": make_idle_stuck_status(app_settings, idle_stuck_state),
     }
 
 
@@ -451,6 +457,43 @@ def make_auto_heal_status(app_settings, auto_heal_state=None):
         "last_hp_percent": last_hp_percent,
         "triggered_low": bool(state.get("triggered_low", False)),
         "last_message": state.get("last_message", ""),
+    }
+
+
+# 生成 idle 卡住保护状态：返回页面展示和轮询同步需要的字段。
+def make_idle_stuck_status(app_settings, idle_stuck_state=None):
+    state = idle_stuck_state or {}
+    coordinate = make_idle_stuck_coordinate_status(state.get("last_coordinate"))
+    stationary_seconds = int(state.get("stationary_seconds") or 0)
+    started_at = state.get("stationary_started_at") or 0
+
+    if coordinate and started_at:
+        stationary_seconds = max(stationary_seconds, int(time.time() - float(started_at)))
+
+    return {
+        "enabled": bool(app_settings.get("idle_stuck_enabled", True)),
+        "seconds": normalize_number(
+            app_settings.get("idle_stuck_seconds"),
+            IDLE_STUCK_DEFAULT_SECONDS,
+            IDLE_STUCK_MIN_SECONDS,
+            IDLE_STUCK_MAX_SECONDS,
+        ),
+        "coordinate": coordinate,
+        "stationary_seconds": stationary_seconds,
+        "last_message": state.get("last_message", ""),
+    }
+
+
+# 生成 idle 卡住保护坐标状态。
+def make_idle_stuck_coordinate_status(coordinate):
+    if not coordinate or len(coordinate) != 3:
+        return {}
+
+    map_name, x, y = coordinate
+    return {
+        "map_name": str(map_name),
+        "x": int(x),
+        "y": int(y),
     }
 
 
@@ -898,6 +941,38 @@ def update_auto_heal_settings(app_settings, auto_heal_state, data):
         "success": True,
         "message": message,
         "auto_heal": make_auto_heal_status(app_settings, auto_heal_state),
+    }
+
+
+# 更新 idle 卡住保护设置：规整页面输入并重新开始停留计时。
+def update_idle_stuck_settings(app_settings, idle_stuck_state, data):
+    data = data if isinstance(data, dict) else {}
+    enabled = normalize_bool(data.get("enabled", app_settings.get("idle_stuck_enabled", True)))
+    seconds = normalize_number(
+        data.get("seconds"),
+        IDLE_STUCK_DEFAULT_SECONDS,
+        IDLE_STUCK_MIN_SECONDS,
+        IDLE_STUCK_MAX_SECONDS,
+    )
+
+    app_settings["idle_stuck_enabled"] = enabled
+    app_settings["idle_stuck_seconds"] = seconds
+
+    if idle_stuck_state is not None:
+        idle_stuck_state["last_coordinate"] = None
+        idle_stuck_state["stationary_started_at"] = 0.0
+        idle_stuck_state["stationary_seconds"] = 0
+
+    state_text = "开" if enabled else "关"
+    message = f"卡住跳点设置已更新: {state_text} seconds={seconds}"
+
+    if idle_stuck_state is not None:
+        idle_stuck_state["last_message"] = message
+
+    return {
+        "success": True,
+        "message": message,
+        "idle_stuck": make_idle_stuck_status(app_settings, idle_stuck_state),
     }
 
 

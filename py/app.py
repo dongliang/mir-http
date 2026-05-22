@@ -21,6 +21,8 @@ app_settings = {
     "auto_heal_enabled": False,
     "auto_heal_threshold_percent": 50,
     "auto_heal_interval_ms": 1000,
+    "idle_stuck_enabled": True,
+    "idle_stuck_seconds": 30,
 }
 # 当前绑定的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
 current_map = {}
@@ -45,6 +47,13 @@ auto_heal_state = {
     "triggered_low": False,
     "last_message": "",
 }
+# idle 卡住保护状态：跨 idle/battle 保存坐标停留计时。
+idle_stuck_state = {
+    "last_coordinate": None,
+    "stationary_started_at": 0.0,
+    "stationary_seconds": 0,
+    "last_message": "",
+}
 # 当前状态：name 保存状态名，data 保存该状态自己的运行数据。
 current_state = {
     "name": "idle",
@@ -66,6 +75,7 @@ game_data = {
     "patrol_control": patrol_control,
     "battle_control": battle_control,
     "auto_heal_state": auto_heal_state,
+    "idle_stuck_state": idle_stuck_state,
 }
 # 停止事件：通知后台刷新循环在程序退出时结束。
 stop_event = threading.Event()
@@ -91,6 +101,7 @@ def main() -> None:
         battle_control,
         current_state,
         auto_heal_state,
+        idle_stuck_state,
         game_data,
     )
 
