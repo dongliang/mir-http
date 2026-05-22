@@ -268,8 +268,16 @@ def toggle_overlay(app_settings):
     }
 
 
-# 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图和巡逻点。
-def get_status(player_info, app_settings, current_map=None, patrol_points=None, patrol_state=None):
+# 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图、巡逻点、战斗和状态机。
+def get_status(
+    player_info,
+    app_settings,
+    current_map=None,
+    patrol_points=None,
+    patrol_state=None,
+    battle_control=None,
+    current_state=None,
+):
     return {
         "player": {
             "map_name": player_info["map_name"],
@@ -282,6 +290,8 @@ def get_status(player_info, app_settings, current_map=None, patrol_points=None, 
         },
         "map": make_map_status(current_map),
         "patrol": make_patrol_status(patrol_points, patrol_state),
+        "battle": make_battle_status(battle_control),
+        "state": make_state_status(current_state),
     }
 
 
@@ -315,6 +325,20 @@ def make_patrol_status(patrol_points, patrol_state):
     return {
         "points": points,
         "index": int((patrol_state or {}).get("index", -1)),
+    }
+
+
+# 生成战斗开关状态。
+def make_battle_status(battle_control):
+    return {
+        "enabled": bool((battle_control or {}).get("enabled", False)),
+    }
+
+
+# 生成当前状态机状态。
+def make_state_status(current_state):
+    return {
+        "name": (current_state or {}).get("name", "idle"),
     }
 
 
@@ -638,6 +662,58 @@ def move_to_logic_point(point, current_map, show_overlay=True):
             f"client={target['client_x']},{target['client_y']} "
             f"click={click_message} close={close_result['message']}"
         ),
+    }
+
+
+# 攻击怪物：左键点击怪物 hover 点，让游戏自动跑过去攻击。
+def attack_monster(monster, show_overlay=True):
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口",
+        }
+
+    monster = monster or {}
+    position = monster.get("position", {})
+
+    try:
+        x = int(position.get("x", 0))
+        y = int(position.get("y", 0))
+    except (TypeError, ValueError):
+        return {
+            "success": False,
+            "message": f"怪物位置异常 position={position}",
+        }
+
+    width, height = get_bound_client_size()
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    x = clamp_number(x, 0, width - 1)
+    y = clamp_number(y, 0, height - 1)
+
+    if show_overlay:
+        hide_overlay_safely()
+
+    success, message = op.click_mouse_at(x, y, "left")
+
+    if success and show_overlay:
+        show_click_overlay(x, y)
+
+    return {
+        "success": success,
+        "x": x,
+        "y": y,
+        "monster": {
+            "id": monster.get("id", 0),
+            "distance": monster.get("distance", ""),
+            "hp_percent": monster.get("hp_percent", ""),
+        },
+        "message": f"攻击怪物 {message} hp={monster.get('hp_percent', '')}% distance={monster.get('distance', '')}",
     }
 
 

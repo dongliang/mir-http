@@ -5,6 +5,7 @@ import uvicorn
 
 import api
 import log
+import move_to_next_patrol_point as patrol_move_state
 
 
 # 服务监听地址：限制 HTTP 控制台只在本机访问。
@@ -14,21 +15,51 @@ SERVER_PORT = 8765
 
 
 # 运行 HTTP 服务：创建应用并启动 uvicorn 本地服务。
-def run_server(player_info, update_frame, app_settings, current_map, patrol_points, patrol_state):
+def run_server(
+    player_info,
+    update_frame,
+    app_settings,
+    current_map,
+    patrol_points,
+    patrol_state,
+    battle_control,
+    current_state,
+    game_data,
+):
     # FastHTML 应用：承载页面和所有 API 路由。
-    app = create_server(player_info, update_frame, app_settings, current_map, patrol_points, patrol_state)
+    app = create_server(
+        player_info,
+        update_frame,
+        app_settings,
+        current_map,
+        patrol_points,
+        patrol_state,
+        battle_control,
+        current_state,
+        game_data,
+    )
     log.write_console(f"HTTP 服务启动: http://{SERVER_HOST}:{SERVER_PORT}")
     uvicorn.run(app, host=SERVER_HOST, port=SERVER_PORT, log_level="warning")
 
 
 # 创建 HTTP 服务：注册控制台页面和后端操作 API。
-def create_server(player_info, update_frame, app_settings, current_map, patrol_points, patrol_state):
+def create_server(
+    player_info,
+    update_frame,
+    app_settings,
+    current_map,
+    patrol_points,
+    patrol_state,
+    battle_control,
+    current_state,
+    game_data,
+):
     # 应用和路由器：由 FastHTML 创建页面应用和路由装饰器。
     app, rt = fast_app(static_path=str(api.base_dir))
 
     # 当前页面状态：闭包绑定地图和巡逻运行时变量。
     def current_status():
-        return get_status(player_info, app_settings, current_map, patrol_points, patrol_state)
+        return get_status(player_info, app_settings, current_map, patrol_points, patrol_state, battle_control, current_state)
 
     # 首页路由：渲染窗口绑定、移动控制和日志面板。
     @rt("/")
@@ -49,6 +80,8 @@ def create_server(player_info, update_frame, app_settings, current_map, patrol_p
                     Div("绑定窗口: ", Span("未绑定", id="bound-title")),
                     Div("地图: ", Span(player_info["map_name"], id="map-name")),
                     Div("坐标: ", Span(f"{player_info['x']}:{player_info['y']}", id="coordinate")),
+                    Div("状态: ", Span(current_state["name"], id="state-name")),
+                    Div("战斗: ", Span("关", id="battle-enabled")),
                     cls="status",
                 ),
                 create_patrol_panel(),
@@ -86,6 +119,30 @@ def create_server(player_info, update_frame, app_settings, current_map, patrol_p
     @rt("/api/frame")
     def post():
         return JSONResponse(current_status())
+
+    # 开始战斗接口：打开战斗开关，后台状态机下一帧进入战斗。
+    @rt("/api/battle/start")
+    def post():
+        battle_control["enabled"] = True
+        message = "战斗开关已打开"
+        log.write(message)
+        return JSONResponse({
+            "success": True,
+            "message": message,
+            "status": current_status(),
+        })
+
+    # 结束战斗接口：关闭战斗开关，后台状态机下一帧回到 idle。
+    @rt("/api/battle/stop")
+    def post():
+        battle_control["enabled"] = False
+        message = "战斗开关已关闭"
+        log.write(message)
+        return JSONResponse({
+            "success": True,
+            "message": message,
+            "status": current_status(),
+        })
 
     # 当前地图图片：供网页巡逻面板显示 ref/map.png。
     @rt("/ref/map.png")
@@ -135,7 +192,7 @@ def create_server(player_info, update_frame, app_settings, current_map, patrol_p
     # 移动到下一个巡逻点接口：按循环索引取点并触发游戏地图点击。
     @rt("/api/patrol/next")
     def post():
-        result = move_to_next_patrol_point(current_map, patrol_points, patrol_state, app_settings)
+        result = move_to_next_patrol_point(game_data)
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -354,6 +411,8 @@ def create_buttons(app_settings):
         Button("绑定地图", onclick="bindMap()"),
         Button("保存巡逻点", onclick="savePatrolPoints()"),
         Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
+        Button("开始战斗", onclick="startBattle()"),
+        Button("结束战斗", onclick="stopBattle()"),
     ]
 
     return [
@@ -443,9 +502,25 @@ def create_move_pad(title, action):
     )
 
 
-# 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图和巡逻点。
-def get_status(player_info, app_settings, current_map=None, patrol_points=None, patrol_state=None):
-    return api.get_status(player_info, app_settings, current_map, patrol_points, patrol_state)
+# 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图、巡逻点和状态机。
+def get_status(
+    player_info,
+    app_settings,
+    current_map=None,
+    patrol_points=None,
+    patrol_state=None,
+    battle_control=None,
+    current_state=None,
+):
+    return api.get_status(
+        player_info,
+        app_settings,
+        current_map,
+        patrol_points,
+        patrol_state,
+        battle_control,
+        current_state,
+    )
 
 
 # 保存巡逻点：校验网页传来的逻辑坐标并写入内存列表。
@@ -506,34 +581,9 @@ def save_patrol_points(data, current_map, patrol_points, patrol_state):
     }
 
 
-# 移动到下一个巡逻点：按保存顺序循环执行。
-def move_to_next_patrol_point(current_map, patrol_points, patrol_state, app_settings):
-    if not current_map:
-        return {
-            "success": False,
-            "message": "还没有绑定地图",
-        }
-
-    if not patrol_points:
-        return {
-            "success": False,
-            "message": "还没有保存巡逻点",
-        }
-
-    current_index = int(patrol_state.get("index", -1))
-    next_index = (current_index + 1) % len(patrol_points)
-    point = patrol_points[next_index]
-    move = api.move_to_logic_point(point, current_map, app_settings["overlay_enabled"])
-
-    if move["success"]:
-        patrol_state["index"] = next_index
-
-    return {
-        "success": move["success"],
-        "point": point,
-        "move": move,
-        "message": f"巡逻点 index={next_index} {move['message']}",
-    }
+# 移动到下一个巡逻点：复用状态模块里的单次巡逻移动逻辑。
+def move_to_next_patrol_point(game_data):
+    return patrol_move_state.move_once(game_data)
 
 
 # 获取 Overlay 按钮文本：根据开关状态生成按钮显示文案。
@@ -623,7 +673,7 @@ button {
 }
 .status {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 8px;
     margin-bottom: 12px;
 }
@@ -838,6 +888,22 @@ async function moveToNextPatrolPoint() {
     await refreshLogs();
 }
 
+async function startBattle() {
+    const response = await fetch("/api/battle/start", {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
+async function stopBattle() {
+    const response = await fetch("/api/battle/stop", {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
 async function scanMonsters() {
     const response = await fetch("/api/monsters/scan", {method: "POST"});
     const data = await response.json();
@@ -1011,6 +1077,8 @@ function applyStatus(data) {
     document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
     document.getElementById("bound-title").textContent = data.bound_window.title || "未绑定";
     document.getElementById("overlay-button").textContent = data.settings.overlay_enabled ? "Overlay: 开" : "Overlay: 关";
+    document.getElementById("state-name").textContent = data.state ? data.state.name : "idle";
+    document.getElementById("battle-enabled").textContent = data.battle && data.battle.enabled ? "开" : "关";
 
     const oldMapUrl = currentMapUrl;
     updatePatrolMap(data.map || {});

@@ -5,8 +5,11 @@ import time
 import api
 import httpserver
 import log
+import move_to_next_patrol_point
 import ocr_client
 import player
+from state import battle
+from state import idle
 
 
 # 当前玩家状态：保存页面和后台循环共享的地图坐标信息。
@@ -23,6 +26,30 @@ patrol_points = []
 patrol_state = {
     "index": -1,
 }
+# 战斗控制：由页面按钮切换，状态机会按它决定是否进入战斗。
+battle_control = {
+    "enabled": False,
+}
+# 当前状态：name 保存状态名，data 保存该状态自己的运行数据。
+current_state = {
+    "name": "idle",
+    "data": {},
+}
+# 状态模块表：状态名到模块的映射，供每帧调度。
+state_modules = {
+    "idle": idle,
+    "battle": battle,
+    "move_to_next_patrol_point": move_to_next_patrol_point,
+}
+# 游戏数据：app.py 持有的共享运行数据，传给状态模块读取和更新。
+game_data = {
+    "player": current_player,
+    "settings": app_settings,
+    "current_map": current_map,
+    "patrol_points": patrol_points,
+    "patrol_state": patrol_state,
+    "battle_control": battle_control,
+}
 # 停止事件：通知后台刷新循环在程序退出时结束。
 stop_event = threading.Event()
 atexit.register(ocr_client.stop_ocr_worker)
@@ -36,7 +63,17 @@ def main() -> None:
     apply_app_settings()
     start_op()
     start_update_loop()
-    httpserver.run_server(current_player, update_frame, app_settings, current_map, patrol_points, patrol_state)
+    httpserver.run_server(
+        current_player,
+        update_frame,
+        app_settings,
+        current_map,
+        patrol_points,
+        patrol_state,
+        battle_control,
+        current_state,
+        game_data,
+    )
 
 
 # 刷新一帧：读取当前地图坐标并写回玩家状态。
@@ -44,6 +81,41 @@ def update_frame():
     # 当前地图坐标：承接 OCR 识别出的地图名和 x/y 坐标。
     map_name, x, y = api.get_map_coordinate()
     player.set_map_coordinate(current_player, map_name, x, y)
+    update_current_state()
+
+
+# 更新当前状态：调用状态模块并处理状态切换。
+def update_current_state():
+    state_name = current_state.get("name", "idle")
+    state_module = state_modules.get(state_name, idle)
+
+    # 状态结果：包含可选的下一状态和日志消息。
+    result = state_module.update_frame(game_data, current_state["data"]) or {}
+    message = result.get("message", "")
+
+    if message:
+        log.write(message)
+
+    next_state = result.get("state")
+
+    if next_state:
+        switch_state(next_state)
+
+
+# 切换状态：重置状态私有数据并写入切换日志。
+def switch_state(next_state):
+    if next_state not in state_modules:
+        log.write(f"未知状态 {next_state}，回到 idle")
+        next_state = "idle"
+
+    old_state = current_state.get("name", "idle")
+
+    if old_state == next_state:
+        return
+
+    current_state["name"] = next_state
+    current_state["data"] = {}
+    log.write(f"状态切换: {old_state} -> {next_state}")
 
 
 # 启动刷新循环：创建后台线程定时更新坐标状态。
