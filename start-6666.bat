@@ -3,7 +3,7 @@ setlocal
 
 set "ROOT=%~dp0"
 set "ROOT=%ROOT:~0,-1%"
-set "HTTP_PORT=8765"
+set "HTTP_PORT=6666"
 set "PYTHON_EXE=runtime\python310\python.exe"
 set "APP_SCRIPT=py\app.py"
 

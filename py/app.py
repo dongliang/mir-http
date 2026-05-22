@@ -18,6 +18,9 @@ current_player = player.create_player()
 app_settings = {
     "overlay_enabled": True,
     "map_rect_corner_overlay_enabled": False,
+    "auto_heal_enabled": False,
+    "auto_heal_threshold_percent": 50,
+    "auto_heal_interval_ms": 1000,
 }
 # 当前绑定的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
 current_map = {}
@@ -34,6 +37,13 @@ patrol_control = {
 # 战斗控制：由页面按钮切换，状态机会按它决定是否进入战斗。
 battle_control = {
     "enabled": False,
+}
+# 自动加血状态：独立于状态机，记录检测节奏、最近血量和低血触发锁。
+auto_heal_state = {
+    "last_checked_at": 0.0,
+    "last_hp_percent": "",
+    "triggered_low": False,
+    "last_message": "",
 }
 # 当前状态：name 保存状态名，data 保存该状态自己的运行数据。
 current_state = {
@@ -55,6 +65,7 @@ game_data = {
     "patrol_state": patrol_state,
     "patrol_control": patrol_control,
     "battle_control": battle_control,
+    "auto_heal_state": auto_heal_state,
 }
 # 停止事件：通知后台刷新循环在程序退出时结束。
 stop_event = threading.Event()
@@ -79,6 +90,7 @@ def main() -> None:
         patrol_control,
         battle_control,
         current_state,
+        auto_heal_state,
         game_data,
     )
 
@@ -88,7 +100,17 @@ def update_frame():
     # 当前地图坐标：承接 OCR 识别出的地图名和 x/y 坐标。
     map_name, x, y = api.get_map_coordinate()
     player.set_map_coordinate(current_player, map_name, x, y)
+    update_auto_heal()
     update_current_state()
+
+
+# 更新自动加血：独立于状态机，每帧按设置判断是否需要检测。
+def update_auto_heal():
+    result = api.update_auto_heal(app_settings, auto_heal_state) or {}
+    message = result.get("message", "")
+
+    if message:
+        log.write(message)
 
 
 # 更新当前状态：调用状态模块并处理状态切换。

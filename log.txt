@@ -1,116 +1,2514 @@
-[23:24:55] 日志开始
-[23:24:55] 程序启动: HTTP 服务模式
-[23:24:55] 开始初始化 OP
-[23:24:55] OP 版本: 0.4.5.0
-[23:24:55] OP 初始化成功（64 位免注册）
-[23:24:55] OP 初始化成功
-[23:24:56] HTTP 服务启动: http://127.0.0.1:8765
-[23:26:25] 绑定成功 hwnd=29693774 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
-[23:26:26] OCR子进程启动 pid=17484
-[23:26:26] 点击成功 button=right method=down_up(1,1) x=930 y=372 last_error=0 client_size=1600x900
-[23:26:27] 点击成功 button=right method=down_up(1,1) x=670 y=372 last_error=0 client_size=1600x900
-[23:27:48] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0117.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0117.bmp range=0,0,1600,900 last_error=0；首次截图黑屏，已自动重启绑定: 绑定成功 hwnd=29693774 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0117.bmp range=0,0,1600,900 last_error=0
-[23:29:04] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0118.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0118.bmp range=0,0,1600,900 last_error=0；首次截图黑屏，已自动重启绑定: 绑定成功 hwnd=29693774 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0118.bmp range=0,0,1600,900 last_error=0
-[23:29:04] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0119.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0119.bmp range=0,0,1600,900 last_error=0
-[23:29:05] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0120.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0120.bmp range=0,0,1600,900 last_error=0
-[23:29:05] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0121.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0121.bmp range=0,0,1600,900 last_error=0
-[23:29:06] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0122.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0122.bmp range=0,0,1600,900 last_error=0
-[23:29:06] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0123.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0123.bmp range=0,0,1600,900 last_error=0
-[23:29:06] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0124.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0124.bmp range=0,0,1600,900 last_error=0
-[23:29:07] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0125.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0125.bmp range=0,0,1600,900 last_error=0
-[23:29:07] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0126.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0126.bmp range=0,0,1600,900 last_error=0
-[23:29:08] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0127.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0127.bmp range=0,0,1600,900 last_error=0
-[23:29:08] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0128.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0128.bmp range=0,0,1600,900 last_error=0
-[23:29:09] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0129.bmp size=1600x900 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0129.bmp range=0,0,1600,900 last_error=0
-[23:34:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:34:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:34:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:34:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:34:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:34:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
-[23:35:35] 绑定成功 hwnd=41685040 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=1 last_error=0
-[23:35:37] 点击成功 button=right method=down_up(1,1) x=1010 y=417 last_error=0 client_size=1760x990
-[23:37:25] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0130.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0130.bmp range=0,0,1760,990 last_error=0
-[23:39:22] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0131.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0131.bmp range=0,0,1760,990 last_error=0；首次截图黑屏，已自动重启绑定: 绑定成功 hwnd=41685040 title=^纵横四海 - 闪电侠 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0131.bmp range=0,0,1760,990 last_error=0
-[23:39:22] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0132.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0132.bmp range=0,0,1760,990 last_error=0
-[23:39:23] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0133.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0133.bmp range=0,0,1760,990 last_error=0
-[23:39:23] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0134.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0134.bmp range=0,0,1760,990 last_error=0
-[23:39:24] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0135.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0135.bmp range=0,0,1760,990 last_error=0
-[23:39:24] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0136.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0136.bmp range=0,0,1760,990 last_error=0
-[23:39:25] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0137.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0137.bmp range=0,0,1760,990 last_error=0
-[23:39:25] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0138.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0138.bmp range=0,0,1760,990 last_error=0
-[23:39:26] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0139.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0139.bmp range=0,0,1760,990 last_error=0
-[23:39:26] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0140.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0140.bmp range=0,0,1760,990 last_error=0
-[23:39:27] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0141.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0141.bmp range=0,0,1760,990 last_error=0
-[23:39:27] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0142.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0142.bmp range=0,0,1760,990 last_error=0
-[23:39:28] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0143.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0143.bmp range=0,0,1760,990 last_error=0
-[23:39:28] 绑定窗口截图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0144.bmp size=1760x990 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\screenshots\screenshot_0144.bmp range=0,0,1760,990 last_error=0
+[04:07:06] 日志开始
+[04:07:06] 程序启动: HTTP 服务模式
+[04:07:06] 开始初始化 OP
+[04:07:06] OP 版本: 0.4.5.0
+[04:07:06] OP 初始化成功（64 位免注册）
+[04:07:06] OP 初始化成功
+[04:07:06] HTTP 服务启动: http://127.0.0.1:8888
+[04:07:11] 还没有绑定窗口，不能显示地图 rect 右下角白色方块
+[04:07:17] 绑定成功 hwnd=4135766 title=^纵横四海 - 妖孽 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0
+[04:07:17] OCR子进程启动 pid=18576
+[04:07:18] 地图 rect 右下角白色方块已显示 x=1074 y=624
+[04:07:28] 绑定地图异常: 无法识别地图最大逻辑坐标 text=''
+[04:07:38] 绑定地图异常: 无法识别地图最大逻辑坐标 text=''
+[04:07:49] 绑定地图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\ref\map.png max=696:698 rect=525,275,1075,625 ocr_box=885,570,1073,623 text='696:698' hover=1074,624 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\ref\map.png range=525,275,1074,624 last_error=0
+[04:07:49] 地图 rect 右下角白色方块已显示 x=1074 y=624
+[04:08:28] 自动加血设置已更新: 关 threshold=50% interval=500ms
+[04:08:33] 自动加血设置已更新: 开 threshold=50% interval=500ms
+[04:08:33] 自动加血检测失败: 没有找到自身绿色血条
+[04:09:24] 保存巡逻点成功 count=11
+[04:09:27] 巡逻开关已打开，战斗开关已关闭
+[04:09:28] 巡逻开关已开启，进入下一个巡逻点移动状态
+[04:09:28] 状态切换: idle -> move_to_next_patrol_point
+[04:09:30] 巡逻点 index=0 移动到巡逻点 成功 logic=81:294 map=64,147 client=589,422 click=点击成功 button=left method=down_up(1,1) x=589 y=422 last_error=18 close=后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[04:09:32] 战斗开关已关闭
+[04:10:01] 战斗开关已打开，巡逻开关已关闭
+[04:10:03] 玩家坐标 128:334 连续 2 秒未变化，巡逻点 index=0 已完成，回到 idle
+[04:10:03] 状态切换: move_to_next_patrol_point -> idle
+[04:10:03] 战斗开关已开启，进入战斗状态
+[04:10:03] 状态切换: idle -> battle
+[04:10:04] 开始攻击怪物 hp=100% distance=15 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=312 last_error=0 hp=100% distance=15
+[04:10:06] 本轮攻击等待结束，回到 idle
+[04:10:06] 状态切换: battle -> idle
+[04:10:07] 战斗开关已开启，进入战斗状态
+[04:10:07] 状态切换: idle -> battle
+[04:10:08] 开始攻击怪物 hp=73% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=0 hp=73% distance=17
+[04:10:10] 本轮攻击等待结束，回到 idle
+[04:10:10] 状态切换: battle -> idle
+[04:10:11] 战斗开关已开启，进入战斗状态
+[04:10:11] 状态切换: idle -> battle
+[04:10:12] 开始攻击怪物 hp=100% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=100% distance=53
+[04:10:14] 本轮攻击等待结束，回到 idle
+[04:10:14] 状态切换: battle -> idle
+[04:10:15] 战斗开关已开启，进入战斗状态
+[04:10:15] 状态切换: idle -> battle
+[04:10:15] 开始攻击怪物 hp=20% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=20% distance=53
+[04:10:17] 本轮攻击等待结束，回到 idle
+[04:10:17] 状态切换: battle -> idle
+[04:10:18] 战斗开关已开启，进入战斗状态
+[04:10:18] 状态切换: idle -> battle
+[04:10:19] 开始攻击怪物 hp=100% distance=530 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=632 last_error=0 hp=100% distance=530
+[04:10:21] 本轮攻击等待结束，回到 idle
+[04:10:21] 状态切换: battle -> idle
+[04:10:23] 战斗开关已开启，进入战斗状态
+[04:10:23] 状态切换: idle -> battle
+[04:10:24] 开始攻击怪物 hp=100% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=0 hp=100% distance=70
+[04:10:26] 本轮攻击等待结束，回到 idle
+[04:10:26] 状态切换: battle -> idle
+[04:10:27] 战斗开关已开启，进入战斗状态
+[04:10:27] 状态切换: idle -> battle
+[04:10:28] 开始攻击怪物 hp=7% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=0 hp=7% distance=70
+[04:10:30] 本轮攻击等待结束，回到 idle
+[04:10:30] 状态切换: battle -> idle
+[04:10:31] 战斗开关已开启，进入战斗状态
+[04:10:31] 状态切换: idle -> battle
+[04:10:33] 开始攻击怪物 hp=100% distance=626 攻击怪物 点击成功 button=left method=down_up(1,1) x=174 y=312 last_error=0 hp=100% distance=626
+[04:10:35] 本轮攻击等待结束，回到 idle
+[04:10:35] 状态切换: battle -> idle
+[04:10:36] 战斗开关已开启，进入战斗状态
+[04:10:36] 状态切换: idle -> battle
+[04:10:37] 开始攻击怪物 hp=100% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=0 hp=100% distance=70
+[04:10:39] 本轮攻击等待结束，回到 idle
+[04:10:39] 状态切换: battle -> idle
+[04:10:40] 战斗开关已开启，进入战斗状态
+[04:10:40] 状态切换: idle -> battle
+[04:10:41] 开始攻击怪物 hp=33% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=0 hp=33% distance=70
+[04:10:43] 本轮攻击等待结束，回到 idle
+[04:10:43] 状态切换: battle -> idle
+[04:10:43] 战斗开关已开启，进入战斗状态
+[04:10:43] 状态切换: idle -> battle
+[04:10:44] 开始攻击怪物 hp=10% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=0 hp=10% distance=70
+[04:10:46] 本轮攻击等待结束，回到 idle
+[04:10:46] 状态切换: battle -> idle
+[04:10:47] 战斗开关已开启，进入战斗状态
+[04:10:47] 状态切换: idle -> battle
+[04:10:48] 开始攻击怪物 hp=100% distance=305 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=632 last_error=0 hp=100% distance=305
+[04:10:50] 本轮攻击等待结束，回到 idle
+[04:10:50] 状态切换: battle -> idle
+[04:10:51] 战斗开关已开启，进入战斗状态
+[04:10:51] 状态切换: idle -> battle
+[04:10:52] 开始攻击怪物 hp=60% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=0 hp=60% distance=81
+[04:10:54] 本轮攻击等待结束，回到 idle
+[04:10:54] 状态切换: battle -> idle
+[04:10:55] 战斗开关已开启，进入战斗状态
+[04:10:55] 状态切换: idle -> battle
+[04:10:56] 开始攻击怪物 hp=100% distance=305 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=632 last_error=0 hp=100% distance=305
+[04:10:58] 本轮攻击等待结束，回到 idle
+[04:10:58] 状态切换: battle -> idle
+[04:10:59] 战斗开关已开启，进入战斗状态
+[04:10:59] 状态切换: idle -> battle
+[04:10:59] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=0 hp=100% distance=81
+[04:11:02] 本轮攻击等待结束，回到 idle
+[04:11:02] 状态切换: battle -> idle
+[04:11:02] 战斗开关已开启，进入战斗状态
+[04:11:02] 状态切换: idle -> battle
+[04:11:03] 开始攻击怪物 hp=50% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=0 hp=50% distance=81
+[04:11:04] 自动加血触发: hp=40% threshold=50% mouse=0,0 key=F1
+[04:11:05] 自动加血重新待命: hp=83% threshold=50%
+[04:11:05] 本轮攻击等待结束，回到 idle
+[04:11:05] 状态切换: battle -> idle
+[04:11:06] 战斗开关已开启，进入战斗状态
+[04:11:06] 状态切换: idle -> battle
+[04:11:07] 开始攻击怪物 hp=100% distance=387 攻击怪物 点击成功 button=left method=down_up(1,1) x=1038 y=632 last_error=0 hp=100% distance=387
+[04:11:09] 本轮攻击等待结束，回到 idle
+[04:11:09] 状态切换: battle -> idle
+[04:11:10] 战斗开关已开启，进入战斗状态
+[04:11:10] 状态切换: idle -> battle
+[04:11:11] 开始攻击怪物 hp=47% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=0 hp=47% distance=81
+[04:11:13] 本轮攻击等待结束，回到 idle
+[04:11:13] 状态切换: battle -> idle
+[04:11:14] 战斗开关已开启，进入战斗状态
+[04:11:14] 状态切换: idle -> battle
+[04:11:16] 开始攻击怪物 hp=100% distance=478 攻击怪物 点击成功 button=left method=down_up(1,1) x=1230 y=536 last_error=0 hp=100% distance=478
+[04:11:18] 本轮攻击等待结束，回到 idle
+[04:11:18] 状态切换: battle -> idle
+[04:11:19] 战斗开关已开启，进入战斗状态
+[04:11:19] 状态切换: idle -> battle
+[04:11:20] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=0 hp=100% distance=93
+[04:11:22] 本轮攻击等待结束，回到 idle
+[04:11:22] 状态切换: battle -> idle
+[04:11:22] 战斗开关已开启，进入战斗状态
+[04:11:22] 状态切换: idle -> battle
+[04:11:23] 开始攻击怪物 hp=43% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=0 hp=43% distance=93
+[04:11:25] 本轮攻击等待结束，回到 idle
+[04:11:25] 状态切换: battle -> idle
+[04:11:26] 战斗开关已开启，进入战斗状态
+[04:11:26] 状态切换: idle -> battle
+[04:11:27] 开始攻击怪物 hp=100% distance=15 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=312 last_error=0 hp=100% distance=15
+[04:11:27] 自动加血检测失败: 没有找到自身绿色血条
+[04:11:29] 本轮攻击等待结束，回到 idle
+[04:11:29] 状态切换: battle -> idle
+[04:11:29] 战斗开关已开启，进入战斗状态
+[04:11:29] 状态切换: idle -> battle
+[04:11:30] 开始攻击怪物 hp=67% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=0 hp=67% distance=17
+[04:11:32] 本轮攻击等待结束，回到 idle
+[04:11:32] 状态切换: battle -> idle
+[04:11:33] 战斗开关已开启，进入战斗状态
+[04:11:33] 状态切换: idle -> battle
+[04:11:34] 开始攻击怪物 hp=100% distance=489 攻击怪物 点击成功 button=left method=down_up(1,1) x=1182 y=632 last_error=0 hp=100% distance=489
+[04:11:36] 本轮攻击等待结束，回到 idle
+[04:11:36] 状态切换: battle -> idle
+[04:11:37] 战斗开关已开启，进入战斗状态
+[04:11:37] 状态切换: idle -> battle
+[04:11:38] 开始攻击怪物 hp=53% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=0 hp=53% distance=93
+[04:11:40] 本轮攻击等待结束，回到 idle
+[04:11:40] 状态切换: battle -> idle
+[04:11:41] 战斗开关已开启，进入战斗状态
+[04:11:41] 状态切换: idle -> battle
+[04:11:42] 开始攻击怪物 hp=100% distance=398 攻击怪物 点击成功 button=left method=down_up(1,1) x=1182 y=440 last_error=0 hp=100% distance=398
+[04:11:44] 本轮攻击等待结束，回到 idle
+[04:11:44] 状态切换: battle -> idle
+[04:11:44] 战斗开关已开启，进入战斗状态
+[04:11:44] 状态切换: idle -> battle
+[04:11:45] 开始攻击怪物 hp=57% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=57% distance=67
+[04:11:47] 本轮攻击等待结束，回到 idle
+[04:11:47] 状态切换: battle -> idle
+[04:11:48] 战斗开关已开启，进入战斗状态
+[04:11:48] 状态切换: idle -> battle
+[04:11:49] 开始攻击怪物 hp=57% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=57% distance=67
+[04:11:51] 本轮攻击等待结束，回到 idle
+[04:11:51] 状态切换: battle -> idle
+[04:11:52] 战斗开关已开启，进入战斗状态
+[04:11:52] 状态切换: idle -> battle
+[04:11:53] 开始攻击怪物 hp=100% distance=354 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=536 last_error=0 hp=100% distance=354
+[04:11:55] 本轮攻击等待结束，回到 idle
+[04:11:55] 状态切换: battle -> idle
+[04:11:56] 战斗开关已开启，进入战斗状态
+[04:11:56] 状态切换: idle -> battle
+[04:11:58] 开始攻击怪物 hp=100% distance=280 攻击怪物 点击成功 button=left method=down_up(1,1) x=942 y=568 last_error=0 hp=100% distance=280
+[04:11:59] 本轮攻击等待结束，回到 idle
+[04:11:59] 状态切换: battle -> idle
+[04:12:00] 战斗开关已开启，进入战斗状态
+[04:12:00] 状态切换: idle -> battle
+[04:12:01] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=1182 y=120 last_error=0 hp=100% distance=434
+[04:12:04] 本轮攻击等待结束，回到 idle
+[04:12:04] 状态切换: battle -> idle
+[04:12:04] 战斗开关已开启，进入战斗状态
+[04:12:04] 状态切换: idle -> battle
+[04:12:05] 开始攻击怪物 hp=33% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=0 hp=33% distance=49
+[04:12:07] 本轮攻击等待结束，回到 idle
+[04:12:07] 状态切换: battle -> idle
+[04:12:08] 战斗开关已开启，进入战斗状态
+[04:12:08] 状态切换: idle -> battle
+[04:12:09] 开始攻击怪物 hp=100% distance=319 攻击怪物 点击成功 button=left method=down_up(1,1) x=894 y=632 last_error=0 hp=100% distance=319
+[04:12:11] 本轮攻击等待结束，回到 idle
+[04:12:11] 状态切换: battle -> idle
+[04:12:12] 战斗开关已开启，进入战斗状态
+[04:12:12] 状态切换: idle -> battle
+[04:12:14] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=0 hp=100% distance=93
+[04:12:16] 本轮攻击等待结束，回到 idle
+[04:12:16] 状态切换: battle -> idle
+[04:12:17] 战斗开关已开启，进入战斗状态
+[04:12:17] 状态切换: idle -> battle
+[04:12:18] 开始攻击怪物 hp=100% distance=390 攻击怪物 点击成功 button=left method=down_up(1,1) x=1182 y=408 last_error=0 hp=100% distance=390
+[04:12:20] 本轮攻击等待结束，回到 idle
+[04:12:20] 状态切换: battle -> idle
+[04:12:21] 战斗开关已开启，进入战斗状态
+[04:12:21] 状态切换: idle -> battle
+[04:12:22] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=0 hp=100% distance=93
+[04:12:24] 本轮攻击等待结束，回到 idle
+[04:12:24] 状态切换: battle -> idle
+[04:12:24] 战斗开关已开启，进入战斗状态
+[04:12:24] 状态切换: idle -> battle
+[04:12:25] 没有扫描到怪物，进入下一个巡逻点移动状态
+[04:12:25] 状态切换: battle -> move_to_next_patrol_point
+[04:12:26] 自动加血触发: hp=30% threshold=50% mouse=0,0 key=F1
+[04:12:27] 巡逻点 index=1 移动到巡逻点 成功 logic=72:195 map=57,98 client=582,373 click=点击成功 button=left method=down_up(1,1) x=582 y=373 last_error=0 close=后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[04:12:28] 自动加血重新待命: hp=100% threshold=50%
+[04:13:31] 玩家坐标 70:196 连续 2 秒未变化，巡逻点 index=1 已完成，回到 idle
+[04:13:31] 状态切换: move_to_next_patrol_point -> idle
+[04:13:32] 战斗开关已开启，进入战斗状态
+[04:13:32] 状态切换: idle -> battle
+[04:13:33] 开始攻击怪物 hp=100% distance=122 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=440 last_error=0 hp=100% distance=122
+[04:13:34] 自动加血检测失败: 没有找到自身绿色血条
+[04:13:35] 本轮攻击等待结束，回到 idle
+[04:13:35] 状态切换: battle -> idle
+[04:13:36] 战斗开关已开启，进入战斗状态
+[04:13:36] 状态切换: idle -> battle
+[04:13:37] 开始攻击怪物 hp=100% distance=238 攻击怪物 点击成功 button=left method=down_up(1,1) x=990 y=184 last_error=0 hp=100% distance=238
+[04:13:39] 本轮攻击等待结束，回到 idle
+[04:13:39] 状态切换: battle -> idle
+[04:13:39] 战斗开关已开启，进入战斗状态
+[04:13:39] 状态切换: idle -> battle
+[04:13:40] 开始攻击怪物 hp=53% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=0 hp=53% distance=49
+[04:13:42] 本轮攻击等待结束，回到 idle
+[04:13:42] 状态切换: battle -> idle
+[04:13:43] 战斗开关已开启，进入战斗状态
+[04:13:43] 状态切换: idle -> battle
+[04:13:44] 开始攻击怪物 hp=100% distance=15 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=312 last_error=0 hp=100% distance=15
+[04:13:46] 本轮攻击等待结束，回到 idle
+[04:13:46] 状态切换: battle -> idle
+[04:13:46] 战斗开关已开启，进入战斗状态
+[04:13:46] 状态切换: idle -> battle
+[04:13:47] 开始攻击怪物 hp=80% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=0 hp=80% distance=17
+[04:13:49] 本轮攻击等待结束，回到 idle
+[04:13:49] 状态切换: battle -> idle
+[04:13:50] 战斗开关已开启，进入战斗状态
+[04:13:50] 状态切换: idle -> battle
+[04:13:51] 开始攻击怪物 hp=100% distance=129 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=456 last_error=0 hp=100% distance=129
+[04:13:53] 本轮攻击等待结束，回到 idle
+[04:13:53] 状态切换: battle -> idle
+[04:13:54] 战斗开关已开启，进入战斗状态
+[04:13:54] 状态切换: idle -> battle
+[04:13:55] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=0 hp=100% distance=81
+[04:13:57] 本轮攻击等待结束，回到 idle
+[04:13:57] 状态切换: battle -> idle
+[04:13:57] 战斗开关已开启，进入战斗状态
+[04:13:57] 状态切换: idle -> battle
+[04:13:58] 开始攻击怪物 hp=53% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=0 hp=53% distance=81
+[04:14:00] 本轮攻击等待结束，回到 idle
+[04:14:00] 状态切换: battle -> idle
+[04:14:01] 自动加血触发: hp=40% threshold=50% mouse=0,0 key=F1
+[04:14:01] 战斗开关已开启，进入战斗状态
+[04:14:01] 状态切换: idle -> battle
+[04:14:02] 自动加血重新待命: hp=77% threshold=50%
+[04:14:02] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=0 hp=100% distance=93
+[04:14:04] 本轮攻击等待结束，回到 idle
+[04:14:04] 状态切换: battle -> idle
+[04:14:05] 战斗开关已开启，进入战斗状态
+[04:14:05] 状态切换: idle -> battle
+[04:14:06] 开始攻击怪物 hp=67% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=0 hp=67% distance=93
+[04:14:08] 本轮攻击等待结束，回到 idle
+[04:14:08] 状态切换: battle -> idle
+[04:14:08] 战斗开关已开启，进入战斗状态
+[04:14:08] 状态切换: idle -> battle
+[04:14:09] 开始攻击怪物 hp=100% distance=95 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=100% distance=95
+[04:14:11] 本轮攻击等待结束，回到 idle
+[04:14:11] 状态切换: battle -> idle
+[04:14:12] 战斗开关已开启，进入战斗状态
+[04:14:12] 状态切换: idle -> battle
+[04:14:13] 开始攻击怪物 hp=100% distance=204 攻击怪物 点击成功 button=left method=down_up(1,1) x=654 y=184 last_error=0 hp=100% distance=204
+[04:14:15] 本轮攻击等待结束，回到 idle
+[04:14:15] 状态切换: battle -> idle
+[04:14:15] 战斗开关已开启，进入战斗状态
+[04:14:15] 状态切换: idle -> battle
+[04:14:16] 开始攻击怪物 hp=100% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=100% distance=53
+[04:14:18] 本轮攻击等待结束，回到 idle
+[04:14:18] 状态切换: battle -> idle
+[04:14:19] 战斗开关已开启，进入战斗状态
+[04:14:19] 状态切换: idle -> battle
+[04:14:20] 开始攻击怪物 hp=100% distance=338 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=376 last_error=0 hp=100% distance=338
+[04:14:22] 本轮攻击等待结束，回到 idle
+[04:14:22] 状态切换: battle -> idle
+[04:14:23] 战斗开关已开启，进入战斗状态
+[04:14:23] 状态切换: idle -> battle
+[04:14:24] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=0 hp=100% distance=93
+[04:14:26] 本轮攻击等待结束，回到 idle
+[04:14:26] 状态切换: battle -> idle
+[04:14:26] 战斗开关已开启，进入战斗状态
+[04:14:26] 状态切换: idle -> battle
+[04:14:27] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=0 hp=100% distance=93
+[04:14:29] 本轮攻击等待结束，回到 idle
+[04:14:29] 状态切换: battle -> idle
+[04:14:30] 战斗开关已开启，进入战斗状态
+[04:14:30] 状态切换: idle -> battle
+[04:14:31] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=0 hp=100% distance=81
+[04:14:33] 本轮攻击等待结束，回到 idle
+[04:14:33] 状态切换: battle -> idle
+[04:14:34] 战斗开关已开启，进入战斗状态
+[04:14:34] 状态切换: idle -> battle
+[04:14:35] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=0 hp=100% distance=81
+[04:14:37] 本轮攻击等待结束，回到 idle
+[04:14:37] 状态切换: battle -> idle
+[04:14:37] 战斗开关已开启，进入战斗状态
+[04:14:37] 状态切换: idle -> battle
+[04:14:38] 开始攻击怪物 hp=100% distance=238 攻击怪物 点击成功 button=left method=down_up(1,1) x=990 y=184 last_error=0 hp=100% distance=238
+[04:14:40] 本轮攻击等待结束，回到 idle
+[04:14:40] 状态切换: battle -> idle
+[04:14:41] 战斗开关已开启，进入战斗状态
+[04:14:41] 状态切换: idle -> battle
+[04:14:43] 开始攻击怪物 hp=73% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=0 hp=73% distance=49
+[04:14:45] 本轮攻击等待结束，回到 idle
+[04:14:45] 状态切换: battle -> idle
+[04:14:46] 战斗开关已开启，进入战斗状态
+[04:14:46] 状态切换: idle -> battle
+[04:14:47] 开始攻击怪物 hp=100% distance=201 攻击怪物 点击成功 button=left method=down_up(1,1) x=702 y=152 last_error=0 hp=100% distance=201
+[04:14:49] 本轮攻击等待结束，回到 idle
+[04:14:49] 状态切换: battle -> idle
+[04:14:50] 战斗开关已开启，进入战斗状态
+[04:14:50] 状态切换: idle -> battle
+[04:14:51] 开始攻击怪物 hp=73% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=73% distance=53
+[04:14:53] 本轮攻击等待结束，回到 idle
+[04:14:53] 状态切换: battle -> idle
+[04:14:54] 战斗开关已开启，进入战斗状态
+[04:14:54] 状态切换: idle -> battle
+[04:14:56] 开始攻击怪物 hp=100% distance=377 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=152 last_error=0 hp=100% distance=377
+[04:14:58] 本轮攻击等待结束，回到 idle
+[04:14:58] 状态切换: battle -> idle
+[04:14:58] 战斗开关已开启，进入战斗状态
+[04:14:58] 状态切换: idle -> battle
+[04:14:59] 开始攻击怪物 hp=100% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=0 hp=100% distance=49
+[04:15:01] 本轮攻击等待结束，回到 idle
+[04:15:01] 状态切换: battle -> idle
+[04:15:02] 战斗开关已开启，进入战斗状态
+[04:15:02] 状态切换: idle -> battle
+[04:15:03] 开始攻击怪物 hp=47% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=0 hp=47% distance=49
+[04:15:05] 本轮攻击等待结束，回到 idle
+[04:15:05] 状态切换: battle -> idle
+[04:15:05] 战斗开关已开启，进入战斗状态
+[04:15:05] 状态切换: idle -> battle
+[04:15:06] 开始攻击怪物 hp=100% distance=15 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=312 last_error=0 hp=100% distance=15
+[04:15:07] 自动加血检测失败: 没有找到自身绿色血条
+[04:15:08] 本轮攻击等待结束，回到 idle
+[04:15:08] 状态切换: battle -> idle
+[04:15:09] 战斗开关已开启，进入战斗状态
+[04:15:09] 状态切换: idle -> battle
+[04:15:10] 开始攻击怪物 hp=100% distance=532 攻击怪物 点击成功 button=left method=down_up(1,1) x=1326 y=408 last_error=0 hp=100% distance=532
+[04:15:12] 本轮攻击等待结束，回到 idle
+[04:15:12] 状态切换: battle -> idle
+[04:15:13] 战斗开关已开启，进入战斗状态
+[04:15:13] 状态切换: idle -> battle
+[04:15:13] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=0 hp=100% distance=93
+[04:15:15] 本轮攻击等待结束，回到 idle
+[04:15:15] 状态切换: battle -> idle
+[04:15:16] 战斗开关已开启，进入战斗状态
+[04:15:16] 状态切换: idle -> battle
+[04:15:17] 开始攻击怪物 hp=100% distance=239 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=88 last_error=0 hp=100% distance=239
+[04:15:19] 本轮攻击等待结束，回到 idle
+[04:15:19] 状态切换: battle -> idle
+[04:15:20] 战斗开关已开启，进入战斗状态
+[04:15:20] 状态切换: idle -> battle
+[04:15:21] 开始攻击怪物 hp=77% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=0 hp=77% distance=49
+[04:15:22] 本轮攻击等待结束，回到 idle
+[04:15:22] 状态切换: battle -> idle
+[04:15:23] 战斗开关已开启，进入战斗状态
+[04:15:23] 状态切换: idle -> battle
+[04:15:24] 开始攻击怪物 hp=20% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=0 hp=20% distance=49
+[04:15:26] 本轮攻击等待结束，回到 idle
+[04:15:26] 状态切换: battle -> idle
+[04:15:27] 战斗开关已开启，进入战斗状态
+[04:15:27] 状态切换: idle -> battle
+[04:15:28] 开始攻击怪物 hp=100% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=100% distance=53
+[04:15:30] 本轮攻击等待结束，回到 idle
+[04:15:30] 状态切换: battle -> idle
+[04:15:30] 战斗开关已开启，进入战斗状态
+[04:15:30] 状态切换: idle -> battle
+[04:15:31] 开始攻击怪物 hp=100% distance=724 攻击怪物 点击成功 button=left method=down_up(1,1) x=78 y=280 last_error=0 hp=100% distance=724
+[04:15:33] 本轮攻击等待结束，回到 idle
+[04:15:33] 状态切换: battle -> idle
+[04:15:34] 战斗开关已开启，进入战斗状态
+[04:15:34] 状态切换: idle -> battle
+[04:15:35] 开始攻击怪物 hp=100% distance=243 攻击怪物 点击成功 button=left method=down_up(1,1) x=558 y=344 last_error=0 hp=100% distance=243
+[04:15:37] 本轮攻击等待结束，回到 idle
+[04:15:37] 状态切换: battle -> idle
+[04:15:37] 战斗开关已开启，进入战斗状态
+[04:15:37] 状态切换: idle -> battle
+[04:15:38] 开始攻击怪物 hp=100% distance=147 攻击怪物 点击成功 button=left method=down_up(1,1) x=654 y=344 last_error=0 hp=100% distance=147
+[04:15:40] 本轮攻击等待结束，回到 idle
+[04:15:40] 状态切换: battle -> idle
+[04:15:41] 战斗开关已开启，进入战斗状态
+[04:15:41] 状态切换: idle -> battle
+[04:15:42] 没有扫描到怪物，进入下一个巡逻点移动状态
+[04:15:42] 状态切换: battle -> move_to_next_patrol_point
+[04:15:44] 巡逻点 index=2 移动到巡逻点 成功 logic=86:130 map=68,65 client=593,340 click=点击成功 button=left method=down_up(1,1) x=593 y=340 last_error=18 close=后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[04:15:53] 玩家坐标 84:130 连续 2 秒未变化，巡逻点 index=2 已完成，回到 idle
+[04:15:53] 状态切换: move_to_next_patrol_point -> idle
+[04:15:54] 战斗开关已开启，进入战斗状态
+[04:15:54] 状态切换: idle -> battle
+[04:15:54] 开始攻击怪物 hp=100% distance=106 攻击怪物 点击成功 button=left method=down_up(1,1) x=894 y=376 last_error=0 hp=100% distance=106
+[04:15:56] 本轮攻击等待结束，回到 idle
+[04:15:56] 状态切换: battle -> idle
+[04:15:56] 战斗开关已开启，进入战斗状态
+[04:15:56] 状态切换: idle -> battle
+[04:15:57] 开始攻击怪物 hp=100% distance=58 攻击怪物 点击成功 button=left method=down_up(1,1) x=854 y=349 last_error=0 hp=100% distance=58
+[04:15:59] 本轮攻击等待结束，回到 idle
+[04:15:59] 状态切换: battle -> idle
+[04:16:00] 战斗开关已开启，进入战斗状态
+[04:16:00] 状态切换: idle -> battle
+[04:16:01] 开始攻击怪物 hp=100% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=67
+[04:16:03] 本轮攻击等待结束，回到 idle
+[04:16:03] 状态切换: battle -> idle
+[04:16:04] 战斗开关已开启，进入战斗状态
+[04:16:04] 状态切换: idle -> battle
+[04:16:05] 开始攻击怪物 hp=57% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=57% distance=67
+[04:16:06] 本轮攻击等待结束，回到 idle
+[04:16:06] 状态切换: battle -> idle
+[04:16:07] 战斗开关已开启，进入战斗状态
+[04:16:07] 状态切换: idle -> battle
+[04:16:08] 开始攻击怪物 hp=100% distance=478 攻击怪物 点击成功 button=left method=down_up(1,1) x=1278 y=344 last_error=0 hp=100% distance=478
+[04:16:10] 本轮攻击等待结束，回到 idle
+[04:16:10] 状态切换: battle -> idle
+[04:16:11] 战斗开关已开启，进入战斗状态
+[04:16:11] 状态切换: idle -> battle
+[04:16:11] 地图 rect 右下角白色方块已隐藏
+[04:16:12] 开始攻击怪物 hp=100% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=0 hp=100% distance=49
+[04:16:13] 点击提示 Overlay 已关闭
+[04:16:14] 本轮攻击等待结束，回到 idle
+[04:16:14] 状态切换: battle -> idle
+[04:16:14] 战斗开关已开启，进入战斗状态
+[04:16:14] 状态切换: idle -> battle
+[04:16:15] 开始攻击怪物 hp=100% distance=105 攻击怪物 点击成功 button=left method=down_up(1,1) x=894 y=280 last_error=18 hp=100% distance=105
+[04:16:17] 本轮攻击等待结束，回到 idle
+[04:16:17] 状态切换: battle -> idle
+[04:16:18] 战斗开关已开启，进入战斗状态
+[04:16:18] 状态切换: idle -> battle
+[04:16:19] 开始攻击怪物 hp=100% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=18 hp=100% distance=49
+[04:16:21] 本轮攻击等待结束，回到 idle
+[04:16:21] 状态切换: battle -> idle
+[04:16:21] 战斗开关已开启，进入战斗状态
+[04:16:21] 状态切换: idle -> battle
+[04:16:22] 开始攻击怪物 hp=100% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=100% distance=67
+[04:16:24] 本轮攻击等待结束，回到 idle
+[04:16:24] 状态切换: battle -> idle
+[04:16:25] 战斗开关已开启，进入战斗状态
+[04:16:25] 状态切换: idle -> battle
+[04:16:26] 开始攻击怪物 hp=100% distance=175 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=152 last_error=18 hp=100% distance=175
+[04:16:28] 本轮攻击等待结束，回到 idle
+[04:16:28] 状态切换: battle -> idle
+[04:16:28] 战斗开关已开启，进入战斗状态
+[04:16:28] 状态切换: idle -> battle
+[04:16:29] 开始攻击怪物 hp=27% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=27% distance=17
+[04:16:32] 本轮攻击等待结束，回到 idle
+[04:16:32] 状态切换: battle -> idle
+[04:16:33] 战斗开关已开启，进入战斗状态
+[04:16:33] 状态切换: idle -> battle
+[04:16:33] 开始攻击怪物 hp=100% distance=284 攻击怪物 点击成功 button=left method=down_up(1,1) x=606 y=120 last_error=18 hp=100% distance=284
+[04:16:35] 本轮攻击等待结束，回到 idle
+[04:16:35] 状态切换: battle -> idle
+[04:16:36] 战斗开关已开启，进入战斗状态
+[04:16:36] 状态切换: idle -> battle
+[04:16:37] 开始攻击怪物 hp=100% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=100% distance=53
+[04:16:39] 本轮攻击等待结束，回到 idle
+[04:16:39] 状态切换: battle -> idle
+[04:16:40] 战斗开关已开启，进入战斗状态
+[04:16:40] 状态切换: idle -> battle
+[04:16:41] 开始攻击怪物 hp=100% distance=339 攻击怪物 点击成功 button=left method=down_up(1,1) x=510 y=152 last_error=18 hp=100% distance=339
+[04:16:42] 本轮攻击等待结束，回到 idle
+[04:16:42] 状态切换: battle -> idle
+[04:16:43] 战斗开关已开启，进入战斗状态
+[04:16:43] 状态切换: idle -> battle
+[04:16:44] 开始攻击怪物 hp=50% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=50% distance=17
+[04:16:46] 本轮攻击等待结束，回到 idle
+[04:16:46] 状态切换: battle -> idle
+[04:16:47] 战斗开关已开启，进入战斗状态
+[04:16:47] 状态切换: idle -> battle
+[04:16:48] 开始攻击怪物 hp=100% distance=181 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=152 last_error=18 hp=100% distance=181
+[04:16:50] 本轮攻击等待结束，回到 idle
+[04:16:50] 状态切换: battle -> idle
+[04:16:50] 战斗开关已开启，进入战斗状态
+[04:16:50] 状态切换: idle -> battle
+[04:16:51] 开始攻击怪物 hp=50% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=50% distance=53
+[04:16:53] 本轮攻击等待结束，回到 idle
+[04:16:53] 状态切换: battle -> idle
+[04:16:54] 战斗开关已开启，进入战斗状态
+[04:16:54] 状态切换: idle -> battle
+[04:16:55] 开始攻击怪物 hp=100% distance=110 攻击怪物 点击成功 button=left method=down_up(1,1) x=702 y=376 last_error=18 hp=100% distance=110
+[04:16:57] 本轮攻击等待结束，回到 idle
+[04:16:57] 状态切换: battle -> idle
+[04:16:58] 战斗开关已开启，进入战斗状态
+[04:16:58] 状态切换: idle -> battle
+[04:16:59] 开始攻击怪物 hp=80% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=80% distance=70
+[04:17:00] 本轮攻击等待结束，回到 idle
+[04:17:00] 状态切换: battle -> idle
+[04:17:01] 战斗开关已开启，进入战斗状态
+[04:17:01] 状态切换: idle -> battle
+[04:17:02] 开始攻击怪物 hp=57% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=57% distance=70
+[04:17:04] 本轮攻击等待结束，回到 idle
+[04:17:04] 状态切换: battle -> idle
+[04:17:05] 战斗开关已开启，进入战斗状态
+[04:17:05] 状态切换: idle -> battle
+[04:17:06] 开始攻击怪物 hp=100% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=100% distance=70
+[04:17:08] 本轮攻击等待结束，回到 idle
+[04:17:08] 状态切换: battle -> idle
+[04:17:08] 战斗开关已开启，进入战斗状态
+[04:17:08] 状态切换: idle -> battle
+[04:17:09] 开始攻击怪物 hp=100% distance=225 攻击怪物 点击成功 button=left method=down_up(1,1) x=942 y=152 last_error=18 hp=100% distance=225
+[04:17:11] 本轮攻击等待结束，回到 idle
+[04:17:11] 状态切换: battle -> idle
+[04:17:12] 战斗开关已开启，进入战斗状态
+[04:17:12] 状态切换: idle -> battle
+[04:17:13] 开始攻击怪物 hp=37% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=37% distance=53
+[04:17:15] 本轮攻击等待结束，回到 idle
+[04:17:15] 状态切换: battle -> idle
+[04:17:16] 战斗开关已开启，进入战斗状态
+[04:17:16] 状态切换: idle -> battle
+[04:17:16] 开始攻击怪物 hp=100% distance=286 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=312 last_error=18 hp=100% distance=286
+[04:17:18] 本轮攻击等待结束，回到 idle
+[04:17:18] 状态切换: battle -> idle
+[04:17:19] 战斗开关已开启，进入战斗状态
+[04:17:19] 状态切换: idle -> battle
+[04:17:20] 开始攻击怪物 hp=100% distance=202 攻击怪物 点击成功 button=left method=down_up(1,1) x=942 y=184 last_error=18 hp=100% distance=202
+[04:17:22] 本轮攻击等待结束，回到 idle
+[04:17:22] 状态切换: battle -> idle
+[04:17:23] 战斗开关已开启，进入战斗状态
+[04:17:23] 状态切换: idle -> battle
+[04:17:24] 开始攻击怪物 hp=33% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=18 hp=33% distance=49
+[04:17:26] 本轮攻击等待结束，回到 idle
+[04:17:26] 状态切换: battle -> idle
+[04:17:26] 战斗开关已开启，进入战斗状态
+[04:17:26] 状态切换: idle -> battle
+[04:17:27] 开始攻击怪物 hp=100% distance=77 攻击怪物 点击成功 button=left method=down_up(1,1) x=870 y=360 last_error=18 hp=100% distance=77
+[04:17:29] 本轮攻击等待结束，回到 idle
+[04:17:29] 状态切换: battle -> idle
+[04:17:30] 战斗开关已开启，进入战斗状态
+[04:17:30] 状态切换: idle -> battle
+[04:17:31] 开始攻击怪物 hp=100% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=100% distance=53
+[04:17:33] 本轮攻击等待结束，回到 idle
+[04:17:33] 状态切换: battle -> idle
+[04:17:33] 战斗开关已开启，进入战斗状态
+[04:17:33] 状态切换: idle -> battle
+[04:17:34] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:17:36] 本轮攻击等待结束，回到 idle
+[04:17:36] 状态切换: battle -> idle
+[04:17:37] 战斗开关已开启，进入战斗状态
+[04:17:37] 状态切换: idle -> battle
+[04:17:38] 开始攻击怪物 hp=40% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=40% distance=81
+[04:17:40] 本轮攻击等待结束，回到 idle
+[04:17:40] 状态切换: battle -> idle
+[04:17:40] 战斗开关已开启，进入战斗状态
+[04:17:40] 状态切换: idle -> battle
+[04:17:41] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:17:43] 本轮攻击等待结束，回到 idle
+[04:17:43] 状态切换: battle -> idle
+[04:17:44] 战斗开关已开启，进入战斗状态
+[04:17:44] 状态切换: idle -> battle
+[04:17:45] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=100% distance=81
+[04:17:47] 本轮攻击等待结束，回到 idle
+[04:17:47] 状态切换: battle -> idle
+[04:17:47] 战斗开关已开启，进入战斗状态
+[04:17:47] 状态切换: idle -> battle
+[04:17:48] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:17:50] 本轮攻击等待结束，回到 idle
+[04:17:50] 状态切换: battle -> idle
+[04:17:51] 战斗开关已开启，进入战斗状态
+[04:17:51] 状态切换: idle -> battle
+[04:17:52] 开始攻击怪物 hp=100% distance=68 攻击怪物 点击成功 button=left method=down_up(1,1) x=758 y=381 last_error=18 hp=100% distance=68
+[04:17:54] 本轮攻击等待结束，回到 idle
+[04:17:54] 状态切换: battle -> idle
+[04:17:54] 战斗开关已开启，进入战斗状态
+[04:17:54] 状态切换: idle -> battle
+[04:17:55] 开始攻击怪物 hp=100% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=100% distance=67
+[04:17:57] 本轮攻击等待结束，回到 idle
+[04:17:57] 状态切换: battle -> idle
+[04:17:58] 战斗开关已开启，进入战斗状态
+[04:17:58] 状态切换: idle -> battle
+[04:17:59] 开始攻击怪物 hp=100% distance=76 攻击怪物 点击成功 button=left method=down_up(1,1) x=806 y=403 last_error=18 hp=100% distance=76
+[04:18:01] 本轮攻击等待结束，回到 idle
+[04:18:01] 状态切换: battle -> idle
+[04:18:01] 战斗开关已开启，进入战斗状态
+[04:18:01] 状态切换: idle -> battle
+[04:18:02] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=100% distance=81
+[04:18:03] 保存巡逻点成功 count=16
+[04:18:04] 本轮攻击等待结束，回到 idle
+[04:18:04] 状态切换: battle -> idle
+[04:18:05] 战斗开关已开启，进入战斗状态
+[04:18:05] 状态切换: idle -> battle
+[04:18:06] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:18:08] 本轮攻击等待结束，回到 idle
+[04:18:08] 状态切换: battle -> idle
+[04:18:08] 战斗开关已关闭
+[04:18:09] 战斗开关已打开，巡逻开关已关闭
+[04:18:09] 战斗开关已开启，进入战斗状态
+[04:18:09] 状态切换: idle -> battle
+[04:18:10] 开始攻击怪物 hp=100% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=100% distance=67
+[04:18:12] 本轮攻击等待结束，回到 idle
+[04:18:12] 状态切换: battle -> idle
+[04:18:13] 战斗开关已开启，进入战斗状态
+[04:18:13] 状态切换: idle -> battle
+[04:18:14] 开始攻击怪物 hp=100% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=100% distance=70
+[04:18:16] 本轮攻击等待结束，回到 idle
+[04:18:16] 状态切换: battle -> idle
+[04:18:16] 战斗开关已开启，进入战斗状态
+[04:18:16] 状态切换: idle -> battle
+[04:18:17] 开始攻击怪物 hp=100% distance=51 攻击怪物 点击成功 button=left method=down_up(1,1) x=766 y=365 last_error=18 hp=100% distance=51
+[04:18:19] 本轮攻击等待结束，回到 idle
+[04:18:19] 状态切换: battle -> idle
+[04:18:19] 战斗开关已开启，进入战斗状态
+[04:18:19] 状态切换: idle -> battle
+[04:18:20] 开始攻击怪物 hp=100% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=100% distance=67
+[04:18:22] 本轮攻击等待结束，回到 idle
+[04:18:22] 状态切换: battle -> idle
+[04:18:23] 战斗开关已开启，进入战斗状态
+[04:18:23] 状态切换: idle -> battle
+[04:18:24] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=100% distance=81
+[04:18:26] 本轮攻击等待结束，回到 idle
+[04:18:26] 状态切换: battle -> idle
+[04:18:26] 战斗开关已开启，进入战斗状态
+[04:18:26] 状态切换: idle -> battle
+[04:18:27] 开始攻击怪物 hp=100% distance=71 攻击怪物 点击成功 button=left method=down_up(1,1) x=814 y=397 last_error=18 hp=100% distance=71
+[04:18:29] 本轮攻击等待结束，回到 idle
+[04:18:29] 状态切换: battle -> idle
+[04:18:30] 战斗开关已开启，进入战斗状态
+[04:18:30] 状态切换: idle -> battle
+[04:18:31] 开始攻击怪物 hp=100% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=100% distance=70
+[04:18:33] 本轮攻击等待结束，回到 idle
+[04:18:33] 状态切换: battle -> idle
+[04:18:34] 战斗开关已开启，进入战斗状态
+[04:18:34] 状态切换: idle -> battle
+[04:18:35] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:18:36] 战斗开关已关闭
+[04:18:36] 战斗开关已关闭，回到 idle
+[04:18:36] 状态切换: battle -> idle
+[04:18:58] 战斗开关已打开，巡逻开关已关闭
+[04:18:58] 战斗开关已开启，进入战斗状态
+[04:18:58] 状态切换: idle -> battle
+[04:18:59] 开始攻击怪物 hp=100% distance=315 攻击怪物 点击成功 button=left method=down_up(1,1) x=1038 y=120 last_error=18 hp=100% distance=315
+[04:19:02] 本轮攻击等待结束，回到 idle
+[04:19:02] 状态切换: battle -> idle
+[04:19:03] 战斗开关已开启，进入战斗状态
+[04:19:03] 状态切换: idle -> battle
+[04:19:04] 开始攻击怪物 hp=100% distance=295 攻击怪物 点击成功 button=left method=down_up(1,1) x=1038 y=152 last_error=18 hp=100% distance=295
+[04:19:06] 本轮攻击等待结束，回到 idle
+[04:19:06] 状态切换: battle -> idle
+[04:19:06] 战斗开关已开启，进入战斗状态
+[04:19:06] 状态切换: idle -> battle
+[04:19:07] 开始攻击怪物 hp=27% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=27% distance=53
+[04:19:09] 本轮攻击等待结束，回到 idle
+[04:19:09] 状态切换: battle -> idle
+[04:19:10] 战斗开关已开启，进入战斗状态
+[04:19:10] 状态切换: idle -> battle
+[04:19:11] 开始攻击怪物 hp=100% distance=155 攻击怪物 点击成功 button=left method=down_up(1,1) x=878 y=461 last_error=18 hp=100% distance=155
+[04:19:13] 本轮攻击等待结束，回到 idle
+[04:19:13] 状态切换: battle -> idle
+[04:19:13] 战斗开关已开启，进入战斗状态
+[04:19:13] 状态切换: idle -> battle
+[04:19:14] 开始攻击怪物 hp=100% distance=207 攻击怪物 点击成功 button=left method=down_up(1,1) x=990 y=408 last_error=18 hp=100% distance=207
+[04:19:16] 本轮攻击等待结束，回到 idle
+[04:19:16] 状态切换: battle -> idle
+[04:19:17] 战斗开关已开启，进入战斗状态
+[04:19:17] 状态切换: idle -> battle
+[04:19:18] 开始攻击怪物 hp=10% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=10% distance=93
+[04:19:20] 本轮攻击等待结束，回到 idle
+[04:19:20] 状态切换: battle -> idle
+[04:19:21] 战斗开关已开启，进入战斗状态
+[04:19:21] 状态切换: idle -> battle
+[04:19:22] 开始攻击怪物 hp=100% distance=288 攻击怪物 点击成功 button=left method=down_up(1,1) x=702 y=56 last_error=18 hp=100% distance=288
+[04:19:24] 本轮攻击等待结束，回到 idle
+[04:19:24] 状态切换: battle -> idle
+[04:19:24] 战斗开关已开启，进入战斗状态
+[04:19:24] 状态切换: idle -> battle
+[04:19:25] 开始攻击怪物 hp=100% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=100% distance=53
+[04:19:27] 本轮攻击等待结束，回到 idle
+[04:19:27] 状态切换: battle -> idle
+[04:19:28] 战斗开关已开启，进入战斗状态
+[04:19:28] 状态切换: idle -> battle
+[04:19:29] 没有扫描到怪物，进入下一个巡逻点移动状态
+[04:19:29] 状态切换: battle -> move_to_next_patrol_point
+[04:19:30] 巡逻点 index=0 移动到巡逻点 成功 logic=112:128 map=88,64 client=613,339 click=点击成功 button=left method=down_up(1,1) x=613 y=339 last_error=18 close=后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[04:19:52] 玩家坐标 109:128 连续 2 秒未变化，巡逻点 index=0 已完成，回到 idle
+[04:19:52] 状态切换: move_to_next_patrol_point -> idle
+[04:19:53] 战斗开关已开启，进入战斗状态
+[04:19:53] 状态切换: idle -> battle
+[04:19:54] 开始攻击怪物 hp=100% distance=79 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=248 last_error=18 hp=100% distance=79
+[04:19:56] 本轮攻击等待结束，回到 idle
+[04:19:56] 状态切换: battle -> idle
+[04:19:57] 战斗开关已开启，进入战斗状态
+[04:19:57] 状态切换: idle -> battle
+[04:19:58] 开始攻击怪物 hp=100% distance=143 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=184 last_error=18 hp=100% distance=143
+[04:20:00] 本轮攻击等待结束，回到 idle
+[04:20:00] 状态切换: battle -> idle
+[04:20:00] 战斗开关已开启，进入战斗状态
+[04:20:00] 状态切换: idle -> battle
+[04:20:01] 开始攻击怪物 hp=100% distance=15 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=312 last_error=18 hp=100% distance=15
+[04:20:03] 本轮攻击等待结束，回到 idle
+[04:20:03] 状态切换: battle -> idle
+[04:20:04] 战斗开关已开启，进入战斗状态
+[04:20:04] 状态切换: idle -> battle
+[04:20:05] 开始攻击怪物 hp=43% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=43% distance=17
+[04:20:07] 本轮攻击等待结束，回到 idle
+[04:20:07] 状态切换: battle -> idle
+[04:20:07] 巡逻点 index=1 移动到巡逻点 成功 logic=74:174 map=58,87 client=583,362 click=点击成功 button=left method=down_up(1,1) x=583 y=362 last_error=0 close=后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[04:20:07] 战斗开关已开启，进入战斗状态
+[04:20:07] 状态切换: idle -> battle
+[04:20:08] 开始攻击怪物 hp=100% distance=38 攻击怪物 点击成功 button=left method=down_up(1,1) x=766 y=344 last_error=18 hp=100% distance=38
+[04:20:10] 本轮攻击等待结束，回到 idle
+[04:20:10] 状态切换: battle -> idle
+[04:20:11] 战斗开关已开启，进入战斗状态
+[04:20:11] 状态切换: idle -> battle
+[04:20:12] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=100% distance=81
+[04:20:14] 本轮攻击等待结束，回到 idle
+[04:20:14] 状态切换: battle -> idle
+[04:20:15] 战斗开关已开启，进入战斗状态
+[04:20:15] 状态切换: idle -> battle
+[04:20:16] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=100% distance=93
+[04:20:18] 本轮攻击等待结束，回到 idle
+[04:20:18] 状态切换: battle -> idle
+[04:20:18] 战斗开关已开启，进入战斗状态
+[04:20:18] 状态切换: idle -> battle
+[04:20:19] 开始攻击怪物 hp=100% distance=335 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=152 last_error=18 hp=100% distance=335
+[04:20:21] 本轮攻击等待结束，回到 idle
+[04:20:21] 状态切换: battle -> idle
+[04:20:22] 战斗开关已开启，进入战斗状态
+[04:20:22] 状态切换: idle -> battle
+[04:20:24] 开始攻击怪物 hp=100% distance=221 攻击怪物 点击成功 button=left method=down_up(1,1) x=990 y=440 last_error=18 hp=100% distance=221
+[04:20:26] 本轮攻击等待结束，回到 idle
+[04:20:26] 状态切换: battle -> idle
+[04:20:27] 战斗开关已开启，进入战斗状态
+[04:20:27] 状态切换: idle -> battle
+[04:20:28] 开始攻击怪物 hp=100% distance=203 攻击怪物 点击成功 button=left method=down_up(1,1) x=942 y=472 last_error=18 hp=100% distance=203
+[04:20:30] 本轮攻击等待结束，回到 idle
+[04:20:30] 状态切换: battle -> idle
+[04:20:31] 战斗开关已开启，进入战斗状态
+[04:20:31] 状态切换: idle -> battle
+[04:20:32] 开始攻击怪物 hp=100% distance=243 攻击怪物 点击成功 button=left method=down_up(1,1) x=1038 y=280 last_error=18 hp=100% distance=243
+[04:20:35] 本轮攻击等待结束，回到 idle
+[04:20:35] 状态切换: battle -> idle
+[04:20:36] 战斗开关已开启，进入战斗状态
+[04:20:36] 状态切换: idle -> battle
+[04:20:37] 开始攻击怪物 hp=80% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=80% distance=93
+[04:20:39] 本轮攻击等待结束，回到 idle
+[04:20:39] 状态切换: battle -> idle
+[04:20:40] 战斗开关已开启，进入战斗状态
+[04:20:40] 状态切换: idle -> battle
+[04:20:41] 开始攻击怪物 hp=30% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=30% distance=93
+[04:20:43] 本轮攻击等待结束，回到 idle
+[04:20:43] 状态切换: battle -> idle
+[04:20:44] 战斗开关已开启，进入战斗状态
+[04:20:44] 状态切换: idle -> battle
+[04:20:45] 开始攻击怪物 hp=100% distance=278 攻击怪物 点击成功 button=left method=down_up(1,1) x=942 y=88 last_error=18 hp=100% distance=278
+[04:20:47] 本轮攻击等待结束，回到 idle
+[04:20:47] 状态切换: battle -> idle
+[04:20:48] 战斗开关已开启，进入战斗状态
+[04:20:48] 状态切换: idle -> battle
+[04:20:49] 开始攻击怪物 hp=100% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=100% distance=53
+[04:20:51] 本轮攻击等待结束，回到 idle
+[04:20:51] 状态切换: battle -> idle
+[04:20:51] 战斗开关已开启，进入战斗状态
+[04:20:51] 状态切换: idle -> battle
+[04:20:52] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=100% distance=81
+[04:20:54] 本轮攻击等待结束，回到 idle
+[04:20:54] 状态切换: battle -> idle
+[04:20:55] 战斗开关已开启，进入战斗状态
+[04:20:55] 状态切换: idle -> battle
+[04:20:56] 开始攻击怪物 hp=50% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=50% distance=81
+[04:20:58] 本轮攻击等待结束，回到 idle
+[04:20:58] 状态切换: battle -> idle
+[04:20:58] 战斗开关已开启，进入战斗状态
+[04:20:58] 状态切换: idle -> battle
+[04:20:59] 开始攻击怪物 hp=100% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=100% distance=67
+[04:21:01] 本轮攻击等待结束，回到 idle
+[04:21:01] 状态切换: battle -> idle
+[04:21:02] 战斗开关已开启，进入战斗状态
+[04:21:02] 状态切换: idle -> battle
+[04:21:03] 开始攻击怪物 hp=100% distance=243 攻击怪物 点击成功 button=left method=down_up(1,1) x=1038 y=376 last_error=18 hp=100% distance=243
+[04:21:05] 本轮攻击等待结束，回到 idle
+[04:21:05] 状态切换: battle -> idle
+[04:21:05] 战斗开关已开启，进入战斗状态
+[04:21:05] 状态切换: idle -> battle
+[04:21:06] 开始攻击怪物 hp=100% distance=196 攻击怪物 点击成功 button=left method=down_up(1,1) x=990 y=376 last_error=18 hp=100% distance=196
+[04:21:08] 本轮攻击等待结束，回到 idle
+[04:21:08] 状态切换: battle -> idle
+[04:21:09] 战斗开关已开启，进入战斗状态
+[04:21:09] 状态切换: idle -> battle
+[04:21:10] 开始攻击怪物 hp=100% distance=106 攻击怪物 点击成功 button=left method=down_up(1,1) x=894 y=376 last_error=18 hp=100% distance=106
+[04:21:12] 本轮攻击等待结束，回到 idle
+[04:21:12] 状态切换: battle -> idle
+[04:21:13] 战斗开关已开启，进入战斗状态
+[04:21:13] 状态切换: idle -> battle
+[04:21:14] 开始攻击怪物 hp=100% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=18 hp=100% distance=49
+[04:21:15] 本轮攻击等待结束，回到 idle
+[04:21:15] 状态切换: battle -> idle
+[04:21:16] 战斗开关已开启，进入战斗状态
+[04:21:16] 状态切换: idle -> battle
+[04:21:17] 开始攻击怪物 hp=100% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=100% distance=67
+[04:21:19] 本轮攻击等待结束，回到 idle
+[04:21:19] 状态切换: battle -> idle
+[04:21:20] 战斗开关已开启，进入战斗状态
+[04:21:20] 状态切换: idle -> battle
+[04:21:21] 开始攻击怪物 hp=100% distance=286 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=312 last_error=18 hp=100% distance=286
+[04:21:23] 本轮攻击等待结束，回到 idle
+[04:21:23] 状态切换: battle -> idle
+[04:21:24] 战斗开关已开启，进入战斗状态
+[04:21:24] 状态切换: idle -> battle
+[04:21:26] 开始攻击怪物 hp=100% distance=393 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=120 last_error=18 hp=100% distance=393
+[04:21:28] 本轮攻击等待结束，回到 idle
+[04:21:28] 状态切换: battle -> idle
+[04:21:29] 战斗开关已开启，进入战斗状态
+[04:21:29] 状态切换: idle -> battle
+[04:21:30] 开始攻击怪物 hp=40% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=18 hp=40% distance=49
+[04:21:32] 本轮攻击等待结束，回到 idle
+[04:21:32] 状态切换: battle -> idle
+[04:21:33] 战斗开关已开启，进入战斗状态
+[04:21:33] 状态切换: idle -> battle
+[04:21:35] 开始攻击怪物 hp=100% distance=120 攻击怪物 点击成功 button=left method=down_up(1,1) x=910 y=376 last_error=18 hp=100% distance=120
+[04:21:37] 本轮攻击等待结束，回到 idle
+[04:21:37] 状态切换: battle -> idle
+[04:21:38] 战斗开关已开启，进入战斗状态
+[04:21:38] 状态切换: idle -> battle
+[04:21:39] 开始攻击怪物 hp=100% distance=151 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=184 last_error=18 hp=100% distance=151
+[04:21:41] 本轮攻击等待结束，回到 idle
+[04:21:41] 状态切换: battle -> idle
+[04:21:42] 战斗开关已开启，进入战斗状态
+[04:21:42] 状态切换: idle -> battle
+[04:21:43] 开始攻击怪物 hp=67% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=67% distance=53
+[04:21:45] 本轮攻击等待结束，回到 idle
+[04:21:45] 状态切换: battle -> idle
+[04:21:46] 战斗开关已开启，进入战斗状态
+[04:21:46] 状态切换: idle -> battle
+[04:21:47] 开始攻击怪物 hp=10% distance=92 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=419 last_error=18 hp=10% distance=92
+[04:21:48] 本轮攻击等待结束，回到 idle
+[04:21:48] 状态切换: battle -> idle
+[04:21:49] 战斗开关已开启，进入战斗状态
+[04:21:49] 状态切换: idle -> battle
+[04:21:50] 开始攻击怪物 hp=100% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=100% distance=67
+[04:21:52] 本轮攻击等待结束，回到 idle
+[04:21:52] 状态切换: battle -> idle
+[04:21:53] 战斗开关已开启，进入战斗状态
+[04:21:53] 状态切换: idle -> battle
+[04:21:53] 开始攻击怪物 hp=100% distance=545 攻击怪物 点击成功 button=left method=down_up(1,1) x=1326 y=184 last_error=18 hp=100% distance=545
+[04:21:55] 本轮攻击等待结束，回到 idle
+[04:21:55] 状态切换: battle -> idle
+[04:21:56] 战斗开关已开启，进入战斗状态
+[04:21:56] 状态切换: idle -> battle
+[04:21:57] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=100% distance=81
+[04:21:59] 本轮攻击等待结束，回到 idle
+[04:21:59] 状态切换: battle -> idle
+[04:21:59] 战斗开关已开启，进入战斗状态
+[04:21:59] 状态切换: idle -> battle
+[04:22:00] 开始攻击怪物 hp=100% distance=574 攻击怪物 点击成功 button=left method=down_up(1,1) x=1374 y=344 last_error=18 hp=100% distance=574
+[04:22:02] 本轮攻击等待结束，回到 idle
+[04:22:02] 状态切换: battle -> idle
+[04:22:03] 战斗开关已开启，进入战斗状态
+[04:22:03] 状态切换: idle -> battle
+[04:22:04] 开始攻击怪物 hp=100% distance=83 攻击怪物 点击成功 button=left method=down_up(1,1) x=878 y=355 last_error=18 hp=100% distance=83
+[04:22:06] 本轮攻击等待结束，回到 idle
+[04:22:06] 状态切换: battle -> idle
+[04:22:07] 战斗开关已开启，进入战斗状态
+[04:22:07] 状态切换: idle -> battle
+[04:22:08] 开始攻击怪物 hp=100% distance=281 攻击怪物 点击成功 button=left method=down_up(1,1) x=990 y=120 last_error=18 hp=100% distance=281
+[04:22:08] 保存巡逻点成功 count=7
+[04:22:09] 本轮攻击等待结束，回到 idle
+[04:22:09] 状态切换: battle -> idle
+[04:22:09] 保存巡逻点成功 count=7
+[04:22:10] 保存巡逻点成功 count=7
+[04:22:10] 保存巡逻点成功 count=7
+[04:22:10] 保存巡逻点成功 count=7
+[04:22:10] 战斗开关已开启，进入战斗状态
+[04:22:10] 状态切换: idle -> battle
+[04:22:11] 开始攻击怪物 hp=100% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=18 hp=100% distance=49
+[04:22:12] 战斗开关已关闭
+[04:22:12] 战斗开关已关闭，回到 idle
+[04:22:12] 状态切换: battle -> idle
+[04:23:57] 战斗开关已打开，巡逻开关已关闭
+[04:23:58] 战斗开关已开启，进入战斗状态
+[04:23:58] 状态切换: idle -> battle
+[04:23:59] 开始攻击怪物 hp=100% distance=15 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=312 last_error=18 hp=100% distance=15
+[04:24:01] 本轮攻击等待结束，回到 idle
+[04:24:01] 状态切换: battle -> idle
+[04:24:01] 战斗开关已开启，进入战斗状态
+[04:24:01] 状态切换: idle -> battle
+[04:24:02] 开始攻击怪物 hp=100% distance=15 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=312 last_error=18 hp=100% distance=15
+[04:24:04] 本轮攻击等待结束，回到 idle
+[04:24:04] 状态切换: battle -> idle
+[04:24:05] 战斗开关已开启，进入战斗状态
+[04:24:05] 状态切换: idle -> battle
+[04:24:06] 开始攻击怪物 hp=50% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=50% distance=17
+[04:24:08] 本轮攻击等待结束，回到 idle
+[04:24:08] 状态切换: battle -> idle
+[04:24:09] 战斗开关已开启，进入战斗状态
+[04:24:09] 状态切换: idle -> battle
+[04:24:09] 开始攻击怪物 hp=100% distance=394 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=536 last_error=18 hp=100% distance=394
+[04:24:11] 本轮攻击等待结束，回到 idle
+[04:24:11] 状态切换: battle -> idle
+[04:24:12] 战斗开关已开启，进入战斗状态
+[04:24:12] 状态切换: idle -> battle
+[04:24:13] 开始攻击怪物 hp=50% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=50% distance=93
+[04:24:15] 本轮攻击等待结束，回到 idle
+[04:24:15] 状态切换: battle -> idle
+[04:24:16] 战斗开关已开启，进入战斗状态
+[04:24:16] 状态切换: idle -> battle
+[04:24:16] 没有扫描到怪物，进入下一个巡逻点移动状态
+[04:24:16] 状态切换: battle -> move_to_next_patrol_point
+[04:24:18] 巡逻点 index=0 移动到巡逻点 成功 logic=71:199 map=56,100 client=581,375 click=点击成功 button=left method=down_up(1,1) x=581 y=375 last_error=18 close=后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[04:25:10] 玩家坐标 69:200 连续 2 秒未变化，巡逻点 index=0 已完成，回到 idle
+[04:25:10] 状态切换: move_to_next_patrol_point -> idle
+[04:25:11] 战斗开关已开启，进入战斗状态
+[04:25:11] 状态切换: idle -> battle
+[04:25:12] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=100% distance=93
+[04:25:14] 本轮攻击等待结束，回到 idle
+[04:25:14] 状态切换: battle -> idle
+[04:25:14] 战斗开关已开启，进入战斗状态
+[04:25:14] 状态切换: idle -> battle
+[04:25:15] 开始攻击怪物 hp=100% distance=110 攻击怪物 点击成功 button=left method=down_up(1,1) x=702 y=376 last_error=18 hp=100% distance=110
+[04:25:17] 本轮攻击等待结束，回到 idle
+[04:25:17] 状态切换: battle -> idle
+[04:25:18] 战斗开关已开启，进入战斗状态
+[04:25:18] 状态切换: idle -> battle
+[04:25:19] 开始攻击怪物 hp=43% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=43% distance=70
+[04:25:21] 本轮攻击等待结束，回到 idle
+[04:25:21] 状态切换: battle -> idle
+[04:25:21] 战斗开关已开启，进入战斗状态
+[04:25:21] 状态切换: idle -> battle
+[04:25:22] 开始攻击怪物 hp=13% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=13% distance=70
+[04:25:24] 本轮攻击等待结束，回到 idle
+[04:25:24] 状态切换: battle -> idle
+[04:25:25] 战斗开关已开启，进入战斗状态
+[04:25:25] 状态切换: idle -> battle
+[04:25:26] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=100% distance=81
+[04:25:28] 自动加血触发: hp=47% threshold=50% mouse=0,0 key=F1
+[04:25:28] 本轮攻击等待结束，回到 idle
+[04:25:28] 状态切换: battle -> idle
+[04:25:29] 战斗开关已开启，进入战斗状态
+[04:25:29] 状态切换: idle -> battle
+[04:25:30] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=100% distance=81
+[04:25:30] 自动加血重新待命: hp=50% threshold=50%
+[04:25:32] 本轮攻击等待结束，回到 idle
+[04:25:32] 状态切换: battle -> idle
+[04:25:32] 战斗开关已开启，进入战斗状态
+[04:25:32] 状态切换: idle -> battle
+[04:25:33] 开始攻击怪物 hp=100% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=100% distance=81
+[04:25:35] 本轮攻击等待结束，回到 idle
+[04:25:35] 状态切换: battle -> idle
+[04:25:36] 战斗开关已开启，进入战斗状态
+[04:25:36] 状态切换: idle -> battle
+[04:25:37] 开始攻击怪物 hp=83% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=83% distance=81
+[04:25:39] 本轮攻击等待结束，回到 idle
+[04:25:39] 状态切换: battle -> idle
+[04:25:39] 战斗开关已开启，进入战斗状态
+[04:25:39] 状态切换: idle -> battle
+[04:25:40] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=100% distance=93
+[04:25:42] 本轮攻击等待结束，回到 idle
+[04:25:42] 状态切换: battle -> idle
+[04:25:43] 战斗开关已开启，进入战斗状态
+[04:25:43] 状态切换: idle -> battle
+[04:25:44] 开始攻击怪物 hp=100% distance=113 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=440 last_error=18 hp=100% distance=113
+[04:25:45] 自动加血触发: hp=47% threshold=50% mouse=0,0 key=F1
+[04:25:46] 本轮攻击等待结束，回到 idle
+[04:25:46] 状态切换: battle -> idle
+[04:25:47] 战斗开关已开启，进入战斗状态
+[04:25:47] 状态切换: idle -> battle
+[04:25:48] 开始攻击怪物 hp=70% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=70% distance=81
+[04:25:50] 本轮攻击等待结束，回到 idle
+[04:25:50] 状态切换: battle -> idle
+[04:25:50] 战斗开关已开启，进入战斗状态
+[04:25:50] 状态切换: idle -> battle
+[04:25:51] 开始攻击怪物 hp=10% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=10% distance=81
+[04:25:53] 本轮攻击等待结束，回到 idle
+[04:25:53] 状态切换: battle -> idle
+[04:25:54] 战斗开关已开启，进入战斗状态
+[04:25:54] 状态切换: idle -> battle
+[04:25:55] 开始攻击怪物 hp=100% distance=175 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=152 last_error=18 hp=100% distance=175
+[04:25:57] 本轮攻击等待结束，回到 idle
+[04:25:57] 状态切换: battle -> idle
+[04:25:58] 战斗开关已开启，进入战斗状态
+[04:25:58] 状态切换: idle -> battle
+[04:25:59] 开始攻击怪物 hp=67% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=18 hp=67% distance=49
+[04:26:01] 本轮攻击等待结束，回到 idle
+[04:26:01] 状态切换: battle -> idle
+[04:26:01] 战斗开关已开启，进入战斗状态
+[04:26:01] 状态切换: idle -> battle
+[04:26:02] 开始攻击怪物 hp=13% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=18 hp=13% distance=49
+[04:26:04] 本轮攻击等待结束，回到 idle
+[04:26:04] 状态切换: battle -> idle
+[04:26:05] 战斗开关已开启，进入战斗状态
+[04:26:05] 状态切换: idle -> battle
+[04:26:06] 开始攻击怪物 hp=100% distance=110 攻击怪物 点击成功 button=left method=down_up(1,1) x=702 y=376 last_error=18 hp=100% distance=110
+[04:26:08] 本轮攻击等待结束，回到 idle
+[04:26:08] 状态切换: battle -> idle
+[04:26:08] 战斗开关已开启，进入战斗状态
+[04:26:08] 状态切换: idle -> battle
+[04:26:09] 开始攻击怪物 hp=50% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=50% distance=70
+[04:26:11] 本轮攻击等待结束，回到 idle
+[04:26:11] 状态切换: battle -> idle
+[04:26:12] 战斗开关已开启，进入战斗状态
+[04:26:12] 状态切换: idle -> battle
+[04:26:13] 开始攻击怪物 hp=100% distance=495 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=216 last_error=18 hp=100% distance=495
+[04:26:15] 本轮攻击等待结束，回到 idle
+[04:26:15] 状态切换: battle -> idle
+[04:26:15] 战斗开关已开启，进入战斗状态
+[04:26:15] 状态切换: idle -> battle
+[04:26:16] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:18] 本轮攻击等待结束，回到 idle
+[04:26:18] 状态切换: battle -> idle
+[04:26:19] 战斗开关已开启，进入战斗状态
+[04:26:19] 状态切换: idle -> battle
+[04:26:20] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:22] 本轮攻击等待结束，回到 idle
+[04:26:22] 状态切换: battle -> idle
+[04:26:22] 战斗开关已开启，进入战斗状态
+[04:26:22] 状态切换: idle -> battle
+[04:26:23] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:25] 本轮攻击等待结束，回到 idle
+[04:26:25] 状态切换: battle -> idle
+[04:26:26] 战斗开关已开启，进入战斗状态
+[04:26:26] 状态切换: idle -> battle
+[04:26:27] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:29] 本轮攻击等待结束，回到 idle
+[04:26:29] 状态切换: battle -> idle
+[04:26:30] 战斗开关已开启，进入战斗状态
+[04:26:30] 状态切换: idle -> battle
+[04:26:31] 开始攻击怪物 hp=100% distance=437 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=280 last_error=18 hp=100% distance=437
+[04:26:33] 本轮攻击等待结束，回到 idle
+[04:26:33] 状态切换: battle -> idle
+[04:26:33] 战斗开关已开启，进入战斗状态
+[04:26:33] 状态切换: idle -> battle
+[04:26:34] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:36] 本轮攻击等待结束，回到 idle
+[04:26:36] 状态切换: battle -> idle
+[04:26:37] 战斗开关已开启，进入战斗状态
+[04:26:37] 状态切换: idle -> battle
+[04:26:38] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:40] 本轮攻击等待结束，回到 idle
+[04:26:40] 状态切换: battle -> idle
+[04:26:40] 战斗开关已开启，进入战斗状态
+[04:26:40] 状态切换: idle -> battle
+[04:26:41] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:43] 本轮攻击等待结束，回到 idle
+[04:26:43] 状态切换: battle -> idle
+[04:26:44] 战斗开关已开启，进入战斗状态
+[04:26:44] 状态切换: idle -> battle
+[04:26:45] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:47] 本轮攻击等待结束，回到 idle
+[04:26:47] 状态切换: battle -> idle
+[04:26:48] 战斗开关已开启，进入战斗状态
+[04:26:48] 状态切换: idle -> battle
+[04:26:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:49] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:51] 本轮攻击等待结束，回到 idle
+[04:26:51] 状态切换: battle -> idle
+[04:26:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:51] 战斗开关已开启，进入战斗状态
+[04:26:51] 状态切换: idle -> battle
+[04:26:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:52] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:54] 本轮攻击等待结束，回到 idle
+[04:26:54] 状态切换: battle -> idle
+[04:26:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:55] 战斗开关已开启，进入战斗状态
+[04:26:55] 状态切换: idle -> battle
+[04:26:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:56] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:26:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:58] 本轮攻击等待结束，回到 idle
+[04:26:58] 状态切换: battle -> idle
+[04:26:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:58] 自动加血重新待命: hp=50% threshold=50%
+[04:26:58] 战斗开关已开启，进入战斗状态
+[04:26:58] 状态切换: idle -> battle
+[04:26:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:26:59] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:27:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:01] 自动加血检测失败: 没有找到自身绿色血条
+[04:27:01] 本轮攻击等待结束，回到 idle
+[04:27:01] 状态切换: battle -> idle
+[04:27:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:02] 战斗开关已开启，进入战斗状态
+[04:27:02] 状态切换: idle -> battle
+[04:27:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:03] 开始攻击怪物 hp=100% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=376 last_error=18 hp=100% distance=49
+[04:27:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:05] 本轮攻击等待结束，回到 idle
+[04:27:05] 状态切换: battle -> idle
+[04:27:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:06] 战斗开关已开启，进入战斗状态
+[04:27:06] 状态切换: idle -> battle
+[04:27:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:06] 自动加血设置已更新: 开 threshold=90% interval=500ms
+[04:27:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:06] 开始攻击怪物 hp=50% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=50% distance=81
+[04:27:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:07] 自动加血触发: hp=50% threshold=90% mouse=0,0 key=F1
+[04:27:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:09] 本轮攻击等待结束，回到 idle
+[04:27:09] 状态切换: battle -> idle
+[04:27:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:09] 战斗开关已开启，进入战斗状态
+[04:27:09] 状态切换: idle -> battle
+[04:27:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:10] 开始攻击怪物 hp=50% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=50% distance=81
+[04:27:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:12] 本轮攻击等待结束，回到 idle
+[04:27:12] 状态切换: battle -> idle
+[04:27:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:13] 战斗开关已开启，进入战斗状态
+[04:27:13] 状态切换: idle -> battle
+[04:27:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:14] 开始攻击怪物 hp=30% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=30% distance=81
+[04:27:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:16] 本轮攻击等待结束，回到 idle
+[04:27:16] 状态切换: battle -> idle
+[04:27:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:16] 战斗开关已开启，进入战斗状态
+[04:27:16] 状态切换: idle -> battle
+[04:27:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:17] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:27:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:19] 本轮攻击等待结束，回到 idle
+[04:27:19] 状态切换: battle -> idle
+[04:27:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:20] 战斗开关已开启，进入战斗状态
+[04:27:20] 状态切换: idle -> battle
+[04:27:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:21] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:27:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:23] 本轮攻击等待结束，回到 idle
+[04:27:23] 状态切换: battle -> idle
+[04:27:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:23] 战斗开关已开启，进入战斗状态
+[04:27:23] 状态切换: idle -> battle
+[04:27:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:24] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:27:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:26] 本轮攻击等待结束，回到 idle
+[04:27:26] 状态切换: battle -> idle
+[04:27:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:27] 战斗开关已开启，进入战斗状态
+[04:27:27] 状态切换: idle -> battle
+[04:27:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:28] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:27:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:30] 本轮攻击等待结束，回到 idle
+[04:27:30] 状态切换: battle -> idle
+[04:27:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:30] 战斗开关已开启，进入战斗状态
+[04:27:30] 状态切换: idle -> battle
+[04:27:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:31] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:27:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:33] 本轮攻击等待结束，回到 idle
+[04:27:33] 状态切换: battle -> idle
+[04:27:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:34] 战斗开关已开启，进入战斗状态
+[04:27:34] 状态切换: idle -> battle
+[04:27:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:35] 开始攻击怪物 hp=100% distance=434 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=312 last_error=18 hp=100% distance=434
+[04:27:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:37] 本轮攻击等待结束，回到 idle
+[04:27:37] 状态切换: battle -> idle
+[04:27:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:37] 战斗开关已开启，进入战斗状态
+[04:27:37] 状态切换: idle -> battle
+[04:27:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:38] 自动加血设置已更新: 开 threshold=90% interval=5000ms
+[04:27:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:38] 自动加血触发: hp=73% threshold=90% mouse=0,0 key=F1
+[04:27:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:39] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:27:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:41] 本轮攻击等待结束，回到 idle
+[04:27:41] 状态切换: battle -> idle
+[04:27:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:41] 战斗开关已开启，进入战斗状态
+[04:27:41] 状态切换: idle -> battle
+[04:27:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:42] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:27:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:43] 自动加血重新待命: hp=90% threshold=90%
+[04:27:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:44] 本轮攻击等待结束，回到 idle
+[04:27:44] 状态切换: battle -> idle
+[04:27:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:45] 战斗开关已开启，进入战斗状态
+[04:27:45] 状态切换: idle -> battle
+[04:27:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:45] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:27:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:47] 本轮攻击等待结束，回到 idle
+[04:27:47] 状态切换: battle -> idle
+[04:27:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:48] 战斗开关已开启，进入战斗状态
+[04:27:48] 状态切换: idle -> battle
+[04:27:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:49] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:27:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:51] 本轮攻击等待结束，回到 idle
+[04:27:51] 状态切换: battle -> idle
+[04:27:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:51] 战斗开关已开启，进入战斗状态
+[04:27:51] 状态切换: idle -> battle
+[04:27:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:52] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:27:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:54] 本轮攻击等待结束，回到 idle
+[04:27:54] 状态切换: battle -> idle
+[04:27:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:55] 自动加血设置已更新: 关 threshold=90% interval=5000ms
+[04:27:55] 战斗开关已开启，进入战斗状态
+[04:27:55] 状态切换: idle -> battle
+[04:27:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:55] 自动加血设置已更新: 开 threshold=90% interval=5000ms
+[04:27:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:56] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:27:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:58] 本轮攻击等待结束，回到 idle
+[04:27:58] 状态切换: battle -> idle
+[04:27:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:58] 战斗开关已开启，进入战斗状态
+[04:27:58] 状态切换: idle -> battle
+[04:27:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:27:59] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:27:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:01] 本轮攻击等待结束，回到 idle
+[04:28:01] 状态切换: battle -> idle
+[04:28:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:02] 战斗开关已开启，进入战斗状态
+[04:28:02] 状态切换: idle -> battle
+[04:28:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:02] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:04] 本轮攻击等待结束，回到 idle
+[04:28:04] 状态切换: battle -> idle
+[04:28:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:05] 战斗开关已开启，进入战斗状态
+[04:28:05] 状态切换: idle -> battle
+[04:28:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:06] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:08] 本轮攻击等待结束，回到 idle
+[04:28:08] 状态切换: battle -> idle
+[04:28:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:08] 战斗开关已开启，进入战斗状态
+[04:28:08] 状态切换: idle -> battle
+[04:28:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:09] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:11] 本轮攻击等待结束，回到 idle
+[04:28:11] 状态切换: battle -> idle
+[04:28:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:12] 战斗开关已开启，进入战斗状态
+[04:28:12] 状态切换: idle -> battle
+[04:28:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:13] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:15] 本轮攻击等待结束，回到 idle
+[04:28:15] 状态切换: battle -> idle
+[04:28:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:15] 战斗开关已开启，进入战斗状态
+[04:28:15] 状态切换: idle -> battle
+[04:28:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:16] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:18] 本轮攻击等待结束，回到 idle
+[04:28:18] 状态切换: battle -> idle
+[04:28:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:19] 战斗开关已开启，进入战斗状态
+[04:28:19] 状态切换: idle -> battle
+[04:28:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:19] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:21] 本轮攻击等待结束，回到 idle
+[04:28:21] 状态切换: battle -> idle
+[04:28:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:22] 战斗开关已开启，进入战斗状态
+[04:28:22] 状态切换: idle -> battle
+[04:28:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:23] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:25] 本轮攻击等待结束，回到 idle
+[04:28:25] 状态切换: battle -> idle
+[04:28:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:25] 战斗开关已开启，进入战斗状态
+[04:28:25] 状态切换: idle -> battle
+[04:28:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:26] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:28] 本轮攻击等待结束，回到 idle
+[04:28:28] 状态切换: battle -> idle
+[04:28:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:29] 战斗开关已开启，进入战斗状态
+[04:28:29] 状态切换: idle -> battle
+[04:28:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:30] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:32] 本轮攻击等待结束，回到 idle
+[04:28:32] 状态切换: battle -> idle
+[04:28:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:32] 战斗开关已开启，进入战斗状态
+[04:28:32] 状态切换: idle -> battle
+[04:28:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:33] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:35] 本轮攻击等待结束，回到 idle
+[04:28:35] 状态切换: battle -> idle
+[04:28:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:36] 战斗开关已开启，进入战斗状态
+[04:28:36] 状态切换: idle -> battle
+[04:28:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:36] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:38] 本轮攻击等待结束，回到 idle
+[04:28:38] 状态切换: battle -> idle
+[04:28:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:39] 战斗开关已开启，进入战斗状态
+[04:28:39] 状态切换: idle -> battle
+[04:28:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:40] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:42] 本轮攻击等待结束，回到 idle
+[04:28:42] 状态切换: battle -> idle
+[04:28:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:42] 战斗开关已开启，进入战斗状态
+[04:28:42] 状态切换: idle -> battle
+[04:28:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:43] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:45] 本轮攻击等待结束，回到 idle
+[04:28:45] 状态切换: battle -> idle
+[04:28:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:46] 战斗开关已开启，进入战斗状态
+[04:28:46] 状态切换: idle -> battle
+[04:28:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:47] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:48] 本轮攻击等待结束，回到 idle
+[04:28:48] 状态切换: battle -> idle
+[04:28:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:49] 战斗开关已开启，进入战斗状态
+[04:28:49] 状态切换: idle -> battle
+[04:28:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:50] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:52] 本轮攻击等待结束，回到 idle
+[04:28:52] 状态切换: battle -> idle
+[04:28:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:53] 战斗开关已开启，进入战斗状态
+[04:28:53] 状态切换: idle -> battle
+[04:28:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:53] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:55] 本轮攻击等待结束，回到 idle
+[04:28:55] 状态切换: battle -> idle
+[04:28:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:56] 战斗开关已开启，进入战斗状态
+[04:28:56] 状态切换: idle -> battle
+[04:28:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:57] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:28:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:59] 本轮攻击等待结束，回到 idle
+[04:28:59] 状态切换: battle -> idle
+[04:28:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:28:59] 战斗开关已开启，进入战斗状态
+[04:28:59] 状态切换: idle -> battle
+[04:28:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:00] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:29:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:02] 本轮攻击等待结束，回到 idle
+[04:29:02] 状态切换: battle -> idle
+[04:29:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:03] 战斗开关已开启，进入战斗状态
+[04:29:03] 状态切换: idle -> battle
+[04:29:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:03] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:29:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:05] 本轮攻击等待结束，回到 idle
+[04:29:05] 状态切换: battle -> idle
+[04:29:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:06] 战斗开关已开启，进入战斗状态
+[04:29:06] 状态切换: idle -> battle
+[04:29:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:07] 开始攻击怪物 hp=100% distance=482 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=312 last_error=18 hp=100% distance=482
+[04:29:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:09] 本轮攻击等待结束，回到 idle
+[04:29:09] 状态切换: battle -> idle
+[04:29:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:09] 战斗开关已开启，进入战斗状态
+[04:29:09] 状态切换: idle -> battle
+[04:29:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:10] 开始攻击怪物 hp=100% distance=275 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=56 last_error=18 hp=100% distance=275
+[04:29:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:12] 本轮攻击等待结束，回到 idle
+[04:29:12] 状态切换: battle -> idle
+[04:29:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:13] 战斗开关已开启，进入战斗状态
+[04:29:13] 状态切换: idle -> battle
+[04:29:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:14] 开始攻击怪物 hp=100% distance=6 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=333 last_error=18 hp=100% distance=6
+[04:29:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:16] 本轮攻击等待结束，回到 idle
+[04:29:16] 状态切换: battle -> idle
+[04:29:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:16] 战斗开关已开启，进入战斗状态
+[04:29:16] 状态切换: idle -> battle
+[04:29:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:17] 开始攻击怪物 hp=53% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=53% distance=17
+[04:29:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:19] 本轮攻击等待结束，回到 idle
+[04:29:19] 状态切换: battle -> idle
+[04:29:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:20] 战斗开关已开启，进入战斗状态
+[04:29:20] 状态切换: idle -> battle
+[04:29:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:21] 开始攻击怪物 hp=100% distance=96 攻击怪物 点击成功 button=left method=down_up(1,1) x=894 y=344 last_error=18 hp=100% distance=96
+[04:29:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:23] 本轮攻击等待结束，回到 idle
+[04:29:23] 状态切换: battle -> idle
+[04:29:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:23] 战斗开关已开启，进入战斗状态
+[04:29:23] 状态切换: idle -> battle
+[04:29:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:24] 开始攻击怪物 hp=50% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=50% distance=67
+[04:29:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:26] 本轮攻击等待结束，回到 idle
+[04:29:26] 状态切换: battle -> idle
+[04:29:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:26] 战斗开关已开启，进入战斗状态
+[04:29:26] 状态切换: idle -> battle
+[04:29:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:27] 开始攻击怪物 hp=100% distance=361 攻击怪物 点击成功 button=left method=down_up(1,1) x=1038 y=56 last_error=18 hp=100% distance=361
+[04:29:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:29] 本轮攻击等待结束，回到 idle
+[04:29:29] 状态切换: battle -> idle
+[04:29:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:30] 战斗开关已开启，进入战斗状态
+[04:29:30] 状态切换: idle -> battle
+[04:29:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:31] 开始攻击怪物 hp=100% distance=46 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=328 last_error=18 hp=100% distance=46
+[04:29:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:33] 本轮攻击等待结束，回到 idle
+[04:29:33] 状态切换: battle -> idle
+[04:29:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:33] 战斗开关已开启，进入战斗状态
+[04:29:33] 状态切换: idle -> battle
+[04:29:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:34] 开始攻击怪物 hp=47% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=18 hp=47% distance=49
+[04:29:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:36] 本轮攻击等待结束，回到 idle
+[04:29:36] 状态切换: battle -> idle
+[04:29:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:37] 战斗开关已开启，进入战斗状态
+[04:29:37] 状态切换: idle -> battle
+[04:29:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:37] 开始攻击怪物 hp=100% distance=441 攻击怪物 点击成功 button=left method=down_up(1,1) x=366 y=248 last_error=18 hp=100% distance=441
+[04:29:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:39] 本轮攻击等待结束，回到 idle
+[04:29:39] 状态切换: battle -> idle
+[04:29:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:40] 战斗开关已开启，进入战斗状态
+[04:29:40] 状态切换: idle -> battle
+[04:29:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:41] 开始攻击怪物 hp=100% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=100% distance=70
+[04:29:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:43] 本轮攻击等待结束，回到 idle
+[04:29:43] 状态切换: battle -> idle
+[04:29:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:44] 战斗开关已开启，进入战斗状态
+[04:29:44] 状态切换: idle -> battle
+[04:29:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:44] 开始攻击怪物 hp=100% distance=110 攻击怪物 点击成功 button=left method=down_up(1,1) x=702 y=376 last_error=18 hp=100% distance=110
+[04:29:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:46] 本轮攻击等待结束，回到 idle
+[04:29:46] 状态切换: battle -> idle
+[04:29:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:47] 战斗开关已开启，进入战斗状态
+[04:29:47] 状态切换: idle -> battle
+[04:29:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:48] 开始攻击怪物 hp=63% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=63% distance=70
+[04:29:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:50] 本轮攻击等待结束，回到 idle
+[04:29:50] 状态切换: battle -> idle
+[04:29:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:50] 战斗开关已开启，进入战斗状态
+[04:29:50] 状态切换: idle -> battle
+[04:29:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:51] 开始攻击怪物 hp=43% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=43% distance=70
+[04:29:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:53] 本轮攻击等待结束，回到 idle
+[04:29:53] 状态切换: battle -> idle
+[04:29:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:53] 战斗开关已开启，进入战斗状态
+[04:29:53] 状态切换: idle -> battle
+[04:29:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:54] 开始攻击怪物 hp=10% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=10% distance=70
+[04:29:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:56] 本轮攻击等待结束，回到 idle
+[04:29:56] 状态切换: battle -> idle
+[04:29:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:57] 战斗开关已开启，进入战斗状态
+[04:29:57] 状态切换: idle -> battle
+[04:29:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:58] 开始攻击怪物 hp=100% distance=241 攻击怪物 点击成功 button=left method=down_up(1,1) x=606 y=184 last_error=18 hp=100% distance=241
+[04:29:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:29:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:00] 本轮攻击等待结束，回到 idle
+[04:30:00] 状态切换: battle -> idle
+[04:30:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:00] 战斗开关已开启，进入战斗状态
+[04:30:00] 状态切换: idle -> battle
+[04:30:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:01] 开始攻击怪物 hp=100% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=100% distance=53
+[04:30:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:03] 本轮攻击等待结束，回到 idle
+[04:30:03] 状态切换: battle -> idle
+[04:30:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:03] 战斗开关已开启，进入战斗状态
+[04:30:03] 状态切换: idle -> battle
+[04:30:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:04] 开始攻击怪物 hp=53% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=53% distance=53
+[04:30:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:05] 自动加血触发: hp=87% threshold=90% mouse=0,0 key=F1
+[04:30:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:06] 本轮攻击等待结束，回到 idle
+[04:30:06] 状态切换: battle -> idle
+[04:30:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:07] 战斗开关已开启，进入战斗状态
+[04:30:07] 状态切换: idle -> battle
+[04:30:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:07] 开始攻击怪物 hp=7% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=7% distance=53
+[04:30:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:09] 本轮攻击等待结束，回到 idle
+[04:30:09] 状态切换: battle -> idle
+[04:30:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:10] 自动加血重新待命: hp=100% threshold=90%
+[04:30:10] 战斗开关已开启，进入战斗状态
+[04:30:10] 状态切换: idle -> battle
+[04:30:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:11] 开始攻击怪物 hp=100% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=100% distance=70
+[04:30:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:13] 本轮攻击等待结束，回到 idle
+[04:30:13] 状态切换: battle -> idle
+[04:30:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:13] 战斗开关已开启，进入战斗状态
+[04:30:13] 状态切换: idle -> battle
+[04:30:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:14] 开始攻击怪物 hp=77% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=77% distance=70
+[04:30:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:16] 本轮攻击等待结束，回到 idle
+[04:30:16] 状态切换: battle -> idle
+[04:30:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:17] 战斗开关已开启，进入战斗状态
+[04:30:17] 状态切换: idle -> battle
+[04:30:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:17] 开始攻击怪物 hp=77% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=77% distance=70
+[04:30:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:19] 本轮攻击等待结束，回到 idle
+[04:30:19] 状态切换: battle -> idle
+[04:30:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:20] 战斗开关已开启，进入战斗状态
+[04:30:20] 状态切换: idle -> battle
+[04:30:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:21] 开始攻击怪物 hp=30% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=30% distance=70
+[04:30:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:23] 本轮攻击等待结束，回到 idle
+[04:30:23] 状态切换: battle -> idle
+[04:30:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:23] 战斗开关已开启，进入战斗状态
+[04:30:23] 状态切换: idle -> battle
+[04:30:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:24] 开始攻击怪物 hp=100% distance=294 攻击怪物 点击成功 button=left method=down_up(1,1) x=510 y=280 last_error=18 hp=100% distance=294
+[04:30:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:26] 本轮攻击等待结束，回到 idle
+[04:30:26] 状态切换: battle -> idle
+[04:30:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:27] 战斗开关已开启，进入战斗状态
+[04:30:27] 状态切换: idle -> battle
+[04:30:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:28] 开始攻击怪物 hp=100% distance=53 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=18 hp=100% distance=53
+[04:30:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:30] 本轮攻击等待结束，回到 idle
+[04:30:30] 状态切换: battle -> idle
+[04:30:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:30] 战斗开关已开启，进入战斗状态
+[04:30:30] 状态切换: idle -> battle
+[04:30:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:31] 开始攻击怪物 hp=100% distance=301 攻击怪物 点击成功 button=left method=down_up(1,1) x=510 y=408 last_error=18 hp=100% distance=301
+[04:30:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:33] 本轮攻击等待结束，回到 idle
+[04:30:33] 状态切换: battle -> idle
+[04:30:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:34] 战斗开关已开启，进入战斗状态
+[04:30:34] 状态切换: idle -> battle
+[04:30:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:34] 开始攻击怪物 hp=43% distance=95 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=18 hp=43% distance=95
+[04:30:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:37] 本轮攻击等待结束，回到 idle
+[04:30:37] 状态切换: battle -> idle
+[04:30:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:37] 战斗开关已开启，进入战斗状态
+[04:30:37] 状态切换: idle -> battle
+[04:30:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:38] 开始攻击怪物 hp=100% distance=273 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=600 last_error=18 hp=100% distance=273
+[04:30:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:40] 本轮攻击等待结束，回到 idle
+[04:30:40] 状态切换: battle -> idle
+[04:30:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:40] 战斗开关已开启，进入战斗状态
+[04:30:40] 状态切换: idle -> battle
+[04:30:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:41] 开始攻击怪物 hp=100% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=100% distance=67
+[04:30:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:43] 本轮攻击等待结束，回到 idle
+[04:30:43] 状态切换: battle -> idle
+[04:30:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:44] 战斗开关已开启，进入战斗状态
+[04:30:44] 状态切换: idle -> battle
+[04:30:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:45] 开始攻击怪物 hp=83% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=83% distance=67
+[04:30:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:47] 本轮攻击等待结束，回到 idle
+[04:30:47] 状态切换: battle -> idle
+[04:30:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:47] 战斗开关已开启，进入战斗状态
+[04:30:47] 状态切换: idle -> battle
+[04:30:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:48] 开始攻击怪物 hp=57% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=57% distance=67
+[04:30:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:50] 本轮攻击等待结束，回到 idle
+[04:30:50] 状态切换: battle -> idle
+[04:30:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:51] 战斗开关已开启，进入战斗状态
+[04:30:51] 状态切换: idle -> battle
+[04:30:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:51] 开始攻击怪物 hp=30% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=30% distance=67
+[04:30:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:52] 自动加血触发: hp=87% threshold=90% mouse=0,0 key=F1
+[04:30:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:53] 本轮攻击等待结束，回到 idle
+[04:30:53] 状态切换: battle -> idle
+[04:30:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:54] 战斗开关已开启，进入战斗状态
+[04:30:54] 状态切换: idle -> battle
+[04:30:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:54] 开始攻击怪物 hp=100% distance=95 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=18 hp=100% distance=95
+[04:30:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:56] 本轮攻击等待结束，回到 idle
+[04:30:56] 状态切换: battle -> idle
+[04:30:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:57] 自动加血重新待命: hp=100% threshold=90%
+[04:30:57] 战斗开关已开启，进入战斗状态
+[04:30:57] 状态切换: idle -> battle
+[04:30:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:58] 开始攻击怪物 hp=100% distance=124 攻击怪物 点击成功 button=left method=down_up(1,1) x=894 y=408 last_error=18 hp=100% distance=124
+[04:30:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:30:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:00] 本轮攻击等待结束，回到 idle
+[04:31:00] 状态切换: battle -> idle
+[04:31:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:00] 战斗开关已开启，进入战斗状态
+[04:31:00] 状态切换: idle -> battle
+[04:31:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:01] 开始攻击怪物 hp=67% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=67% distance=93
+[04:31:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:03] 本轮攻击等待结束，回到 idle
+[04:31:03] 状态切换: battle -> idle
+[04:31:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:04] 战斗开关已开启，进入战斗状态
+[04:31:04] 状态切换: idle -> battle
+[04:31:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:05] 开始攻击怪物 hp=100% distance=248 攻击怪物 点击成功 button=left method=down_up(1,1) x=1038 y=397 last_error=18 hp=100% distance=248
+[04:31:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:06] 本轮攻击等待结束，回到 idle
+[04:31:06] 状态切换: battle -> idle
+[04:31:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:07] 战斗开关已开启，进入战斗状态
+[04:31:07] 状态切换: idle -> battle
+[04:31:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:08] 自动加血触发: hp=87% threshold=90% mouse=0,0 key=F1
+[04:31:08] 开始攻击怪物 hp=60% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=60% distance=67
+[04:31:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:10] 本轮攻击等待结束，回到 idle
+[04:31:10] 状态切换: battle -> idle
+[04:31:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:11] 战斗开关已开启，进入战斗状态
+[04:31:11] 状态切换: idle -> battle
+[04:31:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:11] 开始攻击怪物 hp=60% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=60% distance=67
+[04:31:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:13] 自动加血重新待命: hp=100% threshold=90%
+[04:31:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:14] 本轮攻击等待结束，回到 idle
+[04:31:14] 状态切换: battle -> idle
+[04:31:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:14] 战斗开关已开启，进入战斗状态
+[04:31:14] 状态切换: idle -> battle
+[04:31:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:15] 开始攻击怪物 hp=100% distance=582 攻击怪物 点击成功 button=left method=down_up(1,1) x=270 y=568 last_error=18 hp=100% distance=582
+[04:31:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:17] 本轮攻击等待结束，回到 idle
+[04:31:17] 状态切换: battle -> idle
+[04:31:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:17] 战斗开关已开启，进入战斗状态
+[04:31:17] 状态切换: idle -> battle
+[04:31:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:18] 开始攻击怪物 hp=100% distance=210 攻击怪物 点击成功 button=left method=down_up(1,1) x=606 y=408 last_error=18 hp=100% distance=210
+[04:31:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:20] 本轮攻击等待结束，回到 idle
+[04:31:20] 状态切换: battle -> idle
+[04:31:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:21] 战斗开关已开启，进入战斗状态
+[04:31:21] 状态切换: idle -> battle
+[04:31:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:22] 开始攻击怪物 hp=100% distance=110 攻击怪物 点击成功 button=left method=down_up(1,1) x=702 y=376 last_error=18 hp=100% distance=110
+[04:31:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:24] 本轮攻击等待结束，回到 idle
+[04:31:24] 状态切换: battle -> idle
+[04:31:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:24] 战斗开关已开启，进入战斗状态
+[04:31:24] 状态切换: idle -> battle
+[04:31:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:25] 开始攻击怪物 hp=67% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=67% distance=70
+[04:31:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:27] 本轮攻击等待结束，回到 idle
+[04:31:27] 状态切换: battle -> idle
+[04:31:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:28] 战斗开关已开启，进入战斗状态
+[04:31:28] 状态切换: idle -> battle
+[04:31:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:28] 开始攻击怪物 hp=100% distance=278 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=600 last_error=18 hp=100% distance=278
+[04:31:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:30] 本轮攻击等待结束，回到 idle
+[04:31:30] 状态切换: battle -> idle
+[04:31:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:31] 战斗开关已开启，进入战斗状态
+[04:31:31] 状态切换: idle -> battle
+[04:31:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:32] 开始攻击怪物 hp=77% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=77% distance=93
+[04:31:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:34] 本轮攻击等待结束，回到 idle
+[04:31:34] 状态切换: battle -> idle
+[04:31:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:34] 战斗开关已开启，进入战斗状态
+[04:31:34] 状态切换: idle -> battle
+[04:31:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:35] 自动加血触发: hp=87% threshold=90% mouse=0,0 key=F1
+[04:31:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:35] 开始攻击怪物 hp=13% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=13% distance=93
+[04:31:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:37] 本轮攻击等待结束，回到 idle
+[04:31:37] 状态切换: battle -> idle
+[04:31:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:38] 战斗开关已开启，进入战斗状态
+[04:31:38] 状态切换: idle -> battle
+[04:31:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:39] 开始攻击怪物 hp=100% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=100% distance=67
+[04:31:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:40] 本轮攻击等待结束，回到 idle
+[04:31:40] 状态切换: battle -> idle
+[04:31:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:41] 战斗开关已开启，进入战斗状态
+[04:31:41] 状态切换: idle -> battle
+[04:31:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:42] 开始攻击怪物 hp=50% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=50% distance=67
+[04:31:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:44] 本轮攻击等待结束，回到 idle
+[04:31:44] 状态切换: battle -> idle
+[04:31:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:44] 战斗开关已开启，进入战斗状态
+[04:31:44] 状态切换: idle -> battle
+[04:31:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:45] 开始攻击怪物 hp=100% distance=110 攻击怪物 点击成功 button=left method=down_up(1,1) x=702 y=376 last_error=18 hp=100% distance=110
+[04:31:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:47] 本轮攻击等待结束，回到 idle
+[04:31:47] 状态切换: battle -> idle
+[04:31:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:48] 战斗开关已开启，进入战斗状态
+[04:31:48] 状态切换: idle -> battle
+[04:31:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:49] 开始攻击怪物 hp=40% distance=70 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=18 hp=40% distance=70
+[04:31:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:51] 本轮攻击等待结束，回到 idle
+[04:31:51] 状态切换: battle -> idle
+[04:31:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:52] 战斗开关已开启，进入战斗状态
+[04:31:52] 状态切换: idle -> battle
+[04:31:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:53] 开始攻击怪物 hp=100% distance=308 攻击怪物 点击成功 button=left method=down_up(1,1) x=942 y=600 last_error=18 hp=100% distance=308
+[04:31:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:55] 本轮攻击等待结束，回到 idle
+[04:31:55] 状态切换: battle -> idle
+[04:31:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:55] 战斗开关已开启，进入战斗状态
+[04:31:55] 状态切换: idle -> battle
+[04:31:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:56] 开始攻击怪物 hp=67% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=67% distance=93
+[04:31:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:58] 本轮攻击等待结束，回到 idle
+[04:31:58] 状态切换: battle -> idle
+[04:31:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:59] 战斗开关已开启，进入战斗状态
+[04:31:59] 状态切换: idle -> battle
+[04:31:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:31:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:00] 开始攻击怪物 hp=100% distance=147 攻击怪物 点击成功 button=left method=down_up(1,1) x=894 y=440 last_error=18 hp=100% distance=147
+[04:32:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:02] 本轮攻击等待结束，回到 idle
+[04:32:02] 状态切换: battle -> idle
+[04:32:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:02] 战斗开关已开启，进入战斗状态
+[04:32:02] 状态切换: idle -> battle
+[04:32:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:03] 开始攻击怪物 hp=100% distance=333 攻击怪物 点击成功 button=left method=down_up(1,1) x=990 y=600 last_error=18 hp=100% distance=333
+[04:32:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:05] 本轮攻击等待结束，回到 idle
+[04:32:05] 状态切换: battle -> idle
+[04:32:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:06] 战斗开关已开启，进入战斗状态
+[04:32:06] 状态切换: idle -> battle
+[04:32:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:06] 开始攻击怪物 hp=60% distance=81 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=408 last_error=18 hp=60% distance=81
+[04:32:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:08] 本轮攻击等待结束，回到 idle
+[04:32:08] 状态切换: battle -> idle
+[04:32:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:09] 战斗开关已开启，进入战斗状态
+[04:32:09] 状态切换: idle -> battle
+[04:32:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:10] 开始攻击怪物 hp=100% distance=238 攻击怪物 点击成功 button=left method=down_up(1,1) x=1038 y=312 last_error=18 hp=100% distance=238
+[04:32:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:12] 本轮攻击等待结束，回到 idle
+[04:32:12] 状态切换: battle -> idle
+[04:32:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:13] 战斗开关已开启，进入战斗状态
+[04:32:13] 状态切换: idle -> battle
+[04:32:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:13] 开始攻击怪物 hp=100% distance=395 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=18 hp=100% distance=395
+[04:32:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:15] 本轮攻击等待结束，回到 idle
+[04:32:15] 状态切换: battle -> idle
+[04:32:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:16] 战斗开关已开启，进入战斗状态
+[04:32:16] 状态切换: idle -> battle
+[04:32:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:17] 开始攻击怪物 hp=100% distance=93 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=408 last_error=18 hp=100% distance=93
+[04:32:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:19] 本轮攻击等待结束，回到 idle
+[04:32:19] 状态切换: battle -> idle
+[04:32:19] 战斗开关已开启，进入战斗状态
+[04:32:19] 状态切换: idle -> battle
+[04:32:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:20] 没有扫描到怪物，进入下一个巡逻点移动状态
+[04:32:20] 状态切换: battle -> move_to_next_patrol_point
+[04:32:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:21] 巡逻点 index=1 移动到巡逻点 成功 logic=59:300 map=47,150 client=572,425 click=点击成功 button=left method=down_up(1,1) x=572 y=425 last_error=0 close=后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[04:32:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:32:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:02] 玩家坐标 57:300 连续 2 秒未变化，巡逻点 index=1 已完成，回到 idle
+[04:33:02] 状态切换: move_to_next_patrol_point -> idle
+[04:33:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:03] 战斗开关已开启，进入战斗状态
+[04:33:03] 状态切换: idle -> battle
+[04:33:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:03] 开始攻击怪物 hp=100% distance=36 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=291 last_error=18 hp=100% distance=36
+[04:33:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:06] 本轮攻击等待结束，回到 idle
+[04:33:06] 状态切换: battle -> idle
+[04:33:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:06] 战斗开关已开启，进入战斗状态
+[04:33:06] 状态切换: idle -> battle
+[04:33:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:07] 开始攻击怪物 hp=33% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=33% distance=17
+[04:33:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:08] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:09] 本轮攻击等待结束，回到 idle
+[04:33:09] 状态切换: battle -> idle
+[04:33:09] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:09] 战斗开关已开启，进入战斗状态
+[04:33:09] 状态切换: idle -> battle
+[04:33:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:10] 开始攻击怪物 hp=100% distance=15 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=312 last_error=18 hp=100% distance=15
+[04:33:10] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:11] 自动加血检测失败: 没有找到自身绿色血条
+[04:33:11] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:12] 本轮攻击等待结束，回到 idle
+[04:33:12] 状态切换: battle -> idle
+[04:33:12] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:13] 战斗开关已开启，进入战斗状态
+[04:33:13] 状态切换: idle -> battle
+[04:33:13] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:14] 开始攻击怪物 hp=30% distance=362 攻击怪物 点击成功 button=left method=down_up(1,1) x=1038 y=600 last_error=18 hp=30% distance=362
+[04:33:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:14] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:15] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:15] 本轮攻击等待结束，回到 idle
+[04:33:15] 状态切换: battle -> idle
+[04:33:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:16] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:16] 战斗开关已开启，进入战斗状态
+[04:33:16] 状态切换: idle -> battle
+[04:33:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:17] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:17] 开始攻击怪物 hp=77% distance=69 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=280 last_error=18 hp=77% distance=69
+[04:33:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:18] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:19] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:19] 本轮攻击等待结束，回到 idle
+[04:33:19] 状态切换: battle -> idle
+[04:33:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:20] 战斗开关已开启，进入战斗状态
+[04:33:20] 状态切换: idle -> battle
+[04:33:20] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:21] 开始攻击怪物 hp=43% distance=67 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=18 hp=43% distance=67
+[04:33:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:21] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:22] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:23] 本轮攻击等待结束，回到 idle
+[04:33:23] 状态切换: battle -> idle
+[04:33:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:23] 战斗开关已开启，进入战斗状态
+[04:33:23] 状态切换: idle -> battle
+[04:33:23] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:24] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:33:24] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:25] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:26] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:27] 本轮攻击等待结束，回到 idle
+[04:33:27] 状态切换: battle -> idle
+[04:33:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:27] 战斗开关已开启，进入战斗状态
+[04:33:27] 状态切换: idle -> battle
+[04:33:27] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:28] 开始攻击怪物 hp=100% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=18 hp=100% distance=49
+[04:33:28] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:29] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:30] 本轮攻击等待结束，回到 idle
+[04:33:30] 状态切换: battle -> idle
+[04:33:30] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:30] 战斗开关已开启，进入战斗状态
+[04:33:30] 状态切换: idle -> battle
+[04:33:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:31] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:31] 开始攻击怪物 hp=100% distance=49 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=344 last_error=18 hp=100% distance=49
+[04:33:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:32] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:33] 本轮攻击等待结束，回到 idle
+[04:33:33] 状态切换: battle -> idle
+[04:33:33] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:34] 战斗开关已开启，进入战斗状态
+[04:33:34] 状态切换: idle -> battle
+[04:33:34] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:35] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:33:35] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:36] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:37] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:37] 本轮攻击等待结束，回到 idle
+[04:33:37] 状态切换: battle -> idle
+[04:33:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:38] 战斗开关已开启，进入战斗状态
+[04:33:38] 状态切换: idle -> battle
+[04:33:38] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:39] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:39] 开始攻击怪物 hp=100% distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=339 last_error=18 hp=100% distance=12
+[04:33:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:40] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:41] 本轮攻击等待结束，回到 idle
+[04:33:41] 状态切换: battle -> idle
+[04:33:41] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:42] 战斗开关已开启，进入战斗状态
+[04:33:42] 状态切换: idle -> battle
+[04:33:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:42] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:43] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:33:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:43] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:44] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:45] 本轮攻击等待结束，回到 idle
+[04:33:45] 状态切换: battle -> idle
+[04:33:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:45] 战斗开关已开启，进入战斗状态
+[04:33:45] 状态切换: idle -> battle
+[04:33:45] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:46] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:33:46] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:47] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:48] 本轮攻击等待结束，回到 idle
+[04:33:48] 状态切换: battle -> idle
+[04:33:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:48] 战斗开关已开启，进入战斗状态
+[04:33:48] 状态切换: idle -> battle
+[04:33:48] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:49] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:33:49] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:50] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:51] 本轮攻击等待结束，回到 idle
+[04:33:51] 状态切换: battle -> idle
+[04:33:51] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:52] 战斗开关已开启，进入战斗状态
+[04:33:52] 状态切换: idle -> battle
+[04:33:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:52] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:33:52] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:53] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:54] 本轮攻击等待结束，回到 idle
+[04:33:54] 状态切换: battle -> idle
+[04:33:54] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:55] 战斗开关已开启，进入战斗状态
+[04:33:55] 状态切换: idle -> battle
+[04:33:55] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:56] 开始攻击怪物 hp=100% distance=17 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=18 hp=100% distance=17
+[04:33:56] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:57] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:58] 本轮攻击等待结束，回到 idle
+[04:33:58] 状态切换: battle -> idle
+[04:33:58] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:59] 战斗开关已开启，进入战斗状态
+[04:33:59] 状态切换: idle -> battle
+[04:33:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:59] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:33:59] 开始攻击怪物 hp=100% distance=52 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=312 last_error=18 hp=100% distance=52
+[04:34:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:00] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:01] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:01] 本轮攻击等待结束，回到 idle
+[04:34:01] 状态切换: battle -> idle
+[04:34:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:02] 战斗开关已开启，进入战斗状态
+[04:34:02] 状态切换: idle -> battle
+[04:34:02] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:03] 开始攻击怪物 hp=100% distance=59 攻击怪物 点击成功 button=left method=down_up(1,1) x=742 y=339 last_error=18 hp=100% distance=59
+[04:34:03] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:04] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:05] 本轮攻击等待结束，回到 idle
+[04:34:05] 状态切换: battle -> idle
+[04:34:05] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:05] 战斗开关已开启，进入战斗状态
+[04:34:05] 状态切换: idle -> battle
+[04:34:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:06] 开始攻击怪物 hp=100% distance=183 攻击怪物 点击成功 button=left method=down_up(1,1) x=654 y=216 last_error=18 hp=100% distance=183
+[04:34:06] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')
+[04:34:07] 后台刷新坐标异常: (1400, 'GetClientRect', '无效的窗口句柄。')

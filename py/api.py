@@ -35,12 +35,18 @@ map_max_coordinate_image = screenshot_dir / "map_max_coordinate.bmp"
 monster_blood_feature_image = png_dir / "残血血条特征图.png"
 # 红色血条模板：用于读取血条标准宽高。
 red_blood_bar_image = png_dir / "红色血条.png"
+# 自身绿色血条特征图：用于自动加血检测玩家头顶血条。
+player_blood_feature_image = png_dir / "自身绿色残血血条特征图.png"
+# 自身绿色血条模板：用于读取玩家血条宽高和绿色填充色。
+green_blood_bar_image = png_dir / "自身绿色血条.png"
 # 坐标读取锁：串行化截图和 OCR 流程，避免并发读写同一张截图。
 coordinate_lock = threading.Lock()
 # 怪物扫描锁：串行化截图、鼠标悬停和 OCR 流程。
 monster_scan_lock = threading.Lock()
+# 自动加血锁：避免页面主动刷新和后台刷新同时触发 F1。
+auto_heal_lock = threading.Lock()
 # 底部界面高度：估算游戏底栏高度，用来计算角色移动点击原点。
-BOTTOM_UI_HEIGHT = 155
+BOTTOM_UI_HEIGHT = 245
 # 默认键盘测试键：用于页面测试按钮验证后台键盘输入链路。
 keyboard_test_key = "M"
 # 大地图图片宽度：游戏大地图固定宽度，用于网页和逻辑坐标换算。
@@ -91,6 +97,15 @@ HEALTH_BAR_FILL_START_X = 2
 HEALTH_BAR_FULL_FILL_PIXELS = 60
 # 红色血条填充色：来自 png/红色血条.png，填充像素为纯 RGB(255, 0, 0)。
 RED_HEALTH_BAR_RGB = (255, 0, 0)
+# 绿色血条兜底填充色：自身绿色血条模板读取失败时使用。
+GREEN_HEALTH_BAR_RGB = (0, 255, 0)
+# 自动加血默认配置和边界：页面和接口都会按这些范围规整输入。
+AUTO_HEAL_DEFAULT_THRESHOLD_PERCENT = 50
+AUTO_HEAL_DEFAULT_INTERVAL_MS = 1000
+AUTO_HEAL_MIN_THRESHOLD_PERCENT = 1
+AUTO_HEAL_MAX_THRESHOLD_PERCENT = 100
+AUTO_HEAL_MIN_INTERVAL_MS = 500
+AUTO_HEAL_MAX_INTERVAL_MS = 60000
 
 # 移动方向向量：把方向名称映射为地图坐标变化量。
 directions = {
@@ -342,6 +357,7 @@ def get_status(
     patrol_control=None,
     battle_control=None,
     current_state=None,
+    auto_heal_state=None,
 ):
     return {
         "player": {
@@ -358,6 +374,7 @@ def get_status(
         "patrol": make_patrol_status(patrol_points, patrol_state, patrol_control),
         "battle": make_battle_status(battle_control),
         "state": make_state_status(current_state),
+        "auto_heal": make_auto_heal_status(app_settings, auto_heal_state),
     }
 
 
@@ -406,6 +423,34 @@ def make_battle_status(battle_control):
 def make_state_status(current_state):
     return {
         "name": (current_state or {}).get("name", "idle"),
+    }
+
+
+# 生成自动加血状态：返回页面展示和轮询同步需要的字段。
+def make_auto_heal_status(app_settings, auto_heal_state=None):
+    state = auto_heal_state or {}
+    last_hp_percent = state.get("last_hp_percent", "")
+
+    if last_hp_percent is None:
+        last_hp_percent = ""
+
+    return {
+        "enabled": bool(app_settings.get("auto_heal_enabled", False)),
+        "threshold_percent": normalize_number(
+            app_settings.get("auto_heal_threshold_percent"),
+            AUTO_HEAL_DEFAULT_THRESHOLD_PERCENT,
+            AUTO_HEAL_MIN_THRESHOLD_PERCENT,
+            AUTO_HEAL_MAX_THRESHOLD_PERCENT,
+        ),
+        "interval_ms": normalize_number(
+            app_settings.get("auto_heal_interval_ms"),
+            AUTO_HEAL_DEFAULT_INTERVAL_MS,
+            AUTO_HEAL_MIN_INTERVAL_MS,
+            AUTO_HEAL_MAX_INTERVAL_MS,
+        ),
+        "last_hp_percent": last_hp_percent,
+        "triggered_low": bool(state.get("triggered_low", False)),
+        "last_message": state.get("last_message", ""),
     }
 
 
@@ -816,6 +861,332 @@ def get_player_screen_position():
         "bottom_ui_height": BOTTOM_UI_HEIGHT,
         "message": f"玩家屏幕位置 x={player_x} y={player_y} client_size={width}x{height}",
     }
+
+
+# 更新自动加血设置：规整页面输入并重置本轮低血触发状态。
+def update_auto_heal_settings(app_settings, auto_heal_state, data):
+    data = data if isinstance(data, dict) else {}
+    enabled = normalize_bool(data.get("enabled", app_settings.get("auto_heal_enabled", False)))
+    threshold_percent = normalize_number(
+        data.get("threshold_percent"),
+        AUTO_HEAL_DEFAULT_THRESHOLD_PERCENT,
+        AUTO_HEAL_MIN_THRESHOLD_PERCENT,
+        AUTO_HEAL_MAX_THRESHOLD_PERCENT,
+    )
+    interval_ms = normalize_number(
+        data.get("interval_ms"),
+        AUTO_HEAL_DEFAULT_INTERVAL_MS,
+        AUTO_HEAL_MIN_INTERVAL_MS,
+        AUTO_HEAL_MAX_INTERVAL_MS,
+    )
+
+    app_settings["auto_heal_enabled"] = enabled
+    app_settings["auto_heal_threshold_percent"] = threshold_percent
+    app_settings["auto_heal_interval_ms"] = interval_ms
+
+    if auto_heal_state is not None:
+        auto_heal_state["last_checked_at"] = 0.0
+        auto_heal_state["triggered_low"] = False
+
+    state_text = "开" if enabled else "关"
+    message = f"自动加血设置已更新: {state_text} threshold={threshold_percent}% interval={interval_ms}ms"
+
+    if auto_heal_state is not None:
+        auto_heal_state["last_message"] = message
+
+    return {
+        "success": True,
+        "message": message,
+        "auto_heal": make_auto_heal_status(app_settings, auto_heal_state),
+    }
+
+
+# 自动加血检测：独立于状态机，按间隔读取自身血量，低血时每次检测按一次 F1。
+def update_auto_heal(app_settings, auto_heal_state):
+    if not app_settings.get("auto_heal_enabled", False):
+        if auto_heal_state is not None:
+            auto_heal_state["triggered_low"] = False
+        return {"success": True, "message": ""}
+
+    if auto_heal_state is None:
+        auto_heal_state = {}
+
+    if not auto_heal_lock.acquire(blocking=False):
+        return {"success": True, "message": ""}
+
+    try:
+        return update_auto_heal_locked(app_settings, auto_heal_state)
+    finally:
+        auto_heal_lock.release()
+
+
+# 执行自动加血检测：由锁保护，避免并发按键。
+def update_auto_heal_locked(app_settings, auto_heal_state):
+    now = time.time()
+    interval_ms = normalize_number(
+        app_settings.get("auto_heal_interval_ms"),
+        AUTO_HEAL_DEFAULT_INTERVAL_MS,
+        AUTO_HEAL_MIN_INTERVAL_MS,
+        AUTO_HEAL_MAX_INTERVAL_MS,
+    )
+    last_checked_at = float(auto_heal_state.get("last_checked_at") or 0.0)
+
+    if now - last_checked_at < interval_ms / 1000:
+        return {"success": True, "message": ""}
+
+    auto_heal_state["last_checked_at"] = now
+    threshold_percent = normalize_number(
+        app_settings.get("auto_heal_threshold_percent"),
+        AUTO_HEAL_DEFAULT_THRESHOLD_PERCENT,
+        AUTO_HEAL_MIN_THRESHOLD_PERCENT,
+        AUTO_HEAL_MAX_THRESHOLD_PERCENT,
+    )
+    result = read_player_health_percent()
+
+    if not result.get("success"):
+        message = f"自动加血检测失败: {result.get('message', '')}"
+        return {
+            "success": False,
+            "message": set_auto_heal_message(auto_heal_state, message),
+        }
+
+    hp_percent = int(result.get("hp_percent", 0))
+    auto_heal_state["last_hp_percent"] = hp_percent
+    auto_heal_state["last_blood_bar"] = result.get("blood_bar", {})
+
+    if hp_percent >= threshold_percent:
+        if auto_heal_state.get("triggered_low", False):
+            auto_heal_state["triggered_low"] = False
+            message = f"自动加血血量恢复: hp={hp_percent}% threshold={threshold_percent}%"
+            return {
+                "success": True,
+                "message": set_auto_heal_message(auto_heal_state, message),
+            }
+
+        set_auto_heal_message(
+            auto_heal_state,
+            f"自动加血检测正常: hp={hp_percent}% threshold={threshold_percent}%",
+            log_once=False,
+        )
+        return {"success": True, "message": ""}
+
+    move_success, move_message = op.move_mouse_to(0, 0)
+
+    if not move_success:
+        message = f"自动加血移动鼠标失败: hp={hp_percent}% threshold={threshold_percent}% {move_message}"
+        return {
+            "success": False,
+            "message": set_auto_heal_message(auto_heal_state, message),
+        }
+
+    key_result = press_keyboard("F1", hold_ms=120, repeat=1, interval_ms=80)
+
+    if not key_result.get("success"):
+        message = f"自动加血按 F1 失败: hp={hp_percent}% threshold={threshold_percent}% {key_result.get('message', '')}"
+        return {
+            "success": False,
+            "message": set_auto_heal_message(auto_heal_state, message),
+        }
+
+    auto_heal_state["triggered_low"] = True
+    message = f"自动加血触发: hp={hp_percent}% threshold={threshold_percent}% mouse=0,0 key=F1"
+    return {
+        "success": True,
+        "message": set_auto_heal_message(auto_heal_state, message),
+    }
+
+
+# 写入自动加血状态消息，并按需避免同一错误反复刷日志。
+def set_auto_heal_message(auto_heal_state, message, log_once=True):
+    auto_heal_state["last_message"] = message
+
+    if not log_once:
+        return ""
+
+    if auto_heal_state.get("last_logged_message") == message:
+        return ""
+
+    auto_heal_state["last_logged_message"] = message
+    return message
+
+
+# 读取玩家自身血量百分比：用绿色自身血条特征图定位头顶血条。
+def read_player_health_percent():
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口",
+        }
+
+    if not player_blood_feature_image.exists():
+        return {
+            "success": False,
+            "message": f"找不到自身血条特征图: {player_blood_feature_image}",
+        }
+
+    if not green_blood_bar_image.exists():
+        return {
+            "success": False,
+            "message": f"找不到自身绿色血条模板: {green_blood_bar_image}",
+        }
+
+    client = get_bound_client_info()
+    width, height = client["width"], client["height"]
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "client": client,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    player_x, player_y = get_move_origin(width, height)
+
+    with tempfile.TemporaryDirectory(prefix="mir2_player_hp_") as temp_dir:
+        scan_file = Path(temp_dir) / "screen.bmp"
+        success, capture_message = capture_bound_client_checked(
+            0,
+            0,
+            width - 1,
+            height - 1,
+            scan_file,
+        )
+
+        if not success or not scan_file.exists():
+            return {
+                "success": False,
+                "client": client,
+                "message": f"自身血量截图失败: {capture_message}",
+            }
+
+        matches = find_player_blood_feature_matches(scan_file)
+
+        if not matches:
+            return {
+                "success": False,
+                "client": client,
+                "message": "没有找到自身绿色血条",
+            }
+
+        match = min(matches, key=lambda item: get_match_distance_to_point(item, player_x, player_y))
+        blood_bar = make_blood_bar_from_match(match, width, height)
+        target_rgb = get_health_bar_fill_rgb(green_blood_bar_image)
+
+        with Image.open(scan_file) as scan_image:
+            hp_percent = calculate_health_bar_percent(scan_image, blood_bar, target_rgb)
+
+    return {
+        "success": True,
+        "hp_percent": hp_percent,
+        "blood_bar": blood_bar,
+        "match_count": len(matches),
+        "player": {
+            "x": player_x,
+            "y": player_y,
+        },
+        "client": client,
+        "message": f"自身血量检测完成 hp={hp_percent}% matches={len(matches)} bar={blood_bar}",
+    }
+
+
+# 查找玩家自身绿色血条特征。
+def find_player_blood_feature_matches(screen_file):
+    screen = read_cv2_image(screen_file)
+    templates = get_player_blood_feature_templates()
+    matches = []
+
+    for template in templates:
+        image = template["image"]
+
+        if image.shape[0] > screen.shape[0] or image.shape[1] > screen.shape[1]:
+            continue
+
+        result = cv2.matchTemplate(screen, image, cv2.TM_SQDIFF_NORMED)
+        ys, xs = np.where(result <= MONSTER_FEATURE_MATCH_THRESHOLD)
+
+        for y, x in zip(ys, xs):
+            matches.append({
+                "x": int(x),
+                "y": int(y),
+                "width": template["blood_width"],
+                "height": template["blood_height"],
+            })
+
+    return dedupe_matches(filter_player_blood_matches(screen, matches))
+
+
+# 获取玩家自身血条模板：兼容原始尺寸和 dx2 半尺寸。
+def get_player_blood_feature_templates():
+    feature = read_cv2_image(player_blood_feature_image)
+    blood_width, blood_height = get_image_size(green_blood_bar_image)
+    templates = []
+
+    for scale in (1.0, 0.5):
+        width = max(1, round(feature.shape[1] * scale))
+        height = max(1, round(feature.shape[0] * scale))
+        resized = cv2.resize(feature, (width, height), interpolation=cv2.INTER_NEAREST)
+        templates.append({
+            "image": resized,
+            "blood_width": max(1, round(blood_width * scale)),
+            "blood_height": max(1, round(blood_height * scale)),
+        })
+
+    return templates
+
+
+# 过滤底部 UI 区域，避免把界面血量槽误认为玩家头顶血条。
+def filter_player_blood_matches(screen, matches):
+    play_area_bottom = max(1, screen.shape[0] - BOTTOM_UI_HEIGHT)
+    filtered = []
+
+    for match in matches:
+        bar_bottom = int(match["y"]) + int(match.get("height", 0))
+
+        if bar_bottom >= play_area_bottom:
+            continue
+
+        filtered.append(match)
+
+    return filtered
+
+
+# 把血条匹配点转换为 right/bottom 开区间矩形。
+def make_blood_bar_from_match(match, width, height):
+    bar_left = int(match["x"])
+    bar_top = int(match["y"])
+    bar_right = min(width, bar_left + int(match.get("width", 0)))
+    bar_bottom = min(height, bar_top + int(match.get("height", 0)))
+    return {
+        "left": bar_left,
+        "top": bar_top,
+        "right": bar_right,
+        "bottom": bar_bottom,
+    }
+
+
+# 计算匹配血条中心到指定点的距离。
+def get_match_distance_to_point(match, x, y):
+    center_x = int(match["x"]) + int(match.get("width", 0)) / 2
+    center_y = int(match["y"]) + int(match.get("height", 0)) / 2
+    return math.dist((x, y), (center_x, center_y))
+
+
+# 从血条模板读取主要填充色，失败时回退到纯绿色。
+def get_health_bar_fill_rgb(image_file):
+    try:
+        with Image.open(image_file) as image:
+            pixels = np.array(image.convert("RGB"))
+
+        bright_pixels = pixels[np.any(pixels > 80, axis=2)]
+
+        if len(bright_pixels) == 0:
+            return GREEN_HEALTH_BAR_RGB
+
+        colors, counts = np.unique(bright_pixels.reshape(-1, 3), axis=0, return_counts=True)
+        color = colors[int(counts.argmax())]
+        return int(color[0]), int(color[1]), int(color[2])
+    except Exception:
+        return GREEN_HEALTH_BAR_RGB
 
 
 # 截图：截取当前绑定窗口并返回截图保存路径。
@@ -1999,6 +2370,15 @@ def normalize_number(value, default, minimum, maximum):
         number = default
 
     return max(minimum, min(maximum, number))
+
+
+# 规整布尔开关：兼容 JSON 布尔值和页面字符串。
+def normalize_bool(value):
+    if isinstance(value, bool):
+        return value
+
+    text = str(value or "").strip().lower()
+    return text in {"1", "true", "yes", "on", "开", "开启"}
 
 
 # 计算移动点击：把动作和方向转换为客户端内的点击坐标。

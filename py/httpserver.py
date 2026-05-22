@@ -1,6 +1,7 @@
 from fasthtml.common import *
 from starlette.requests import Request
 from starlette.responses import FileResponse, JSONResponse, PlainTextResponse
+import os
 import uvicorn
 
 import api
@@ -8,10 +9,31 @@ import log
 import move_to_next_patrol_point as patrol_move_state
 
 
+DEFAULT_SERVER_PORT = 8765
 # 服务监听地址：限制 HTTP 控制台只在本机访问。
 SERVER_HOST = "127.0.0.1"
-# 服务监听端口：定义本地 HTTP 控制台的固定端口。
-SERVER_PORT = 8765
+
+
+# 读取 HTTP 端口：start.bat 可通过 MIR2AUTO_HTTP_PORT 覆盖默认端口。
+def get_server_port():
+    port_text = os.environ.get("MIR2AUTO_HTTP_PORT", "").strip()
+
+    if not port_text:
+        return DEFAULT_SERVER_PORT
+
+    if not port_text.isdigit():
+        return DEFAULT_SERVER_PORT
+
+    port = int(port_text)
+
+    if 1 <= port <= 65535:
+        return port
+
+    return DEFAULT_SERVER_PORT
+
+
+# 服务监听端口：默认 8765，允许 start.bat 覆盖。
+SERVER_PORT = get_server_port()
 
 
 # 运行 HTTP 服务：创建应用并启动 uvicorn 本地服务。
@@ -25,6 +47,7 @@ def run_server(
     patrol_control,
     battle_control,
     current_state,
+    auto_heal_state,
     game_data,
 ):
     # FastHTML 应用：承载页面和所有 API 路由。
@@ -38,6 +61,7 @@ def run_server(
         patrol_control,
         battle_control,
         current_state,
+        auto_heal_state,
         game_data,
     )
     log.write_console(f"HTTP 服务启动: http://{SERVER_HOST}:{SERVER_PORT}")
@@ -55,6 +79,7 @@ def create_server(
     patrol_control,
     battle_control,
     current_state,
+    auto_heal_state,
     game_data,
 ):
     # 应用和路由器：由 FastHTML 创建页面应用和路由装饰器。
@@ -71,6 +96,7 @@ def create_server(
             patrol_control,
             battle_control,
             current_state,
+            auto_heal_state,
         )
 
     # 首页路由：渲染窗口绑定、移动控制和日志面板。
@@ -95,6 +121,7 @@ def create_server(
                     Div("状态: ", Span(current_state["name"], id="state-name")),
                     Div("巡逻: ", Span("关", id="patrol-enabled")),
                     Div("战斗: ", Span("关", id="battle-enabled")),
+                    Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
                     cls="status",
                 ),
                 create_patrol_panel(),
@@ -457,6 +484,23 @@ def create_server(
             "status": current_status(),
         })
 
+    # 自动加血设置接口：保存页面开关、触发血量和检测间隔。
+    @rt("/api/auto-heal/settings")
+    async def post(request: Request):
+        try:
+            data = await request.json()
+        except Exception:
+            data = {}
+
+        result = api.update_auto_heal_settings(app_settings, auto_heal_state, data)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "auto_heal": result.get("auto_heal", {}),
+            "status": current_status(),
+        })
+
     # 地图 rect 右下角 Overlay 切换接口：显示或隐藏持久白色方块。
     @rt("/api/overlay/map-rect-corner/toggle")
     def post():
@@ -513,7 +557,6 @@ def create_buttons(app_settings):
             Input(
                 id="bind-keyword",
                 type="text",
-                value="闪电侠",
                 placeholder="窗口标题关键字",
                 autocomplete="off",
             ),
@@ -521,6 +564,7 @@ def create_buttons(app_settings):
             Button("解除绑定", onclick="unbindWindow()"),
             cls="bind-controls",
         ),
+        create_auto_heal_controls(app_settings),
         Div(*utility_buttons, cls="utility-buttons"),
         Div(
             create_move_pad("走", "walk"),
@@ -528,6 +572,54 @@ def create_buttons(app_settings):
             cls="move-pads",
         ),
     ]
+
+
+# 创建自动加血控制栏：开关、触发血量和检测间隔。
+def create_auto_heal_controls(app_settings):
+    enabled_attrs = {
+        "id": "auto-heal-enabled",
+        "type": "checkbox",
+        "onchange": "saveAutoHealSettings()",
+    }
+
+    if app_settings.get("auto_heal_enabled", False):
+        enabled_attrs["checked"] = True
+
+    return Div(
+        Label(
+            Input(**enabled_attrs),
+            Span("自动加血"),
+            cls="auto-heal-toggle",
+        ),
+        Label(
+            Span("触发血量%"),
+            Input(
+                id="auto-heal-threshold",
+                type="number",
+                min="1",
+                max="100",
+                step="1",
+                value=str(app_settings.get("auto_heal_threshold_percent", 50)),
+                onchange="saveAutoHealSettings()",
+            ),
+            cls="auto-heal-field",
+        ),
+        Label(
+            Span("检测间隔ms"),
+            Input(
+                id="auto-heal-interval",
+                type="number",
+                min="500",
+                max="60000",
+                step="100",
+                value=str(app_settings.get("auto_heal_interval_ms", 1000)),
+                onchange="saveAutoHealSettings()",
+            ),
+            cls="auto-heal-field",
+        ),
+        Div("", id="auto-heal-message", cls="auto-heal-message"),
+        cls="auto-heal-controls",
+    )
 
 
 # 创建巡逻地图面板：显示当前地图图片和网页点选出的巡逻点。
@@ -605,6 +697,7 @@ def get_status(
     patrol_control=None,
     battle_control=None,
     current_state=None,
+    auto_heal_state=None,
 ):
     return api.get_status(
         player_info,
@@ -615,6 +708,7 @@ def get_status(
         patrol_control,
         battle_control,
         current_state,
+        auto_heal_state,
     )
 
 
@@ -738,6 +832,45 @@ h2 {
     display: grid;
     grid-template-columns: minmax(180px, 1fr) 96px 96px;
     gap: 8px;
+}
+.auto-heal-controls {
+    display: grid;
+    grid-template-columns: minmax(110px, 130px) minmax(120px, 150px) minmax(130px, 160px) minmax(180px, 1fr);
+    gap: 8px;
+    align-items: center;
+}
+.auto-heal-toggle,
+.auto-heal-field {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 34px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    background: white;
+    padding: 0 8px;
+    font-size: 12px;
+}
+.auto-heal-toggle input {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+}
+.auto-heal-field input {
+    min-width: 0;
+    flex: 1;
+}
+.auto-heal-message {
+    min-height: 34px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    background: white;
+    padding: 8px;
+    font-size: 12px;
+    color: #555;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .utility-buttons {
     display: grid;
@@ -893,6 +1026,7 @@ th {
 }
 @media (max-width: 640px) {
     .bind-controls,
+    .auto-heal-controls,
     .utility-buttons,
     .status,
     .patrol-content {
@@ -953,6 +1087,25 @@ async function toggleOverlay() {
 async function pressKeyboard(key) {
     const params = new URLSearchParams({key});
     await postApi("/api/keyboard/press?" + params.toString());
+}
+
+async function saveAutoHealSettings() {
+    const enabled = document.getElementById("auto-heal-enabled").checked;
+    const threshold = document.getElementById("auto-heal-threshold").value;
+    const interval = document.getElementById("auto-heal-interval").value;
+    const response = await fetch("/api/auto-heal/settings", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            enabled,
+            threshold_percent: threshold,
+            interval_ms: interval,
+        }),
+    });
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
 }
 
 async function bindMap() {
@@ -1189,15 +1342,18 @@ function clearPatrolPointsFromEvent(event) {
 function applyStatus(data) {
     if (!data || !data.player) return;
 
+    const boundTitle = data.bound_window.title || "";
     document.getElementById("map-name").textContent = data.player.map_name;
     document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
-    document.getElementById("bound-title").textContent = data.bound_window.title || "未绑定";
+    document.getElementById("bound-title").textContent = boundTitle || "未绑定";
+    document.title = boundTitle || "httpserver";
     document.getElementById("overlay-button").textContent = data.settings.overlay_enabled ? "Overlay: 开" : "Overlay: 关";
     document.getElementById("map-corner-overlay-button").textContent =
         data.settings.map_rect_corner_overlay_enabled ? "地图角点: 开" : "地图角点: 关";
     document.getElementById("state-name").textContent = data.state ? data.state.name : "idle";
     document.getElementById("patrol-enabled").textContent = data.patrol && data.patrol.enabled ? "开" : "关";
     document.getElementById("battle-enabled").textContent = data.battle && data.battle.enabled ? "开" : "关";
+    updateAutoHealPanel(data.auto_heal || {});
 
     const oldMapUrl = currentMapUrl;
     updatePatrolMap(data.map || {});
@@ -1211,6 +1367,29 @@ function applyStatus(data) {
     renderPatrolPoints();
     renderPatrolPointTable();
     updatePatrolMapInfo();
+}
+
+function updateAutoHealPanel(autoHeal) {
+    const enabled = !!autoHeal.enabled;
+    const lastHp = autoHeal.last_hp_percent;
+    const hpText = lastHp === "" || lastHp === null || lastHp === undefined ? "-" : String(lastHp) + "%";
+    const stateText = enabled ? "开" : "关";
+    const triggeredText = autoHeal.triggered_low ? " 已触发" : "";
+    document.getElementById("auto-heal-enabled-text").textContent = stateText;
+    document.getElementById("auto-heal-enabled").checked = enabled;
+    setInputValueIfIdle("auto-heal-threshold", autoHeal.threshold_percent ?? 50);
+    setInputValueIfIdle("auto-heal-interval", autoHeal.interval_ms ?? 1000);
+    document.getElementById("auto-heal-message").textContent =
+        stateText + " hp=" + hpText + " threshold=" + (autoHeal.threshold_percent ?? 50) + "%" + triggeredText
+        + (autoHeal.last_message ? " " + autoHeal.last_message : "");
+}
+
+function setInputValueIfIdle(id, value) {
+    const input = document.getElementById(id);
+
+    if (document.activeElement !== input) {
+        input.value = String(value);
+    }
 }
 
 function updatePatrolMap(mapInfo) {
