@@ -22,6 +22,7 @@ def run_server(
     current_map,
     patrol_points,
     patrol_state,
+    patrol_control,
     battle_control,
     current_state,
     game_data,
@@ -34,6 +35,7 @@ def run_server(
         current_map,
         patrol_points,
         patrol_state,
+        patrol_control,
         battle_control,
         current_state,
         game_data,
@@ -50,6 +52,7 @@ def create_server(
     current_map,
     patrol_points,
     patrol_state,
+    patrol_control,
     battle_control,
     current_state,
     game_data,
@@ -59,7 +62,16 @@ def create_server(
 
     # 当前页面状态：闭包绑定地图和巡逻运行时变量。
     def current_status():
-        return get_status(player_info, app_settings, current_map, patrol_points, patrol_state, battle_control, current_state)
+        return get_status(
+            player_info,
+            app_settings,
+            current_map,
+            patrol_points,
+            patrol_state,
+            patrol_control,
+            battle_control,
+            current_state,
+        )
 
     # 首页路由：渲染窗口绑定、移动控制和日志面板。
     @rt("/")
@@ -81,6 +93,7 @@ def create_server(
                     Div("地图: ", Span(player_info["map_name"], id="map-name")),
                     Div("坐标: ", Span(f"{player_info['x']}:{player_info['y']}", id="coordinate")),
                     Div("状态: ", Span(current_state["name"], id="state-name")),
+                    Div("巡逻: ", Span("关", id="patrol-enabled")),
                     Div("战斗: ", Span("关", id="battle-enabled")),
                     cls="status",
                 ),
@@ -124,7 +137,8 @@ def create_server(
     @rt("/api/battle/start")
     def post():
         battle_control["enabled"] = True
-        message = "战斗开关已打开"
+        patrol_control["enabled"] = False
+        message = "战斗开关已打开，巡逻开关已关闭"
         log.write(message)
         return JSONResponse({
             "success": True,
@@ -164,6 +178,14 @@ def create_server(
             current_map.update(result["map"])
             patrol_points.clear()
             patrol_state["index"] = -1
+            patrol_control["enabled"] = False
+
+            if app_settings.get("map_rect_corner_overlay_enabled", False):
+                corner_result = api.show_map_rect_corner_overlay()
+                log.write(corner_result["message"])
+
+                if not corner_result["success"]:
+                    app_settings["map_rect_corner_overlay_enabled"] = False
 
         return JSONResponse({
             "success": result["success"],
@@ -181,6 +203,10 @@ def create_server(
             data = {}
 
         result = save_patrol_points(data, current_map, patrol_points, patrol_state)
+
+        if result["success"] and not result.get("points", []):
+            patrol_control["enabled"] = False
+
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -200,6 +226,50 @@ def create_server(
             "point": result.get("point", {}),
             "index": patrol_state["index"],
             "move": result.get("move", {}),
+            "status": current_status(),
+        })
+
+    # 开始巡逻接口：打开巡逻开关，同时关闭战斗开关。
+    @rt("/api/patrol/start")
+    def post():
+        battle_control["enabled"] = False
+
+        if not current_map:
+            message = "战斗开关已关闭；还没有绑定地图，不能开始巡逻"
+            log.write(message)
+            return JSONResponse({
+                "success": False,
+                "message": message,
+                "status": current_status(),
+            })
+
+        if not patrol_points:
+            message = "战斗开关已关闭；还没有保存巡逻点，不能开始巡逻"
+            log.write(message)
+            return JSONResponse({
+                "success": False,
+                "message": message,
+                "status": current_status(),
+            })
+
+        patrol_control["enabled"] = True
+        message = "巡逻开关已打开，战斗开关已关闭"
+        log.write(message)
+        return JSONResponse({
+            "success": True,
+            "message": message,
+            "status": current_status(),
+        })
+
+    # 关闭巡逻接口：关闭巡逻开关，后台巡逻移动下一帧回到 idle。
+    @rt("/api/patrol/stop")
+    def post():
+        patrol_control["enabled"] = False
+        message = "巡逻开关已关闭"
+        log.write(message)
+        return JSONResponse({
+            "success": True,
+            "message": message,
             "status": current_status(),
         })
 
@@ -229,6 +299,10 @@ def create_server(
     def post():
         # 解绑结果：记录窗口解绑是否成功、标题和说明消息。
         result = api.unbind_window()
+
+        if result["success"]:
+            app_settings["map_rect_corner_overlay_enabled"] = False
+
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -383,6 +457,18 @@ def create_server(
             "status": current_status(),
         })
 
+    # 地图 rect 右下角 Overlay 切换接口：显示或隐藏持久白色方块。
+    @rt("/api/overlay/map-rect-corner/toggle")
+    def post():
+        result = api.toggle_map_rect_corner_overlay(app_settings)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "enabled": result.get("enabled", False),
+            "message": result["message"],
+            "status": current_status(),
+        })
+
     # 测试按钮接口：写入一条测试日志用于验证页面操作链路。
     @rt("/api/test/{number}")
     def post(number: int):
@@ -406,11 +492,18 @@ def create_buttons(app_settings):
         Button("测试坐标", onclick="postApi('/api/coordinate/read')"),
         Button("截图", onclick="takeScreenshot()"),
         Button(get_overlay_button_text(app_settings), id="overlay-button", onclick="toggleOverlay()"),
+        Button(
+            get_map_rect_corner_overlay_button_text(app_settings),
+            id="map-corner-overlay-button",
+            onclick="postApi('/api/overlay/map-rect-corner/toggle')",
+        ),
         Button("测试键盘(M)", onclick="pressKeyboard('M')"),
         Button("检测怪物列表", onclick="scanMonsters()"),
         Button("绑定地图", onclick="bindMap()"),
         Button("保存巡逻点", onclick="savePatrolPoints()"),
         Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
+        Button("开始巡逻", onclick="startPatrol()"),
+        Button("关闭巡逻", onclick="stopPatrol()"),
         Button("开始战斗", onclick="startBattle()"),
         Button("结束战斗", onclick="stopBattle()"),
     ]
@@ -509,6 +602,7 @@ def get_status(
     current_map=None,
     patrol_points=None,
     patrol_state=None,
+    patrol_control=None,
     battle_control=None,
     current_state=None,
 ):
@@ -518,6 +612,7 @@ def get_status(
         current_map,
         patrol_points,
         patrol_state,
+        patrol_control,
         battle_control,
         current_state,
     )
@@ -589,6 +684,11 @@ def move_to_next_patrol_point(game_data):
 # 获取 Overlay 按钮文本：根据开关状态生成按钮显示文案。
 def get_overlay_button_text(app_settings):
     return "Overlay: 开" if app_settings["overlay_enabled"] else "Overlay: 关"
+
+
+# 获取地图角点 Overlay 按钮文本：根据开关状态生成按钮显示文案。
+def get_map_rect_corner_overlay_button_text(app_settings):
+    return "地图角点: 开" if app_settings.get("map_rect_corner_overlay_enabled", False) else "地图角点: 关"
 
 
 # 安全刷新帧：调用刷新函数并把异常写入日志。
@@ -888,6 +988,22 @@ async function moveToNextPatrolPoint() {
     await refreshLogs();
 }
 
+async function startPatrol() {
+    const response = await fetch("/api/patrol/start", {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
+async function stopPatrol() {
+    const response = await fetch("/api/patrol/stop", {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
 async function startBattle() {
     const response = await fetch("/api/battle/start", {method: "POST"});
     const data = await response.json();
@@ -1077,7 +1193,10 @@ function applyStatus(data) {
     document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
     document.getElementById("bound-title").textContent = data.bound_window.title || "未绑定";
     document.getElementById("overlay-button").textContent = data.settings.overlay_enabled ? "Overlay: 开" : "Overlay: 关";
+    document.getElementById("map-corner-overlay-button").textContent =
+        data.settings.map_rect_corner_overlay_enabled ? "地图角点: 开" : "地图角点: 关";
     document.getElementById("state-name").textContent = data.state ? data.state.name : "idle";
+    document.getElementById("patrol-enabled").textContent = data.patrol && data.patrol.enabled ? "开" : "关";
     document.getElementById("battle-enabled").textContent = data.battle && data.battle.enabled ? "开" : "关";
 
     const oldMapUrl = currentMapUrl;

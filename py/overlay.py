@@ -8,6 +8,8 @@ import win32gui
 
 # 圆环颜色：定义点击提示使用的黄色画笔颜色。
 YELLOW = win32api.RGB(255, 220, 0)
+# 白色方块颜色：用于地图矩形右下角持久标记。
+WHITE = win32api.RGB(255, 255, 255)
 # 调试点颜色：用于怪物扫描时标记不同计算位置。
 COLORS = {
     "blue": win32api.RGB(0, 120, 255),
@@ -30,6 +32,10 @@ FRAME_INTERVAL = 0.016
 marker_lock = threading.Lock()
 # 标记版本号：递增后可让旧的点击提示自动失效。
 marker_version = 0
+# 持久方块锁：保护地图角点标记版本号的并发读写。
+square_lock = threading.Lock()
+# 持久方块版本号：递增后让旧的方块绘制线程停止。
+square_version = 0
 
 
 # 显示点击提示：在目标窗口客户区坐标闪烁黄色圆环。
@@ -87,6 +93,31 @@ def show_points(target_hwnd, points, duration_ms=1500, scale=1.0):
     thread.start()
 
 
+# 显示持久白色方块：持续重画，直到调用 hide_square。
+def show_square(target_hwnd, x, y, size=4, scale=1.0):
+    global square_version
+
+    with square_lock:
+        square_version += 1
+        version = square_version
+
+    draw_x, draw_y = scale_point(x, y, scale)
+    thread = threading.Thread(
+        target=draw_persistent_square,
+        args=(target_hwnd, draw_x, draw_y, max(1, int(size)), version),
+        daemon=True,
+    )
+    thread.start()
+
+
+# 隐藏持久白色方块：递增版本号使当前方块绘制线程停止。
+def hide_square():
+    global square_version
+
+    with square_lock:
+        square_version += 1
+
+
 # 隐藏点击提示：递增版本号使当前绘制线程停止生效。
 def hide():
     global marker_version
@@ -116,10 +147,27 @@ def flash_points(target_hwnd, points, duration_seconds, version):
         time.sleep(FRAME_INTERVAL)
 
 
+# 持续绘制白色方块：用于标记地图矩形右下角。
+def draw_persistent_square(target_hwnd, x, y, size, version):
+    while is_current_square(version):
+        try:
+            draw_square_on_window(target_hwnd, x, y, size)
+        except Exception:
+            break
+
+        time.sleep(FRAME_INTERVAL)
+
+
 # 判断当前标记：确认绘制线程是否仍属于最新提示。
 def is_current_marker(version):
     with marker_lock:
         return version == marker_version
+
+
+# 判断当前持久方块：确认绘制线程是否仍属于最新方块。
+def is_current_square(version):
+    with square_lock:
+        return version == square_version
 
 
 # 缩放坐标：把 OP 有效坐标换成窗口 DC 使用的坐标。
@@ -170,6 +218,16 @@ def draw_points_on_window(target_hwnd, points):
         win32gui.ReleaseDC(target_hwnd, hdc)
 
 
+# 在窗口绘制白色方块：获取窗口 DC 并确保释放资源。
+def draw_square_on_window(target_hwnd, x, y, size=4):
+    hdc = win32gui.GetDC(target_hwnd)
+
+    try:
+        draw_square_on_dc(hdc, x, y, size)
+    finally:
+        win32gui.ReleaseDC(target_hwnd, hdc)
+
+
 # 在 DC 绘制圆环：创建画笔并绘制空心椭圆。
 def draw_ring_on_dc(hdc, x, y, color=YELLOW, radius=RADIUS):
     # 黄色画笔：用于绘制点击提示圆环边线。
@@ -191,3 +249,17 @@ def draw_ring_on_dc(hdc, x, y, color=YELLOW, radius=RADIUS):
         win32gui.SelectObject(hdc, old_brush)
         win32gui.SelectObject(hdc, old_pen)
         win32gui.DeleteObject(pen)
+
+
+# 在 DC 绘制白色实心方块：x/y 是方块右下角锚点。
+def draw_square_on_dc(hdc, x, y, size=4):
+    brush = win32gui.CreateSolidBrush(WHITE)
+    left = int(x) - int(size) + 1
+    top = int(y) - int(size) + 1
+    right = int(x) + 1
+    bottom = int(y) + 1
+
+    try:
+        win32gui.FillRect(hdc, (left, top, right, bottom), brush)
+    finally:
+        win32gui.DeleteObject(brush)

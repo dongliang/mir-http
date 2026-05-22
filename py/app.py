@@ -17,6 +17,7 @@ current_player = player.create_player()
 # 应用设置：集中保存运行时可切换的界面和行为开关。
 app_settings = {
     "overlay_enabled": True,
+    "map_rect_corner_overlay_enabled": False,
 }
 # 当前绑定的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
 current_map = {}
@@ -25,6 +26,10 @@ patrol_points = []
 # 巡逻运行状态：记录下一次巡逻移动前的当前索引。
 patrol_state = {
     "index": -1,
+}
+# 巡逻控制：由页面按钮切换，打开后 idle 会进入巡逻移动状态。
+patrol_control = {
+    "enabled": False,
 }
 # 战斗控制：由页面按钮切换，状态机会按它决定是否进入战斗。
 battle_control = {
@@ -48,6 +53,7 @@ game_data = {
     "current_map": current_map,
     "patrol_points": patrol_points,
     "patrol_state": patrol_state,
+    "patrol_control": patrol_control,
     "battle_control": battle_control,
 }
 # 停止事件：通知后台刷新循环在程序退出时结束。
@@ -70,6 +76,7 @@ def main() -> None:
         current_map,
         patrol_points,
         patrol_state,
+        patrol_control,
         battle_control,
         current_state,
         game_data,

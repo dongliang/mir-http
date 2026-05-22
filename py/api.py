@@ -239,6 +239,7 @@ def unbind_window():
 
     if success:
         hide_overlay_safely()
+        hide_map_rect_corner_overlay_safely()
 
     return {
         "success": success,
@@ -251,6 +252,9 @@ def unbind_window():
 def apply_app_settings(app_settings):
     if not app_settings.get("overlay_enabled", True):
         hide_overlay_safely()
+
+    if not app_settings.get("map_rect_corner_overlay_enabled", False):
+        hide_map_rect_corner_overlay_safely()
 
 
 # Overlay 切换：反转点击提示开关并返回页面状态消息。
@@ -268,13 +272,74 @@ def toggle_overlay(app_settings):
     }
 
 
-# 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图、巡逻点、战斗和状态机。
+# 地图矩形右下角 Overlay 切换：显示或隐藏持久白色方块。
+def toggle_map_rect_corner_overlay(app_settings):
+    enabled = not app_settings.get("map_rect_corner_overlay_enabled", False)
+
+    if not enabled:
+        hide_map_rect_corner_overlay_safely()
+        app_settings["map_rect_corner_overlay_enabled"] = False
+        return {
+            "success": True,
+            "enabled": False,
+            "message": "地图 rect 右下角白色方块已隐藏",
+        }
+
+    result = show_map_rect_corner_overlay()
+    app_settings["map_rect_corner_overlay_enabled"] = result["success"]
+    result["enabled"] = result["success"]
+    return result
+
+
+# 显示地图矩形右下角 Overlay：x/y 使用实时计算出的地图 rect 右下角有效像素。
+def show_map_rect_corner_overlay():
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口，不能显示地图 rect 右下角白色方块",
+        }
+
+    try:
+        x, y = get_map_rect_corner_point()
+        bound = op.get_bound_window()
+        overlay.show_square(
+            bound["hwnd"],
+            x,
+            y,
+            size=4,
+            scale=op.get_bind_coordinate_scale(),
+        )
+    except Exception as error:
+        return {
+            "success": False,
+            "message": f"显示地图 rect 右下角白色方块失败: {error}",
+        }
+
+    return {
+        "success": True,
+        "message": f"地图 rect 右下角白色方块已显示 x={x} y={y}",
+    }
+
+
+# 获取地图 rect 右下角有效像素坐标。
+def get_map_rect_corner_point():
+    width, height = get_bound_client_size()
+
+    if width <= 0 or height <= 0:
+        raise ValueError(f"窗口尺寸异常 size={width}x{height}")
+
+    _, _, right, bottom = get_map_rect(width, height)
+    return right - 1, bottom - 1
+
+
+# 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图、巡逻、战斗和状态机。
 def get_status(
     player_info,
     app_settings,
     current_map=None,
     patrol_points=None,
     patrol_state=None,
+    patrol_control=None,
     battle_control=None,
     current_state=None,
 ):
@@ -287,9 +352,10 @@ def get_status(
         "bound_window": op.get_bound_window(),
         "settings": {
             "overlay_enabled": app_settings["overlay_enabled"],
+            "map_rect_corner_overlay_enabled": app_settings.get("map_rect_corner_overlay_enabled", False),
         },
         "map": make_map_status(current_map),
-        "patrol": make_patrol_status(patrol_points, patrol_state),
+        "patrol": make_patrol_status(patrol_points, patrol_state, patrol_control),
         "battle": make_battle_status(battle_control),
         "state": make_state_status(current_state),
     }
@@ -312,8 +378,8 @@ def make_map_status(current_map):
     }
 
 
-# 生成巡逻状态：返回当前保存的巡逻点和索引。
-def make_patrol_status(patrol_points, patrol_state):
+# 生成巡逻状态：返回当前保存的巡逻点、索引和开关。
+def make_patrol_status(patrol_points, patrol_state, patrol_control=None):
     points = []
 
     for point in patrol_points or []:
@@ -325,6 +391,7 @@ def make_patrol_status(patrol_points, patrol_state):
     return {
         "points": points,
         "index": int((patrol_state or {}).get("index", -1)),
+        "enabled": bool((patrol_control or {}).get("enabled", False)),
     }
 
 
@@ -910,7 +977,7 @@ def scan_monsters_locked(show_overlay=True):
                 "message": f"怪物扫描截图失败: {capture_message}",
             }
 
-        matches = find_blood_feature_matches(scan_file)
+        matches = find_blood_feature_matches(scan_file, ignore_bottom_ui=True)
         monsters = []
 
         with Image.open(scan_file) as scan_image:
@@ -1506,7 +1573,7 @@ def get_bound_player_name():
 
 
 # 查找血条左侧特征：返回所有精确匹配的左上角坐标。
-def find_blood_feature_matches(screen_file):
+def find_blood_feature_matches(screen_file, ignore_bottom_ui=False):
     screen = read_cv2_image(screen_file)
     templates = get_blood_feature_templates()
     matches = []
@@ -1528,10 +1595,30 @@ def find_blood_feature_matches(screen_file):
                 "height": template["blood_height"],
             })
 
+    if ignore_bottom_ui:
+        matches = filter_play_area_blood_matches(screen, matches)
+
     if not matches:
-        matches = find_red_bar_component_matches(screen)
+        matches = find_red_bar_component_matches(screen, ignore_bottom_ui)
 
     return dedupe_matches(matches)
+
+
+# 过滤底部界面里的误匹配：怪物点击点落到底栏时不当作可攻击怪物。
+def filter_play_area_blood_matches(screen, matches):
+    play_area_bottom = max(1, screen.shape[0] - BOTTOM_UI_HEIGHT)
+    filtered = []
+
+    for match in matches:
+        bar_bottom = int(match["y"]) + int(match.get("height", 0))
+        hover_y = bar_bottom + MONSTER_HOVER_OFFSET_Y
+
+        if hover_y >= play_area_bottom:
+            continue
+
+        filtered.append(match)
+
+    return filtered
 
 
 # 获取血条特征模板：同时尝试原始尺寸和 dx2 有效截图里的半尺寸。
@@ -1554,7 +1641,7 @@ def get_blood_feature_templates():
 
 
 # 查找红色水平血条组件：作为特征模板未命中时的兜底。
-def find_red_bar_component_matches(screen):
+def find_red_bar_component_matches(screen, ignore_bottom_ui=False):
     red_mask = (
         (screen[:, :, 2] > 140)
         & (screen[:, :, 1] < 100)
@@ -1567,7 +1654,7 @@ def find_red_bar_component_matches(screen):
     for index in range(1, component_count):
         x, y, width, height, area = stats[index]
 
-        if y >= play_area_bottom:
+        if ignore_bottom_ui and y + height + MONSTER_HOVER_OFFSET_Y >= play_area_bottom:
             continue
 
         if width < 8 or width > 90:
@@ -1967,5 +2054,13 @@ def show_click_overlay(x, y):
 def hide_overlay_safely():
     try:
         overlay.hide()
+    except Exception:
+        pass
+
+
+# 隐藏地图右下角白色方块 Overlay：吞掉绘制层异常，避免影响主业务动作。
+def hide_map_rect_corner_overlay_safely():
+    try:
+        overlay.hide_square()
     except Exception:
         pass
