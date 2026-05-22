@@ -395,7 +395,7 @@ def bind_current_map_locked(player_info=None):
 
     left, top, right, bottom = get_map_rect(width, height)
     map_rect = make_map_rect(left, top, right, bottom)
-    hover_x, hover_y = right - 2, bottom - 2
+    hover_x, hover_y = right - 1, bottom - 1
 
     move_success, move_message = op.move_mouse_to(hover_x, hover_y)
 

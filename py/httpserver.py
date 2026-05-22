@@ -383,12 +383,36 @@ def create_patrol_panel():
     return Div(
         H3("巡逻地图"),
         Div(
-            Img(id="patrol-map-image", cls="patrol-map-image", alt="当前地图"),
-            Div(id="patrol-map-points", cls="patrol-map-points"),
-            id="patrol-map-view",
-            cls="patrol-map-view empty",
+            Div(
+                Div(
+                    Img(id="patrol-map-image", cls="patrol-map-image", alt="当前地图"),
+                    Div(id="patrol-map-points", cls="patrol-map-points"),
+                    id="patrol-map-view",
+                    cls="patrol-map-view empty",
+                ),
+                Div("未绑定地图", id="patrol-map-info", cls="patrol-map-info"),
+                cls="patrol-map-column",
+            ),
+            Div(
+                Table(
+                    Thead(
+                        Tr(
+                            Th("序号"),
+                            Th("逻辑坐标"),
+                        )
+                    ),
+                    Tbody(
+                        Tr(
+                            Td("暂无巡逻点", colspan="2"),
+                        ),
+                        id="patrol-point-body",
+                    ),
+                    cls="patrol-point-table",
+                ),
+                cls="patrol-table-column",
+            ),
+            cls="patrol-content",
         ),
-        Div("未绑定地图", id="patrol-map-info", cls="patrol-map-info"),
         cls="patrol-panel",
     )
 
@@ -615,9 +639,21 @@ button {
     margin: 0 0 8px 0;
     font-size: 14px;
 }
+.patrol-content {
+    display: grid;
+    grid-template-columns: minmax(320px, 550px) minmax(180px, 260px);
+    gap: 12px;
+    align-items: start;
+}
+.patrol-map-column {
+    width: min(550px, 100%);
+}
+.patrol-table-column {
+    min-width: 0;
+}
 .patrol-map-view {
     position: relative;
-    width: min(550px, 100%);
+    width: 100%;
     aspect-ratio: 550 / 350;
     border: 1px solid #bbb;
     background: #222;
@@ -654,13 +690,25 @@ button {
     outline: 2px solid #2b7cff;
 }
 .patrol-map-info {
-    width: min(550px, 100%);
+    width: 100%;
     box-sizing: border-box;
     margin-top: 6px;
     padding: 6px 8px;
     border: 1px solid #ddd;
     background: white;
     font-size: 12px;
+}
+.patrol-point-table {
+    min-width: 180px;
+}
+.patrol-point-table th:first-child,
+.patrol-point-table td:first-child {
+    width: 56px;
+    text-align: center;
+}
+.patrol-point-table tr.active td {
+    background: #e8f1ff;
+    font-weight: bold;
 }
 .monster-panel {
     margin-bottom: 12px;
@@ -696,7 +744,8 @@ th {
 @media (max-width: 640px) {
     .bind-controls,
     .utility-buttons,
-    .status {
+    .status,
+    .patrol-content {
         grid-template-columns: 1fr;
     }
 }
@@ -938,6 +987,7 @@ function addPatrolPointFromEvent(event) {
     patrolIndex = -1;
     patrolDirty = true;
     renderPatrolPoints();
+    renderPatrolPointTable();
     updatePatrolMapInfo();
 }
 
@@ -950,6 +1000,7 @@ function clearPatrolPointsFromEvent(event) {
     patrolIndex = -1;
     patrolDirty = true;
     renderPatrolPoints();
+    renderPatrolPointTable();
     updatePatrolMapInfo();
 }
 
@@ -971,6 +1022,7 @@ function applyStatus(data) {
     }
 
     renderPatrolPoints();
+    renderPatrolPointTable();
     updatePatrolMapInfo();
 }
 
@@ -1012,6 +1064,33 @@ function renderPatrolPoints() {
         marker.style.top = String(pixel.y / (MAP_IMAGE_HEIGHT - 1) * 100) + "%";
         marker.title = String(point.x) + ":" + String(point.y);
         container.appendChild(marker);
+    });
+}
+
+function renderPatrolPointTable() {
+    const body = document.getElementById("patrol-point-body");
+    body.textContent = "";
+
+    if (!patrolPoints.length) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 2;
+        cell.textContent = "暂无巡逻点";
+        row.appendChild(cell);
+        body.appendChild(row);
+        return;
+    }
+
+    patrolPoints.forEach((point, index) => {
+        const row = document.createElement("tr");
+
+        if (index === patrolIndex) {
+            row.className = "active";
+        }
+
+        appendCell(row, String(index + 1));
+        appendCell(row, String(point.x) + ":" + String(point.y));
+        body.appendChild(row);
     });
 }
 
