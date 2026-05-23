@@ -1,8 +1,10 @@
+import ctypes
 import math
 import re
 import tempfile
 import threading
 import time
+from ctypes import wintypes
 from pathlib import Path
 
 import cv2
@@ -11,7 +13,6 @@ from PIL import Image
 
 import ocr_client
 import op
-import overlay
 import win32
 
 
@@ -45,6 +46,15 @@ coordinate_lock = threading.Lock()
 monster_scan_lock = threading.Lock()
 # 自动加血锁：避免页面主动刷新和后台刷新同时触发 F1。
 auto_heal_lock = threading.Lock()
+# 地图角点快捷键锁：保护热键配置和最近触发状态。
+map_corner_hotkey_lock = threading.Lock()
+map_corner_hotkey_stop_event = threading.Event()
+map_corner_hotkey_thread = None
+map_corner_hotkey_state = {
+    "hotkey": "",
+    "keys": [],
+    "last_message": "",
+}
 # 绑定玩家位置：绑定窗口时通过玩家名称 OCR 得到的脚底基准点。
 bound_player_position = {}
 # 底部界面高度：估算游戏底栏高度，用来计算角色移动点击原点。
@@ -120,6 +130,19 @@ AUTO_HEAL_MAX_INTERVAL_MS = 60000
 IDLE_STUCK_DEFAULT_SECONDS = 30
 IDLE_STUCK_MIN_SECONDS = 5
 IDLE_STUCK_MAX_SECONDS = 600
+# 地图角点快捷键默认值：只在当前前台窗口是已绑定窗口时触发。
+MAP_CORNER_HOTKEY_DEFAULT = "F8"
+MAP_CORNER_HOTKEY_POLL_SECONDS = 0.05
+MAP_CORNER_HOTKEY_COOLDOWN_SECONDS = 0.5
+MAP_CORNER_HOTKEY_DISABLED_VALUES = {"", "NONE", "OFF", "DISABLED", "禁用", "关闭"}
+HOTKEY_MODIFIER_NAMES = {
+    "CTRL": "CTRL",
+    "CONTROL": "CTRL",
+    "ALT": "ALT",
+    "SHIFT": "SHIFT",
+}
+HOTKEY_MODIFIER_ORDER = ["CTRL", "ALT", "SHIFT"]
+GA_ROOT = 2
 
 # 移动方向向量：把方向名称映射为地图坐标变化量。
 directions = {
@@ -214,6 +237,163 @@ for key_index in range(1, 13):
     keyboard_key_map[f"F{key_index}"] = 0x70 + key_index - 1
 
 
+# 配置地图角点快捷键。
+def configure_map_corner_hotkey(hotkey):
+    global map_corner_hotkey_thread
+
+    normalized_hotkey, keys = normalize_hotkey(hotkey)
+
+    with map_corner_hotkey_lock:
+        map_corner_hotkey_state["hotkey"] = normalized_hotkey
+        map_corner_hotkey_state["keys"] = keys
+        map_corner_hotkey_state["last_message"] = get_map_corner_hotkey_config_message(normalized_hotkey)
+
+    if map_corner_hotkey_thread and map_corner_hotkey_thread.is_alive():
+        return normalized_hotkey
+
+    map_corner_hotkey_stop_event.clear()
+    map_corner_hotkey_thread = threading.Thread(
+        target=map_corner_hotkey_loop,
+        daemon=True,
+    )
+    map_corner_hotkey_thread.start()
+    return normalized_hotkey
+
+
+# 停止地图角点快捷键监听。
+def stop_map_corner_hotkey():
+    map_corner_hotkey_stop_event.set()
+
+
+# 地图角点快捷键监听循环：只有焦点在绑定窗口时才执行动作。
+def map_corner_hotkey_loop():
+    was_pressed = False
+    last_trigger_at = 0.0
+
+    while not map_corner_hotkey_stop_event.is_set():
+        hotkey, keys = get_map_corner_hotkey_snapshot()
+
+        if not keys:
+            was_pressed = False
+            map_corner_hotkey_stop_event.wait(MAP_CORNER_HOTKEY_POLL_SECONDS)
+            continue
+
+        pressed = is_bound_window_foreground() and are_hotkey_keys_down(keys)
+        now = time.time()
+
+        if pressed and not was_pressed and now - last_trigger_at >= MAP_CORNER_HOTKEY_COOLDOWN_SECONDS:
+            result = move_mouse_to_map_rect_corner()
+            set_map_corner_hotkey_last_message(f"{hotkey} {result.get('message', '')}")
+            last_trigger_at = now
+
+        was_pressed = pressed
+        map_corner_hotkey_stop_event.wait(MAP_CORNER_HOTKEY_POLL_SECONDS)
+
+
+# 读取当前快捷键配置快照。
+def get_map_corner_hotkey_snapshot():
+    with map_corner_hotkey_lock:
+        return map_corner_hotkey_state["hotkey"], list(map_corner_hotkey_state["keys"])
+
+
+# 写入快捷键最近消息。
+def set_map_corner_hotkey_last_message(message):
+    with map_corner_hotkey_lock:
+        map_corner_hotkey_state["last_message"] = str(message or "")
+
+
+# 读取快捷键最近消息。
+def get_map_corner_hotkey_last_message():
+    with map_corner_hotkey_lock:
+        return map_corner_hotkey_state.get("last_message", "")
+
+
+# 判断快捷键所有按键是否按下。
+def are_hotkey_keys_down(keys):
+    return all(is_vk_key_down(vk_code) for vk_code in keys)
+
+
+# 判断单个虚拟键是否按下。
+def is_vk_key_down(vk_code):
+    try:
+        user32 = ctypes.windll.user32
+        user32.GetAsyncKeyState.argtypes = [ctypes.c_int]
+        user32.GetAsyncKeyState.restype = ctypes.c_short
+        return bool(user32.GetAsyncKeyState(int(vk_code)) & 0x8000)
+    except Exception:
+        return False
+
+
+# 判断当前前台窗口是否为已绑定窗口。
+def is_bound_window_foreground():
+    bound = op.get_bound_window()
+    hwnd = bound.get("hwnd")
+
+    if not hwnd:
+        return False
+
+    try:
+        user32 = ctypes.windll.user32
+        user32.GetForegroundWindow.restype = wintypes.HWND
+        user32.GetAncestor.argtypes = [wintypes.HWND, ctypes.c_uint]
+        user32.GetAncestor.restype = wintypes.HWND
+        foreground = int(user32.GetForegroundWindow())
+        foreground_root = int(user32.GetAncestor(foreground, GA_ROOT)) or foreground
+    except Exception:
+        return False
+
+    return foreground == int(hwnd) or foreground_root == int(hwnd)
+
+
+# 标准化快捷键文本并生成虚拟键列表。
+def normalize_hotkey(hotkey):
+    text = str(hotkey or "").strip().upper()
+    text = text.replace("＋", "+").replace(" ", "")
+
+    if text in MAP_CORNER_HOTKEY_DISABLED_VALUES:
+        return "", []
+
+    parts = [part for part in text.split("+") if part]
+    if not parts:
+        return "", []
+
+    modifiers = []
+    main_key = ""
+    main_vk = None
+
+    for part in parts:
+        modifier_name = HOTKEY_MODIFIER_NAMES.get(part)
+
+        if modifier_name:
+            if modifier_name not in modifiers:
+                modifiers.append(modifier_name)
+            continue
+
+        if main_key:
+            raise ValueError("快捷键只能包含一个主按键")
+
+        main_key, main_vk = resolve_keyboard_key(part)
+
+        if main_key in HOTKEY_MODIFIER_NAMES:
+            raise ValueError("快捷键不能只使用修饰键")
+
+    if main_vk is None:
+        raise ValueError("快捷键需要包含一个主按键")
+
+    ordered_modifiers = [modifier for modifier in HOTKEY_MODIFIER_ORDER if modifier in modifiers]
+    keys = [keyboard_key_map[modifier] for modifier in ordered_modifiers]
+    keys.append(main_vk)
+    return "+".join([*ordered_modifiers, main_key]), keys
+
+
+# 获取快捷键配置消息。
+def get_map_corner_hotkey_config_message(hotkey):
+    if hotkey:
+        return f"地图角点快捷键已设置为 {hotkey}"
+
+    return "地图角点快捷键已禁用"
+
+
 # 启动 OP：业务层统一入口，初始化 OP 并规整返回结构。
 def start_op():
     try:
@@ -269,8 +449,6 @@ def bind_window(keyword):
     if not position_result["success"]:
         unbind_success, _, unbind_message = op.unbind_window()
         clear_bound_player_position()
-        hide_overlay_safely()
-        hide_map_rect_corner_overlay_safely()
         return {
             "success": False,
             "title": title,
@@ -294,8 +472,6 @@ def unbind_window():
 
     if success:
         clear_bound_player_position()
-        hide_overlay_safely()
-        hide_map_rect_corner_overlay_safely()
 
     return {
         "success": success,
@@ -584,86 +760,12 @@ def format_ocr_lines(lines):
 
 # 应用运行设置：把内存中的应用设置同步到业务辅助模块。
 def apply_app_settings(app_settings):
-    if not app_settings.get("overlay_enabled", True):
-        hide_overlay_safely()
-
-    if not app_settings.get("map_rect_corner_overlay_enabled", False):
-        hide_map_rect_corner_overlay_safely()
-
-
-# Overlay 切换：反转点击提示开关并返回页面状态消息。
-def toggle_overlay(app_settings):
-    # Overlay 开关设置：反转当前点击提示启用状态。
-    app_settings["overlay_enabled"] = not app_settings["overlay_enabled"]
-    apply_app_settings(app_settings)
-    # Overlay 状态文本：把布尔开关转换为用户可读中文状态。
-    state = "开启" if app_settings["overlay_enabled"] else "关闭"
-    # Overlay 返回消息：描述本次切换后的提示状态。
-    message = f"点击提示 Overlay 已{state}"
-    return {
-        "success": True,
-        "message": message,
-    }
-
-
-# 地图矩形右下角 Overlay 切换：显示或隐藏持久白色方块。
-def toggle_map_rect_corner_overlay(app_settings):
-    enabled = not app_settings.get("map_rect_corner_overlay_enabled", False)
-
-    if not enabled:
-        hide_map_rect_corner_overlay_safely()
-        app_settings["map_rect_corner_overlay_enabled"] = False
-        return {
-            "success": True,
-            "enabled": False,
-            "message": "地图 rect 右下角白色方块已隐藏",
-        }
-
-    result = show_map_rect_corner_overlay()
-    app_settings["map_rect_corner_overlay_enabled"] = result["success"]
-    result["enabled"] = result["success"]
-    return result
-
-
-# 显示地图矩形右下角 Overlay：x/y 使用实时计算出的地图 rect 右下角有效像素。
-def show_map_rect_corner_overlay():
-    if not op.is_window_bound():
-        return {
-            "success": False,
-            "message": "还没有绑定窗口，不能显示地图 rect 右下角白色方块",
-        }
+    hotkey = app_settings.get("map_corner_hotkey", MAP_CORNER_HOTKEY_DEFAULT)
 
     try:
-        x, y = get_map_rect_corner_point()
-        bound = op.get_bound_window()
-        overlay.show_square(
-            bound["hwnd"],
-            x,
-            y,
-            size=4,
-            scale=op.get_bind_coordinate_scale(),
-        )
-    except Exception as error:
-        return {
-            "success": False,
-            "message": f"显示地图 rect 右下角白色方块失败: {error}",
-        }
-
-    return {
-        "success": True,
-        "message": f"地图 rect 右下角白色方块已显示 x={x} y={y}",
-    }
-
-
-# 获取地图 rect 右下角有效像素坐标。
-def get_map_rect_corner_point():
-    width, height = get_bound_client_size()
-
-    if width <= 0 or height <= 0:
-        raise ValueError(f"窗口尺寸异常 size={width}x{height}")
-
-    _, _, right, bottom = get_map_rect(width, height)
-    return right - 1, bottom - 1
+        app_settings["map_corner_hotkey"] = configure_map_corner_hotkey(hotkey)
+    except ValueError:
+        app_settings["map_corner_hotkey"] = configure_map_corner_hotkey(MAP_CORNER_HOTKEY_DEFAULT)
 
 
 # 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图、巡逻、战斗和状态机。
@@ -687,16 +789,21 @@ def get_status(
         },
         "player_position": get_bound_player_position(),
         "bound_window": op.get_bound_window(),
-        "settings": {
-            "overlay_enabled": app_settings["overlay_enabled"],
-            "map_rect_corner_overlay_enabled": app_settings.get("map_rect_corner_overlay_enabled", False),
-        },
+        "settings": make_app_settings_status(app_settings),
         "map": make_map_status(current_map),
         "patrol": make_patrol_status(patrol_points, patrol_state, patrol_control),
         "battle": make_battle_status(battle_control),
         "state": make_state_status(current_state),
         "auto_heal": make_auto_heal_status(app_settings, auto_heal_state),
         "idle_stuck": make_idle_stuck_status(app_settings, idle_stuck_state),
+    }
+
+
+# 生成应用设置状态。
+def make_app_settings_status(app_settings):
+    return {
+        "map_corner_hotkey": app_settings.get("map_corner_hotkey", MAP_CORNER_HOTKEY_DEFAULT),
+        "map_corner_hotkey_last_message": get_map_corner_hotkey_last_message(),
     }
 
 
@@ -813,11 +920,11 @@ def make_idle_stuck_coordinate_status(coordinate):
     }
 
 
-# 获取绑定窗口尺寸：根据绑定模式修正 Win32 客户区尺寸。
+# 获取绑定窗口尺寸：根据绑定模式修正 OP 客户区尺寸。
 def get_bound_client_size():
-    # 绑定窗口状态：读取当前 hwnd 供 Win32 查询。
+    # 绑定窗口状态：读取当前 hwnd 供 OP 查询。
     bound = op.get_bound_window()
-    raw_width, raw_height = win32.get_client_size(bound["hwnd"])
+    raw_width, raw_height = op.get_client_size(bound["hwnd"])
 
     if raw_width <= 0 or raw_height <= 0:
         return raw_width, raw_height
@@ -830,7 +937,7 @@ def get_bound_client_size():
 # 获取绑定窗口尺寸诊断：同时返回原始尺寸和 OP 有效坐标尺寸。
 def get_bound_client_info():
     bound = op.get_bound_window()
-    raw_width, raw_height = win32.get_client_size(bound["hwnd"])
+    raw_width, raw_height = op.get_client_size(bound["hwnd"])
     scale = op.get_bind_coordinate_scale()
 
     if raw_width <= 0 or raw_height <= 0:
@@ -839,17 +946,12 @@ def get_bound_client_info():
         width = max(1, round(raw_width * scale))
         height = max(1, round(raw_height * scale))
 
-    screen = win32.get_screen_info()
-
     return {
         "width": width,
         "height": height,
         "raw_width": raw_width,
         "raw_height": raw_height,
         "bind_scale": scale,
-        "screen_width": screen["width"],
-        "screen_height": screen["height"],
-        "dpi_scale_percent": screen["scale_percent"],
     }
 
 
@@ -858,6 +960,52 @@ def get_map_rect(width, height):
     left = round((width - MAP_IMAGE_WIDTH) / 2)
     top = round((height - MAP_IMAGE_HEIGHT) / 2)
     return left, top, left + MAP_IMAGE_WIDTH, top + MAP_IMAGE_HEIGHT
+
+
+# 移动鼠标到大地图右下角：用前台鼠标移动验证地图交互 rect 角点。
+def move_mouse_to_map_rect_corner():
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口",
+        }
+
+    client = get_bound_client_info()
+    width, height = client["width"], client["height"]
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "client": client,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    left, top, right, bottom = get_map_rect(width, height)
+    rect = make_map_rect(left, top, right, bottom)
+    x, y = right - 1, bottom - 1
+    scale = client.get("bind_scale", 1.0) or 1.0
+    raw_x = clamp_number(round(x / scale), 0, max(0, client["raw_width"] - 1))
+    raw_y = clamp_number(round(y / scale), 0, max(0, client["raw_height"] - 1))
+    bound = op.get_bound_window()
+    screen_x, screen_y = win32.client_to_screen(bound["hwnd"], raw_x, raw_y)
+    success = win32.move_cursor_to_screen(screen_x, screen_y)
+
+    return {
+        "success": success,
+        "x": x,
+        "y": y,
+        "raw_x": raw_x,
+        "raw_y": raw_y,
+        "screen_x": screen_x,
+        "screen_y": screen_y,
+        "rect": rect,
+        "client": client,
+        "message": (
+            f"地图角点前台移动 {'成功' if success else '失败'} "
+            f"op={x},{y} raw={raw_x},{raw_y} screen={screen_x},{screen_y} "
+            f"rect={left},{top},{right},{bottom}"
+        ),
+    }
 
 
 # 绑定当前大地图：截图保存地图图片，并 OCR 鼠标悬停右下角时的最大逻辑坐标。
@@ -1083,7 +1231,7 @@ def logic_to_client_point(logic_x, logic_y, current_map):
 
 
 # 移动到指定逻辑巡逻点：打开地图、点击目标点、关闭地图。
-def move_to_logic_point(point, current_map, show_overlay=True):
+def move_to_logic_point(point, current_map):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -1114,9 +1262,6 @@ def move_to_logic_point(point, current_map, show_overlay=True):
     time.sleep(0.2)
     click_success, click_message = op.click_mouse_at(target["client_x"], target["client_y"], "left")
 
-    if click_success and show_overlay:
-        show_click_overlay(target["client_x"], target["client_y"])
-
     time.sleep(0.1)
     close_result = press_keyboard("M", hold_ms=120, repeat=1, interval_ms=80)
     success = click_success and close_result["success"]
@@ -1137,7 +1282,7 @@ def move_to_logic_point(point, current_map, show_overlay=True):
 
 
 # 攻击怪物：左键点击怪物 hover 点，让游戏自动跑过去攻击。
-def attack_monster(monster, show_overlay=True):
+def attack_monster(monster):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -1167,13 +1312,7 @@ def attack_monster(monster, show_overlay=True):
     x = clamp_number(x, 0, width - 1)
     y = clamp_number(y, 0, height - 1)
 
-    if show_overlay:
-        hide_overlay_safely()
-
     success, message = op.click_mouse_at(x, y, "left")
-
-    if success and show_overlay:
-        show_click_overlay(x, y)
 
     return {
         "success": success,
@@ -1229,6 +1368,30 @@ def get_player_screen_position():
         "client": client,
         "bottom_ui_height": BOTTOM_UI_HEIGHT,
         "message": f"玩家屏幕位置 x={player_x} y={player_y} client_size={width}x{height}",
+    }
+
+
+# 更新地图角点快捷键设置。
+def update_map_corner_hotkey_settings(app_settings, data):
+    data = data if isinstance(data, dict) else {}
+    hotkey = data.get("hotkey", app_settings.get("map_corner_hotkey", MAP_CORNER_HOTKEY_DEFAULT))
+
+    try:
+        normalized_hotkey = configure_map_corner_hotkey(hotkey)
+    except ValueError as error:
+        return {
+            "success": False,
+            "message": str(error),
+            "settings": make_app_settings_status(app_settings),
+        }
+
+    app_settings["map_corner_hotkey"] = normalized_hotkey
+    message = get_map_corner_hotkey_config_message(normalized_hotkey)
+    set_map_corner_hotkey_last_message(message)
+    return {
+        "success": True,
+        "message": message,
+        "settings": make_app_settings_status(app_settings),
     }
 
 
@@ -1686,10 +1849,10 @@ def get_next_screenshot_file():
 
 
 # 扫描怪物：查找血条、读取血量，并计算到玩家的距离。
-def scan_monsters(show_overlay=True):
+def scan_monsters():
     with monster_scan_lock:
         try:
-            return scan_monsters_locked(show_overlay)
+            return scan_monsters_locked()
         except Exception as error:
             return {
                 "success": False,
@@ -1699,7 +1862,7 @@ def scan_monsters(show_overlay=True):
 
 
 # 执行怪物扫描：由锁保护的实际扫描流程。
-def scan_monsters_locked(show_overlay=True):
+def scan_monsters_locked():
     if not op.is_window_bound():
         return {
             "success": False,
@@ -1791,9 +1954,6 @@ def scan_monsters_locked(show_overlay=True):
     for index, monster in enumerate(monsters, start=1):
         monster["id"] = index
 
-    if show_overlay:
-        show_scan_overlay(debug_points)
-
     return {
         "success": True,
         "monsters": monsters,
@@ -1861,10 +2021,10 @@ def read_monster_from_match(index, match, scan_image, temp_path, width, height, 
 
 
 # 识别单个怪物名称：按表格传入的位置和血条信息补充名称。
-def recognize_monster_name(position_x, position_y, blood_bar=None, show_overlay=True):
+def recognize_monster_name(position_x, position_y, blood_bar=None):
     with monster_scan_lock:
         try:
-            return recognize_monster_name_locked(position_x, position_y, blood_bar, show_overlay)
+            return recognize_monster_name_locked(position_x, position_y, blood_bar)
         except Exception as error:
             return {
                 "success": False,
@@ -1875,7 +2035,7 @@ def recognize_monster_name(position_x, position_y, blood_bar=None, show_overlay=
 
 
 # 执行单个怪物名称识别：只悬停并 OCR 当前指定怪物。
-def recognize_monster_name_locked(position_x, position_y, blood_bar=None, show_overlay=True):
+def recognize_monster_name_locked(position_x, position_y, blood_bar=None):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -1926,9 +2086,6 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None, show_o
         make_debug_point(hover_x, hover_y, "orange"),
         make_debug_point(*box_center(name_box), "purple"),
     ])
-
-    if show_overlay:
-        show_scan_overlay(debug_points)
 
     return {
         "success": True,
@@ -2577,27 +2734,13 @@ def clamp_number(value, minimum, maximum):
     return max(minimum, min(maximum, int(value)))
 
 
-# 创建 Overlay 调试点。
+# 创建调试点。
 def make_debug_point(x, y, color):
     return {
         "x": int(x),
         "y": int(y),
         "color": color,
     }
-
-
-# 显示怪物扫描调试点。
-def show_scan_overlay(points):
-    try:
-        bound = op.get_bound_window()
-        overlay.show_points(
-            bound["hwnd"],
-            points,
-            duration_ms=1500,
-            scale=op.get_bind_coordinate_scale(),
-        )
-    except Exception:
-        pass
 
 
 # 获取地图坐标：对外提供线程安全的地图坐标读取入口。
@@ -2661,7 +2804,7 @@ def parse_map_coordinate_text(text):
 
 
 # 移动角色：校验动作和方向后在绑定窗口内执行点击移动。
-def move_player(action, direction, show_overlay=True):
+def move_player(action, direction):
     if action not in move_actions:
         return {"success": False, "message": f"未知移动类型: {action}"}
 
@@ -2690,14 +2833,8 @@ def move_player(action, direction, show_overlay=True):
     # 移动点击参数：保存本次动作的按钮、坐标和地图增量。
     move = calculate_move(action, direction, width, height, player_x, player_y)
 
-    if show_overlay:
-        hide_overlay_safely()
-
     # 点击执行结果：记录 OP 鼠标点击是否成功及其说明。
     success, message = op.click_mouse_at(move["click_x"], move["click_y"], move["button"])
-
-    if success and show_overlay:
-        show_click_overlay(move["click_x"], move["click_y"])
 
     # 返回消息：补充窗口尺寸，便于排查点击位置问题。
     message = f"{message} client_size={width}x{height}"
@@ -2851,33 +2988,3 @@ def get_click_direction(action, direction):
         return walk_click_directions[direction]
 
     return run_click_directions[direction]
-
-
-# 显示点击提示：业务层根据当前绑定窗口和 OP 缩放设置绘制 Overlay。
-def show_click_overlay(x, y):
-    try:
-        bound = op.get_bound_window()
-        overlay.show_click(
-            bound["hwnd"],
-            int(x),
-            int(y),
-            scale=op.get_bind_coordinate_scale(),
-        )
-    except Exception:
-        pass
-
-
-# 隐藏点击提示：吞掉绘制层异常，避免影响主业务动作。
-def hide_overlay_safely():
-    try:
-        overlay.hide()
-    except Exception:
-        pass
-
-
-# 隐藏地图右下角白色方块 Overlay：吞掉绘制层异常，避免影响主业务动作。
-def hide_map_rect_corner_overlay_safely():
-    try:
-        overlay.hide_square()
-    except Exception:
-        pass

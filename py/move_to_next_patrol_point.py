@@ -70,7 +70,6 @@ def move_once(game_data, commit_index=True):
     current_map = game_data["current_map"]
     patrol_points = game_data["patrol_points"]
     patrol_state = game_data["patrol_state"]
-    settings = game_data["settings"]
 
     if not current_map:
         return {
@@ -87,7 +86,7 @@ def move_once(game_data, commit_index=True):
     current_index = int(patrol_state.get("index", -1))
     next_index = (current_index + 1) % len(patrol_points)
     point = patrol_points[next_index]
-    move = api.move_to_logic_point(point, current_map, settings.get("overlay_enabled", True))
+    move = api.move_to_logic_point(point, current_map)
 
     if move.get("success") and commit_index:
         commit_target_index(game_data, next_index)

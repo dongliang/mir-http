@@ -27,7 +27,7 @@ def update_frame(game_data, state_data):
 
         return {}
 
-    result = api.scan_monsters(game_data["settings"].get("overlay_enabled", True))
+    result = api.scan_monsters()
 
     if not result.get("success"):
         return {
@@ -44,7 +44,7 @@ def update_frame(game_data, state_data):
         }
 
     target = choose_target(monsters)
-    attack = api.attack_monster(target, game_data["settings"].get("overlay_enabled", True))
+    attack = api.attack_monster(target)
 
     if not attack.get("success"):
         return {

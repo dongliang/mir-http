@@ -1,6 +1,5 @@
 import ctypes
 
-import win32api
 import win32gui
 
 
@@ -30,39 +29,16 @@ def find_window_by_title(title_part):
     return None, ""
 
 
-# 获取客户区尺寸：直接从窗口读取未缩放的客户区宽高。
-def get_client_size(hwnd):
+# 客户区坐标转屏幕坐标：用于前台真实鼠标移动。
+def client_to_screen(hwnd, x, y):
     if not hwnd:
         return 0, 0
 
-    # 客户区矩形：包含左上和右下坐标，用于计算窗口客户区大小。
-    left, top, right, bottom = win32gui.GetClientRect(hwnd)
-    return right - left, bottom - top
+    screen_x, screen_y = win32gui.ClientToScreen(hwnd, (int(x), int(y)))
+    return int(screen_x), int(screen_y)
 
 
-# 获取窗口标题：包装 Win32 标题读取，便于上层补充诊断信息。
-def get_window_title(hwnd):
-    if not hwnd:
-        return ""
-
-    return win32gui.GetWindowText(hwnd)
-
-
-# 获取屏幕和 DPI 信息：用于页面调试坐标换算。
-def get_screen_info():
-    # 屏幕宽高：Win32 返回当前进程看到的桌面尺寸。
-    width = win32api.GetSystemMetrics(0)
-    height = win32api.GetSystemMetrics(1)
-    # DPI 缩放：优先读取 Windows 的百分比缩放，失败时使用 100%。
-    scale_percent = 100
-
-    try:
-        scale_percent = int(ctypes.windll.shcore.GetScaleFactorForDevice(0))
-    except Exception:
-        pass
-
-    return {
-        "width": width,
-        "height": height,
-        "scale_percent": scale_percent,
-    }
+# 移动系统鼠标到屏幕坐标。
+def move_cursor_to_screen(x, y):
+    result = ctypes.windll.user32.SetCursorPos(int(x), int(y))
+    return result != 0

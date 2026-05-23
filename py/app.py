@@ -16,8 +16,7 @@ from state import idle
 current_player = player.create_player()
 # 应用设置：集中保存运行时可切换的界面和行为开关。
 app_settings = {
-    "overlay_enabled": True,
-    "map_rect_corner_overlay_enabled": False,
+    "map_corner_hotkey": api.MAP_CORNER_HOTKEY_DEFAULT,
     "auto_heal_enabled": False,
     "auto_heal_threshold_percent": 50,
     "auto_heal_interval_ms": 1000,
@@ -80,6 +79,7 @@ game_data = {
 # 停止事件：通知后台刷新循环在程序退出时结束。
 stop_event = threading.Event()
 atexit.register(ocr_client.stop_ocr_worker)
+atexit.register(api.stop_map_corner_hotkey)
 atexit.register(stop_event.set)
 
 

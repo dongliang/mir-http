@@ -212,13 +212,6 @@ def create_server(
             patrol_state["index"] = -1
             patrol_control["enabled"] = False
 
-            if app_settings.get("map_rect_corner_overlay_enabled", False):
-                corner_result = api.show_map_rect_corner_overlay()
-                log.write(corner_result["message"])
-
-                if not corner_result["success"]:
-                    app_settings["map_rect_corner_overlay_enabled"] = False
-
         return JSONResponse({
             "success": result["success"],
             "message": result["message"],
@@ -332,9 +325,6 @@ def create_server(
         # 解绑结果：记录窗口解绑是否成功、标题和说明消息。
         result = api.unbind_window()
 
-        if result["success"]:
-            app_settings["map_rect_corner_overlay_enabled"] = False
-
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -358,22 +348,10 @@ def create_server(
     @rt("/api/move/{action}/{direction}")
     def post(action: str, direction: str):
         # 移动结果：保存点击移动的成功状态和诊断消息。
-        result = api.move_player(action, direction, app_settings["overlay_enabled"])
+        result = api.move_player(action, direction)
         log.write(result["message"])
         return JSONResponse({
             "move": result,
-            "status": current_status(),
-        })
-
-    # Overlay 切换接口：反转点击提示开关并同步到底层模块。
-    @rt("/api/overlay/toggle")
-    def post():
-        # Overlay 切换结果：由业务层维护开关并同步绘制层。
-        result = api.toggle_overlay(app_settings)
-        log.write(result["message"])
-        return JSONResponse({
-            "success": result["success"],
-            "message": result["message"],
             "status": current_status(),
         })
 
@@ -390,10 +368,46 @@ def create_server(
             "status": current_status(),
         })
 
+    # 地图角点接口：把鼠标移动到大地图 rect 右下角，验证 OP 有效坐标。
+    @rt("/api/map/rect-corner")
+    def post():
+        result = api.move_mouse_to_map_rect_corner()
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "x": result.get("x", 0),
+            "y": result.get("y", 0),
+            "raw_x": result.get("raw_x", 0),
+            "raw_y": result.get("raw_y", 0),
+            "screen_x": result.get("screen_x", 0),
+            "screen_y": result.get("screen_y", 0),
+            "rect": result.get("rect", {}),
+            "client": result.get("client", {}),
+            "message": result["message"],
+            "status": current_status(),
+        })
+
+    # 地图角点快捷键设置接口：保存网页配置并同步后台监听线程。
+    @rt("/api/map/rect-corner/hotkey")
+    async def post(request: Request):
+        try:
+            data = await request.json()
+        except Exception:
+            data = {}
+
+        result = api.update_map_corner_hotkey_settings(app_settings, data)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "settings": result.get("settings", {}),
+            "status": current_status(),
+        })
+
     # 玩家屏幕位置接口：返回按移动原点算法计算出的角色屏幕坐标。
     @rt("/api/player/screen-position")
     def post():
-        # 玩家屏幕位置结果：记录当前客户区和 DPI 诊断信息。
+        # 玩家屏幕位置结果：记录当前 OP 客户区诊断信息。
         result = api.get_player_screen_position()
         log.write(result["message"])
         return JSONResponse({
@@ -410,7 +424,7 @@ def create_server(
     @rt("/api/monsters/scan")
     def post():
         # 怪物扫描结果：记录扫描摘要并把明细写入日志。
-        result = api.scan_monsters(app_settings["overlay_enabled"])
+        result = api.scan_monsters()
         log.write(result["message"])
         log_monster_scan_details(result)
         return JSONResponse({
@@ -445,7 +459,7 @@ def create_server(
                 "bottom": bar_bottom,
             }
 
-        result = api.recognize_monster_name(x, y, blood_bar, app_settings["overlay_enabled"])
+        result = api.recognize_monster_name(x, y, blood_bar)
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -523,18 +537,6 @@ def create_server(
             "status": current_status(),
         })
 
-    # 地图 rect 右下角 Overlay 切换接口：显示或隐藏持久白色方块。
-    @rt("/api/overlay/map-rect-corner/toggle")
-    def post():
-        result = api.toggle_map_rect_corner_overlay(app_settings)
-        log.write(result["message"])
-        return JSONResponse({
-            "success": result["success"],
-            "enabled": result.get("enabled", False),
-            "message": result["message"],
-            "status": current_status(),
-        })
-
     # 测试按钮接口：写入一条测试日志用于验证页面操作链路。
     @rt("/api/test/{number}")
     def post(number: int):
@@ -553,16 +555,11 @@ def create_server(
 
 # 创建控制按钮：生成绑定、工具和移动控制区域。
 def create_buttons(app_settings):
-    # 工具按钮列表：保存坐标刷新、截图和 Overlay 切换按钮。
+    # 工具按钮列表：保存坐标刷新、截图和自动流程按钮。
     utility_buttons = [
         Button("测试坐标", onclick="postApi('/api/coordinate/read')"),
         Button("截图", onclick="takeScreenshot()"),
-        Button(get_overlay_button_text(app_settings), id="overlay-button", onclick="toggleOverlay()"),
-        Button(
-            get_map_rect_corner_overlay_button_text(app_settings),
-            id="map-corner-overlay-button",
-            onclick="postApi('/api/overlay/map-rect-corner/toggle')",
-        ),
+        Button("地图角点", onclick="postApi('/api/map/rect-corner')"),
         Button("测试键盘(M)", onclick="pressKeyboard('M')"),
         Button("检测怪物列表", onclick="scanMonsters()"),
         Button("绑定地图", onclick="bindMap()"),
@@ -588,6 +585,7 @@ def create_buttons(app_settings):
         ),
         create_auto_heal_controls(app_settings),
         create_idle_stuck_controls(app_settings),
+        create_map_corner_hotkey_controls(app_settings),
         Div(*utility_buttons, cls="utility-buttons"),
         Div(
             create_move_pad("走", "walk"),
@@ -595,6 +593,25 @@ def create_buttons(app_settings):
             cls="move-pads",
         ),
     ]
+
+
+# 创建地图角点快捷键控制栏。
+def create_map_corner_hotkey_controls(app_settings):
+    return Div(
+        Label(
+            Span("地图角点快捷键"),
+            Input(
+                id="map-corner-hotkey",
+                type="text",
+                value=str(app_settings.get("map_corner_hotkey", api.MAP_CORNER_HOTKEY_DEFAULT)),
+                onchange="saveMapCornerHotkeySettings()",
+            ),
+            cls="map-corner-hotkey-field",
+        ),
+        Button("保存", onclick="saveMapCornerHotkeySettings()"),
+        Div("", id="map-corner-hotkey-message", cls="map-corner-hotkey-message"),
+        cls="map-corner-hotkey-controls",
+    )
 
 
 # 创建自动加血控制栏：开关、触发血量和检测间隔。
@@ -835,16 +852,6 @@ def move_to_next_patrol_point(game_data):
     return patrol_move_state.move_once(game_data)
 
 
-# 获取 Overlay 按钮文本：根据开关状态生成按钮显示文案。
-def get_overlay_button_text(app_settings):
-    return "Overlay: 开" if app_settings["overlay_enabled"] else "Overlay: 关"
-
-
-# 获取地图角点 Overlay 按钮文本：根据开关状态生成按钮显示文案。
-def get_map_rect_corner_overlay_button_text(app_settings):
-    return "地图角点: 开" if app_settings.get("map_rect_corner_overlay_enabled", False) else "地图角点: 关"
-
-
 # 安全刷新帧：调用刷新函数并把异常写入日志。
 def update_frame_safely(update_frame):
     try:
@@ -905,10 +912,17 @@ h2 {
     gap: 8px;
     align-items: center;
 }
+.map-corner-hotkey-controls {
+    display: grid;
+    grid-template-columns: minmax(180px, 240px) 96px minmax(180px, 1fr);
+    gap: 8px;
+    align-items: center;
+}
 .auto-heal-toggle,
 .auto-heal-field,
 .idle-stuck-toggle,
-.idle-stuck-field {
+.idle-stuck-field,
+.map-corner-hotkey-field {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -926,12 +940,14 @@ h2 {
     padding: 0;
 }
 .auto-heal-field input,
-.idle-stuck-field input {
+.idle-stuck-field input,
+.map-corner-hotkey-field input {
     min-width: 0;
     flex: 1;
 }
 .auto-heal-message,
-.idle-stuck-message {
+.idle-stuck-message,
+.map-corner-hotkey-message {
     min-height: 34px;
     box-sizing: border-box;
     border: 1px solid #ddd;
@@ -1099,6 +1115,7 @@ th {
     .bind-controls,
     .auto-heal-controls,
     .idle-stuck-controls,
+    .map-corner-hotkey-controls,
     .utility-buttons,
     .status,
     .patrol-content {
@@ -1152,10 +1169,6 @@ async function takeScreenshot() {
     await refreshLogs();
 }
 
-async function toggleOverlay() {
-    await postApi("/api/overlay/toggle");
-}
-
 async function pressKeyboard(key) {
     const params = new URLSearchParams({key});
     await postApi("/api/keyboard/press?" + params.toString());
@@ -1190,6 +1203,19 @@ async function saveIdleStuckSettings() {
             enabled,
             seconds,
         }),
+    });
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
+async function saveMapCornerHotkeySettings() {
+    const hotkey = document.getElementById("map-corner-hotkey").value;
+    const response = await fetch("/api/map/rect-corner/hotkey", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({hotkey}),
     });
     const data = await response.json();
     console.log(data);
@@ -1435,14 +1461,12 @@ function applyStatus(data) {
     document.getElementById("map-name").textContent = data.player.map_name;
     document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
     document.getElementById("bound-title").textContent = boundTitle || "未绑定";
-    document.getElementById("overlay-button").textContent = data.settings.overlay_enabled ? "Overlay: 开" : "Overlay: 关";
-    document.getElementById("map-corner-overlay-button").textContent =
-        data.settings.map_rect_corner_overlay_enabled ? "地图角点: 开" : "地图角点: 关";
     document.getElementById("state-name").textContent = data.state ? data.state.name : "idle";
     document.getElementById("patrol-enabled").textContent = data.patrol && data.patrol.enabled ? "开" : "关";
     document.getElementById("battle-enabled").textContent = data.battle && data.battle.enabled ? "开" : "关";
     updateAutoHealPanel(data.auto_heal || {});
     updateIdleStuckPanel(data.idle_stuck || {});
+    updateMapCornerHotkeyPanel(data.settings || {});
 
     const oldMapUrl = currentMapUrl;
     updatePatrolMap(data.map || {});
@@ -1488,6 +1512,15 @@ function updateIdleStuckPanel(idleStuck) {
         + " stationary=" + String(idleStuck.stationary_seconds ?? 0) + "s"
         + " threshold=" + String(idleStuck.seconds ?? 30) + "s"
         + (idleStuck.last_message ? " " + idleStuck.last_message : "");
+}
+
+function updateMapCornerHotkeyPanel(settings) {
+    const hotkey = settings.map_corner_hotkey ?? "F8";
+    const hotkeyText = hotkey ? String(hotkey) : "禁用";
+    setInputValueIfIdle("map-corner-hotkey", hotkey);
+    document.getElementById("map-corner-hotkey-message").textContent =
+        "快捷键=" + hotkeyText
+        + (settings.map_corner_hotkey_last_message ? " " + settings.map_corner_hotkey_last_message : "");
 }
 
 function setInputValueIfIdle(id, value) {

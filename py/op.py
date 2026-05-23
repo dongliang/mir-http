@@ -1,5 +1,6 @@
 import os
 import platform
+import re
 import sys
 import time
 from pathlib import Path
@@ -127,6 +128,89 @@ def get_bind_coordinate_scale():
         return 0.5
 
     return 1.0
+
+
+# 获取客户区原始尺寸：统一通过 OP 窗口接口读取，避免 Win32 DPI 虚拟化。
+def get_client_size(hwnd):
+    if not hwnd:
+        return 0, 0
+
+    op = get_op()
+    width, height = read_op_client_size(op, hwnd)
+
+    if width > 0 and height > 0:
+        return width, height
+
+    return read_op_client_rect_size(op, hwnd)
+
+
+# 读取 OP GetClientSize 返回值。
+def read_op_client_size(op, hwnd):
+    try:
+        return normalize_size_result(op.GetClientSize(int(hwnd)))
+    except Exception:
+        return 0, 0
+
+
+# 读取 OP GetClientRect 返回值并换算宽高。
+def read_op_client_rect_size(op, hwnd):
+    try:
+        return normalize_rect_size_result(op.GetClientRect(int(hwnd)))
+    except Exception:
+        return 0, 0
+
+
+# 解析 OP 尺寸返回：兼容 tuple/list、字符串和数字混合形式。
+def normalize_size_result(value):
+    numbers = extract_numbers(value)
+
+    if len(numbers) < 2:
+        return 0, 0
+
+    if len(numbers) >= 3 and numbers[0] in (0, 1):
+        return int(numbers[1]), int(numbers[2])
+
+    return int(numbers[0]), int(numbers[1])
+
+
+# 解析 OP 矩形返回：优先按 left/top/right/bottom，缺失时按 width/height。
+def normalize_rect_size_result(value):
+    numbers = extract_numbers(value)
+
+    if len(numbers) >= 5 and numbers[0] in (0, 1):
+        numbers = numbers[1:]
+
+    if len(numbers) >= 4:
+        left, top, right, bottom = numbers[:4]
+        width = int(right) - int(left)
+        height = int(bottom) - int(top)
+
+        if width > 0 and height > 0:
+            return width, height
+
+    if len(numbers) >= 2:
+        return int(numbers[0]), int(numbers[1])
+
+    return 0, 0
+
+
+# 从 OP 返回值中提取整数。
+def extract_numbers(value):
+    if value is None:
+        return []
+
+    if isinstance(value, (list, tuple)):
+        numbers = []
+
+        for item in value:
+            numbers.extend(extract_numbers(item))
+
+        return numbers
+
+    if isinstance(value, bytes):
+        value = value.decode(errors="ignore")
+
+    return [int(float(item)) for item in re.findall(r"-?\d+(?:\.\d+)?", str(value))]
 
 
 # 按句柄绑定窗口：尝试多种 OP 绑定模式并保存成功状态。
