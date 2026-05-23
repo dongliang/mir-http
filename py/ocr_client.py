@@ -26,31 +26,51 @@ missing_environment_logged = False
 def recognize_text(image_file):
     with ocr_lock:
         # 首次识别文本：保存第一次 worker 请求返回的识别结果。
-        text = send_request(image_file)
+        response = send_request_data(image_file)
 
-        if text is not None:
-            return text
+        if response is not None:
+            return response.get("text", "")
 
         stop_ocr_worker()
         # 重试识别文本：worker 重启后再次请求 OCR 结果。
-        text = send_request(image_file)
+        response = send_request_data(image_file)
 
-        if text is None:
+        if response is None:
             return ""
 
-        return text
+        return response.get("text", "")
+
+
+# 识别结构化文字行：返回每行 text、score 和 box。
+def recognize_text_lines(image_file):
+    with ocr_lock:
+        response = send_request_data(image_file, mode="lines")
+
+        if response is not None:
+            return response.get("lines", [])
+
+        stop_ocr_worker()
+        response = send_request_data(image_file, mode="lines")
+
+        if response is None:
+            return []
+
+        return response.get("lines", [])
 
 
 # 发送 OCR 请求：把图片路径写入子进程并读取 JSON 响应。
-def send_request(image_file):
+def send_request_data(image_file, mode="text"):
     # OCR 子进程：确保有可用 worker 处理识别请求。
     process = start_ocr_worker()
 
     if process is None:
-        return ""
+        return {"text": "", "lines": []}
 
     # OCR 请求数据：封装待识别图片的绝对路径。
     request = {"image": str(Path(image_file).resolve())}
+
+    if mode == "lines":
+        request["mode"] = "lines"
 
     try:
         process.stdin.write(json.dumps(request, ensure_ascii=False) + "\n")
@@ -71,9 +91,9 @@ def send_request(image_file):
 
     if not response.get("success"):
         log.write(f"OCR识别失败: {response.get('error', '未知错误')}")
-        return ""
+        return {"text": "", "lines": []}
 
-    return response.get("text", "")
+    return response
 
 
 # 读取响应行：跳过非 JSON 输出并提取 worker 的响应。

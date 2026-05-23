@@ -47,9 +47,15 @@ def main():
         try:
             # OCR 请求对象：解析输入 JSON 并提取图片路径。
             request = json.loads(line)
-            # OCR 识别文本：执行图片文字识别得到输出文本。
-            text = recognize_text(request.get("image", ""))
-            write_response({"success": True, "text": text})
+            if request.get("mode") == "lines":
+                # OCR 结构化文本：返回每一行文字、置信度和矩形框。
+                lines = recognize_text_lines(request.get("image", ""))
+                text = " ".join(line["text"] for line in lines)
+                write_response({"success": True, "text": text, "lines": lines})
+            else:
+                # OCR 识别文本：执行图片文字识别得到输出文本。
+                text = recognize_text(request.get("image", ""))
+                write_response({"success": True, "text": text})
         # 请求处理异常：把 worker 内部错误返回给父进程。
         except Exception as error:
             write_response({"success": False, "text": "", "error": str(error)})
@@ -82,6 +88,109 @@ def recognize_text(image_file):
         texts.extend(data.get("res", {}).get("rec_texts", []))
 
     return " ".join(texts)
+
+
+# 识别图片文字行：返回文字、置信度和文字框，供业务层定位屏幕坐标。
+def recognize_text_lines(image_file):
+    image_path = Path(image_file)
+
+    if not image_path.exists():
+        raise FileNotFoundError(f"找不到图片: {image_path}")
+
+    lines = []
+
+    with contextlib.redirect_stdout(sys.stderr):
+        results = list(get_paddle_ocr().predict(str(image_path)))
+
+    for result in results:
+        data = result.json
+
+        if callable(data):
+            data = data()
+
+        res = data.get("res", {})
+        texts = res.get("rec_texts", [])
+        scores = res.get("rec_scores", [])
+        boxes = res.get("rec_boxes", [])
+        polys = res.get("rec_polys") or res.get("dt_polys") or []
+
+        for index, text in enumerate(texts):
+            lines.append({
+                "text": str(text or ""),
+                "score": get_line_score(scores, index),
+                "box": get_line_box(boxes, polys, index),
+            })
+
+    return lines
+
+
+# 读取 OCR 行置信度。
+def get_line_score(scores, index):
+    if index >= len(scores):
+        return 0.0
+
+    try:
+        return float(scores[index])
+    except (TypeError, ValueError):
+        return 0.0
+
+
+# 读取 OCR 行矩形框，优先使用 rec_boxes，缺失时用多边形外接框。
+def get_line_box(boxes, polys, index):
+    box = get_sequence_item(boxes, index)
+
+    if box is not None:
+        box = to_plain_list(box)
+
+        if len(box) >= 4 and not isinstance(box[0], (list, tuple)):
+            return {
+                "left": float(box[0]),
+                "top": float(box[1]),
+                "right": float(box[2]),
+                "bottom": float(box[3]),
+            }
+
+    poly = get_sequence_item(polys, index)
+
+    if poly is None:
+        return {}
+
+    points = to_plain_list(poly)
+    xs = []
+    ys = []
+
+    for point in points:
+        if len(point) < 2:
+            continue
+
+        xs.append(float(point[0]))
+        ys.append(float(point[1]))
+
+    if not xs or not ys:
+        return {}
+
+    return {
+        "left": min(xs),
+        "top": min(ys),
+        "right": max(xs),
+        "bottom": max(ys),
+    }
+
+
+# 安全读取序列项：兼容 list、tuple 和 numpy 数组。
+def get_sequence_item(items, index):
+    if items is None or index >= len(items):
+        return None
+
+    return items[index]
+
+
+# 转成普通 Python 列表，避免 JSON 序列化 numpy 类型失败。
+def to_plain_list(value):
+    if hasattr(value, "tolist"):
+        return value.tolist()
+
+    return value
 
 
 # 获取 PaddleOCR：惰性加载并复用 OCR 模型实例。

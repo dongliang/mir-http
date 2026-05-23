@@ -45,6 +45,8 @@ coordinate_lock = threading.Lock()
 monster_scan_lock = threading.Lock()
 # 自动加血锁：避免页面主动刷新和后台刷新同时触发 F1。
 auto_heal_lock = threading.Lock()
+# 绑定玩家位置：绑定窗口时通过玩家名称 OCR 得到的脚底基准点。
+bound_player_position = {}
 # 底部界面高度：估算游戏底栏高度，用来计算角色移动点击原点。
 BOTTOM_UI_HEIGHT = 245
 # 默认键盘测试键：用于页面测试按钮验证后台键盘输入链路。
@@ -62,6 +64,14 @@ MAP_MAX_COORDINATE_OCR_OFFSET = {
 }
 # 地图右下角悬停等待：给游戏显示鼠标指向逻辑坐标留出时间。
 MAP_HOVER_WAIT_SECONDS = 0.25
+# 玩家名称 OCR：绑定时在旧中心点附近裁剪放大，定位名字中心和脚底点。
+PLAYER_NAME_SEARCH_HALF_WIDTH = 220
+PLAYER_NAME_SEARCH_TOP_PADDING = 100
+PLAYER_NAME_SEARCH_BOTTOM_PADDING = 220
+PLAYER_NAME_OCR_SCALE = 3
+PLAYER_NAME_OCR_MIN_SCORE = 0.80
+PLAYER_NAME_TO_FOOT_OFFSET_X = 0
+PLAYER_NAME_TO_FOOT_OFFSET_Y = 32
 # 怪物悬停偏移：血条底边到怪物名字中点的位置，兼作怪物位置和鼠标悬停点。
 MONSTER_HOVER_OFFSET_Y = 45
 # 怪物名 OCR 横向半宽：约 5.5 个中文字总宽，避免两侧复杂背景干扰。
@@ -245,10 +255,36 @@ def bind_window(keyword):
         }
 
     success, title, message = op.bind_window(hwnd, title)
+
+    if not success:
+        clear_bound_player_position()
+        return {
+            "success": success,
+            "title": title,
+            "message": message,
+        }
+
+    position_result = bind_player_position(keyword)
+
+    if not position_result["success"]:
+        unbind_success, _, unbind_message = op.unbind_window()
+        clear_bound_player_position()
+        hide_overlay_safely()
+        hide_map_rect_corner_overlay_safely()
+        return {
+            "success": False,
+            "title": title,
+            "message": (
+                f"{message}；玩家名称定位失败: {position_result['message']}；"
+                f"已自动解绑 success={unbind_success} {unbind_message}"
+            ),
+        }
+
     return {
         "success": success,
         "title": title,
-        "message": message,
+        "message": f"{message}；{position_result['message']}",
+        "player_position": get_bound_player_position(),
     }
 
 
@@ -257,6 +293,7 @@ def unbind_window():
     success, title, message = op.unbind_window()
 
     if success:
+        clear_bound_player_position()
         hide_overlay_safely()
         hide_map_rect_corner_overlay_safely()
 
@@ -265,6 +302,284 @@ def unbind_window():
         "title": title,
         "message": message,
     }
+
+
+# 绑定玩家脚底点：截图并用玩家名称 OCR 定位移动基准。
+def bind_player_position(player_name):
+    player_name = (player_name or "").strip()
+
+    if not player_name:
+        return {
+            "success": False,
+            "message": "玩家名称不能为空",
+        }
+
+    width, height = get_bound_client_size()
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    with tempfile.TemporaryDirectory(prefix="mir2_player_name_") as temp_dir:
+        temp_path = Path(temp_dir)
+        screen_file = temp_path / "screen.bmp"
+        success, capture_message = capture_bound_client_checked(
+            0,
+            0,
+            width - 1,
+            height - 1,
+            screen_file,
+        )
+
+        if not success or not screen_file.exists():
+            return {
+                "success": False,
+                "message": f"玩家名称定位截图失败: {capture_message}",
+            }
+
+        result = locate_player_name_in_screen(screen_file, player_name, width, height, temp_path)
+
+    if not result["success"]:
+        return result
+
+    set_bound_player_position(result)
+    foot = result["foot_point"]
+    name_center = result["name_center"]
+    return {
+        "success": True,
+        "message": (
+            f"玩家名称定位成功 name={player_name} "
+            f"name_center={name_center['x']},{name_center['y']} "
+            f"foot={foot['x']},{foot['y']} score={result['score']}"
+        ),
+    }
+
+
+# 在绑定截图中定位玩家名称。
+def locate_player_name_in_screen(screen_file, player_name, width, height, temp_path):
+    search_box = get_player_name_search_box(width, height)
+    crop_file = temp_path / "player_name_search.png"
+    save_scaled_crop(screen_file, search_box, PLAYER_NAME_OCR_SCALE, crop_file)
+    lines = ocr_client.recognize_text_lines(crop_file)
+    match = find_player_name_match(lines, player_name, search_box, PLAYER_NAME_OCR_SCALE)
+
+    if not match:
+        return {
+            "success": False,
+            "message": (
+                f"没有识别到玩家名 name={player_name} "
+                f"search={format_box(search_box)} lines={format_ocr_lines(lines)}"
+            ),
+        }
+
+    name_box = match["box"]
+    center_x = (name_box["left"] + name_box["right"]) / 2
+    center_y = (name_box["top"] + name_box["bottom"]) / 2
+    foot_x = clamp_number(round(center_x + PLAYER_NAME_TO_FOOT_OFFSET_X), 0, width - 1)
+    foot_y = clamp_number(round(center_y + PLAYER_NAME_TO_FOOT_OFFSET_Y), 0, height - 1)
+
+    return {
+        "success": True,
+        "name": player_name,
+        "matched_text": match["text"],
+        "score": round(float(match["score"]), 4),
+        "name_box": round_box(name_box),
+        "name_center": {
+            "x": round(center_x),
+            "y": round(center_y),
+        },
+        "foot_point": {
+            "x": foot_x,
+            "y": foot_y,
+        },
+        "search_box": search_box,
+        "ocr_scale": PLAYER_NAME_OCR_SCALE,
+    }
+
+
+# 获取玩家名称搜索框：用旧的可操作区中心作为绑定时的粗定位。
+def get_player_name_search_box(width, height):
+    origin_x, origin_y = get_move_origin(width, height)
+    return clamp_box(
+        origin_x - PLAYER_NAME_SEARCH_HALF_WIDTH,
+        origin_y - PLAYER_NAME_SEARCH_TOP_PADDING,
+        origin_x + PLAYER_NAME_SEARCH_HALF_WIDTH,
+        origin_y + PLAYER_NAME_SEARCH_BOTTOM_PADDING,
+        width,
+        height,
+    )
+
+
+# 保存放大后的玩家名称搜索截图。
+def save_scaled_crop(screen_file, box, scale, crop_file):
+    with Image.open(screen_file) as image:
+        crop = image.crop((box["left"], box["top"], box["right"], box["bottom"]))
+        resample = Image.Resampling.LANCZOS if hasattr(Image, "Resampling") else Image.LANCZOS
+        crop = crop.resize((crop.width * scale, crop.height * scale), resample)
+        crop.save(crop_file)
+
+
+# 从 OCR 行中选择最像绑定玩家名的一行。
+def find_player_name_match(lines, player_name, search_box, scale):
+    target = normalize_player_name_text(player_name)
+    candidates = []
+
+    if not target:
+        return None
+
+    for line in lines:
+        text = str(line.get("text", ""))
+        score = float(line.get("score", 0.0) or 0.0)
+        box = line.get("box", {})
+
+        if score < PLAYER_NAME_OCR_MIN_SCORE or not is_ocr_box_valid(box):
+            continue
+
+        cleaned = normalize_player_name_text(text)
+        rank = get_player_name_match_rank(cleaned, target)
+
+        if rank <= 0:
+            continue
+
+        client_box = scale_ocr_box_to_client(box, search_box, scale)
+        center_x, center_y = box_center(client_box)
+        origin_x = (search_box["left"] + search_box["right"]) / 2
+        origin_y = (search_box["top"] + search_box["bottom"]) / 2
+        distance = math.dist((center_x, center_y), (origin_x, origin_y))
+        candidates.append({
+            "text": text,
+            "score": score,
+            "box": client_box,
+            "rank": rank,
+            "distance": distance,
+        })
+
+    if not candidates:
+        return None
+
+    return max(candidates, key=lambda item: (item["rank"], item["score"], -item["distance"]))
+
+
+# 清理玩家名称 OCR 文本，只保留可比较字符。
+def normalize_player_name_text(text):
+    return re.sub(r"[^\u4e00-\u9fffA-Za-z0-9_]", "", str(text or ""))
+
+
+# 玩家名称匹配等级：精确匹配优先，其次接受包含关系。
+def get_player_name_match_rank(text, target):
+    if not text:
+        return 0
+
+    if text == target:
+        return 3
+
+    if target in text:
+        return 2
+
+    if len(text) >= min(2, len(target)) and text in target:
+        return 1
+
+    return 0
+
+
+# 判断 OCR 框是否可用。
+def is_ocr_box_valid(box):
+    return (
+        isinstance(box, dict)
+        and box.get("right", 0) > box.get("left", 0)
+        and box.get("bottom", 0) > box.get("top", 0)
+    )
+
+
+# 把放大裁剪图里的 OCR 框换算回绑定客户区坐标。
+def scale_ocr_box_to_client(box, search_box, scale):
+    return {
+        "left": search_box["left"] + float(box["left"]) / scale,
+        "top": search_box["top"] + float(box["top"]) / scale,
+        "right": search_box["left"] + float(box["right"]) / scale,
+        "bottom": search_box["top"] + float(box["bottom"]) / scale,
+    }
+
+
+# 记录当前绑定玩家脚底定位。
+def set_bound_player_position(position):
+    global bound_player_position
+    bound_player_position = {
+        "name": position["name"],
+        "matched_text": position["matched_text"],
+        "score": position["score"],
+        "name_box": dict(position["name_box"]),
+        "name_center": dict(position["name_center"]),
+        "foot_point": dict(position["foot_point"]),
+        "search_box": dict(position["search_box"]),
+        "ocr_scale": position["ocr_scale"],
+        "offset": {
+            "x": PLAYER_NAME_TO_FOOT_OFFSET_X,
+            "y": PLAYER_NAME_TO_FOOT_OFFSET_Y,
+        },
+    }
+
+
+# 清空当前绑定玩家定位。
+def clear_bound_player_position():
+    global bound_player_position
+    bound_player_position = {}
+
+
+# 获取当前绑定玩家定位副本。
+def get_bound_player_position():
+    if not bound_player_position:
+        return {}
+
+    return {
+        "name": bound_player_position.get("name", ""),
+        "matched_text": bound_player_position.get("matched_text", ""),
+        "score": bound_player_position.get("score", 0.0),
+        "name_box": dict(bound_player_position.get("name_box", {})),
+        "name_center": dict(bound_player_position.get("name_center", {})),
+        "foot_point": dict(bound_player_position.get("foot_point", {})),
+        "search_box": dict(bound_player_position.get("search_box", {})),
+        "ocr_scale": bound_player_position.get("ocr_scale", PLAYER_NAME_OCR_SCALE),
+        "offset": dict(bound_player_position.get("offset", {})),
+    }
+
+
+# 读取当前绑定玩家脚底点；缺失时直接报错，避免继续点错。
+def get_bound_player_foot_point():
+    position = get_bound_player_position()
+    foot = position.get("foot_point", {})
+
+    if not foot:
+        raise ValueError("玩家脚底定位不可用，请重新绑定窗口")
+
+    return int(foot["x"]), int(foot["y"]), position
+
+
+# 四舍五入矩形，便于 JSON 展示。
+def round_box(box):
+    return {
+        "left": round(float(box["left"]), 2),
+        "top": round(float(box["top"]), 2),
+        "right": round(float(box["right"]), 2),
+        "bottom": round(float(box["bottom"]), 2),
+    }
+
+
+# 格式化矩形，便于错误日志查看。
+def format_box(box):
+    return f"{box['left']},{box['top']},{box['right']},{box['bottom']}"
+
+
+# 格式化 OCR 行，避免错误消息过长。
+def format_ocr_lines(lines):
+    values = []
+
+    for line in lines[:8]:
+        values.append(f"{line.get('text', '')}:{round(float(line.get('score', 0.0) or 0.0), 3)}")
+
+    return " | ".join(values)
 
 
 # 应用运行设置：把内存中的应用设置同步到业务辅助模块。
@@ -370,6 +685,7 @@ def get_status(
             "x": player_info["x"],
             "y": player_info["y"],
         },
+        "player_position": get_bound_player_position(),
         "bound_window": op.get_bound_window(),
         "settings": {
             "overlay_enabled": app_settings["overlay_enabled"],
@@ -894,12 +1210,22 @@ def get_player_screen_position():
             "message": f"窗口尺寸异常 size={width}x{height}",
         }
 
-    player_x, player_y = get_move_origin(width, height)
+    try:
+        player_x, player_y, position = get_bound_player_foot_point()
+    except ValueError as error:
+        return {
+            "success": False,
+            "player_x": 0,
+            "player_y": 0,
+            "client": client,
+            "message": str(error),
+        }
 
     return {
         "success": True,
         "player_x": player_x,
         "player_y": player_y,
+        "player_position": position,
         "client": client,
         "bottom_ui_height": BOTTOM_UI_HEIGHT,
         "message": f"玩家屏幕位置 x={player_x} y={player_y} client_size={width}x{height}",
@@ -1115,7 +1441,14 @@ def read_player_health_percent():
             "message": f"窗口尺寸异常 size={width}x{height}",
         }
 
-    player_x, player_y = get_move_origin(width, height)
+    try:
+        player_x, player_y, position = get_bound_player_foot_point()
+    except ValueError as error:
+        return {
+            "success": False,
+            "client": client,
+            "message": str(error),
+        }
 
     with tempfile.TemporaryDirectory(prefix="mir2_player_hp_") as temp_dir:
         scan_file = Path(temp_dir) / "screen.bmp"
@@ -1159,6 +1492,7 @@ def read_player_health_percent():
             "x": player_x,
             "y": player_y,
         },
+        "player_position": position,
         "client": client,
         "message": f"自身血量检测完成 hp={hp_percent}% matches={len(matches)} bar={blood_bar}",
     }
@@ -1398,7 +1732,16 @@ def scan_monsters_locked(show_overlay=True):
             "message": f"窗口尺寸异常 size={width}x{height}",
         }
 
-    player_x, player_y = get_move_origin(width, height)
+    try:
+        player_x, player_y, position = get_bound_player_foot_point()
+    except ValueError as error:
+        return {
+            "success": False,
+            "monsters": [],
+            "client": client,
+            "message": str(error),
+        }
+
     blood_width, blood_height = get_image_size(red_blood_bar_image)
     debug_points = [
         make_debug_point(player_x, player_y, "blue"),
@@ -1459,6 +1802,7 @@ def scan_monsters_locked(show_overlay=True):
             "x": player_x,
             "y": player_y,
         },
+        "player_position": position,
         "client": client,
         "debug_points": debug_points,
         "message": f"怪物扫描完成 count={len(monsters)} player={player_x},{player_y} client_size={width}x{height}",
@@ -2009,6 +2353,12 @@ def get_monster_name_reject_reason(name):
 
 # 从窗口标题中提取主角名，例如“^纵横四海 - 闪电侠”。
 def get_bound_player_name():
+    position = get_bound_player_position()
+    player_name = normalize_player_name_text(position.get("name", ""))
+
+    if player_name:
+        return player_name
+
     title = op.get_bound_window().get("title", "")
     match = re.search(r"[-－]\s*([^\s\-－]+)\s*$", title)
 
@@ -2327,8 +2677,18 @@ def move_player(action, direction, show_overlay=True):
     if width <= 0 or height <= 0:
         return {"success": False, "message": f"窗口尺寸异常 size={width}x{height}"}
 
+    try:
+        player_x, player_y, position = get_bound_player_foot_point()
+    except ValueError as error:
+        return {
+            "success": False,
+            "action": action,
+            "direction": direction,
+            "message": str(error),
+        }
+
     # 移动点击参数：保存本次动作的按钮、坐标和地图增量。
-    move = calculate_move(action, direction, width, height)
+    move = calculate_move(action, direction, width, height, player_x, player_y)
 
     if show_overlay:
         hide_overlay_safely()
@@ -2350,6 +2710,7 @@ def move_player(action, direction, show_overlay=True):
         "click_y": move["click_y"],
         "delta_x": move["delta_x"],
         "delta_y": move["delta_y"],
+        "player_position": position,
         "message": message,
     }
 
@@ -2457,20 +2818,21 @@ def normalize_bool(value):
 
 
 # 计算移动点击：把动作和方向转换为客户端内的点击坐标。
-def calculate_move(action, direction, width, height):
+def calculate_move(action, direction, width, height, origin_x, origin_y):
     # 地图方向增量：描述移动后地图坐标预期变化。
     dx, dy = directions[direction]
     # 动作配置：读取按钮、点击距离和步长等动作参数。
     config = move_actions[action]
     # 点击方向向量：描述鼠标在屏幕上应该偏移的方向。
     click_dx, click_dy = get_click_direction(action, direction)
-    # 移动原点：以游戏可操作区域中心作为点击基准。
-    origin_x, origin_y = get_move_origin(width, height)
+    # 移动原点：以绑定时 OCR 定位到的玩家脚底作为点击基准。
+    origin_x = int(origin_x)
+    origin_y = int(origin_y)
 
     return {
         "button": config["button"],
-        "click_x": round(origin_x + click_dx * config["offset"]),
-        "click_y": round(origin_y + click_dy * config["offset"]),
+        "click_x": clamp_number(round(origin_x + click_dx * config["offset"]), 0, width - 1),
+        "click_y": clamp_number(round(origin_y + click_dy * config["offset"]), 0, height - 1),
         "delta_x": dx * config["step"],
         "delta_y": dy * config["step"],
     }
