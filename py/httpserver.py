@@ -1435,7 +1435,6 @@ function applyStatus(data) {
     document.getElementById("map-name").textContent = data.player.map_name;
     document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
     document.getElementById("bound-title").textContent = boundTitle || "未绑定";
-    document.title = boundTitle || "httpserver";
     document.getElementById("overlay-button").textContent = data.settings.overlay_enabled ? "Overlay: 开" : "Overlay: 关";
     document.getElementById("map-corner-overlay-button").textContent =
         data.settings.map_rect_corner_overlay_enabled ? "地图角点: 开" : "地图角点: 关";
