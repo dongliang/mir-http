@@ -8,6 +8,7 @@ import log
 import move_to_next_patrol_point
 import player
 from state import battle
+from state import getitem
 from state import idle
 
 
@@ -22,6 +23,8 @@ app_settings = {
     "idle_stuck_enabled": True,
     "idle_stuck_seconds": 30,
     "monster_name_debug_enabled": False,
+    "getitem_enabled": False,
+    "getitem_step_wait_ms": api.GETITEM_DEFAULT_STEP_WAIT_MS,
 }
 # 当前绑定的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
 current_map = {}
@@ -62,6 +65,7 @@ current_state = {
 state_modules = {
     "idle": idle,
     "battle": battle,
+    "getitem": getitem,
     "move_to_next_patrol_point": move_to_next_patrol_point,
 }
 # 游戏数据：app.py 持有的共享运行数据，传给状态模块读取和更新。
@@ -174,7 +178,7 @@ def apply_app_settings():
     api.apply_app_settings(app_settings)
 
 
-# 加载 TXT 运行配置：启动时读取 txt/ 下的怪物清单和怪物名颜色。
+# 加载 TXT 运行配置：启动时读取 txt/ 下的怪物和物品清单、颜色。
 def load_text_configs():
     result = api.load_text_configs()
     log.write(result.get("message", ""))

@@ -129,8 +129,11 @@ def create_server(
                     Div("配置目录: ", Span("-", id="account-config-dir")),
                     Div("怪物过滤: ", Span("-", id="monster-filter")),
                     Div("怪物字色: ", Span("-", id="monster-name-colors")),
+                    Div("物品过滤: ", Span("-", id="item-filter")),
+                    Div("物品字色: ", Span("-", id="item-name-colors")),
                     Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
                     Div("卡住跳点: ", Span("开", id="idle-stuck-enabled-text")),
+                    Div("捡取物品: ", Span("关", id="getitem-enabled-text")),
                     Div("怪名Debug图: ", Span("关", id="monster-name-debug-enabled-text")),
                     cls="status",
                 ),
@@ -505,7 +508,7 @@ def create_server(
             "status": current_status(),
         })
 
-    # TXT 配置重载接口：重新读取 txt/monster.txt 和怪物名 OCR 颜色。
+    # TXT 配置重载接口：重新读取怪物和物品清单、OCR 颜色。
     @rt("/api/monsters/reload-list")
     def post():
         result = api.reload_text_configs()
@@ -514,6 +517,8 @@ def create_server(
             "success": True,
             "monster_filter": result["monster_filter"],
             "monster_name_colors": result["monster_name_colors"],
+            "item_filter": result["item_filter"],
+            "item_name_colors": result["item_name_colors"],
             "message": result["message"],
             "status": current_status(),
         })
@@ -532,6 +537,8 @@ def create_server(
             "errors": result.get("errors", []),
             "monster_filter": text_config.get("monster_filter", api.get_monster_keyword_status()),
             "monster_name_colors": text_config.get("monster_name_colors", api.get_monster_name_color_status()),
+            "item_filter": text_config.get("item_filter", api.get_item_keyword_status()),
+            "item_name_colors": text_config.get("item_name_colors", api.get_item_name_color_status()),
             "status": current_status(),
         })
 
@@ -592,6 +599,23 @@ def create_server(
             "success": result["success"],
             "message": result["message"],
             "idle_stuck": result.get("idle_stuck", {}),
+            "status": current_status(),
+        })
+
+    # 捡取物品设置接口：保存页面开关和每步等待间隔。
+    @rt("/api/getitem/settings")
+    async def post(request: Request):
+        try:
+            data = await request.json()
+        except Exception:
+            data = {}
+
+        result = api.update_getitem_settings(app_settings, data)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "getitem": result.get("getitem", {}),
             "status": current_status(),
         })
 
@@ -667,6 +691,7 @@ def create_buttons(app_settings):
         ),
         create_auto_heal_controls(app_settings),
         create_idle_stuck_controls(app_settings),
+        create_getitem_controls(app_settings),
         create_monster_name_debug_controls(app_settings),
         create_map_corner_hotkey_controls(app_settings),
         Div(*utility_buttons, cls="utility-buttons"),
@@ -777,6 +802,41 @@ def create_idle_stuck_controls(app_settings):
         ),
         Div("", id="idle-stuck-message", cls="idle-stuck-message"),
         cls="idle-stuck-controls",
+    )
+
+
+# 创建捡取物品控制栏：开关和每次点击后的走路等待。
+def create_getitem_controls(app_settings):
+    enabled_attrs = {
+        "id": "getitem-enabled",
+        "type": "checkbox",
+        "onchange": "saveGetitemSettings()",
+    }
+
+    if app_settings.get("getitem_enabled", False):
+        enabled_attrs["checked"] = True
+
+    return Div(
+        Label(
+            Input(**enabled_attrs),
+            Span("捡取物品"),
+            cls="getitem-toggle",
+        ),
+        Label(
+            Span("捡取等待ms"),
+            Input(
+                id="getitem-step-wait-ms",
+                type="number",
+                min=str(api.GETITEM_MIN_STEP_WAIT_MS),
+                max=str(api.GETITEM_MAX_STEP_WAIT_MS),
+                step="100",
+                value=str(app_settings.get("getitem_step_wait_ms", api.GETITEM_DEFAULT_STEP_WAIT_MS)),
+                onchange="saveGetitemSettings()",
+            ),
+            cls="getitem-field",
+        ),
+        Div("", id="getitem-message", cls="getitem-message"),
+        cls="getitem-controls",
     )
 
 
@@ -1039,6 +1099,12 @@ h2 {
     gap: 8px;
     align-items: center;
 }
+.getitem-controls {
+    display: grid;
+    grid-template-columns: minmax(110px, 130px) minmax(130px, 160px) minmax(180px, 1fr);
+    gap: 8px;
+    align-items: center;
+}
 .monster-name-debug-controls {
     display: grid;
     grid-template-columns: minmax(180px, 220px) minmax(180px, 1fr);
@@ -1055,6 +1121,8 @@ h2 {
 .auto-heal-field,
 .idle-stuck-toggle,
 .idle-stuck-field,
+.getitem-toggle,
+.getitem-field,
 .monster-name-debug-toggle,
 .map-corner-hotkey-field {
     display: flex;
@@ -1069,6 +1137,7 @@ h2 {
 }
 .auto-heal-toggle input,
 .idle-stuck-toggle input,
+.getitem-toggle input,
 .monster-name-debug-toggle input {
     width: 16px;
     height: 16px;
@@ -1076,12 +1145,14 @@ h2 {
 }
 .auto-heal-field input,
 .idle-stuck-field input,
+.getitem-field input,
 .map-corner-hotkey-field input {
     min-width: 0;
     flex: 1;
 }
 .auto-heal-message,
 .idle-stuck-message,
+.getitem-message,
 .monster-name-debug-message,
 .map-corner-hotkey-message {
     min-height: 34px;
@@ -1251,6 +1322,7 @@ th {
     .bind-controls,
     .auto-heal-controls,
     .idle-stuck-controls,
+    .getitem-controls,
     .monster-name-debug-controls,
     .map-corner-hotkey-controls,
     .utility-buttons,
@@ -1348,6 +1420,23 @@ async function saveIdleStuckSettings() {
         body: JSON.stringify({
             enabled,
             seconds,
+        }),
+    });
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
+async function saveGetitemSettings() {
+    const enabled = document.getElementById("getitem-enabled").checked;
+    const stepWaitMs = document.getElementById("getitem-step-wait-ms").value;
+    const response = await fetch("/api/getitem/settings", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            enabled,
+            step_wait_ms: stepWaitMs,
         }),
     });
     const data = await response.json();
@@ -1626,8 +1715,11 @@ function applyStatus(data) {
     updateAccountsPanel(data.accounts || {});
     updateMonsterFilterPanel(data.monster_filter || {});
     updateMonsterNameColorPanel(data.monster_name_colors || {});
+    updateItemFilterPanel(data.getitem || {});
+    updateItemNameColorPanel(data.getitem || {});
     updateAutoHealPanel(data.auto_heal || {});
     updateIdleStuckPanel(data.idle_stuck || {});
+    updateGetitemPanel(data.getitem || {});
     updateMonsterNameDebugPanel(data.settings || {});
     updateMapCornerHotkeyPanel(data.settings || {});
 
@@ -1690,6 +1782,26 @@ function updateMonsterNameColorPanel(colorConfig) {
     document.getElementById("monster-name-colors").textContent = `${count} 个${detail}`;
 }
 
+function updateItemFilterPanel(getitem) {
+    const itemFilter = getitem.item_filter || {};
+    const count = itemFilter.count ?? 0;
+    const keywords = itemFilter.keywords || [];
+    const preview = keywords.slice(0, 6).join("、");
+    const suffix = keywords.length > 6 ? "..." : "";
+    const detail = preview ? ` (${preview}${suffix})` : "";
+    document.getElementById("item-filter").textContent = `${count} 个${detail}`;
+}
+
+function updateItemNameColorPanel(getitem) {
+    const colorConfig = getitem.item_name_colors || {};
+    const count = colorConfig.count ?? 0;
+    const colors = colorConfig.colors || [];
+    const preview = colors.slice(0, 4).join("、");
+    const suffix = colors.length > 4 ? "..." : "";
+    const detail = preview ? ` (${preview}${suffix})` : "";
+    document.getElementById("item-name-colors").textContent = `${count} 个${detail}`;
+}
+
 function updateAutoHealPanel(autoHeal) {
     const enabled = !!autoHeal.enabled;
     const lastHp = autoHeal.last_hp_percent;
@@ -1720,6 +1832,22 @@ function updateIdleStuckPanel(idleStuck) {
         + " stationary=" + String(idleStuck.stationary_seconds ?? 0) + "s"
         + " threshold=" + String(idleStuck.seconds ?? 30) + "s"
         + (idleStuck.last_message ? " " + idleStuck.last_message : "");
+}
+
+function updateGetitemPanel(getitem) {
+    const enabled = !!getitem.enabled;
+    const stateText = enabled ? "开" : "关";
+    const target = getitem.last_target || {};
+    const targetText = target.keyword
+        ? target.keyword + "@" + String(target.click_x ?? "") + "," + String(target.click_y ?? "")
+        : "-";
+    document.getElementById("getitem-enabled-text").textContent = stateText;
+    document.getElementById("getitem-enabled").checked = enabled;
+    setInputValueIfIdle("getitem-step-wait-ms", getitem.step_wait_ms ?? 800);
+    document.getElementById("getitem-message").textContent =
+        stateText + " wait=" + String(getitem.step_wait_ms ?? 800) + "ms"
+        + " target=" + targetText
+        + (getitem.last_message ? " " + getitem.last_message : "");
 }
 
 function updateMapCornerHotkeyPanel(settings) {

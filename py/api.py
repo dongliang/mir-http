@@ -81,6 +81,30 @@ monster_name_color_state = {
     "colors": [],
     "message": "",
 }
+# 物品关键字清单缓存：运行时加载，可由网页按钮重载。
+item_keyword_lock = threading.Lock()
+item_keyword_state = {
+    "loaded": False,
+    "mtime": 0,
+    "path": "",
+    "keywords": [],
+    "message": "",
+}
+# 物品名 OCR 颜色缓存：运行时加载，可由网页按钮重载。
+item_name_color_lock = threading.Lock()
+item_name_color_state = {
+    "loaded": False,
+    "mtime": 0,
+    "path": "",
+    "colors": [],
+    "message": "",
+}
+# 捡取物品运行状态：保存最近目标和消息，供页面状态展示。
+getitem_runtime_lock = threading.Lock()
+getitem_runtime_state = {
+    "last_target": {},
+    "last_message": "",
+}
 # 底部界面高度：估算游戏底栏高度，用来计算角色移动点击原点。
 BOTTOM_UI_HEIGHT = 245
 # 默认键盘测试键：用于页面测试按钮验证后台键盘输入链路。
@@ -137,6 +161,26 @@ DEFAULT_MONSTER_NAME_OCR_COLORS = [
     "ffffff-101010",
     "ffff00-101010",
 ]
+# 物品名默认 OCR 颜色：配置文件缺失或为空时使用。
+DEFAULT_ITEM_NAME_OCR_COLORS = [
+    "ffffff-101010",
+    "ffff00-101010",
+    "00ffff-101010",
+]
+# 捡取物品搜索范围：以角色脚底为中心，排除底部 UI。
+GETITEM_SEARCH_WIDTH = 350
+GETITEM_SEARCH_HEIGHT = 250
+# 物品文字尺寸和点击偏移：OP 找字返回文字左上角，点击地面物品中心。
+ITEM_NAME_TEXT_WIDTH = 12
+ITEM_NAME_TEXT_HEIGHT = 12
+ITEM_CLICK_OFFSET_Y = 32
+ITEM_NAME_OCR_SIM = 0.85
+# 同一目标跟踪半径：同名物品优先追踪上次点击附近的命中。
+GETITEM_TARGET_MATCH_RADIUS = 120
+# 捡取点击后等待角色走路的默认间隔。
+GETITEM_DEFAULT_STEP_WAIT_MS = 800
+GETITEM_MIN_STEP_WAIT_MS = 100
+GETITEM_MAX_STEP_WAIT_MS = 10000
 # 怪物血条刷新搜索范围：识别名字前围绕旧血条局部重扫，降低怪物移动影响。
 MONSTER_REFRESH_SEARCH_HALF_WIDTH = 180
 MONSTER_REFRESH_SEARCH_TOP_OFFSET = 100
@@ -777,6 +821,16 @@ def get_monster_name_color_file():
     return get_current_txt_config_dir() / "monster_name_colors.txt"
 
 
+# 获取当前物品关键字清单路径。
+def get_item_keyword_file():
+    return get_current_txt_config_dir() / "item.txt"
+
+
+# 获取当前物品名颜色清单路径。
+def get_item_name_color_file():
+    return get_current_txt_config_dir() / "item_name_colors.txt"
+
+
 # 复制根目录 txt/*.txt 到指定账号目录。
 def copy_root_txt_files_to_account(account_dir, overwrite=False):
     account_dir.mkdir(parents=True, exist_ok=True)
@@ -943,27 +997,45 @@ def reload_monster_keywords():
 def reload_text_configs():
     monster_filter = load_monster_keywords(force=True)
     monster_name_colors = load_monster_name_colors(force=True)
-    return make_text_config_reload_result(monster_filter, monster_name_colors)
+    item_filter = load_item_keywords(force=True)
+    item_name_colors = load_item_name_colors(force=True)
+    return make_text_config_reload_result(
+        monster_filter,
+        monster_name_colors,
+        item_filter,
+        item_name_colors,
+    )
 
 
 # 启动时加载 txt 目录下的运行配置。
 def load_text_configs():
     monster_filter = load_monster_keywords(force=True)
     monster_name_colors = load_monster_name_colors(force=True)
-    return make_text_config_reload_result(monster_filter, monster_name_colors)
+    item_filter = load_item_keywords(force=True)
+    item_name_colors = load_item_name_colors(force=True)
+    return make_text_config_reload_result(
+        monster_filter,
+        monster_name_colors,
+        item_filter,
+        item_name_colors,
+    )
 
 
 # 组合 txt 配置重载结果。
-def make_text_config_reload_result(monster_filter, monster_name_colors):
+def make_text_config_reload_result(monster_filter, monster_name_colors, item_filter, item_name_colors):
     message = (
         f"TXT 配置加载完成 "
         f"monsters={monster_filter.get('count', 0)} "
-        f"colors={monster_name_colors.get('count', 0)}"
+        f"monster_colors={monster_name_colors.get('count', 0)} "
+        f"items={item_filter.get('count', 0)} "
+        f"item_colors={item_name_colors.get('count', 0)}"
     )
     return {
         "success": True,
         "monster_filter": monster_filter,
         "monster_name_colors": monster_name_colors,
+        "item_filter": item_filter,
+        "item_name_colors": item_name_colors,
         "message": message,
     }
 
@@ -1067,6 +1139,152 @@ def get_monster_name_ocr_colors():
     return get_monster_name_color_status().get("colors", []) or list(DEFAULT_MONSTER_NAME_OCR_COLORS)
 
 
+# 读取物品关键字清单：每行一个关键字，空行和 # 注释会跳过。
+def load_item_keywords(force=False):
+    with item_keyword_lock:
+        try:
+            return load_item_keywords_locked(force)
+        except Exception as error:
+            item_keyword_file = get_item_keyword_file()
+            item_keyword_state["loaded"] = True
+            item_keyword_state["path"] = str(item_keyword_file)
+            item_keyword_state["keywords"] = []
+            item_keyword_state["message"] = f"物品清单加载异常: {error}"
+            return get_item_keyword_status_locked()
+
+
+# 执行物品关键字清单加载。
+def load_item_keywords_locked(force=False):
+    item_keyword_file = get_item_keyword_file()
+
+    if not item_keyword_file.exists():
+        item_keyword_state["loaded"] = True
+        item_keyword_state["mtime"] = 0
+        item_keyword_state["path"] = str(item_keyword_file)
+        item_keyword_state["keywords"] = []
+        item_keyword_state["message"] = f"物品清单不存在 path={item_keyword_file}"
+        return get_item_keyword_status_locked()
+
+    current_mtime = item_keyword_file.stat().st_mtime_ns
+    current_path = str(item_keyword_file)
+
+    if (
+        not force
+        and item_keyword_state.get("loaded")
+        and item_keyword_state.get("path") == current_path
+        and item_keyword_state.get("mtime") == current_mtime
+    ):
+        return get_item_keyword_status_locked()
+
+    text = read_text_file_with_fallback(item_keyword_file)
+    keywords = parse_monster_keywords(text)
+    item_keyword_state["loaded"] = True
+    item_keyword_state["mtime"] = current_mtime
+    item_keyword_state["path"] = current_path
+    item_keyword_state["keywords"] = keywords
+    item_keyword_state["message"] = f"物品清单加载完成 count={len(keywords)} path={item_keyword_file}"
+    return get_item_keyword_status_locked()
+
+
+# 复制物品关键字清单状态。
+def get_item_keyword_status():
+    if not item_keyword_state.get("loaded"):
+        return load_item_keywords(force=False)
+
+    with item_keyword_lock:
+        return get_item_keyword_status_locked()
+
+
+# 在已持有锁时复制物品关键字清单状态。
+def get_item_keyword_status_locked():
+    keywords = list(item_keyword_state.get("keywords", []))
+    return {
+        "path": item_keyword_state.get("path") or str(get_item_keyword_file()),
+        "count": len(keywords),
+        "keywords": keywords,
+        "message": item_keyword_state.get("message", ""),
+    }
+
+
+# 读取物品名 OCR 颜色清单。
+def load_item_name_colors(force=False):
+    with item_name_color_lock:
+        try:
+            return load_item_name_colors_locked(force)
+        except Exception as error:
+            item_name_color_file = get_item_name_color_file()
+            item_name_color_state["loaded"] = True
+            item_name_color_state["path"] = str(item_name_color_file)
+            item_name_color_state["colors"] = list(DEFAULT_ITEM_NAME_OCR_COLORS)
+            item_name_color_state["message"] = f"物品名颜色加载异常，使用默认颜色: {error}"
+            return get_item_name_color_status_locked()
+
+
+# 执行物品名 OCR 颜色清单加载。
+def load_item_name_colors_locked(force=False):
+    item_name_color_file = get_item_name_color_file()
+
+    if not item_name_color_file.exists():
+        item_name_color_state["loaded"] = True
+        item_name_color_state["mtime"] = 0
+        item_name_color_state["path"] = str(item_name_color_file)
+        item_name_color_state["colors"] = list(DEFAULT_ITEM_NAME_OCR_COLORS)
+        item_name_color_state["message"] = f"物品名颜色清单不存在，使用默认颜色 path={item_name_color_file}"
+        return get_item_name_color_status_locked()
+
+    current_mtime = item_name_color_file.stat().st_mtime_ns
+    current_path = str(item_name_color_file)
+
+    if (
+        not force
+        and item_name_color_state.get("loaded")
+        and item_name_color_state.get("path") == current_path
+        and item_name_color_state.get("mtime") == current_mtime
+    ):
+        return get_item_name_color_status_locked()
+
+    text = read_text_file_with_fallback(item_name_color_file)
+    colors = parse_ocr_colors(text)
+
+    if not colors:
+        colors = list(DEFAULT_ITEM_NAME_OCR_COLORS)
+        message = f"物品名颜色清单为空，使用默认颜色 count={len(colors)} path={item_name_color_file}"
+    else:
+        message = f"物品名颜色清单加载完成 count={len(colors)} path={item_name_color_file}"
+
+    item_name_color_state["loaded"] = True
+    item_name_color_state["mtime"] = current_mtime
+    item_name_color_state["path"] = current_path
+    item_name_color_state["colors"] = colors
+    item_name_color_state["message"] = message
+    return get_item_name_color_status_locked()
+
+
+# 复制物品名 OCR 颜色状态。
+def get_item_name_color_status():
+    if not item_name_color_state.get("loaded"):
+        return load_item_name_colors(force=False)
+
+    with item_name_color_lock:
+        return get_item_name_color_status_locked()
+
+
+# 在已持有锁时复制物品名 OCR 颜色状态。
+def get_item_name_color_status_locked():
+    colors = list(item_name_color_state.get("colors", []))
+    return {
+        "path": item_name_color_state.get("path") or str(get_item_name_color_file()),
+        "count": len(colors),
+        "colors": colors,
+        "message": item_name_color_state.get("message", ""),
+    }
+
+
+# 读取当前物品名 OCR 颜色列表。
+def get_item_name_ocr_colors():
+    return get_item_name_color_status().get("colors", []) or list(DEFAULT_ITEM_NAME_OCR_COLORS)
+
+
 # 按常见文本编码读取清单文件。
 def read_text_file_with_fallback(path):
     data = path.read_bytes()
@@ -1164,6 +1382,7 @@ def get_status(
         "state": make_state_status(current_state),
         "auto_heal": make_auto_heal_status(app_settings, auto_heal_state),
         "idle_stuck": make_idle_stuck_status(app_settings, idle_stuck_state),
+        "getitem": make_getitem_status(app_settings),
     }
 
 
@@ -1286,6 +1505,19 @@ def make_idle_stuck_coordinate_status(coordinate):
         "map_name": str(map_name),
         "x": int(x),
         "y": int(y),
+    }
+
+
+# 生成捡取物品状态：返回页面展示和轮询同步需要的字段。
+def make_getitem_status(app_settings):
+    runtime = get_getitem_runtime_status()
+    return {
+        "enabled": bool(app_settings.get("getitem_enabled", False)),
+        "step_wait_ms": get_getitem_step_wait_ms(app_settings),
+        "item_filter": get_item_keyword_status(),
+        "item_name_colors": get_item_name_color_status(),
+        "last_target": runtime.get("last_target", {}),
+        "last_message": runtime.get("last_message", ""),
     }
 
 
@@ -1975,6 +2207,401 @@ def get_monster_name_filter_text(name_result):
     return " ".join(str(part or "") for part in parts)
 
 
+# 判断是否应该从 idle 进入捡取状态。
+def should_enter_getitem(game_data):
+    settings = game_data.get("settings", {})
+
+    if not settings.get("getitem_enabled", False):
+        return {
+            "enter": False,
+            "message": "",
+        }
+
+    if not (
+        game_data.get("battle_control", {}).get("enabled", False)
+        or game_data.get("patrol_control", {}).get("enabled", False)
+    ):
+        return {
+            "enter": False,
+            "message": "",
+        }
+
+    safety = check_getitem_safety()
+
+    if not safety.get("success", False):
+        message = f"捡取安全检测失败: {safety.get('message', '')}"
+        set_getitem_runtime_status(message=message, target={})
+        return {
+            "enter": False,
+            "message": "",
+        }
+
+    if not safety.get("safe", True):
+        message = safety.get("message", "附近有清单内怪物，跳过捡取")
+        set_getitem_runtime_status(message=message, target=safety.get("danger", {}))
+        return {
+            "enter": False,
+            "message": "",
+        }
+
+    scan = scan_getitems()
+
+    if not scan.get("success", False):
+        message = f"捡取物品扫描失败: {scan.get('message', '')}"
+        set_getitem_runtime_status(message=message, target={})
+        return {
+            "enter": False,
+            "message": "",
+        }
+
+    items = scan.get("items", [])
+
+    if not items:
+        set_getitem_runtime_status(message="周围没有可捡物品", target={})
+        return {
+            "enter": False,
+            "message": "",
+        }
+
+    target = choose_getitem_target(items)
+    message = f"发现可捡物品 count={len(items)} target={format_getitem_target(target)}"
+    set_getitem_runtime_status(message=message, target=target)
+    return {
+        "enter": True,
+        "target": target,
+        "message": message,
+    }
+
+
+# 捡取前安全检测：只把命中怪物清单的怪物当作危险。
+def check_getitem_safety():
+    context = get_getitem_scan_context()
+
+    if not context.get("success", False):
+        return {
+            "success": False,
+            "safe": False,
+            "message": context.get("message", ""),
+        }
+
+    monster_result = scan_monsters()
+
+    if not monster_result.get("success", False):
+        return {
+            "success": False,
+            "safe": False,
+            "message": monster_result.get("message", ""),
+        }
+
+    box = context["box"]
+    client = context["client"]
+    width, height = client["width"], client["height"]
+    candidates = []
+
+    for monster in monster_result.get("monsters", []):
+        position = monster.get("position", {})
+
+        if is_point_in_box(position.get("x"), position.get("y"), box):
+            candidates.append(monster)
+
+    logs = []
+
+    for monster in candidates:
+        position = monster.get("position", {})
+        filter_result = verify_monster_name_before_attack(
+            monster,
+            position.get("x", 0),
+            position.get("y", 0),
+            width,
+            height,
+            save_name_debug=False,
+        )
+        logs.extend(filter_result.get("name_messages", []))
+
+        if filter_result.get("allowed", False):
+            danger = {
+                "keyword": filter_result.get("matched_keyword", ""),
+                "text": filter_result.get("text", ""),
+                "position": filter_result.get("position", position),
+                "monster": {
+                    "id": monster.get("id", 0),
+                    "distance": monster.get("distance", ""),
+                    "hp_percent": monster.get("hp_percent", ""),
+                },
+            }
+            return {
+                "success": True,
+                "safe": False,
+                "danger": danger,
+                "logs": logs,
+                "message": (
+                    f"附近有清单内怪物，暂停捡取 "
+                    f"matched={danger['keyword']} text={danger['text']!r}"
+                ),
+            }
+
+    return {
+        "success": True,
+        "safe": True,
+        "candidate_count": len(candidates),
+        "logs": logs,
+        "message": f"捡取安全检测通过 candidates={len(candidates)}",
+    }
+
+
+# 扫描可拾取物品。
+def scan_getitems():
+    with monster_scan_lock:
+        try:
+            return scan_getitems_locked()
+        except Exception as error:
+            return {
+                "success": False,
+                "items": [],
+                "message": f"捡取物品扫描异常: {error}",
+            }
+
+
+# 执行物品扫描：由锁保护 OP 找字流程。
+def scan_getitems_locked():
+    context = get_getitem_scan_context()
+
+    if not context.get("success", False):
+        return {
+            "success": False,
+            "items": [],
+            "message": context.get("message", ""),
+        }
+
+    keyword_status = load_item_keywords(force=False)
+    keywords = keyword_status.get("keywords", [])
+
+    if not keywords:
+        return {
+            "success": True,
+            "items": [],
+            "count": 0,
+            "search_box": context["box"],
+            "player": context["player"],
+            "message": keyword_status.get("message", "物品清单为空"),
+        }
+
+    colors = get_item_name_ocr_colors()
+    box = context["box"]
+    client = context["client"]
+    width, height = client["width"], client["height"]
+    player_x, player_y = context["player"]["x"], context["player"]["y"]
+    find_text = "|".join(keywords)
+    items = []
+
+    for color in colors:
+        matches = op.find_text(
+            box["left"],
+            box["top"],
+            box["right"] - 1,
+            box["bottom"] - 1,
+            find_text,
+            color=color,
+            sim=ITEM_NAME_OCR_SIM,
+        )
+
+        for match in matches:
+            item = make_getitem_from_match(match, keywords, color, width, height, player_x, player_y)
+            add_unique_getitem(items, item)
+
+    items.sort(key=lambda item: (item["distance"], item["keyword_index"], item["click"]["y"], item["click"]["x"]))
+    return {
+        "success": True,
+        "items": items,
+        "count": len(items),
+        "search_box": context["box"],
+        "player": context["player"],
+        "colors": colors,
+        "message": f"捡取物品扫描完成 count={len(items)} player={player_x},{player_y} box={format_box(box)}",
+    }
+
+
+# 获取捡取扫描上下文：玩家脚底、窗口尺寸和有效搜索框。
+def get_getitem_scan_context():
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口",
+        }
+
+    client = get_bound_client_info()
+    width, height = client["width"], client["height"]
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "client": client,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    try:
+        player_x, player_y, position = get_bound_player_foot_point()
+    except ValueError as error:
+        return {
+            "success": False,
+            "client": client,
+            "message": str(error),
+        }
+
+    play_area_bottom = max(1, height - BOTTOM_UI_HEIGHT)
+    box = clamp_box(
+        player_x - GETITEM_SEARCH_WIDTH / 2,
+        player_y - GETITEM_SEARCH_HEIGHT / 2,
+        player_x + GETITEM_SEARCH_WIDTH / 2,
+        player_y + GETITEM_SEARCH_HEIGHT / 2,
+        width,
+        play_area_bottom,
+    )
+    return {
+        "success": True,
+        "client": client,
+        "player": {
+            "x": player_x,
+            "y": player_y,
+            "position": position,
+        },
+        "box": box,
+        "message": f"捡取扫描区域 player={player_x},{player_y} box={format_box(box)}",
+    }
+
+
+# 从 OP 找字结果生成物品目标。
+def make_getitem_from_match(match, keywords, color, width, height, player_x, player_y):
+    keyword_index = int(match.get("index", -1))
+    keyword = keywords[keyword_index] if 0 <= keyword_index < len(keywords) else str(match.get("text", ""))
+    x = int(match.get("x", 0))
+    y = int(match.get("y", 0))
+    text_box = make_item_text_box(x, y, keyword, width, height)
+    click_x = clamp_number(round((text_box["left"] + text_box["right"]) / 2), 0, width - 1)
+    click_y = clamp_number(text_box["top"] + ITEM_CLICK_OFFSET_Y, 0, height - 1)
+    distance = round(math.dist((player_x, player_y), (click_x, click_y)))
+    return {
+        "keyword": keyword,
+        "keyword_index": keyword_index,
+        "x": x,
+        "y": y,
+        "text_box": text_box,
+        "click": {
+            "x": click_x,
+            "y": click_y,
+        },
+        "distance": distance,
+        "color": color,
+    }
+
+
+# 根据 OP 找字左上角估算物品文字框。
+def make_item_text_box(x, y, text, width, height):
+    text_width = max(ITEM_NAME_TEXT_WIDTH, len(text or "") * ITEM_NAME_TEXT_WIDTH)
+    return clamp_box(
+        int(x),
+        int(y),
+        int(x) + text_width,
+        int(y) + ITEM_NAME_TEXT_HEIGHT,
+        width,
+        height,
+    )
+
+
+# 加入去重后的物品命中：多颜色可能识别到同一段文字。
+def add_unique_getitem(items, item):
+    for old_item in items:
+        if old_item["keyword"] != item["keyword"]:
+            continue
+
+        if abs(old_item["x"] - item["x"]) <= 4 and abs(old_item["y"] - item["y"]) <= 4:
+            return
+
+    items.append(item)
+
+
+# 选择本轮要捡的物品：列表已经按距离和清单顺序排序。
+def choose_getitem_target(items):
+    return items[0] if items else None
+
+
+# 从重新扫描结果里找回当前目标。
+def find_matching_getitem_target(items, target):
+    if not target:
+        return None
+
+    keyword = str(target.get("keyword", ""))
+    candidates = [item for item in items if item.get("keyword") == keyword]
+
+    if not candidates:
+        return None
+
+    click = target.get("click", {})
+
+    try:
+        target_x = int(click.get("x"))
+        target_y = int(click.get("y"))
+    except (TypeError, ValueError):
+        return candidates[0]
+
+    nearest = min(
+        candidates,
+        key=lambda item: math.dist((item["click"]["x"], item["click"]["y"]), (target_x, target_y)),
+    )
+    distance = math.dist((nearest["click"]["x"], nearest["click"]["y"]), (target_x, target_y))
+
+    if distance > GETITEM_TARGET_MATCH_RADIUS:
+        return None
+
+    return nearest
+
+
+# 点击物品目标。
+def click_getitem_target(target):
+    click = target.get("click", {})
+
+    try:
+        x = int(click.get("x"))
+        y = int(click.get("y"))
+    except (TypeError, ValueError):
+        return {
+            "success": False,
+            "message": f"物品点击坐标异常 target={target}",
+        }
+
+    success, message = op.click_mouse_at(x, y, "left")
+    return {
+        "success": success,
+        "x": x,
+        "y": y,
+        "message": message,
+    }
+
+
+# 格式化物品目标，供日志阅读。
+def format_getitem_target(target):
+    if not target:
+        return "-"
+
+    click = target.get("click", {})
+    return (
+        f"{target.get('keyword', '')}"
+        f"@{click.get('x', '')},{click.get('y', '')}"
+        f" distance={target.get('distance', '')}"
+    )
+
+
+# 判断点是否在开区间矩形内。
+def is_point_in_box(x, y, box):
+    try:
+        x = int(x)
+        y = int(y)
+    except (TypeError, ValueError):
+        return False
+
+    return box["left"] <= x < box["right"] and box["top"] <= y < box["bottom"]
+
+
 # 获取玩家当前屏幕位置：复用移动原点算法得到角色脚站地块位置。
 def get_player_screen_position():
     if not op.is_window_bound():
@@ -2126,6 +2753,85 @@ def update_idle_stuck_settings(app_settings, idle_stuck_state, data):
         "success": True,
         "message": message,
         "idle_stuck": make_idle_stuck_status(app_settings, idle_stuck_state),
+    }
+
+
+# 更新捡取物品设置：保存页面开关和每步等待间隔。
+def update_getitem_settings(app_settings, data):
+    data = data if isinstance(data, dict) else {}
+    enabled = normalize_bool(data.get("enabled", app_settings.get("getitem_enabled", False)))
+    step_wait_ms = normalize_number(
+        data.get("step_wait_ms"),
+        GETITEM_DEFAULT_STEP_WAIT_MS,
+        GETITEM_MIN_STEP_WAIT_MS,
+        GETITEM_MAX_STEP_WAIT_MS,
+    )
+
+    app_settings["getitem_enabled"] = enabled
+    app_settings["getitem_step_wait_ms"] = step_wait_ms
+
+    state_text = "开" if enabled else "关"
+    message = f"捡取物品设置已更新: {state_text} step_wait_ms={step_wait_ms}"
+    set_getitem_runtime_status(message=message)
+    return {
+        "success": True,
+        "message": message,
+        "getitem": make_getitem_status(app_settings),
+    }
+
+
+# 读取捡取点击后的等待间隔。
+def get_getitem_step_wait_ms(app_settings):
+    return normalize_number(
+        app_settings.get("getitem_step_wait_ms"),
+        GETITEM_DEFAULT_STEP_WAIT_MS,
+        GETITEM_MIN_STEP_WAIT_MS,
+        GETITEM_MAX_STEP_WAIT_MS,
+    )
+
+
+# 更新捡取物品运行状态。
+def set_getitem_runtime_status(message="", target=None):
+    with getitem_runtime_lock:
+        if target is not None:
+            getitem_runtime_state["last_target"] = make_getitem_target_status(target)
+
+        if message:
+            getitem_runtime_state["last_message"] = message
+
+        return get_getitem_runtime_status_locked()
+
+
+# 复制捡取物品运行状态。
+def get_getitem_runtime_status():
+    with getitem_runtime_lock:
+        return get_getitem_runtime_status_locked()
+
+
+# 在已持有锁时复制捡取物品运行状态。
+def get_getitem_runtime_status_locked():
+    return {
+        "last_target": dict(getitem_runtime_state.get("last_target", {})),
+        "last_message": getitem_runtime_state.get("last_message", ""),
+    }
+
+
+# 生成捡取目标状态。
+def make_getitem_target_status(target):
+    if not target:
+        return {}
+
+    click = target.get("click", {})
+    position = target.get("position", {})
+    text_box = target.get("text_box", {})
+    return {
+        "keyword": str(target.get("keyword", "")),
+        "keyword_index": int(target.get("keyword_index", -1)),
+        "click_x": int(click.get("x", position.get("x", 0))),
+        "click_y": int(click.get("y", position.get("y", 0))),
+        "text_x": int(text_box.get("left", target.get("x", 0))),
+        "text_y": int(text_box.get("top", target.get("y", 0))),
+        "distance": int(target.get("distance", 0)),
     }
 
 

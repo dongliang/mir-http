@@ -1,11 +1,13 @@
 import time
 
+import api
+
 
 # idle 卡住保护默认时间：页面设置缺失时使用。
 IDLE_STUCK_DEFAULT_SECONDS = 30
 
 
-# 空闲状态：先检查卡住保护，再按开关进入战斗或巡逻移动状态。
+# 空闲状态：先检查卡住保护，再尝试捡物品，最后按开关进入战斗或巡逻移动状态。
 def update_frame(game_data, state_data):
     battle_control = game_data["battle_control"]
     patrol_control = game_data["patrol_control"]
@@ -13,6 +15,14 @@ def update_frame(game_data, state_data):
 
     if stuck_result:
         return stuck_result
+
+    getitem_result = api.should_enter_getitem(game_data)
+
+    if getitem_result.get("enter", False):
+        return {
+            "state": "getitem",
+            "message": getitem_result.get("message", "发现可捡物品，进入捡取物品状态"),
+        }
 
     if battle_control.get("enabled", False):
         return {
