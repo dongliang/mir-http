@@ -5245,3 +5245,912 @@
 [02:42:49] 状态切换: battle -> idle
 [02:42:49] 战斗开关已开启，进入战斗状态
 [02:42:49] 状态切换: idle -> battle
+[02:42:50] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:50] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:50] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:50] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:50] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:42:50] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:42:50] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:42:50] 状态切换: battle -> idle
+[02:42:50] 战斗开关已开启，进入战斗状态
+[02:42:50] 状态切换: idle -> battle
+[02:42:51] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:51] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:51] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:51] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:51] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:42:51] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:42:51] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:42:51] 状态切换: battle -> idle
+[02:42:51] 战斗开关已开启，进入战斗状态
+[02:42:51] 状态切换: idle -> battle
+[02:42:52] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:52] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:52] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:52] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:52] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:42:52] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:42:52] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:42:52] 状态切换: battle -> idle
+[02:42:53] 战斗开关已开启，进入战斗状态
+[02:42:53] 状态切换: idle -> battle
+[02:42:54] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:54] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:54] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:54] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:54] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:42:54] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:42:54] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:42:54] 状态切换: battle -> idle
+[02:42:54] 战斗开关已开启，进入战斗状态
+[02:42:54] 状态切换: idle -> battle
+[02:42:55] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:55] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:55] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:55] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:55] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:42:55] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:42:55] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:42:55] 状态切换: battle -> idle
+[02:42:55] 战斗开关已开启，进入战斗状态
+[02:42:55] 状态切换: idle -> battle
+[02:42:56] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:56] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:56] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:56] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:56] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:42:56] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:42:56] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:42:56] 状态切换: battle -> idle
+[02:42:56] 战斗开关已开启，进入战斗状态
+[02:42:56] 状态切换: idle -> battle
+[02:42:57] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:57] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:57] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:57] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:42:57] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:42:57] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:42:57] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:42:57] 状态切换: battle -> idle
+[02:42:57] 战斗开关已开启，进入战斗状态
+[02:42:57] 状态切换: idle -> battle
+[02:42:59] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:59] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:59] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:59] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:42:59] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:42:59] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:42:59] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:42:59] 状态切换: battle -> idle
+[02:42:59] 战斗开关已开启，进入战斗状态
+[02:42:59] 状态切换: idle -> battle
+[02:43:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:00] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:00] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:00] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:00] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:00] 状态切换: battle -> idle
+[02:43:00] 战斗开关已开启，进入战斗状态
+[02:43:00] 状态切换: idle -> battle
+[02:43:01] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:01] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:01] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:01] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:01] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:01] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:01] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:01] 状态切换: battle -> idle
+[02:43:01] 战斗开关已开启，进入战斗状态
+[02:43:01] 状态切换: idle -> battle
+[02:43:02] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:02] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:02] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:02] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:02] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:02] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:02] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:02] 状态切换: battle -> idle
+[02:43:02] 战斗开关已开启，进入战斗状态
+[02:43:02] 状态切换: idle -> battle
+[02:43:03] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:03] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:03] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:03] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:03] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:03] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:03] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:03] 状态切换: battle -> idle
+[02:43:03] 战斗开关已开启，进入战斗状态
+[02:43:03] 状态切换: idle -> battle
+[02:43:04] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:04] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:04] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:04] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:04] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:04] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:04] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:04] 状态切换: battle -> idle
+[02:43:04] 战斗开关已开启，进入战斗状态
+[02:43:04] 状态切换: idle -> battle
+[02:43:06] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:06] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:06] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:06] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:06] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:06] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:06] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:06] 状态切换: battle -> idle
+[02:43:06] 战斗开关已开启，进入战斗状态
+[02:43:06] 状态切换: idle -> battle
+[02:43:07] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:07] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:07] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:07] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:07] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:07] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:07] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:07] 状态切换: battle -> idle
+[02:43:07] 战斗开关已开启，进入战斗状态
+[02:43:07] 状态切换: idle -> battle
+[02:43:08] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:08] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:08] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:08] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:08] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:08] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:08] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:08] 状态切换: battle -> idle
+[02:43:08] 战斗开关已开启，进入战斗状态
+[02:43:08] 状态切换: idle -> battle
+[02:43:09] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:09] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:09] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:09] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:09] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:09] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:09] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:09] 状态切换: battle -> idle
+[02:43:09] 战斗开关已开启，进入战斗状态
+[02:43:09] 状态切换: idle -> battle
+[02:43:10] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:10] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:10] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:10] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:10] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:10] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:10] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:10] 状态切换: battle -> idle
+[02:43:10] 战斗开关已开启，进入战斗状态
+[02:43:10] 状态切换: idle -> battle
+[02:43:11] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:11] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:11] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:11] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:11] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:11] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:11] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:11] 状态切换: battle -> idle
+[02:43:12] 战斗开关已开启，进入战斗状态
+[02:43:12] 状态切换: idle -> battle
+[02:43:13] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:13] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:13] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:13] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:13] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:13] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:13] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:13] 状态切换: battle -> idle
+[02:43:13] 战斗开关已开启，进入战斗状态
+[02:43:13] 状态切换: idle -> battle
+[02:43:14] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:14] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:14] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:14] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:14] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:14] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:14] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:14] 状态切换: battle -> idle
+[02:43:14] 战斗开关已开启，进入战斗状态
+[02:43:14] 状态切换: idle -> battle
+[02:43:15] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:15] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:15] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:15] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:15] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:15] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:15] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:15] 状态切换: battle -> idle
+[02:43:15] 战斗开关已开启，进入战斗状态
+[02:43:15] 状态切换: idle -> battle
+[02:43:16] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:16] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:16] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:16] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:16] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:16] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:16] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:16] 状态切换: battle -> idle
+[02:43:16] 战斗开关已开启，进入战斗状态
+[02:43:16] 状态切换: idle -> battle
+[02:43:17] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:17] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:17] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:17] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:17] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:17] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:17] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:17] 状态切换: battle -> idle
+[02:43:17] 战斗开关已开启，进入战斗状态
+[02:43:17] 状态切换: idle -> battle
+[02:43:18] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:18] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:18] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:18] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:18] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:18] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:18] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:18] 状态切换: battle -> idle
+[02:43:19] 战斗开关已开启，进入战斗状态
+[02:43:19] 状态切换: idle -> battle
+[02:43:20] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:20] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:20] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:20] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:20] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:20] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:20] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:20] 状态切换: battle -> idle
+[02:43:20] 战斗开关已开启，进入战斗状态
+[02:43:20] 状态切换: idle -> battle
+[02:43:21] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:21] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:21] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:21] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:21] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:21] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:21] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:21] 状态切换: battle -> idle
+[02:43:21] 战斗开关已开启，进入战斗状态
+[02:43:21] 状态切换: idle -> battle
+[02:43:22] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:22] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:22] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:22] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:22] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:22] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:22] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:22] 状态切换: battle -> idle
+[02:43:22] 战斗开关已开启，进入战斗状态
+[02:43:22] 状态切换: idle -> battle
+[02:43:23] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:23] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:23] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:23] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:23] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:23] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:23] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:23] 状态切换: battle -> idle
+[02:43:23] 战斗开关已开启，进入战斗状态
+[02:43:23] 状态切换: idle -> battle
+[02:43:24] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:24] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:24] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:24] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:24] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:24] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:24] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:24] 状态切换: battle -> idle
+[02:43:25] 战斗开关已开启，进入战斗状态
+[02:43:25] 状态切换: idle -> battle
+[02:43:26] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:26] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:26] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:26] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:26] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:26] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:26] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:26] 状态切换: battle -> idle
+[02:43:26] 战斗开关已开启，进入战斗状态
+[02:43:26] 状态切换: idle -> battle
+[02:43:27] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:27] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:27] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:27] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:27] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:27] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:27] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:27] 状态切换: battle -> idle
+[02:43:27] 战斗开关已开启，进入战斗状态
+[02:43:27] 状态切换: idle -> battle
+[02:43:28] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:28] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:28] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:28] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:28] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:28] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:28] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:28] 状态切换: battle -> idle
+[02:43:28] 战斗开关已开启，进入战斗状态
+[02:43:28] 状态切换: idle -> battle
+[02:43:29] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:29] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:29] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:29] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:29] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:29] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:29] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:29] 状态切换: battle -> idle
+[02:43:29] 战斗开关已开启，进入战斗状态
+[02:43:29] 状态切换: idle -> battle
+[02:43:30] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:30] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:30] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:30] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:30] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:30] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:30] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:30] 状态切换: battle -> idle
+[02:43:30] 战斗开关已开启，进入战斗状态
+[02:43:30] 状态切换: idle -> battle
+[02:43:31] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:31] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:31] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:31] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:31] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:31] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:31] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:31] 状态切换: battle -> idle
+[02:43:32] 战斗开关已开启，进入战斗状态
+[02:43:32] 状态切换: idle -> battle
+[02:43:33] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:33] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[02:43:33] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:33] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[02:43:33] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[02:43:33] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[02:43:33] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:43:33] 状态切换: battle -> idle
+[02:43:33] 战斗开关已开启，进入战斗状态
+[02:43:33] 状态切换: idle -> battle
+[02:43:33] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:33] 状态切换: battle -> idle
+[02:43:34] 自动加血检测失败: 窗口尺寸异常 size=-32000x-32000
+[02:43:34] 战斗开关已开启，进入战斗状态
+[02:43:34] 状态切换: idle -> battle
+[02:43:34] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:34] 状态切换: battle -> idle
+[02:43:35] 战斗开关已开启，进入战斗状态
+[02:43:35] 状态切换: idle -> battle
+[02:43:35] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:35] 状态切换: battle -> idle
+[02:43:36] 战斗开关已开启，进入战斗状态
+[02:43:36] 状态切换: idle -> battle
+[02:43:36] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:36] 状态切换: battle -> idle
+[02:43:37] 战斗开关已开启，进入战斗状态
+[02:43:37] 状态切换: idle -> battle
+[02:43:37] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:37] 状态切换: battle -> idle
+[02:43:38] 战斗开关已开启，进入战斗状态
+[02:43:38] 状态切换: idle -> battle
+[02:43:38] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:38] 状态切换: battle -> idle
+[02:43:39] 战斗开关已开启，进入战斗状态
+[02:43:39] 状态切换: idle -> battle
+[02:43:39] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:39] 状态切换: battle -> idle
+[02:43:40] 战斗开关已开启，进入战斗状态
+[02:43:40] 状态切换: idle -> battle
+[02:43:40] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:40] 状态切换: battle -> idle
+[02:43:41] 战斗开关已开启，进入战斗状态
+[02:43:41] 状态切换: idle -> battle
+[02:43:41] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:41] 状态切换: battle -> idle
+[02:43:42] 战斗开关已开启，进入战斗状态
+[02:43:42] 状态切换: idle -> battle
+[02:43:42] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:42] 状态切换: battle -> idle
+[02:43:43] 战斗开关已开启，进入战斗状态
+[02:43:43] 状态切换: idle -> battle
+[02:43:43] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:43] 状态切换: battle -> idle
+[02:43:44] 战斗开关已开启，进入战斗状态
+[02:43:44] 状态切换: idle -> battle
+[02:43:44] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:44] 状态切换: battle -> idle
+[02:43:45] 战斗开关已开启，进入战斗状态
+[02:43:45] 状态切换: idle -> battle
+[02:43:45] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:45] 状态切换: battle -> idle
+[02:43:46] 战斗开关已开启，进入战斗状态
+[02:43:46] 状态切换: idle -> battle
+[02:43:46] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:46] 状态切换: battle -> idle
+[02:43:47] 战斗开关已开启，进入战斗状态
+[02:43:47] 状态切换: idle -> battle
+[02:43:47] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:47] 状态切换: battle -> idle
+[02:43:48] 战斗开关已开启，进入战斗状态
+[02:43:48] 状态切换: idle -> battle
+[02:43:49] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:49] 状态切换: battle -> idle
+[02:43:49] 战斗开关已开启，进入战斗状态
+[02:43:49] 状态切换: idle -> battle
+[02:43:50] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:50] 状态切换: battle -> idle
+[02:43:50] 战斗开关已开启，进入战斗状态
+[02:43:50] 状态切换: idle -> battle
+[02:43:51] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:51] 状态切换: battle -> idle
+[02:43:51] 战斗开关已开启，进入战斗状态
+[02:43:51] 状态切换: idle -> battle
+[02:43:52] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:52] 状态切换: battle -> idle
+[02:43:52] 战斗开关已开启，进入战斗状态
+[02:43:52] 状态切换: idle -> battle
+[02:43:53] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:53] 状态切换: battle -> idle
+[02:43:53] 战斗开关已开启，进入战斗状态
+[02:43:53] 状态切换: idle -> battle
+[02:43:54] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:54] 状态切换: battle -> idle
+[02:43:54] 战斗开关已开启，进入战斗状态
+[02:43:54] 状态切换: idle -> battle
+[02:43:55] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:55] 状态切换: battle -> idle
+[02:43:55] 战斗开关已开启，进入战斗状态
+[02:43:55] 状态切换: idle -> battle
+[02:43:56] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:56] 状态切换: battle -> idle
+[02:43:56] 战斗开关已开启，进入战斗状态
+[02:43:56] 状态切换: idle -> battle
+[02:43:57] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:57] 状态切换: battle -> idle
+[02:43:57] 战斗开关已开启，进入战斗状态
+[02:43:57] 状态切换: idle -> battle
+[02:43:58] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:58] 状态切换: battle -> idle
+[02:43:58] 战斗开关已开启，进入战斗状态
+[02:43:58] 状态切换: idle -> battle
+[02:43:59] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:43:59] 状态切换: battle -> idle
+[02:43:59] 战斗开关已开启，进入战斗状态
+[02:43:59] 状态切换: idle -> battle
+[02:44:00] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:00] 状态切换: battle -> idle
+[02:44:00] 战斗开关已开启，进入战斗状态
+[02:44:00] 状态切换: idle -> battle
+[02:44:01] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:01] 状态切换: battle -> idle
+[02:44:01] 战斗开关已开启，进入战斗状态
+[02:44:01] 状态切换: idle -> battle
+[02:44:02] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:02] 状态切换: battle -> idle
+[02:44:02] 战斗开关已开启，进入战斗状态
+[02:44:02] 状态切换: idle -> battle
+[02:44:03] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:03] 状态切换: battle -> idle
+[02:44:03] 战斗开关已开启，进入战斗状态
+[02:44:03] 状态切换: idle -> battle
+[02:44:04] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:04] 状态切换: battle -> idle
+[02:44:04] 战斗开关已开启，进入战斗状态
+[02:44:04] 状态切换: idle -> battle
+[02:44:05] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:05] 状态切换: battle -> idle
+[02:44:05] 战斗开关已开启，进入战斗状态
+[02:44:05] 状态切换: idle -> battle
+[02:44:06] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:06] 状态切换: battle -> idle
+[02:44:06] 战斗开关已开启，进入战斗状态
+[02:44:06] 状态切换: idle -> battle
+[02:44:07] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:07] 状态切换: battle -> idle
+[02:44:07] 战斗开关已开启，进入战斗状态
+[02:44:07] 状态切换: idle -> battle
+[02:44:08] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:08] 状态切换: battle -> idle
+[02:44:08] 战斗开关已开启，进入战斗状态
+[02:44:08] 状态切换: idle -> battle
+[02:44:09] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:09] 状态切换: battle -> idle
+[02:44:09] 战斗开关已开启，进入战斗状态
+[02:44:09] 状态切换: idle -> battle
+[02:44:10] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:10] 状态切换: battle -> idle
+[02:44:11] 战斗开关已开启，进入战斗状态
+[02:44:11] 状态切换: idle -> battle
+[02:44:11] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:11] 状态切换: battle -> idle
+[02:44:12] 战斗开关已开启，进入战斗状态
+[02:44:12] 状态切换: idle -> battle
+[02:44:12] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:12] 状态切换: battle -> idle
+[02:44:13] 战斗开关已开启，进入战斗状态
+[02:44:13] 状态切换: idle -> battle
+[02:44:13] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:13] 状态切换: battle -> idle
+[02:44:14] 战斗开关已开启，进入战斗状态
+[02:44:14] 状态切换: idle -> battle
+[02:44:14] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:14] 状态切换: battle -> idle
+[02:44:15] 战斗开关已开启，进入战斗状态
+[02:44:15] 状态切换: idle -> battle
+[02:44:15] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:15] 状态切换: battle -> idle
+[02:44:16] 战斗开关已开启，进入战斗状态
+[02:44:16] 状态切换: idle -> battle
+[02:44:16] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:16] 状态切换: battle -> idle
+[02:44:17] 战斗开关已开启，进入战斗状态
+[02:44:17] 状态切换: idle -> battle
+[02:44:17] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:17] 状态切换: battle -> idle
+[02:44:18] 战斗开关已开启，进入战斗状态
+[02:44:18] 状态切换: idle -> battle
+[02:44:18] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:18] 状态切换: battle -> idle
+[02:44:19] 战斗开关已开启，进入战斗状态
+[02:44:19] 状态切换: idle -> battle
+[02:44:19] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:19] 状态切换: battle -> idle
+[02:44:20] 战斗开关已开启，进入战斗状态
+[02:44:20] 状态切换: idle -> battle
+[02:44:20] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:20] 状态切换: battle -> idle
+[02:44:21] 战斗开关已开启，进入战斗状态
+[02:44:21] 状态切换: idle -> battle
+[02:44:21] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:21] 状态切换: battle -> idle
+[02:44:22] 战斗开关已开启，进入战斗状态
+[02:44:22] 状态切换: idle -> battle
+[02:44:22] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:22] 状态切换: battle -> idle
+[02:44:23] 战斗开关已开启，进入战斗状态
+[02:44:23] 状态切换: idle -> battle
+[02:44:23] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:23] 状态切换: battle -> idle
+[02:44:24] 战斗开关已开启，进入战斗状态
+[02:44:24] 状态切换: idle -> battle
+[02:44:24] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:24] 状态切换: battle -> idle
+[02:44:25] 战斗开关已开启，进入战斗状态
+[02:44:25] 状态切换: idle -> battle
+[02:44:25] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:25] 状态切换: battle -> idle
+[02:44:26] 战斗开关已开启，进入战斗状态
+[02:44:26] 状态切换: idle -> battle
+[02:44:26] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:26] 状态切换: battle -> idle
+[02:44:27] 战斗开关已开启，进入战斗状态
+[02:44:27] 状态切换: idle -> battle
+[02:44:27] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:27] 状态切换: battle -> idle
+[02:44:28] 战斗开关已开启，进入战斗状态
+[02:44:28] 状态切换: idle -> battle
+[02:44:28] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:28] 状态切换: battle -> idle
+[02:44:29] 战斗开关已开启，进入战斗状态
+[02:44:29] 状态切换: idle -> battle
+[02:44:29] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:29] 状态切换: battle -> idle
+[02:44:30] 战斗开关已开启，进入战斗状态
+[02:44:30] 状态切换: idle -> battle
+[02:44:30] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:30] 状态切换: battle -> idle
+[02:44:31] 战斗开关已开启，进入战斗状态
+[02:44:31] 状态切换: idle -> battle
+[02:44:31] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:31] 状态切换: battle -> idle
+[02:44:32] 战斗开关已开启，进入战斗状态
+[02:44:32] 状态切换: idle -> battle
+[02:44:32] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:32] 状态切换: battle -> idle
+[02:44:33] 战斗开关已开启，进入战斗状态
+[02:44:33] 状态切换: idle -> battle
+[02:44:33] 战斗扫描失败，回到 idle: 窗口尺寸异常 size=-32000x-32000
+[02:44:33] 状态切换: battle -> idle
+[02:44:34] 战斗开关已开启，进入战斗状态
+[02:44:34] 状态切换: idle -> battle
+[02:44:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=732,406,832,426 file=
+[02:44:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=732,406,832,426 file=
+[02:44:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=732,406,832,426 file=
+[02:44:36] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=732,406,832,426 file=
+[02:44:36] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':::::::' reject=no_chinese_text box=732,406,832,426 file=
+[02:44:36] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=732,406,832,426 file=
+[02:44:36] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=732,406,832,426 file=
+[02:44:36] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=732,406,832,426 file=
+[02:44:36] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=732,406,832,426 file=
+[02:44:36] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::::' reject=no_chinese_text box=732,406,832,426 file=
+[02:44:36] 怪物名称识别完成 name=未识别 text=:::: raw=:::: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 766, 'top': 370, 'right': 798, 'bottom': 374} pos=782,419
+[02:44:36] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:44:36] 状态切换: battle -> idle
+[02:44:36] 战斗开关已开启，进入战斗状态
+[02:44:36] 状态切换: idle -> battle
+[02:44:37] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=580,475,680,495 file=
+[02:44:37] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=580,475,680,495 file=
+[02:44:37] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=580,475,680,495 file=
+[02:44:37] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=580,475,680,495 file=
+[02:44:37] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=580,475,680,495 file=
+[02:44:37] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=580,475,680,495 file=
+[02:44:37] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=580,475,680,495 file=
+[02:44:37] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=580,475,680,495 file=
+[02:44:37] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=580,475,680,495 file=
+[02:44:37] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':::::' reject=no_chinese_text box=580,475,680,495 file=
+[02:44:37] 怪物名称识别完成 name=未识别 text=::::: raw=::::: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 614, 'top': 439, 'right': 646, 'bottom': 443} pos=630,488
+[02:44:37] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:44:37] 状态切换: battle -> idle
+[02:44:37] 战斗开关已开启，进入战斗状态
+[02:44:38] 状态切换: idle -> battle
+[02:44:39] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=396,598,496,618 file=
+[02:44:39] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=396,598,496,618 file=
+[02:44:39] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=396,598,496,618 file=
+[02:44:39] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=396,598,496,618 file=
+[02:44:39] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=396,598,496,618 file=
+[02:44:39] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=396,598,496,618 file=
+[02:44:39] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=396,598,496,618 file=
+[02:44:39] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=396,598,496,618 file=
+[02:44:39] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=396,598,496,618 file=
+[02:44:39] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=396,598,496,618 file=
+[02:44:39] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 430, 'top': 562, 'right': 462, 'bottom': 566} pos=446,611
+[02:44:39] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:44:39] 状态切换: battle -> idle
+[02:44:39] 战斗开关已开启，进入战斗状态
+[02:44:39] 状态切换: idle -> battle
+[02:44:41] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=572,192,672,212 file=
+[02:44:41] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=572,192,672,212 file=
+[02:44:41] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=572,192,672,212 file=
+[02:44:41] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=572,192,672,212 file=
+[02:44:41] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=572,192,672,212 file=
+[02:44:41] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=572,192,672,212 file=
+[02:44:41] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=572,192,672,212 file=
+[02:44:41] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=572,192,672,212 file=
+[02:44:41] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=572,192,672,212 file=
+[02:44:41] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=572,192,672,212 file=
+[02:44:41] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 606, 'top': 156, 'right': 638, 'bottom': 160} pos=622,205
+[02:44:41] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:44:41] 状态切换: battle -> idle
+[02:44:41] 自动加血检测失败: 没有找到自身绿色血条
+[02:44:41] 战斗开关已开启，进入战斗状态
+[02:44:41] 状态切换: idle -> battle
+[02:44:42] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=572,256,672,276 file=
+[02:44:42] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=572,256,672,276 file=
+[02:44:42] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=572,256,672,276 file=
+[02:44:42] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=572,256,672,276 file=
+[02:44:42] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='' reject= box=572,256,672,276 file=
+[02:44:42] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=572,256,672,276 file=
+[02:44:42] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=572,256,672,276 file=
+[02:44:42] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=572,256,672,276 file=
+[02:44:42] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=572,256,672,276 file=
+[02:44:42] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=572,256,672,276 file=
+[02:44:42] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 606, 'top': 220, 'right': 638, 'bottom': 224} pos=622,269
+[02:44:42] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:44:42] 状态切换: battle -> idle
+[02:44:43] 战斗开关已开启，进入战斗状态
+[02:44:43] 状态切换: idle -> battle
+[02:44:45] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=460,267,560,287 file=
+[02:44:45] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=460,267,560,287 file=
+[02:44:45] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=460,267,560,287 file=
+[02:44:45] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=460,267,560,287 file=
+[02:44:45] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=460,267,560,287 file=
+[02:44:45] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=460,267,560,287 file=
+[02:44:45] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=460,267,560,287 file=
+[02:44:45] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=460,267,560,287 file=
+[02:44:45] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=460,267,560,287 file=
+[02:44:45] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=460,267,560,287 file=
+[02:44:45] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 494, 'top': 231, 'right': 526, 'bottom': 235} pos=510,280
+[02:44:45] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=220,587,320,607 file=
+[02:44:45] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=220,587,320,607 file=
+[02:44:45] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=220,587,320,607 file=
+[02:44:45] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=220,587,320,607 file=
+[02:44:45] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=220,587,320,607 file=
+[02:44:45] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 254, 'top': 551, 'right': 286, 'bottom': 555} pos=270,600
+[02:44:45] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[02:44:45] 状态切换: battle -> idle
+[02:44:45] 战斗开关已开启，进入战斗状态
+[02:44:45] 状态切换: idle -> battle
+[02:44:47] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=508,320,608,340 file=
+[02:44:47] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=508,320,608,340 file=
+[02:44:47] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=508,320,608,340 file=
+[02:44:47] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=508,320,608,340 file=
+[02:44:47] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=508,320,608,340 file=
+[02:44:47] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=508,320,608,340 file=
+[02:44:47] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=508,320,608,340 file=
+[02:44:47] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=508,320,608,340 file=
+[02:44:47] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=508,320,608,340 file=
+[02:44:47] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=508,320,608,340 file=
+[02:44:47] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 542, 'top': 284, 'right': 574, 'bottom': 288} pos=558,333
+[02:44:47] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=308,624,408,644 file=
+[02:44:47] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=308,624,408,644 file=
+[02:44:47] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='163163' reject=no_chinese_text box=308,624,408,644 file=
+[02:44:47] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=308,624,408,644 file=
+[02:44:47] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=308,624,408,644 file=
+[02:44:47] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=308,624,408,644 file=
+[02:44:47] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=308,624,408,644 file=
+[02:44:47] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=308,624,408,644 file=
+[02:44:47] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=308,624,408,644 file=
+[02:44:47] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=308,624,408,644 file=
+[02:44:47] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 342, 'top': 588, 'right': 374, 'bottom': 592} pos=358,637
+[02:44:47] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[02:44:47] 状态切换: battle -> idle
+[02:44:48] 战斗开关已开启，进入战斗状态
+[02:44:48] 状态切换: idle -> battle
+[02:44:49] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=556,534,656,554 file=
+[02:44:49] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=556,534,656,554 file=
+[02:44:49] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=556,534,656,554 file=
+[02:44:49] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=556,534,656,554 file=
+[02:44:49] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=556,534,656,554 file=
+[02:44:49] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=556,534,656,554 file=
+[02:44:49] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=556,534,656,554 file=
+[02:44:49] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=556,534,656,554 file=
+[02:44:49] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=556,534,656,554 file=
+[02:44:49] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=556,534,656,554 file=
+[02:44:49] 怪物名称识别完成 name=未识别 text=::: raw=::: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 590, 'top': 498, 'right': 622, 'bottom': 502} pos=606,547
+[02:44:49] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[02:44:49] 状态切换: battle -> idle
+[02:44:49] 战斗开关已开启，进入战斗状态
+[02:44:49] 状态切换: idle -> battle
+[02:44:52] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=156,118,256,138 file=
+[02:44:52] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=156,118,256,138 file=
+[02:44:52] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=156,118,256,138 file=
+[02:44:52] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=156,118,256,138 file=
+[02:44:52] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':::::::' reject=no_chinese_text box=156,118,256,138 file=
+[02:44:52] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=156,118,256,138 file=
+[02:44:52] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=156,118,256,138 file=
+[02:44:52] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=156,118,256,138 file=
+[02:44:52] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=156,118,256,138 file=
+[02:44:52] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=156,118,256,138 file=
+[02:44:52] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 190, 'top': 82, 'right': 222, 'bottom': 86} pos=206,131
+[02:44:52] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1324,43,1424,63 file=
+[02:44:52] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1324,43,1424,63 file=
+[02:44:52] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=1324,43,1424,63 file=
+[02:44:52] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=1324,43,1424,63 file=
+[02:44:52] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='::::' reject=no_chinese_text box=1324,43,1424,63 file=
+[02:44:52] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=1324,43,1424,63 file=
+[02:44:52] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=1324,43,1424,63 file=
+[02:44:52] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=1324,43,1424,63 file=
+[02:44:52] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=1324,43,1424,63 file=
+[02:44:52] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=1324,43,1424,63 file=
+[02:44:52] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 1358, 'top': 7, 'right': 1390, 'bottom': 11} pos=1374,56
+[02:44:52] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[02:44:52] 状态切换: battle -> idle
+[02:44:52] 战斗开关已开启，进入战斗状态
+[02:44:52] 状态切换: idle -> battle
+[02:44:55] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=988,267,1088,287 file=
+[02:44:55] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=988,267,1088,287 file=
+[02:44:55] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=988,267,1088,287 file=
+[02:44:55] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=988,267,1088,287 file=
+[02:44:55] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=988,267,1088,287 file=
+[02:44:55] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=988,267,1088,287 file=
+[02:44:55] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=988,267,1088,287 file=
+[02:44:55] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=988,267,1088,287 file=
+[02:44:55] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=988,267,1088,287 file=
+[02:44:55] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=988,267,1088,287 file=
+[02:44:55] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 1022, 'top': 231, 'right': 1054, 'bottom': 235} pos=1038,280
+[02:44:55] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=316,299,416,319 file=
+[02:44:55] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=316,299,416,319 file=
+[02:44:55] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=316,299,416,319 file=
+[02:44:55] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=316,299,416,319 file=
+[02:44:55] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=316,299,416,319 file=
+[02:44:55] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=316,299,416,319 file=
+[02:44:55] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=316,299,416,319 file=
+[02:44:55] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=316,299,416,319 file=
+[02:44:55] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=316,299,416,319 file=
+[02:44:55] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=316,299,416,319 file=
+[02:44:55] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 350, 'top': 263, 'right': 382, 'bottom': 267} pos=366,312
+[02:44:55] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[02:44:55] 状态切换: battle -> idle
+[02:44:55] 战斗开关已开启，进入战斗状态
+[02:44:55] 状态切换: idle -> battle
+[02:45:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,331,464,351 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,331,464,351 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=364,331,464,351 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=364,331,464,351 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=364,331,464,351 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,331,464,351 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=364,331,464,351 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=364,331,464,351 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=364,331,464,351 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=364,331,464,351 file=
+[02:45:00] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 398, 'top': 295, 'right': 430, 'bottom': 299} pos=414,344
+[02:45:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1180,395,1280,415 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1180,395,1280,415 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=1180,395,1280,415 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=1180,395,1280,415 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='' reject= box=1180,395,1280,415 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=1180,395,1280,415 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=1180,395,1280,415 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=1180,395,1280,415 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=1180,395,1280,415 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='' reject= box=1180,395,1280,415 file=
+[02:45:00] 怪物名称识别完成 name=未识别 text= raw= mask= color=37afe7-101010 attempt=2 reject= bar={'left': 1214, 'top': 359, 'right': 1246, 'bottom': 363} pos=1230,408
+[02:45:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1324,139,1424,159 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1324,139,1424,159 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=1324,139,1424,159 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=1324,139,1424,159 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='::::' reject=no_chinese_text box=1324,139,1424,159 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=1324,139,1424,159 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=1324,139,1424,159 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=1324,139,1424,159 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=1324,139,1424,159 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::::' reject=no_chinese_text box=1324,139,1424,159 file=
+[02:45:00] 怪物名称识别完成 name=未识别 text=:::: raw=:::: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 1358, 'top': 103, 'right': 1390, 'bottom': 107} pos=1374,152
+[02:45:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=28,459,128,479 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=28,459,128,479 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=28,459,128,479 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=28,459,128,479 file=
+[02:45:00] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=28,459,128,479 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=28,459,128,479 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=28,459,128,479 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=28,459,128,479 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=28,459,128,479 file=
+[02:45:00] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=28,459,128,479 file=
+[02:45:00] 怪物名称识别完成 name=未识别 text=::: raw=::: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 62, 'top': 423, 'right': 94, 'bottom': 427} pos=78,472
+[02:45:00] 扫描到 4 个怪物，但没有符合怪物清单的目标，跳过 4 个，留在原地继续扫描
+[02:45:00] 状态切换: battle -> idle
+[02:45:00] 战斗开关已开启，进入战斗状态
+[02:45:00] 状态切换: idle -> battle
+[02:45:01] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,331,464,351 file=
+[02:45:01] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,331,464,351 file=
+[02:45:01] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,331,464,351 file=
+[02:45:01] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 295, 'right': 430, 'bottom': 299} pos=414,344
+[02:45:01] 开始攻击怪物 hp=100% distance=389 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=344 last_error=0 hp=100% distance=389 matched=僵尸 text='僵尸 僵尸 僵尸'
+[02:45:03] 本轮攻击等待结束，回到 idle
+[02:45:03] 状态切换: battle -> idle
+[02:45:04] 战斗开关已开启，进入战斗状态
+[02:45:04] 状态切换: idle -> battle
+[02:45:05] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:05] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:05] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,331,800,351 file=
+[02:45:05] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[02:45:05] 开始攻击怪物 hp=90% distance=78 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=90% distance=78 matched=僵尸 text='僵尸 僵尸 僵尸'
+[02:45:08] 本轮攻击等待结束，回到 idle
+[02:45:08] 状态切换: battle -> idle
+[02:45:08] 战斗开关已开启，进入战斗状态
+[02:45:08] 状态切换: idle -> battle
+[02:45:12] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=700,331,800,351 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=700,331,800,351 file=
+[02:45:12] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[02:45:12] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=364,459,464,479 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=364,459,464,479 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=364,459,464,479 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=364,459,464,479 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=364,459,464,479 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=364,459,464,479 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=364,459,464,479 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=364,459,464,479 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=364,459,464,479 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=364,459,464,479 file=
+[02:45:12] 怪物名称识别完成 name=未识别 text=::: raw=::: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 398, 'top': 423, 'right': 430, 'bottom': 427} pos=414,472
+[02:45:12] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1516,395,1600,415 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1516,395,1600,415 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=1516,395,1600,415 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=1516,395,1600,415 file=
+[02:45:12] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='' reject= box=1516,395,1600,415 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=1516,395,1600,415 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=1516,395,1600,415 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=1516,395,1600,415 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=1516,395,1600,415 file=
+[02:45:12] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='' reject= box=1516,395,1600,415 file=
+[02:45:12] 怪物名称识别完成 name=未识别 text= raw= mask= color=37afe7-101010 attempt=2 reject= bar={'left': 1550, 'top': 359, 'right': 1582, 'bottom': 363} pos=1566,408
+[02:45:12] 扫描到 3 个怪物，但没有符合怪物清单的目标，跳过 3 个，留在原地继续扫描
+[02:45:12] 状态切换: battle -> idle
+[02:45:12] 战斗开关已开启，进入战斗状态
+[02:45:12] 状态切换: idle -> battle
+[02:45:13] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:13] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[02:45:13] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,331,800,351 file=
+[02:45:13] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[02:45:13] 开始攻击怪物 hp=40% distance=78 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=40% distance=78 matched=僵尸 text='僵尸 僵尸 僵尸'

@@ -619,6 +619,22 @@ def create_server(
             "status": current_status(),
         })
 
+    # 拾取测试接口：强制进入 getitem 状态，方便不启动战斗/巡逻时手动验证。
+    @rt("/api/getitem/test")
+    def post():
+        current_state["name"] = "getitem"
+        current_state["data"] = {
+            "manual_test": True,
+        }
+        message = "拾取测试已进入 getitem 状态"
+        api.set_getitem_runtime_status(message=message, target={})
+        log.write(message)
+        return JSONResponse({
+            "success": True,
+            "message": message,
+            "status": current_status(),
+        })
+
     # 怪物名 Debug 图开关接口：只控制是否保存本次运行的识别截图。
     @rt("/api/monster-name-debug/settings")
     async def post(request: Request):
@@ -662,6 +678,7 @@ def create_buttons(app_settings):
         Button("测试键盘(M)", onclick="pressKeyboard('M')"),
         Button("检测怪物列表", onclick="scanMonsters()"),
         Button("重载TXT配置", onclick="postApi('/api/monsters/reload-list')"),
+        Button("拾取测试", onclick="postApi('/api/getitem/test')"),
         Button("复写配置", onclick="postApi('/api/accounts/overwrite-configs')"),
         Button("绑定地图", onclick="bindMap()"),
         Button("保存巡逻点", onclick="savePatrolPoints()"),

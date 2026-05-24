@@ -6,8 +6,9 @@ import api
 # 捡取物品状态：一次只追踪一个物品，点一下走一步，直到该目标消失。
 def update_frame(game_data, state_data):
     settings = game_data.get("settings", {})
+    manual_test = bool(state_data.get("manual_test", False))
 
-    if not settings.get("getitem_enabled", False):
+    if not manual_test and not settings.get("getitem_enabled", False):
         message = "捡取物品开关已关闭，回到 idle"
         api.set_getitem_runtime_status(message=message, target={})
         return {
@@ -15,7 +16,7 @@ def update_frame(game_data, state_data):
             "message": message,
         }
 
-    if not is_auto_flow_enabled(game_data):
+    if not manual_test and not is_auto_flow_enabled(game_data):
         message = "战斗和巡逻开关均已关闭，捡取物品回到 idle"
         api.set_getitem_runtime_status(message=message, target={})
         return {
