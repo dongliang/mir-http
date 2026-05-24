@@ -17,10 +17,10 @@
 
 - `start.bat`：使用内置 Python 启动 `py/app.py`，通常会以管理员权限运行。
 - `runtime\python310\python.exe py\app.py`：从项目根目录直接启动服务。
-- `safe_shutdown.bat`：停止本项目 Python 进程，并检查 `8765` 端口。
+- `safe_shutdown.bat`：停止本项目 Python 服务进程，并检查它们占用过的监听端口。
 - `runtime\python310\python.exe -m compileall py`：快速检查 `py/` 代码语法。
 
-本地服务地址固定为 `http://127.0.0.1:8765`。
+`start.bat` 每次启动会随机选择一个可用四位端口，终端会显示实际服务地址。
 
 ### 代码风格与命名
 
@@ -57,7 +57,7 @@
 - 搜索和改代码默认排除 `vendor/`、`runtime/`、`screenshots/`。
 - 业务 Python 脚本统一放在 `py/`，启动入口是 `py/app.py`。
 - `py/` 内脚本的路径基准仍然是项目根目录，`runtime/`、`vendor/`、`screenshots/`、`log.txt` 都留在根目录。
-- 服务地址固定 `http://127.0.0.1:8765`。
+- `start.bat` 每次启动随机选择一个可用四位端口，服务地址以终端输出为准。
 
 ## 依赖架构
 

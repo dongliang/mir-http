@@ -1,186 +1,1085 @@
-[00:00:03] 日志开始
-[00:00:03] 程序启动: HTTP 服务模式
-[00:00:03] TXT 配置加载完成 monsters=7 colors=4
-[00:00:03] 开始初始化 OP
-[00:00:03] OP 版本: 0.4.5.0
-[00:00:03] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
-[00:00:03] OP 初始化成功
-[00:00:03] HTTP 服务启动: http://127.0.0.1:8765
-[00:00:11] 绑定成功 hwnd=198352 title=^纵横四海 - 妖孽 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；玩家名称定位成功 name=妖孽 name_center=798,373 foot=798,405 method=op_dict
-[00:00:16] 战斗开关已打开，巡逻开关已关闭
-[00:00:17] 战斗开关已开启，进入战斗状态
-[00:00:17] 状态切换: idle -> battle
-[00:00:18] 怪物名称识别完成 name=: text=: raw=: mask= color=00f7f7-101010 attempt=2 reject= bar={'left': 694, 'top': 268, 'right': 726, 'bottom': 272} pos=710,317
-[00:00:18] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:18] 状态切换: battle -> idle
-[00:00:18] 战斗开关已开启，进入战斗状态
-[00:00:18] 状态切换: idle -> battle
-[00:00:19] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:19] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:19] 状态切换: battle -> idle
-[00:00:19] 战斗开关已开启，进入战斗状态
-[00:00:19] 状态切换: idle -> battle
-[00:00:20] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:20] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:20] 状态切换: battle -> idle
-[00:00:20] 战斗开关已开启，进入战斗状态
-[00:00:20] 状态切换: idle -> battle
-[00:00:21] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:21] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:21] 状态切换: battle -> idle
-[00:00:21] 战斗开关已开启，进入战斗状态
-[00:00:21] 状态切换: idle -> battle
-[00:00:22] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:22] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:22] 状态切换: battle -> idle
-[00:00:22] 战斗开关已开启，进入战斗状态
-[00:00:22] 状态切换: idle -> battle
-[00:00:23] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:23] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:23] 状态切换: battle -> idle
-[00:00:23] 战斗开关已开启，进入战斗状态
-[00:00:23] 状态切换: idle -> battle
-[00:00:24] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:24] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:24] 状态切换: battle -> idle
-[00:00:24] 战斗开关已开启，进入战斗状态
-[00:00:24] 状态切换: idle -> battle
-[00:00:26] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:26] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:26] 状态切换: battle -> idle
-[00:00:26] 战斗开关已开启，进入战斗状态
-[00:00:26] 状态切换: idle -> battle
-[00:00:27] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:27] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:27] 状态切换: battle -> idle
-[00:00:27] 战斗开关已开启，进入战斗状态
-[00:00:27] 状态切换: idle -> battle
-[00:00:28] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:28] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:28] 状态切换: battle -> idle
-[00:00:28] 战斗开关已开启，进入战斗状态
-[00:00:28] 状态切换: idle -> battle
-[00:00:29] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:29] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:29] 状态切换: battle -> idle
-[00:00:29] 战斗开关已开启，进入战斗状态
-[00:00:29] 状态切换: idle -> battle
-[00:00:30] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:30] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:30] 状态切换: battle -> idle
-[00:00:30] 战斗开关已开启，进入战斗状态
-[00:00:30] 状态切换: idle -> battle
-[00:00:32] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:32] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:32] 状态切换: battle -> idle
-[00:00:32] 战斗开关已开启，进入战斗状态
-[00:00:32] 状态切换: idle -> battle
-[00:00:33] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:33] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:33] 状态切换: battle -> idle
-[00:00:33] 战斗开关已开启，进入战斗状态
-[00:00:33] 状态切换: idle -> battle
-[00:00:34] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:34] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:34] 状态切换: battle -> idle
-[00:00:34] 战斗开关已开启，进入战斗状态
-[00:00:34] 状态切换: idle -> battle
-[00:00:35] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:35] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:35] 状态切换: battle -> idle
-[00:00:35] 战斗开关已开启，进入战斗状态
-[00:00:35] 状态切换: idle -> battle
-[00:00:36] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:36] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:36] 状态切换: battle -> idle
-[00:00:36] 战斗开关已开启，进入战斗状态
-[00:00:36] 状态切换: idle -> battle
-[00:00:37] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:37] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:37] 状态切换: battle -> idle
-[00:00:37] 战斗开关已开启，进入战斗状态
-[00:00:37] 状态切换: idle -> battle
-[00:00:39] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:39] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:39] 状态切换: battle -> idle
-[00:00:39] 战斗开关已开启，进入战斗状态
-[00:00:39] 状态切换: idle -> battle
-[00:00:40] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:40] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:40] 状态切换: battle -> idle
-[00:00:40] 战斗开关已开启，进入战斗状态
-[00:00:40] 状态切换: idle -> battle
-[00:00:41] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:41] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:41] 状态切换: battle -> idle
-[00:00:41] 战斗开关已开启，进入战斗状态
-[00:00:41] 状态切换: idle -> battle
-[00:00:42] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:42] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:42] 状态切换: battle -> idle
-[00:00:42] 战斗开关已开启，进入战斗状态
-[00:00:42] 状态切换: idle -> battle
-[00:00:43] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:43] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:43] 状态切换: battle -> idle
-[00:00:43] 战斗开关已开启，进入战斗状态
-[00:00:43] 状态切换: idle -> battle
-[00:00:44] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:44] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:44] 状态切换: battle -> idle
-[00:00:44] 战斗开关已开启，进入战斗状态
-[00:00:44] 状态切换: idle -> battle
-[00:00:45] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:45] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:45] 状态切换: battle -> idle
-[00:00:45] 战斗开关已开启，进入战斗状态
-[00:00:45] 状态切换: idle -> battle
-[00:00:46] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:46] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:46] 状态切换: battle -> idle
-[00:00:46] 战斗开关已开启，进入战斗状态
-[00:00:46] 状态切换: idle -> battle
-[00:00:48] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:48] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:48] 状态切换: battle -> idle
-[00:00:48] 战斗开关已开启，进入战斗状态
-[00:00:48] 状态切换: idle -> battle
-[00:00:49] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:49] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:49] 状态切换: battle -> idle
-[00:00:49] 战斗开关已开启，进入战斗状态
-[00:00:49] 状态切换: idle -> battle
-[00:00:50] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:50] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:50] 状态切换: battle -> idle
-[00:00:50] 战斗开关已开启，进入战斗状态
-[00:00:50] 状态切换: idle -> battle
-[00:00:51] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:51] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:51] 状态切换: battle -> idle
-[00:00:51] 战斗开关已开启，进入战斗状态
-[00:00:51] 状态切换: idle -> battle
-[00:00:52] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:52] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:52] 状态切换: battle -> idle
-[00:00:52] 战斗开关已开启，进入战斗状态
-[00:00:52] 状态切换: idle -> battle
-[00:00:53] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:53] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:53] 状态切换: battle -> idle
-[00:00:53] 战斗开关已开启，进入战斗状态
-[00:00:53] 状态切换: idle -> battle
-[00:00:54] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:54] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:54] 状态切换: battle -> idle
-[00:00:54] 战斗开关已开启，进入战斗状态
-[00:00:54] 状态切换: idle -> battle
-[00:00:55] 战斗开关已关闭
-[00:00:55] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[00:00:55] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
-[00:00:55] 状态切换: battle -> idle
-[00:06:11] 点击成功 button=right method=down_up(1,1) x=928 y=405 last_error=0 client_size=1600x900
-[00:06:12] 点击成功 button=right method=down_up(1,1) x=668 y=405 last_error=0 client_size=1600x900
-[00:06:13] 点击成功 button=right method=down_up(1,1) x=668 y=275 last_error=0 client_size=1600x900
-[00:06:14] 点击成功 button=right method=down_up(1,1) x=928 y=535 last_error=0 client_size=1600x900
-[00:06:15] 点击成功 button=right method=down_up(1,1) x=798 y=535 last_error=0 client_size=1600x900
+[00:38:49] 日志开始
+[00:38:49] 程序启动: HTTP 服务模式
+[00:38:49] TXT 配置加载完成 monsters=7 colors=4
+[00:38:49] 开始初始化 OP
+[00:38:49] OP 版本: 0.4.5.0
+[00:38:49] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
+[00:38:49] OP 初始化成功
+[00:38:49] HTTP 服务启动: http://127.0.0.1:4343
+[00:39:04] 绑定成功 hwnd=198352 title=^纵横四海 - 妖孽 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；玩家名称定位成功 name=妖孽 name_center=798,373 foot=798,405 method=op_dict
+[00:39:14] 战斗开关已打开，巡逻开关已关闭
+[00:39:14] 战斗开关已开启，进入战斗状态
+[00:39:14] 状态切换: idle -> battle
+[00:39:17] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=794,432,894,452 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003915_202300_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='::' reject=no_chinese_text box=794,432,894,452 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003915_202300_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=794,432,894,452 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003915_202300_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=794,432,894,452 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003915_202300_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=794,432,894,452 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003915_202300_raw_2.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='::' reject=no_chinese_text box=794,432,894,452 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003915_202300_raw_2.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=794,432,894,452 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003915_202300_raw_2.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=794,432,894,452 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003915_202300_raw_2.bmp
+[00:39:17] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 830, 'top': 396, 'right': 857, 'bottom': 400} pos=844,445
+[00:39:17] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=844,331,944,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_065200_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=844,331,944,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_065200_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=844,331,944,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_065200_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=844,331,944,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_065200_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=844,331,944,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_065200_raw_2.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=844,331,944,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_065200_raw_2.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=844,331,944,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_065200_raw_2.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=844,331,944,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_065200_raw_2.bmp
+[00:39:17] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 878, 'top': 295, 'right': 910, 'bottom': 299} pos=894,344
+[00:39:17] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=940,107,1040,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_170300_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=940,107,1040,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_170300_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=940,107,1040,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_170300_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=940,107,1040,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_170300_raw_1.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=940,107,1040,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_170300_raw_2.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=940,107,1040,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_170300_raw_2.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=940,107,1040,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_170300_raw_2.bmp
+[00:39:17] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=940,107,1040,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003916_170300_raw_2.bmp
+[00:39:17] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 974, 'top': 71, 'right': 1006, 'bottom': 75} pos=990,120
+[00:39:17] 扫描到 3 个怪物，但没有符合怪物清单的目标，跳过 3 个，留在原地继续扫描
+[00:39:17] 状态切换: battle -> idle
+[00:39:17] 战斗开关已开启，进入战斗状态
+[00:39:17] 状态切换: idle -> battle
+[00:39:19] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_783300_raw_1.bmp
+[00:39:19] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_783300_raw_1.bmp
+[00:39:19] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='孽' reject= box=796,363,896,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_783300_raw_1.bmp
+[00:39:19] 怪物名称识别完成 name=孽 text=孽 raw=孽 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[00:39:19] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=818,475,918,495 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_131300_raw_1.bmp
+[00:39:19] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=818,475,918,495 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_131300_raw_1.bmp
+[00:39:19] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=818,475,918,495 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_131300_raw_1.bmp
+[00:39:19] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=818,475,918,495 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_131300_raw_1.bmp
+[00:39:19] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=818,475,918,495 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_131300_raw_2.bmp
+[00:39:19] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=818,475,918,495 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_131300_raw_2.bmp
+[00:39:19] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=818,475,918,495 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_131300_raw_2.bmp
+[00:39:19] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=818,475,918,495 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_131300_raw_2.bmp
+[00:39:19] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 854, 'top': 439, 'right': 881, 'bottom': 443} pos=868,488
+[00:39:19] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=892,139,992,159 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_851800_raw_1.bmp
+[00:39:19] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=892,139,992,159 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_851800_raw_1.bmp
+[00:39:19] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=892,139,992,159 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_851800_raw_1.bmp
+[00:39:19] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=892,139,992,159 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_851800_raw_1.bmp
+[00:39:19] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=892,139,992,159 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_851800_raw_2.bmp
+[00:39:19] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=892,139,992,159 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_851800_raw_2.bmp
+[00:39:19] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=892,139,992,159 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_851800_raw_2.bmp
+[00:39:19] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=892,139,992,159 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003918_851800_raw_2.bmp
+[00:39:19] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 926, 'top': 103, 'right': 958, 'bottom': 107} pos=942,152
+[00:39:19] 扫描到 3 个怪物，但没有符合怪物清单的目标，跳过 3 个，留在原地继续扫描
+[00:39:19] 状态切换: battle -> idle
+[00:39:19] 战斗开关已开启，进入战斗状态
+[00:39:19] 状态切换: idle -> battle
+[00:39:21] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_567300_raw_1.bmp
+[00:39:21] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_567300_raw_1.bmp
+[00:39:21] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='孽' reject= box=796,363,896,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_567300_raw_1.bmp
+[00:39:21] 怪物名称识别完成 name=孽 text=孽 raw=孽 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[00:39:21] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=794,427,894,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_119800_raw_1.bmp
+[00:39:21] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=794,427,894,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_119800_raw_1.bmp
+[00:39:21] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=794,427,894,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_119800_raw_1.bmp
+[00:39:21] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=794,427,894,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_119800_raw_1.bmp
+[00:39:21] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=794,427,894,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_119800_raw_2.bmp
+[00:39:21] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=794,427,894,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_119800_raw_2.bmp
+[00:39:21] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=794,427,894,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_119800_raw_2.bmp
+[00:39:21] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=794,427,894,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_119800_raw_2.bmp
+[00:39:21] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 830, 'top': 391, 'right': 857, 'bottom': 395} pos=844,440
+[00:39:21] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=844,171,944,191 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_164500_raw_1.bmp
+[00:39:21] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=844,171,944,191 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_164500_raw_1.bmp
+[00:39:21] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=844,171,944,191 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_164500_raw_1.bmp
+[00:39:21] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=844,171,944,191 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_164500_raw_1.bmp
+[00:39:21] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=844,171,944,191 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_164500_raw_2.bmp
+[00:39:21] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=844,171,944,191 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_164500_raw_2.bmp
+[00:39:21] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=844,171,944,191 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_164500_raw_2.bmp
+[00:39:21] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=844,171,944,191 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003920_164500_raw_2.bmp
+[00:39:21] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 878, 'top': 135, 'right': 910, 'bottom': 139} pos=894,184
+[00:39:21] 扫描到 3 个怪物，但没有符合怪物清单的目标，跳过 3 个，留在原地继续扫描
+[00:39:21] 状态切换: battle -> idle
+[00:39:21] 战斗开关已开启，进入战斗状态
+[00:39:21] 状态切换: idle -> battle
+[00:39:23] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_334700_raw_1.bmp
+[00:39:23] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_334700_raw_1.bmp
+[00:39:23] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_334700_raw_1.bmp
+[00:39:23] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_334700_raw_1.bmp
+[00:39:23] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_334700_raw_2.bmp
+[00:39:23] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_334700_raw_2.bmp
+[00:39:23] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_334700_raw_2.bmp
+[00:39:23] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_334700_raw_2.bmp
+[00:39:23] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 359, 'right': 809, 'bottom': 363} pos=796,408
+[00:39:23] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=794,363,894,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_959900_raw_1.bmp
+[00:39:23] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=794,363,894,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_959900_raw_1.bmp
+[00:39:23] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='孽' reject= box=794,363,894,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_959900_raw_1.bmp
+[00:39:23] 怪物名称识别完成 name=孽 text=孽 raw=孽 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 859, 'bottom': 331} pos=844,376
+[00:39:23] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,203,896,223 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_436200_raw_1.bmp
+[00:39:23] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,203,896,223 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_436200_raw_1.bmp
+[00:39:23] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,203,896,223 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_436200_raw_1.bmp
+[00:39:23] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,203,896,223 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_436200_raw_1.bmp
+[00:39:23] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,203,896,223 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_436200_raw_2.bmp
+[00:39:23] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=796,203,896,223 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_436200_raw_2.bmp
+[00:39:23] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=796,203,896,223 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_436200_raw_2.bmp
+[00:39:23] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=796,203,896,223 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003922_436200_raw_2.bmp
+[00:39:23] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 830, 'top': 167, 'right': 862, 'bottom': 171} pos=846,216
+[00:39:23] 扫描到 3 个怪物，但没有符合怪物清单的目标，跳过 3 个，留在原地继续扫描
+[00:39:23] 状态切换: battle -> idle
+[00:39:23] 战斗开关已开启，进入战斗状态
+[00:39:23] 状态切换: idle -> battle
+[00:39:25] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_924000_raw_1.bmp
+[00:39:25] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_924000_raw_1.bmp
+[00:39:25] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_924000_raw_1.bmp
+[00:39:25] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_924000_raw_1.bmp
+[00:39:25] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_924000_raw_2.bmp
+[00:39:25] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_924000_raw_2.bmp
+[00:39:25] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_924000_raw_2.bmp
+[00:39:25] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_924000_raw_2.bmp
+[00:39:25] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 359, 'right': 810, 'bottom': 363} pos=796,408
+[00:39:25] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=794,363,894,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_927500_raw_1.bmp
+[00:39:25] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=794,363,894,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_927500_raw_1.bmp
+[00:39:25] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='孽' reject= box=794,363,894,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_927500_raw_1.bmp
+[00:39:25] 怪物名称识别完成 name=孽 text=孽 raw=孽 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 859, 'bottom': 331} pos=844,376
+[00:39:25] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=812,192,912,212 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_359700_raw_1.bmp
+[00:39:25] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=812,192,912,212 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_359700_raw_1.bmp
+[00:39:25] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=812,192,912,212 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_359700_raw_1.bmp
+[00:39:25] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=812,192,912,212 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_359700_raw_1.bmp
+[00:39:25] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=812,192,912,212 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_359700_raw_2.bmp
+[00:39:25] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=812,192,912,212 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_359700_raw_2.bmp
+[00:39:25] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=812,192,912,212 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_359700_raw_2.bmp
+[00:39:25] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=812,192,912,212 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003924_359700_raw_2.bmp
+[00:39:25] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 846, 'top': 156, 'right': 878, 'bottom': 160} pos=862,205
+[00:39:25] 扫描到 3 个怪物，但没有符合怪物清单的目标，跳过 3 个，留在原地继续扫描
+[00:39:25] 状态切换: battle -> idle
+[00:39:25] 战斗开关已开启，进入战斗状态
+[00:39:25] 状态切换: idle -> battle
+[00:39:27] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=826,342,926,362 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_068200_raw_1.bmp
+[00:39:27] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=826,342,926,362 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_068200_raw_1.bmp
+[00:39:27] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=826,342,926,362 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_068200_raw_1.bmp
+[00:39:27] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=826,342,926,362 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_068200_raw_1.bmp
+[00:39:27] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=826,342,926,362 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_068200_raw_2.bmp
+[00:39:27] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=826,342,926,362 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_068200_raw_2.bmp
+[00:39:27] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=826,342,926,362 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_068200_raw_2.bmp
+[00:39:27] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=826,342,926,362 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_068200_raw_2.bmp
+[00:39:27] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 862, 'top': 306, 'right': 890, 'bottom': 310} pos=876,355
+[00:39:27] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=793,363,893,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_960000_raw_1.bmp
+[00:39:27] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=793,363,893,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_960000_raw_1.bmp
+[00:39:27] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='孽' reject= box=793,363,893,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_960000_raw_1.bmp
+[00:39:27] 怪物名称识别完成 name=孽 text=孽 raw=孽 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 856, 'bottom': 331} pos=843,376
+[00:39:27] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,246,848,266 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_365600_raw_1.bmp
+[00:39:27] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,246,848,266 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_365600_raw_1.bmp
+[00:39:27] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,246,848,266 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_365600_raw_1.bmp
+[00:39:27] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,246,848,266 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_365600_raw_1.bmp
+[00:39:27] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,246,848,266 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_365600_raw_2.bmp
+[00:39:27] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=748,246,848,266 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_365600_raw_2.bmp
+[00:39:27] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=748,246,848,266 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_365600_raw_2.bmp
+[00:39:27] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=748,246,848,266 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003926_365600_raw_2.bmp
+[00:39:27] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 210, 'right': 814, 'bottom': 214} pos=798,259
+[00:39:27] 扫描到 3 个怪物，但没有符合怪物清单的目标，跳过 3 个，留在原地继续扫描
+[00:39:27] 状态切换: battle -> idle
+[00:39:27] 战斗开关已开启，进入战斗状态
+[00:39:27] 状态切换: idle -> battle
+[00:39:29] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_170000_raw_1.bmp
+[00:39:29] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_170000_raw_1.bmp
+[00:39:29] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_170000_raw_1.bmp
+[00:39:29] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_170000_raw_1.bmp
+[00:39:29] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_170000_raw_2.bmp
+[00:39:29] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_170000_raw_2.bmp
+[00:39:29] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_170000_raw_2.bmp
+[00:39:29] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_170000_raw_2.bmp
+[00:39:29] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=ffff00-101010 attempt=2 reject=no_chinese_text bar={'left': 782, 'top': 359, 'right': 810, 'bottom': 363} pos=796,408
+[00:39:29] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=790,363,890,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_349600_raw_1.bmp
+[00:39:29] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=790,363,890,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_349600_raw_1.bmp
+[00:39:29] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='孽' reject= box=790,363,890,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_349600_raw_1.bmp
+[00:39:29] 怪物名称识别完成 name=孽 text=孽 raw=孽 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 849, 'bottom': 331} pos=840,376
+[00:39:29] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,267,848,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_680000_raw_1.bmp
+[00:39:29] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,267,848,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_680000_raw_1.bmp
+[00:39:29] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,267,848,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_680000_raw_1.bmp
+[00:39:29] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,267,848,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_680000_raw_1.bmp
+[00:39:29] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,267,848,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_680000_raw_2.bmp
+[00:39:29] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=748,267,848,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_680000_raw_2.bmp
+[00:39:29] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=748,267,848,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_680000_raw_2.bmp
+[00:39:29] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=748,267,848,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003928_680000_raw_2.bmp
+[00:39:29] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 231, 'right': 814, 'bottom': 235} pos=798,280
+[00:39:29] 扫描到 3 个怪物，但没有符合怪物清单的目标，跳过 3 个，留在原地继续扫描
+[00:39:29] 状态切换: battle -> idle
+[00:39:29] 战斗开关已开启，进入战斗状态
+[00:39:29] 状态切换: idle -> battle
+[00:39:31] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=788,363,888,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_210800_raw_1.bmp
+[00:39:31] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':::' reject=no_chinese_text box=788,363,888,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_210800_raw_1.bmp
+[00:39:31] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='孽' reject= box=788,363,888,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_210800_raw_1.bmp
+[00:39:31] 怪物名称识别完成 name=孽 text=孽 raw=孽 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 846, 'bottom': 331} pos=838,376
+[00:39:31] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_635300_raw_1.bmp
+[00:39:31] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_635300_raw_1.bmp
+[00:39:31] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_635300_raw_1.bmp
+[00:39:31] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_635300_raw_1.bmp
+[00:39:31] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_635300_raw_2.bmp
+[00:39:31] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=2 reject= bar={'left': 782, 'top': 359, 'right': 810, 'bottom': 363} pos=796,408
+[00:39:31] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,299,848,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_141700_raw_1.bmp
+[00:39:31] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,299,848,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_141700_raw_1.bmp
+[00:39:31] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,299,848,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_141700_raw_1.bmp
+[00:39:31] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,299,848,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_141700_raw_1.bmp
+[00:39:31] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,299,848,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_141700_raw_2.bmp
+[00:39:31] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=748,299,848,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_141700_raw_2.bmp
+[00:39:31] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=748,299,848,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_141700_raw_2.bmp
+[00:39:31] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=748,299,848,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003930_141700_raw_2.bmp
+[00:39:31] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 263, 'right': 814, 'bottom': 267} pos=798,312
+[00:39:31] 扫描到 3 个怪物，但没有符合怪物清单的目标，跳过 3 个，留在原地继续扫描
+[00:39:31] 状态切换: battle -> idle
+[00:39:31] 战斗开关已开启，进入战斗状态
+[00:39:31] 状态切换: idle -> battle
+[00:39:33] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_290000_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_290000_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_290000_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_290000_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_290000_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_290000_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_290000_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_290000_raw_2.bmp
+[00:39:33] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 391, 'right': 803, 'bottom': 395} pos=792,440
+[00:39:33] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=786,363,886,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_026400_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=786,363,886,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_026400_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='妖孽' reject=player_name_contamination box=786,363,886,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_026400_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=786,363,886,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_026400_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=786,363,886,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_026400_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=786,363,886,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_026400_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='妖孽' reject=player_name_contamination box=786,363,886,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_026400_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=786,363,886,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003932_026400_raw_2.bmp
+[00:39:33] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 830, 'top': 327, 'right': 841, 'bottom': 331} pos=836,376
+[00:39:33] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_944600_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_944600_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_944600_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_944600_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_944600_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_944600_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_944600_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_944600_raw_2.bmp
+[00:39:33] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=ffff00-101010 attempt=2 reject=no_chinese_text bar={'left': 782, 'top': 359, 'right': 810, 'bottom': 363} pos=796,408
+[00:39:33] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_795300_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_795300_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_795300_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_795300_raw_1.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_795300_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_795300_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_795300_raw_2.bmp
+[00:39:33] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003933_795300_raw_2.bmp
+[00:39:33] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 814, 'bottom': 299} pos=798,344
+[00:39:33] 扫描到 4 个怪物，但没有符合怪物清单的目标，跳过 4 个，留在原地继续扫描
+[00:39:33] 状态切换: battle -> idle
+[00:39:33] 战斗开关已开启，进入战斗状态
+[00:39:33] 状态切换: idle -> battle
+[00:39:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003934_154700_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003934_154700_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003934_154700_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003934_154700_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003934_154700_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003934_154700_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003934_154700_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=742,427,842,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003934_154700_raw_2.bmp
+[00:39:36] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 391, 'right': 803, 'bottom': 395} pos=792,440
+[00:39:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_787200_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_787200_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_787200_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_787200_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_787200_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_787200_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_787200_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_787200_raw_2.bmp
+[00:39:36] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 814, 'bottom': 299} pos=798,344
+[00:39:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_203300_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_203300_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_203300_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_203300_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_203300_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='::' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_203300_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_203300_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003935_203300_raw_2.bmp
+[00:39:36] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 359, 'right': 811, 'bottom': 363} pos=796,408
+[00:39:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003936_402900_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003936_402900_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003936_402900_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003936_402900_raw_1.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003936_402900_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003936_402900_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003936_402900_raw_2.bmp
+[00:39:36] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003936_402900_raw_2.bmp
+[00:39:36] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 814, 'bottom': 299} pos=798,344
+[00:39:36] 扫描到 4 个怪物，但没有符合怪物清单的目标，跳过 4 个，留在原地继续扫描
+[00:39:36] 状态切换: battle -> idle
+[00:39:36] 战斗开关已开启，进入战斗状态
+[00:39:36] 状态切换: idle -> battle
+[00:39:38] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003937_020100_raw_1.bmp
+[00:39:38] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003937_020100_raw_1.bmp
+[00:39:38] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003937_020100_raw_1.bmp
+[00:39:38] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003937_020100_raw_1.bmp
+[00:39:38] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003937_020100_raw_2.bmp
+[00:39:38] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003937_020100_raw_2.bmp
+[00:39:38] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003937_020100_raw_2.bmp
+[00:39:38] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003937_020100_raw_2.bmp
+[00:39:38] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=ffff00-101010 attempt=2 reject=no_chinese_text bar={'left': 782, 'top': 359, 'right': 811, 'bottom': 363} pos=796,408
+[00:39:38] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003938_168800_raw_1.bmp
+[00:39:38] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003938_168800_raw_1.bmp
+[00:39:38] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003938_168800_raw_1.bmp
+[00:39:38] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003938_168800_raw_1.bmp
+[00:39:38] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003938_168800_raw_2.bmp
+[00:39:38] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003938_168800_raw_2.bmp
+[00:39:38] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003938_168800_raw_2.bmp
+[00:39:38] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003938_168800_raw_2.bmp
+[00:39:38] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 807, 'bottom': 299} pos=794,344
+[00:39:38] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:38] 状态切换: battle -> idle
+[00:39:38] 战斗开关已开启，进入战斗状态
+[00:39:38] 状态切换: idle -> battle
+[00:39:39] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003939_981000_raw_1.bmp
+[00:39:39] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 782, 'top': 359, 'right': 811, 'bottom': 363} pos=796,408
+[00:39:39] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003939_337800_raw_1.bmp
+[00:39:39] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003939_337800_raw_1.bmp
+[00:39:39] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003939_337800_raw_1.bmp
+[00:39:39] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003939_337800_raw_1.bmp
+[00:39:39] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003939_337800_raw_2.bmp
+[00:39:39] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003939_337800_raw_2.bmp
+[00:39:39] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003939_337800_raw_2.bmp
+[00:39:39] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003939_337800_raw_2.bmp
+[00:39:39] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 814, 'bottom': 299} pos=798,344
+[00:39:39] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:39] 状态切换: battle -> idle
+[00:39:39] 战斗开关已开启，进入战斗状态
+[00:39:39] 状态切换: idle -> battle
+[00:39:41] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=768,406,868,426 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003940_165600_raw_1.bmp
+[00:39:41] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=768,406,868,426 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003940_165600_raw_1.bmp
+[00:39:41] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=768,406,868,426 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003940_165600_raw_1.bmp
+[00:39:41] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=768,406,868,426 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003940_165600_raw_1.bmp
+[00:39:41] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=768,406,868,426 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003940_165600_raw_2.bmp
+[00:39:41] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=768,406,868,426 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003940_165600_raw_2.bmp
+[00:39:41] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=768,406,868,426 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003940_165600_raw_2.bmp
+[00:39:41] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=768,406,868,426 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003940_165600_raw_2.bmp
+[00:39:41] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 808, 'top': 370, 'right': 827, 'bottom': 374} pos=818,419
+[00:39:41] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003941_911000_raw_1.bmp
+[00:39:41] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003941_911000_raw_1.bmp
+[00:39:41] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003941_911000_raw_1.bmp
+[00:39:41] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003941_911000_raw_1.bmp
+[00:39:41] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003941_911000_raw_2.bmp
+[00:39:41] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003941_911000_raw_2.bmp
+[00:39:41] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003941_911000_raw_2.bmp
+[00:39:41] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003941_911000_raw_2.bmp
+[00:39:41] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 814, 'bottom': 299} pos=798,344
+[00:39:41] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:41] 状态切换: battle -> idle
+[00:39:41] 战斗开关已开启，进入战斗状态
+[00:39:41] 状态切换: idle -> battle
+[00:39:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003942_279400_raw_1.bmp
+[00:39:43] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 782, 'top': 359, 'right': 811, 'bottom': 363} pos=796,408
+[00:39:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003942_535100_raw_1.bmp
+[00:39:43] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003942_535100_raw_1.bmp
+[00:39:43] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003942_535100_raw_1.bmp
+[00:39:43] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='::' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003942_535100_raw_1.bmp
+[00:39:43] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003942_535100_raw_2.bmp
+[00:39:43] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003942_535100_raw_2.bmp
+[00:39:43] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003942_535100_raw_2.bmp
+[00:39:43] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='::' reject=no_chinese_text box=746,395,846,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003942_535100_raw_2.bmp
+[00:39:43] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=ffff00-101010 attempt=2 reject=no_chinese_text bar={'left': 782, 'top': 359, 'right': 811, 'bottom': 363} pos=796,408
+[00:39:43] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:43] 状态切换: battle -> idle
+[00:39:43] 战斗开关已开启，进入战斗状态
+[00:39:43] 状态切换: idle -> battle
+[00:39:44] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003944_766300_raw_1.bmp
+[00:39:44] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 763, 'bottom': 331} pos=748,376
+[00:39:44] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003944_393400_raw_1.bmp
+[00:39:44] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003944_393400_raw_1.bmp
+[00:39:44] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003944_393400_raw_1.bmp
+[00:39:44] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003944_393400_raw_1.bmp
+[00:39:44] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003944_393400_raw_2.bmp
+[00:39:44] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003944_393400_raw_2.bmp
+[00:39:44] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003944_393400_raw_2.bmp
+[00:39:44] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003944_393400_raw_2.bmp
+[00:39:44] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 811, 'bottom': 299} pos=796,344
+[00:39:44] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:44] 状态切换: battle -> idle
+[00:39:44] 战斗开关已开启，进入战斗状态
+[00:39:44] 状态切换: idle -> battle
+[00:39:46] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_356900_raw_1.bmp
+[00:39:46] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_356900_raw_1.bmp
+[00:39:46] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='妖' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_356900_raw_1.bmp
+[00:39:46] 怪物名称识别完成 name=妖 text=妖 raw=妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 763, 'bottom': 331} pos=748,376
+[00:39:46] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_775800_raw_1.bmp
+[00:39:46] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_775800_raw_1.bmp
+[00:39:46] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_775800_raw_1.bmp
+[00:39:46] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_775800_raw_1.bmp
+[00:39:46] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_775800_raw_2.bmp
+[00:39:46] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_775800_raw_2.bmp
+[00:39:46] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_775800_raw_2.bmp
+[00:39:46] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003945_775800_raw_2.bmp
+[00:39:46] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=ffff00-101010 attempt=2 reject=no_chinese_text bar={'left': 782, 'top': 295, 'right': 811, 'bottom': 299} pos=796,344
+[00:39:46] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:46] 状态切换: battle -> idle
+[00:39:46] 战斗开关已开启，进入战斗状态
+[00:39:46] 状态切换: idle -> battle
+[00:39:47] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_799300_raw_1.bmp
+[00:39:47] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_799300_raw_1.bmp
+[00:39:47] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='妖' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_799300_raw_1.bmp
+[00:39:47] 怪物名称识别完成 name=妖 text=妖 raw=妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 763, 'bottom': 331} pos=748,376
+[00:39:47] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_889500_raw_1.bmp
+[00:39:47] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_889500_raw_1.bmp
+[00:39:47] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_889500_raw_1.bmp
+[00:39:47] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_889500_raw_1.bmp
+[00:39:47] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_889500_raw_2.bmp
+[00:39:47] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_889500_raw_2.bmp
+[00:39:47] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_889500_raw_2.bmp
+[00:39:47] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003947_889500_raw_2.bmp
+[00:39:47] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 811, 'bottom': 299} pos=796,344
+[00:39:47] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:47] 状态切换: battle -> idle
+[00:39:47] 战斗开关已开启，进入战斗状态
+[00:39:47] 状态切换: idle -> battle
+[00:39:49] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_314200_raw_1.bmp
+[00:39:49] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_314200_raw_1.bmp
+[00:39:49] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='妖' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_314200_raw_1.bmp
+[00:39:49] 怪物名称识别完成 name=妖 text=妖 raw=妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 764, 'bottom': 331} pos=749,376
+[00:39:49] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_911000_raw_1.bmp
+[00:39:49] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_911000_raw_1.bmp
+[00:39:49] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_911000_raw_1.bmp
+[00:39:49] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_911000_raw_1.bmp
+[00:39:49] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_911000_raw_2.bmp
+[00:39:49] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_911000_raw_2.bmp
+[00:39:49] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_911000_raw_2.bmp
+[00:39:49] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003948_911000_raw_2.bmp
+[00:39:49] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 809, 'bottom': 299} pos=796,344
+[00:39:49] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:49] 状态切换: battle -> idle
+[00:39:49] 战斗开关已开启，进入战斗状态
+[00:39:49] 状态切换: idle -> battle
+[00:39:50] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_986700_raw_1.bmp
+[00:39:50] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_986700_raw_1.bmp
+[00:39:50] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='妖' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_986700_raw_1.bmp
+[00:39:50] 怪物名称识别完成 name=妖 text=妖 raw=妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 764, 'bottom': 331} pos=749,376
+[00:39:50] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_705600_raw_1.bmp
+[00:39:50] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_705600_raw_1.bmp
+[00:39:50] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_705600_raw_1.bmp
+[00:39:50] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_705600_raw_1.bmp
+[00:39:50] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_705600_raw_2.bmp
+[00:39:50] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_705600_raw_2.bmp
+[00:39:50] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_705600_raw_2.bmp
+[00:39:50] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=746,331,846,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003950_705600_raw_2.bmp
+[00:39:50] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 809, 'bottom': 299} pos=796,344
+[00:39:50] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:50] 状态切换: battle -> idle
+[00:39:50] 战斗开关已开启，进入战斗状态
+[00:39:50] 状态切换: idle -> battle
+[00:39:51] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003951_179500_raw_1.bmp
+[00:39:51] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003951_179500_raw_1.bmp
+[00:39:51] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='妖' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003951_179500_raw_1.bmp
+[00:39:51] 怪物名称识别完成 name=妖 text=妖 raw=妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 764, 'bottom': 331} pos=749,376
+[00:39:51] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003951_384700_raw_1.bmp
+[00:39:51] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003951_384700_raw_1.bmp
+[00:39:51] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003951_384700_raw_1.bmp
+[00:39:51] 怪物名称识别完成 name=僵 text=僵 raw=僵 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 782, 'top': 295, 'right': 806, 'bottom': 299} pos=794,344
+[00:39:51] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:51] 状态切换: battle -> idle
+[00:39:51] 战斗开关已开启，进入战斗状态
+[00:39:51] 状态切换: idle -> battle
+[00:39:53] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003952_178000_raw_1.bmp
+[00:39:53] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003952_178000_raw_1.bmp
+[00:39:53] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='妖' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003952_178000_raw_1.bmp
+[00:39:53] 怪物名称识别完成 name=妖 text=妖 raw=妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 763, 'bottom': 331} pos=748,376
+[00:39:53] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003953_902000_raw_1.bmp
+[00:39:53] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003953_902000_raw_1.bmp
+[00:39:53] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=744,331,844,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003953_902000_raw_1.bmp
+[00:39:53] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 782, 'top': 295, 'right': 806, 'bottom': 299} pos=794,344
+[00:39:53] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:53] 状态切换: battle -> idle
+[00:39:53] 战斗开关已开启，进入战斗状态
+[00:39:53] 状态切换: idle -> battle
+[00:39:54] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003954_499200_raw_1.bmp
+[00:39:54] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003954_499200_raw_1.bmp
+[00:39:54] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='妖' reject= box=699,363,799,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003954_499200_raw_1.bmp
+[00:39:54] 怪物名称识别完成 name=妖 text=妖 raw=妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 764, 'bottom': 331} pos=749,376
+[00:39:54] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003954_880100_raw_1.bmp
+[00:39:54] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003954_880100_raw_1.bmp
+[00:39:54] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003954_880100_raw_1.bmp
+[00:39:54] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 782, 'top': 295, 'right': 801, 'bottom': 299} pos=792,344
+[00:39:54] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:54] 状态切换: battle -> idle
+[00:39:54] 战斗开关已开启，进入战斗状态
+[00:39:54] 状态切换: idle -> battle
+[00:39:56] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_292500_raw_1.bmp
+[00:39:56] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_292500_raw_1.bmp
+[00:39:56] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_292500_raw_1.bmp
+[00:39:56] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_292500_raw_1.bmp
+[00:39:56] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_292500_raw_2.bmp
+[00:39:56] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_292500_raw_2.bmp
+[00:39:56] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_292500_raw_2.bmp
+[00:39:56] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=742,331,842,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_292500_raw_2.bmp
+[00:39:56] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 782, 'top': 295, 'right': 801, 'bottom': 299} pos=792,344
+[00:39:56] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=691,368,791,388 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_132500_raw_1.bmp
+[00:39:56] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=691,368,791,388 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_132500_raw_1.bmp
+[00:39:56] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='033' reject=no_chinese_text box=691,368,791,388 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_132500_raw_1.bmp
+[00:39:56] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=691,368,791,388 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_132500_raw_1.bmp
+[00:39:56] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=691,368,791,388 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_132500_raw_2.bmp
+[00:39:56] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=691,368,791,388 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_132500_raw_2.bmp
+[00:39:56] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='033' reject=no_chinese_text box=691,368,791,388 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_132500_raw_2.bmp
+[00:39:56] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=691,368,791,388 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003955_132500_raw_2.bmp
+[00:39:56] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 726, 'top': 332, 'right': 756, 'bottom': 336} pos=741,381
+[00:39:56] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:56] 状态切换: battle -> idle
+[00:39:56] 战斗开关已开启，进入战斗状态
+[00:39:56] 状态切换: idle -> battle
+[00:39:57] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=662,363,762,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_564600_raw_1.bmp
+[00:39:57] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=662,363,762,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_564600_raw_1.bmp
+[00:39:57] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=662,363,762,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_564600_raw_1.bmp
+[00:39:57] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 702, 'top': 327, 'right': 721, 'bottom': 331} pos=712,376
+[00:39:57] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=603,395,703,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_030000_raw_1.bmp
+[00:39:57] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':::' reject=no_chinese_text box=603,395,703,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_030000_raw_1.bmp
+[00:39:57] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=603,395,703,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_030000_raw_1.bmp
+[00:39:57] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=603,395,703,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_030000_raw_1.bmp
+[00:39:57] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=603,395,703,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_030000_raw_2.bmp
+[00:39:57] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=603,395,703,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_030000_raw_2.bmp
+[00:39:57] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=603,395,703,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_030000_raw_2.bmp
+[00:39:57] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=603,395,703,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003957_030000_raw_2.bmp
+[00:39:57] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 638, 'top': 359, 'right': 668, 'bottom': 363} pos=653,408
+[00:39:57] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:57] 状态切换: battle -> idle
+[00:39:57] 战斗开关已开启，进入战斗状态
+[00:39:57] 状态切换: idle -> battle
+[00:39:59] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003958_813300_raw_1.bmp
+[00:39:59] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003958_813300_raw_1.bmp
+[00:39:59] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003958_813300_raw_1.bmp
+[00:39:59] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003958_813300_raw_1.bmp
+[00:39:59] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003958_813300_raw_2.bmp
+[00:39:59] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003958_813300_raw_2.bmp
+[00:39:59] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003958_813300_raw_2.bmp
+[00:39:59] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003958_813300_raw_2.bmp
+[00:39:59] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 327, 'right': 750, 'bottom': 331} pos=742,376
+[00:39:59] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003959_360500_raw_1.bmp
+[00:39:59] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003959_360500_raw_1.bmp
+[00:39:59] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003959_360500_raw_1.bmp
+[00:39:59] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003959_360500_raw_1.bmp
+[00:39:59] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003959_360500_raw_2.bmp
+[00:39:59] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003959_360500_raw_2.bmp
+[00:39:59] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003959_360500_raw_2.bmp
+[00:39:59] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_003959_360500_raw_2.bmp
+[00:39:59] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 686, 'top': 359, 'right': 716, 'bottom': 363} pos=701,408
+[00:39:59] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:39:59] 状态切换: battle -> idle
+[00:39:59] 战斗开关已开启，进入战斗状态
+[00:39:59] 状态切换: idle -> battle
+[00:40:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_904100_raw_1.bmp
+[00:40:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_904100_raw_1.bmp
+[00:40:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_904100_raw_1.bmp
+[00:40:00] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_904100_raw_1.bmp
+[00:40:00] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_904100_raw_2.bmp
+[00:40:00] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_904100_raw_2.bmp
+[00:40:00] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_904100_raw_2.bmp
+[00:40:00] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_904100_raw_2.bmp
+[00:40:00] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 327, 'right': 750, 'bottom': 331} pos=742,376
+[00:40:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_778600_raw_1.bmp
+[00:40:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_778600_raw_1.bmp
+[00:40:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_778600_raw_1.bmp
+[00:40:00] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_778600_raw_1.bmp
+[00:40:00] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_778600_raw_2.bmp
+[00:40:00] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_778600_raw_2.bmp
+[00:40:00] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_778600_raw_2.bmp
+[00:40:00] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004000_778600_raw_2.bmp
+[00:40:00] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=ffff00-101010 attempt=2 reject=no_chinese_text bar={'left': 686, 'top': 359, 'right': 716, 'bottom': 363} pos=701,408
+[00:40:00] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:00] 状态切换: battle -> idle
+[00:40:00] 战斗开关已开启，进入战斗状态
+[00:40:00] 状态切换: idle -> battle
+[00:40:02] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004001_293300_raw_1.bmp
+[00:40:02] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004001_293300_raw_1.bmp
+[00:40:02] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004001_293300_raw_1.bmp
+[00:40:02] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004001_293300_raw_1.bmp
+[00:40:02] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004001_293300_raw_2.bmp
+[00:40:02] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004001_293300_raw_2.bmp
+[00:40:02] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004001_293300_raw_2.bmp
+[00:40:02] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004001_293300_raw_2.bmp
+[00:40:02] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 327, 'right': 746, 'bottom': 331} pos=740,376
+[00:40:02] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004002_182000_raw_1.bmp
+[00:40:02] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004002_182000_raw_1.bmp
+[00:40:02] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004002_182000_raw_1.bmp
+[00:40:02] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004002_182000_raw_1.bmp
+[00:40:02] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004002_182000_raw_2.bmp
+[00:40:02] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004002_182000_raw_2.bmp
+[00:40:02] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004002_182000_raw_2.bmp
+[00:40:02] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004002_182000_raw_2.bmp
+[00:40:02] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 686, 'top': 359, 'right': 716, 'bottom': 363} pos=701,408
+[00:40:02] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:02] 状态切换: battle -> idle
+[00:40:02] 战斗开关已开启，进入战斗状态
+[00:40:02] 状态切换: idle -> battle
+[00:40:04] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004003_585400_raw_1.bmp
+[00:40:04] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004003_585400_raw_1.bmp
+[00:40:04] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004003_585400_raw_1.bmp
+[00:40:04] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004003_585400_raw_1.bmp
+[00:40:04] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004003_585400_raw_2.bmp
+[00:40:04] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004003_585400_raw_2.bmp
+[00:40:04] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004003_585400_raw_2.bmp
+[00:40:04] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004003_585400_raw_2.bmp
+[00:40:04] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 327, 'right': 746, 'bottom': 331} pos=740,376
+[00:40:04] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004004_900900_raw_1.bmp
+[00:40:04] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004004_900900_raw_1.bmp
+[00:40:04] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004004_900900_raw_1.bmp
+[00:40:04] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004004_900900_raw_1.bmp
+[00:40:04] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004004_900900_raw_2.bmp
+[00:40:04] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004004_900900_raw_2.bmp
+[00:40:04] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004004_900900_raw_2.bmp
+[00:40:04] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004004_900900_raw_2.bmp
+[00:40:04] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 686, 'top': 359, 'right': 716, 'bottom': 363} pos=701,408
+[00:40:04] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:04] 状态切换: battle -> idle
+[00:40:04] 战斗开关已开启，进入战斗状态
+[00:40:04] 状态切换: idle -> battle
+[00:40:05] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004005_140800_raw_1.bmp
+[00:40:05] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004005_140800_raw_1.bmp
+[00:40:05] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004005_140800_raw_1.bmp
+[00:40:05] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004005_140800_raw_1.bmp
+[00:40:05] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004005_140800_raw_2.bmp
+[00:40:05] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004005_140800_raw_2.bmp
+[00:40:05] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004005_140800_raw_2.bmp
+[00:40:05] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=651,395,751,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004005_140800_raw_2.bmp
+[00:40:05] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 686, 'top': 359, 'right': 716, 'bottom': 363} pos=701,408
+[00:40:05] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:05] 状态切换: battle -> idle
+[00:40:05] 战斗开关已开启，进入战斗状态
+[00:40:05] 状态切换: idle -> battle
+[00:40:06] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004006_328600_raw_1.bmp
+[00:40:06] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004006_328600_raw_1.bmp
+[00:40:06] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004006_328600_raw_1.bmp
+[00:40:06] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004006_328600_raw_1.bmp
+[00:40:06] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004006_328600_raw_2.bmp
+[00:40:06] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004006_328600_raw_2.bmp
+[00:40:06] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004006_328600_raw_2.bmp
+[00:40:06] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004006_328600_raw_2.bmp
+[00:40:06] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 686, 'top': 359, 'right': 717, 'bottom': 363} pos=702,408
+[00:40:06] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:06] 状态切换: battle -> idle
+[00:40:06] 战斗开关已开启，进入战斗状态
+[00:40:06] 状态切换: idle -> battle
+[00:40:07] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004007_187100_raw_1.bmp
+[00:40:07] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004007_187100_raw_1.bmp
+[00:40:07] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004007_187100_raw_1.bmp
+[00:40:07] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004007_187100_raw_1.bmp
+[00:40:07] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004007_187100_raw_2.bmp
+[00:40:07] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004007_187100_raw_2.bmp
+[00:40:07] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='僵' reject= box=652,395,752,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004007_187100_raw_2.bmp
+[00:40:07] 怪物名称识别完成 name=僵 text=僵 raw=僵 mask= color=ffffff-101010 attempt=2 reject= bar={'left': 686, 'top': 359, 'right': 717, 'bottom': 363} pos=702,408
+[00:40:07] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:07] 状态切换: battle -> idle
+[00:40:07] 战斗开关已开启，进入战斗状态
+[00:40:07] 状态切换: idle -> battle
+[00:40:09] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=684,427,784,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004008_462800_raw_1.bmp
+[00:40:09] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=684,427,784,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004008_462800_raw_1.bmp
+[00:40:09] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=684,427,784,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004008_462800_raw_1.bmp
+[00:40:09] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=684,427,784,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004008_462800_raw_1.bmp
+[00:40:09] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=684,427,784,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004008_462800_raw_2.bmp
+[00:40:09] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=684,427,784,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004008_462800_raw_2.bmp
+[00:40:09] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=684,427,784,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004008_462800_raw_2.bmp
+[00:40:09] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=684,427,784,447 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004008_462800_raw_2.bmp
+[00:40:09] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 718, 'top': 391, 'right': 749, 'bottom': 395} pos=734,440
+[00:40:09] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:09] 状态切换: battle -> idle
+[00:40:09] 战斗开关已开启，进入战斗状态
+[00:40:09] 状态切换: idle -> battle
+[00:40:10] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=628,507,728,527 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004010_665300_raw_1.bmp
+[00:40:10] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=628,507,728,527 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004010_665300_raw_1.bmp
+[00:40:10] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=628,507,728,527 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004010_665300_raw_1.bmp
+[00:40:10] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=628,507,728,527 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004010_665300_raw_1.bmp
+[00:40:10] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=628,507,728,527 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004010_665300_raw_2.bmp
+[00:40:10] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=628,507,728,527 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004010_665300_raw_2.bmp
+[00:40:10] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=628,507,728,527 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004010_665300_raw_2.bmp
+[00:40:10] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=628,507,728,527 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004010_665300_raw_2.bmp
+[00:40:10] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 662, 'top': 471, 'right': 693, 'bottom': 475} pos=678,520
+[00:40:10] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:10] 状态切换: battle -> idle
+[00:40:10] 战斗开关已开启，进入战斗状态
+[00:40:10] 状态切换: idle -> battle
+[00:40:11] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=492,597,592,617 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004011_044900_raw_1.bmp
+[00:40:11] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=492,597,592,617 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004011_044900_raw_1.bmp
+[00:40:11] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=492,597,592,617 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004011_044900_raw_1.bmp
+[00:40:11] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=492,597,592,617 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004011_044900_raw_1.bmp
+[00:40:11] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=492,597,592,617 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004011_044900_raw_2.bmp
+[00:40:11] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=492,597,592,617 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004011_044900_raw_2.bmp
+[00:40:11] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=492,597,592,617 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004011_044900_raw_2.bmp
+[00:40:11] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=492,597,592,617 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004011_044900_raw_2.bmp
+[00:40:11] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 526, 'top': 561, 'right': 557, 'bottom': 565} pos=542,610
+[00:40:11] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:11] 状态切换: battle -> idle
+[00:40:11] 战斗开关已开启，进入战斗状态
+[00:40:11] 状态切换: idle -> battle
+[00:40:12] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=988,107,1088,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004012_536600_raw_1.bmp
+[00:40:12] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=988,107,1088,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004012_536600_raw_1.bmp
+[00:40:12] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=988,107,1088,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004012_536600_raw_1.bmp
+[00:40:12] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=988,107,1088,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004012_536600_raw_1.bmp
+[00:40:12] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=988,107,1088,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004012_536600_raw_2.bmp
+[00:40:12] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=988,107,1088,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004012_536600_raw_2.bmp
+[00:40:12] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=988,107,1088,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004012_536600_raw_2.bmp
+[00:40:12] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=988,107,1088,127 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004012_536600_raw_2.bmp
+[00:40:12] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 1022, 'top': 71, 'right': 1054, 'bottom': 75} pos=1038,120
+[00:40:12] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:12] 状态切换: battle -> idle
+[00:40:12] 战斗开关已开启，进入战斗状态
+[00:40:12] 状态切换: idle -> battle
+[00:40:13] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=876,182,976,202 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004013_893400_raw_1.bmp
+[00:40:13] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=876,182,976,202 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004013_893400_raw_1.bmp
+[00:40:13] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=876,182,976,202 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004013_893400_raw_1.bmp
+[00:40:13] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=876,182,976,202 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004013_893400_raw_1.bmp
+[00:40:13] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=876,182,976,202 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004013_893400_raw_2.bmp
+[00:40:13] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=876,182,976,202 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004013_893400_raw_2.bmp
+[00:40:13] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=876,182,976,202 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004013_893400_raw_2.bmp
+[00:40:13] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=876,182,976,202 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004013_893400_raw_2.bmp
+[00:40:13] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 910, 'top': 146, 'right': 942, 'bottom': 150} pos=926,195
+[00:40:13] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:13] 状态切换: battle -> idle
+[00:40:13] 战斗开关已开启，进入战斗状态
+[00:40:13] 状态切换: idle -> battle
+[00:40:15] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=788,304,888,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004014_752700_raw_1.bmp
+[00:40:15] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=788,304,888,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004014_752700_raw_1.bmp
+[00:40:15] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=788,304,888,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004014_752700_raw_1.bmp
+[00:40:15] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=788,304,888,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004014_752700_raw_1.bmp
+[00:40:15] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=788,304,888,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004014_752700_raw_2.bmp
+[00:40:15] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=788,304,888,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004014_752700_raw_2.bmp
+[00:40:15] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=788,304,888,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004014_752700_raw_2.bmp
+[00:40:15] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=788,304,888,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004014_752700_raw_2.bmp
+[00:40:15] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 822, 'top': 268, 'right': 854, 'bottom': 272} pos=838,317
+[00:40:15] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:15] 状态切换: battle -> idle
+[00:40:15] 战斗开关已开启，进入战斗状态
+[00:40:15] 状态切换: idle -> battle
+[00:40:15] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,363,800,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004015_982300_raw_1.bmp
+[00:40:15] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,363,800,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004015_982300_raw_1.bmp
+[00:40:15] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='妖' reject= box=700,363,800,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004015_982300_raw_1.bmp
+[00:40:15] 怪物名称识别完成 name=妖 text=妖 raw=妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 766, 'bottom': 331} pos=750,376
+[00:40:15] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:15] 状态切换: battle -> idle
+[00:40:16] 战斗开关已开启，进入战斗状态
+[00:40:16] 状态切换: idle -> battle
+[00:40:17] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=694,363,794,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004017_585000_raw_1.bmp
+[00:40:17] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=694,363,794,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004017_585000_raw_1.bmp
+[00:40:17] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=694,363,794,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004017_585000_raw_1.bmp
+[00:40:17] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=694,363,794,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004017_585000_raw_1.bmp
+[00:40:17] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=694,363,794,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004017_585000_raw_2.bmp
+[00:40:17] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=694,363,794,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004017_585000_raw_2.bmp
+[00:40:17] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=694,363,794,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004017_585000_raw_2.bmp
+[00:40:17] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=694,363,794,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004017_585000_raw_2.bmp
+[00:40:17] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 327, 'right': 753, 'bottom': 331} pos=744,376
+[00:40:17] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:17] 状态切换: battle -> idle
+[00:40:17] 战斗开关已开启，进入战斗状态
+[00:40:17] 状态切换: idle -> battle
+[00:40:18] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004018_736800_raw_1.bmp
+[00:40:18] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004018_736800_raw_1.bmp
+[00:40:18] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004018_736800_raw_1.bmp
+[00:40:18] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004018_736800_raw_1.bmp
+[00:40:18] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004018_736800_raw_2.bmp
+[00:40:18] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004018_736800_raw_2.bmp
+[00:40:18] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004018_736800_raw_2.bmp
+[00:40:18] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004018_736800_raw_2.bmp
+[00:40:18] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 327, 'right': 745, 'bottom': 331} pos=740,376
+[00:40:18] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:18] 状态切换: battle -> idle
+[00:40:18] 战斗开关已开启，进入战斗状态
+[00:40:18] 状态切换: idle -> battle
+[00:40:19] 没有扫描到怪物，回到 idle 等待卡住保护判断
+[00:40:19] 状态切换: battle -> idle
+[00:40:19] 战斗开关已开启，进入战斗状态
+[00:40:19] 状态切换: idle -> battle
+[00:40:20] 没有扫描到怪物，回到 idle 等待卡住保护判断
+[00:40:20] 状态切换: battle -> idle
+[00:40:20] 战斗开关已开启，进入战斗状态
+[00:40:20] 状态切换: idle -> battle
+[00:40:22] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_641900_raw_1.bmp
+[00:40:22] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_641900_raw_1.bmp
+[00:40:22] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_641900_raw_1.bmp
+[00:40:22] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_641900_raw_1.bmp
+[00:40:22] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_641900_raw_2.bmp
+[00:40:22] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_641900_raw_2.bmp
+[00:40:22] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_641900_raw_2.bmp
+[00:40:22] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_641900_raw_2.bmp
+[00:40:22] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 638, 'top': 295, 'right': 670, 'bottom': 299} pos=654,344
+[00:40:22] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=684,320,784,340 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_944300_raw_1.bmp
+[00:40:22] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=684,320,784,340 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_944300_raw_1.bmp
+[00:40:22] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=684,320,784,340 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_944300_raw_1.bmp
+[00:40:22] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=684,320,784,340 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_944300_raw_1.bmp
+[00:40:22] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=684,320,784,340 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_944300_raw_2.bmp
+[00:40:22] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=684,320,784,340 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_944300_raw_2.bmp
+[00:40:22] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=684,320,784,340 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_944300_raw_2.bmp
+[00:40:22] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=684,320,784,340 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004021_944300_raw_2.bmp
+[00:40:22] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 718, 'top': 284, 'right': 750, 'bottom': 288} pos=734,333
+[00:40:22] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:22] 状态切换: battle -> idle
+[00:40:22] 战斗开关已开启，进入战斗状态
+[00:40:22] 状态切换: idle -> battle
+[00:40:23] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004023_948800_raw_1.bmp
+[00:40:23] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004023_948800_raw_1.bmp
+[00:40:23] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004023_948800_raw_1.bmp
+[00:40:23] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 638, 'top': 295, 'right': 670, 'bottom': 299} pos=654,344
+[00:40:23] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=604,267,704,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004023_501800_raw_1.bmp
+[00:40:23] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=604,267,704,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004023_501800_raw_1.bmp
+[00:40:23] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵:尸' reject= box=604,267,704,287 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004023_501800_raw_1.bmp
+[00:40:23] 怪物名称识别完成 name=僵:尸 text=僵:尸 raw=僵:尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 638, 'top': 231, 'right': 670, 'bottom': 235} pos=654,280
+[00:40:23] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:23] 状态切换: battle -> idle
+[00:40:23] 战斗开关已开启，进入战斗状态
+[00:40:23] 状态切换: idle -> battle
+[00:40:24] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_594000_raw_1.bmp
+[00:40:24] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_594000_raw_1.bmp
+[00:40:24] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_594000_raw_1.bmp
+[00:40:24] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_594000_raw_1.bmp
+[00:40:24] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_594000_raw_2.bmp
+[00:40:24] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_594000_raw_2.bmp
+[00:40:24] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_594000_raw_2.bmp
+[00:40:24] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=604,331,704,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_594000_raw_2.bmp
+[00:40:24] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 638, 'top': 295, 'right': 670, 'bottom': 299} pos=654,344
+[00:40:24] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,299,752,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_157200_raw_1.bmp
+[00:40:24] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=652,299,752,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_157200_raw_1.bmp
+[00:40:24] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=652,299,752,319 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004024_157200_raw_1.bmp
+[00:40:24] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 686, 'top': 263, 'right': 718, 'bottom': 267} pos=702,312
+[00:40:24] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:24] 状态切换: battle -> idle
+[00:40:24] 战斗开关已开启，进入战斗状态
+[00:40:24] 状态切换: idle -> battle
+[00:40:26] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,363,752,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004025_261800_raw_1.bmp
+[00:40:26] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=652,363,752,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004025_261800_raw_1.bmp
+[00:40:26] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=652,363,752,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004025_261800_raw_1.bmp
+[00:40:26] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=652,363,752,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004025_261800_raw_1.bmp
+[00:40:26] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,363,752,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004025_261800_raw_2.bmp
+[00:40:26] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=652,363,752,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004025_261800_raw_2.bmp
+[00:40:26] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=652,363,752,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004025_261800_raw_2.bmp
+[00:40:26] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=2 reject= bar={'left': 686, 'top': 327, 'right': 718, 'bottom': 331} pos=702,376
+[00:40:26] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=660,304,760,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004026_069800_raw_1.bmp
+[00:40:26] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=660,304,760,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004026_069800_raw_1.bmp
+[00:40:26] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=660,304,760,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004026_069800_raw_1.bmp
+[00:40:26] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=660,304,760,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004026_069800_raw_1.bmp
+[00:40:26] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=660,304,760,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004026_069800_raw_2.bmp
+[00:40:26] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=660,304,760,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004026_069800_raw_2.bmp
+[00:40:26] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=660,304,760,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004026_069800_raw_2.bmp
+[00:40:26] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=660,304,760,324 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004026_069800_raw_2.bmp
+[00:40:26] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 694, 'top': 268, 'right': 726, 'bottom': 272} pos=710,317
+[00:40:26] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:26] 状态切换: battle -> idle
+[00:40:26] 战斗开关已开启，进入战斗状态
+[00:40:26] 状态切换: idle -> battle
+[00:40:27] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004027_014300_raw_1.bmp
+[00:40:27] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004027_014300_raw_1.bmp
+[00:40:27] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵:尸妖' reject= box=698,363,798,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004027_014300_raw_1.bmp
+[00:40:27] 怪物名称识别完成 name=僵:尸妖 text=僵:尸妖 raw=僵:尸妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 762, 'bottom': 331} pos=748,376
+[00:40:27] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:27] 状态切换: battle -> idle
+[00:40:27] 战斗开关已开启，进入战斗状态
+[00:40:27] 状态切换: idle -> battle
+[00:40:28] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=697,363,797,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004028_396200_raw_1.bmp
+[00:40:28] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=697,363,797,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004028_396200_raw_1.bmp
+[00:40:28] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=697,363,797,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004028_396200_raw_1.bmp
+[00:40:28] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 760, 'bottom': 331} pos=747,376
+[00:40:28] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004028_772500_raw_1.bmp
+[00:40:28] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004028_772500_raw_1.bmp
+[00:40:28] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004028_772500_raw_1.bmp
+[00:40:28] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:40:28] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:28] 状态切换: battle -> idle
+[00:40:28] 战斗开关已开启，进入战斗状态
+[00:40:28] 状态切换: idle -> battle
+[00:40:30] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=696,363,796,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004029_806000_raw_1.bmp
+[00:40:30] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=696,363,796,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004029_806000_raw_1.bmp
+[00:40:30] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=696,363,796,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004029_806000_raw_1.bmp
+[00:40:30] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 758, 'bottom': 331} pos=746,376
+[00:40:30] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004030_781000_raw_1.bmp
+[00:40:30] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004030_781000_raw_1.bmp
+[00:40:30] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004030_781000_raw_1.bmp
+[00:40:30] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004030_781000_raw_1.bmp
+[00:40:30] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004030_781000_raw_2.bmp
+[00:40:30] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004030_781000_raw_2.bmp
+[00:40:30] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004030_781000_raw_2.bmp
+[00:40:30] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004030_781000_raw_2.bmp
+[00:40:30] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=ffff00-101010 attempt=2 reject=no_chinese_text bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:40:30] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:30] 状态切换: battle -> idle
+[00:40:30] 战斗开关已开启，进入战斗状态
+[00:40:30] 状态切换: idle -> battle
+[00:40:31] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=695,363,795,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004031_827700_raw_1.bmp
+[00:40:31] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=695,363,795,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004031_827700_raw_1.bmp
+[00:40:31] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=695,363,795,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004031_827700_raw_1.bmp
+[00:40:31] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 756, 'bottom': 331} pos=745,376
+[00:40:31] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004031_798100_raw_1.bmp
+[00:40:31] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004031_798100_raw_1.bmp
+[00:40:31] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004031_798100_raw_1.bmp
+[00:40:31] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:40:31] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:31] 状态切换: battle -> idle
+[00:40:31] 战斗开关已开启，进入战斗状态
+[00:40:31] 状态切换: idle -> battle
+[00:40:33] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_927900_raw_1.bmp
+[00:40:33] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_927900_raw_1.bmp
+[00:40:33] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵:尸' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_927900_raw_1.bmp
+[00:40:33] 怪物名称识别完成 name=僵:尸 text=僵:尸 raw=僵:尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 751, 'bottom': 331} pos=742,376
+[00:40:33] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_930200_raw_1.bmp
+[00:40:33] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_930200_raw_1.bmp
+[00:40:33] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_930200_raw_1.bmp
+[00:40:33] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_930200_raw_1.bmp
+[00:40:33] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_930200_raw_2.bmp
+[00:40:33] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_930200_raw_2.bmp
+[00:40:33] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_930200_raw_2.bmp
+[00:40:33] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004032_930200_raw_2.bmp
+[00:40:33] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:40:33] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:33] 状态切换: battle -> idle
+[00:40:33] 战斗开关已开启，进入战斗状态
+[00:40:33] 状态切换: idle -> battle
+[00:40:34] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_560200_raw_1.bmp
+[00:40:34] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_560200_raw_1.bmp
+[00:40:34] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_560200_raw_1.bmp
+[00:40:34] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_560200_raw_1.bmp
+[00:40:34] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_560200_raw_2.bmp
+[00:40:34] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_560200_raw_2.bmp
+[00:40:34] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_560200_raw_2.bmp
+[00:40:34] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=692,363,792,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_560200_raw_2.bmp
+[00:40:34] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 327, 'right': 749, 'bottom': 331} pos=742,376
+[00:40:34] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_841600_raw_1.bmp
+[00:40:34] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_841600_raw_1.bmp
+[00:40:34] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004034_841600_raw_1.bmp
+[00:40:34] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:40:34] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:34] 状态切换: battle -> idle
+[00:40:34] 战斗开关已开启，进入战斗状态
+[00:40:34] 状态切换: idle -> battle
+[00:40:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004035_940400_raw_1.bmp
+[00:40:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004035_940400_raw_1.bmp
+[00:40:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004035_940400_raw_1.bmp
+[00:40:36] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004035_940400_raw_1.bmp
+[00:40:36] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004035_940400_raw_2.bmp
+[00:40:36] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004035_940400_raw_2.bmp
+[00:40:36] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004035_940400_raw_2.bmp
+[00:40:36] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=690,363,790,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004035_940400_raw_2.bmp
+[00:40:36] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 327, 'right': 746, 'bottom': 331} pos=740,376
+[00:40:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004036_645100_raw_1.bmp
+[00:40:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004036_645100_raw_1.bmp
+[00:40:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004036_645100_raw_1.bmp
+[00:40:36] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004036_645100_raw_1.bmp
+[00:40:36] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004036_645100_raw_2.bmp
+[00:40:36] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004036_645100_raw_2.bmp
+[00:40:36] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004036_645100_raw_2.bmp
+[00:40:36] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004036_645100_raw_2.bmp
+[00:40:36] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=ffff00-101010 attempt=2 reject=no_chinese_text bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:40:36] 扫描到 2 个怪物，但没有符合怪物清单的目标，跳过 2 个，留在原地继续扫描
+[00:40:36] 状态切换: battle -> idle
+[00:40:36] 战斗开关已开启，进入战斗状态
+[00:40:36] 状态切换: idle -> battle
+[00:40:37] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004037_068000_raw_1.bmp
+[00:40:37] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004037_068000_raw_1.bmp
+[00:40:37] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004037_068000_raw_1.bmp
+[00:40:37] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004037_068000_raw_1.bmp
+[00:40:37] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004037_068000_raw_2.bmp
+[00:40:37] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004037_068000_raw_2.bmp
+[00:40:37] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004037_068000_raw_2.bmp
+[00:40:37] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004037_068000_raw_2.bmp
+[00:40:37] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:40:37] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:37] 状态切换: battle -> idle
+[00:40:37] 战斗开关已开启，进入战斗状态
+[00:40:37] 状态切换: idle -> battle
+[00:40:38] TXT 配置加载完成 monsters=8 colors=4
+[00:40:38] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004038_753200_raw_1.bmp
+[00:40:38] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004038_753200_raw_1.bmp
+[00:40:38] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004038_753200_raw_1.bmp
+[00:40:38] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004038_753200_raw_1.bmp
+[00:40:38] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004038_753200_raw_2.bmp
+[00:40:38] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004038_753200_raw_2.bmp
+[00:40:38] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004038_753200_raw_2.bmp
+[00:40:38] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004038_753200_raw_2.bmp
+[00:40:38] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=ffff00-101010 attempt=2 reject=no_chinese_text bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:40:38] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:38] 状态切换: battle -> idle
+[00:40:38] 战斗开关已开启，进入战斗状态
+[00:40:38] 状态切换: idle -> battle
+[00:40:39] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004039_533500_raw_1.bmp
+[00:40:39] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004039_533500_raw_1.bmp
+[00:40:39] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,331,800,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004039_533500_raw_1.bmp
+[00:40:39] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:40:39] 开始攻击怪物 hp=100% distance=78 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=100% distance=78 matched=僵尸 text='僵尸 僵尸 僵尸'
+[00:40:40] 自动加血设置已更新: 开 threshold=50% interval=1000ms
+[00:40:40] 自动加血检测失败: 没有找到自身绿色血条
+[00:40:42] 本轮攻击等待结束，回到 idle
+[00:40:42] 状态切换: battle -> idle
+[00:40:43] 战斗开关已开启，进入战斗状态
+[00:40:43] 状态切换: idle -> battle
+[00:40:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=698,331,798,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004043_676700_raw_1.bmp
+[00:40:43] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=698,331,798,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004043_676700_raw_1.bmp
+[00:40:43] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=698,331,798,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004043_676700_raw_1.bmp
+[00:40:43] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 761, 'bottom': 299} pos=748,344
+[00:40:43] 开始攻击怪物 hp=100% distance=79 攻击怪物 点击成功 button=left method=down_up(1,1) x=748 y=344 last_error=0 hp=100% distance=79 matched=僵尸 text='僵尸 僵尸 僵尸'
+[00:40:46] 本轮攻击等待结束，回到 idle
+[00:40:46] 状态切换: battle -> idle
+[00:40:47] 战斗开关已开启，进入战斗状态
+[00:40:47] 状态切换: idle -> battle
+[00:40:48] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=693,331,793,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004047_640400_raw_1.bmp
+[00:40:48] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=693,331,793,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004047_640400_raw_1.bmp
+[00:40:48] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='1僵尸:0' reject= box=693,331,793,351 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004047_640400_raw_1.bmp
+[00:40:48] 怪物名称识别完成 name=1僵尸:0 text=1僵尸:0 raw=1僵尸:0 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 752, 'bottom': 299} pos=743,344
+[00:40:48] 开始攻击怪物 hp=94% distance=82 攻击怪物 点击成功 button=left method=down_up(1,1) x=743 y=344 last_error=0 hp=94% distance=82 matched=僵尸 text='1僵尸:0 1僵尸:0 1僵尸:0'
+[00:40:50] 战斗开关已打开，巡逻开关已关闭
+[00:40:50] 本轮攻击等待结束，回到 idle
+[00:40:50] 状态切换: battle -> idle
+[00:40:51] 战斗开关已开启，进入战斗状态
+[00:40:51] 状态切换: idle -> battle
+[00:40:52] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=700,363,800,383 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004052_751300_raw_1.bmp
+[00:40:52] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 766, 'bottom': 331} pos=750,376
+[00:40:52] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:52] 状态切换: battle -> idle
+[00:40:52] 战斗开关已开启，进入战斗状态
+[00:40:52] 状态切换: idle -> battle
+[00:40:53] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=748,395,848,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004053_863700_raw_1.bmp
+[00:40:53] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 782, 'top': 359, 'right': 814, 'bottom': 363} pos=798,408
+[00:40:53] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:53] 状态切换: battle -> idle
+[00:40:53] 战斗开关已开启，进入战斗状态
+[00:40:53] 状态切换: idle -> battle
+[00:40:54] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=788,395,888,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004054_502400_raw_1.bmp
+[00:40:54] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 822, 'top': 359, 'right': 854, 'bottom': 363} pos=838,408
+[00:40:54] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:54] 状态切换: battle -> idle
+[00:40:54] 战斗开关已开启，进入战斗状态
+[00:40:54] 状态切换: idle -> battle
+[00:40:55] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,395,896,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004055_710700_raw_1.bmp
+[00:40:55] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 830, 'top': 359, 'right': 862, 'bottom': 363} pos=846,408
+[00:40:55] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:55] 状态切换: battle -> idle
+[00:40:55] 战斗开关已开启，进入战斗状态
+[00:40:55] 状态切换: idle -> battle
+[00:40:56] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,395,896,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004056_224700_raw_1.bmp
+[00:40:56] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 830, 'top': 359, 'right': 862, 'bottom': 363} pos=846,408
+[00:40:56] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:56] 状态切换: battle -> idle
+[00:40:56] 战斗开关已开启，进入战斗状态
+[00:40:56] 状态切换: idle -> battle
+[00:40:57] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,395,896,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004057_068700_raw_1.bmp
+[00:40:57] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 830, 'top': 359, 'right': 862, 'bottom': 363} pos=846,408
+[00:40:57] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:57] 状态切换: battle -> idle
+[00:40:57] 战斗开关已开启，进入战斗状态
+[00:40:57] 状态切换: idle -> battle
+[00:40:58] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,395,896,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004058_337400_raw_1.bmp
+[00:40:58] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 830, 'top': 359, 'right': 862, 'bottom': 363} pos=846,408
+[00:40:58] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:58] 状态切换: battle -> idle
+[00:40:58] 战斗开关已开启，进入战斗状态
+[00:40:58] 状态切换: idle -> battle
+[00:40:59] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,395,896,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004059_484900_raw_1.bmp
+[00:40:59] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 830, 'top': 359, 'right': 862, 'bottom': 363} pos=846,408
+[00:40:59] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:40:59] 状态切换: battle -> idle
+[00:40:59] 战斗开关已开启，进入战斗状态
+[00:40:59] 状态切换: idle -> battle
+[00:41:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,395,896,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004100_227300_raw_1.bmp
+[00:41:00] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 830, 'top': 359, 'right': 862, 'bottom': 363} pos=846,408
+[00:41:00] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:41:00] 状态切换: battle -> idle
+[00:41:00] 战斗开关已开启，进入战斗状态
+[00:41:00] 状态切换: idle -> battle
+[00:41:01] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,395,896,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004101_381000_raw_1.bmp
+[00:41:01] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 830, 'top': 359, 'right': 862, 'bottom': 363} pos=846,408
+[00:41:01] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:41:01] 状态切换: battle -> idle
+[00:41:01] 战斗开关已开启，进入战斗状态
+[00:41:01] 状态切换: idle -> battle
+[00:41:02] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,395,896,415 file=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\DebugImage\monster_name_20260525_004102_642200_raw_1.bmp
+[00:41:02] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=00f7f7-101010 attempt=1 reject= bar={'left': 830, 'top': 359, 'right': 862, 'bottom': 363} pos=846,408
+[00:41:02] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:41:02] 状态切换: battle -> idle
+[00:41:02] 战斗开关已开启，进入战斗状态
+[00:41:02] 状态切换: idle -> battle
+[00:41:02] 战斗开关已关闭
+[00:41:02] 战斗开关已关闭，回到 idle
+[00:41:02] 状态切换: battle -> idle
+[00:41:04] 自动加血设置已更新: 关 threshold=50% interval=1000ms
+[00:41:04] 自动加血设置已更新: 开 threshold=50% interval=1000ms
