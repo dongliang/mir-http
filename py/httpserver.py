@@ -129,6 +129,7 @@ def create_server(
                     Div("怪物字色: ", Span("-", id="monster-name-colors")),
                     Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
                     Div("卡住跳点: ", Span("开", id="idle-stuck-enabled-text")),
+                    Div("怪名Debug图: ", Span("关", id="monster-name-debug-enabled-text")),
                     cls="status",
                 ),
                 create_patrol_panel(),
@@ -463,7 +464,8 @@ def create_server(
                 "bottom": bar_bottom,
             }
 
-        result = api.recognize_monster_name(x, y, blood_bar)
+        save_debug = bool(app_settings.get("monster_name_debug_enabled", False))
+        result = api.recognize_monster_name(x, y, blood_bar, save_debug=save_debug)
         for entry in result.get("ocr_logs", []):
             log.write(entry)
 
@@ -558,6 +560,23 @@ def create_server(
             "status": current_status(),
         })
 
+    # 怪物名 Debug 图开关接口：只控制是否保存本次运行的识别截图。
+    @rt("/api/monster-name-debug/settings")
+    async def post(request: Request):
+        try:
+            data = await request.json()
+        except Exception:
+            data = {}
+
+        result = api.update_monster_name_debug_settings(app_settings, data)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "settings": result.get("settings", {}),
+            "status": current_status(),
+        })
+
     # 测试按钮接口：写入一条测试日志用于验证页面操作链路。
     @rt("/api/test/{number}")
     def post(number: int):
@@ -607,6 +626,7 @@ def create_buttons(app_settings):
         ),
         create_auto_heal_controls(app_settings),
         create_idle_stuck_controls(app_settings),
+        create_monster_name_debug_controls(app_settings),
         create_map_corner_hotkey_controls(app_settings),
         Div(*utility_buttons, cls="utility-buttons"),
         Div(
@@ -716,6 +736,28 @@ def create_idle_stuck_controls(app_settings):
         ),
         Div("", id="idle-stuck-message", cls="idle-stuck-message"),
         cls="idle-stuck-controls",
+    )
+
+
+# 创建怪物名 Debug 图控制栏：默认关闭，需要每次运行后手动打开。
+def create_monster_name_debug_controls(app_settings):
+    enabled_attrs = {
+        "id": "monster-name-debug-enabled",
+        "type": "checkbox",
+        "onchange": "saveMonsterNameDebugSettings()",
+    }
+
+    if app_settings.get("monster_name_debug_enabled", False):
+        enabled_attrs["checked"] = True
+
+    return Div(
+        Label(
+            Input(**enabled_attrs),
+            Span("保存怪物名Debug图"),
+            cls="monster-name-debug-toggle",
+        ),
+        Div("", id="monster-name-debug-message", cls="monster-name-debug-message"),
+        cls="monster-name-debug-controls",
     )
 
 
@@ -934,6 +976,12 @@ h2 {
     gap: 8px;
     align-items: center;
 }
+.monster-name-debug-controls {
+    display: grid;
+    grid-template-columns: minmax(180px, 220px) minmax(180px, 1fr);
+    gap: 8px;
+    align-items: center;
+}
 .map-corner-hotkey-controls {
     display: grid;
     grid-template-columns: minmax(180px, 240px) 96px minmax(180px, 1fr);
@@ -944,6 +992,7 @@ h2 {
 .auto-heal-field,
 .idle-stuck-toggle,
 .idle-stuck-field,
+.monster-name-debug-toggle,
 .map-corner-hotkey-field {
     display: flex;
     align-items: center;
@@ -956,7 +1005,8 @@ h2 {
     font-size: 12px;
 }
 .auto-heal-toggle input,
-.idle-stuck-toggle input {
+.idle-stuck-toggle input,
+.monster-name-debug-toggle input {
     width: 16px;
     height: 16px;
     padding: 0;
@@ -969,6 +1019,7 @@ h2 {
 }
 .auto-heal-message,
 .idle-stuck-message,
+.monster-name-debug-message,
 .map-corner-hotkey-message {
     min-height: 34px;
     box-sizing: border-box;
@@ -1137,6 +1188,7 @@ th {
     .bind-controls,
     .auto-heal-controls,
     .idle-stuck-controls,
+    .monster-name-debug-controls,
     .map-corner-hotkey-controls,
     .utility-buttons,
     .status,
@@ -1225,6 +1277,19 @@ async function saveIdleStuckSettings() {
             enabled,
             seconds,
         }),
+    });
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
+async function saveMonsterNameDebugSettings() {
+    const enabled = document.getElementById("monster-name-debug-enabled").checked;
+    const response = await fetch("/api/monster-name-debug/settings", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({enabled}),
     });
     const data = await response.json();
     console.log(data);
@@ -1490,6 +1555,7 @@ function applyStatus(data) {
     updateMonsterNameColorPanel(data.monster_name_colors || {});
     updateAutoHealPanel(data.auto_heal || {});
     updateIdleStuckPanel(data.idle_stuck || {});
+    updateMonsterNameDebugPanel(data.settings || {});
     updateMapCornerHotkeyPanel(data.settings || {});
 
     const oldMapUrl = currentMapUrl;
@@ -1563,6 +1629,14 @@ function updateMapCornerHotkeyPanel(settings) {
     document.getElementById("map-corner-hotkey-message").textContent =
         "快捷键=" + hotkeyText
         + (settings.map_corner_hotkey_last_message ? " " + settings.map_corner_hotkey_last_message : "");
+}
+
+function updateMonsterNameDebugPanel(settings) {
+    const enabled = !!settings.monster_name_debug_enabled;
+    const stateText = enabled ? "开" : "关";
+    document.getElementById("monster-name-debug-enabled-text").textContent = stateText;
+    document.getElementById("monster-name-debug-enabled").checked = enabled;
+    document.getElementById("monster-name-debug-message").textContent = "Debug图保存=" + stateText;
 }
 
 function setInputValueIfIdle(id, value) {

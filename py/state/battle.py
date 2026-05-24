@@ -47,9 +47,10 @@ def update_frame(game_data, state_data):
     logs = []
     target = None
     attack = None
+    save_name_debug = bool(game_data.get("settings", {}).get("monster_name_debug_enabled", False))
 
     for candidate in choose_target_candidates(monsters):
-        attack = api.attack_monster(candidate)
+        attack = api.attack_monster(candidate, save_name_debug=save_name_debug)
         name_messages = attack.get("name_messages", [])
         name_message = attack.get("name_message", "")
 

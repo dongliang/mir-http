@@ -972,6 +972,7 @@ def make_app_settings_status(app_settings):
     return {
         "map_corner_hotkey": app_settings.get("map_corner_hotkey", MAP_CORNER_HOTKEY_DEFAULT),
         "map_corner_hotkey_last_message": get_map_corner_hotkey_last_message(),
+        "monster_name_debug_enabled": bool(app_settings.get("monster_name_debug_enabled", False)),
     }
 
 
@@ -1479,7 +1480,7 @@ def move_to_logic_point(point, current_map):
 
 
 # 攻击怪物：左键点击怪物 hover 点，让游戏自动跑过去攻击。
-def attack_monster(monster):
+def attack_monster(monster, save_name_debug=False):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -1509,7 +1510,14 @@ def attack_monster(monster):
     x = clamp_number(x, 0, width - 1)
     y = clamp_number(y, 0, height - 1)
 
-    filter_result = verify_monster_name_before_attack(monster, x, y, width, height)
+    filter_result = verify_monster_name_before_attack(
+        monster,
+        x,
+        y,
+        width,
+        height,
+        save_name_debug=save_name_debug,
+    )
 
     if not filter_result["allowed"]:
         filter_reason = filter_result.get("reason", "monster_filter_failed")
@@ -1564,7 +1572,7 @@ def attack_monster(monster):
 
 
 # 攻击前校验怪物名：只有命中 txt/monster.txt 中的关键字才允许点击。
-def verify_monster_name_before_attack(monster, x, y, width, height):
+def verify_monster_name_before_attack(monster, x, y, width, height, save_name_debug=False):
     keyword_status = load_monster_keywords(force=False)
     keywords = keyword_status.get("keywords", [])
 
@@ -1594,7 +1602,7 @@ def verify_monster_name_before_attack(monster, x, y, width, height):
             "message": "怪物缺少血条坐标，无法做名字过滤",
         }
 
-    name_result = recognize_monster_name(x, y, blood_bar, save_debug=True)
+    name_result = recognize_monster_name(x, y, blood_bar, save_debug=save_name_debug)
     move_success = name_result.get("move_success", True)
     move_message = name_result.get("move_message", "")
     name_message = name_result.get("message", "")
@@ -1739,6 +1747,22 @@ def update_map_corner_hotkey_settings(app_settings, data):
     app_settings["map_corner_hotkey"] = normalized_hotkey
     message = get_map_corner_hotkey_config_message(normalized_hotkey)
     set_map_corner_hotkey_last_message(message)
+    return {
+        "success": True,
+        "message": message,
+        "settings": make_app_settings_status(app_settings),
+    }
+
+
+# 更新怪物名 Debug 图保存开关。
+def update_monster_name_debug_settings(app_settings, data):
+    data = data if isinstance(data, dict) else {}
+    enabled = normalize_bool(data.get("enabled", app_settings.get("monster_name_debug_enabled", False)))
+
+    app_settings["monster_name_debug_enabled"] = enabled
+    state_text = "开" if enabled else "关"
+    message = f"怪物名Debug图保存已{state_text}"
+
     return {
         "success": True,
         "message": message,
@@ -2396,7 +2420,7 @@ def read_monster_from_match(index, match, scan_image, temp_path, width, height, 
 
 
 # 识别单个怪物名称：按表格传入的位置和血条信息补充名称。
-def recognize_monster_name(position_x, position_y, blood_bar=None, save_debug=True):
+def recognize_monster_name(position_x, position_y, blood_bar=None, save_debug=False):
     with monster_scan_lock:
         try:
             return recognize_monster_name_locked(position_x, position_y, blood_bar, save_debug)
@@ -2410,7 +2434,7 @@ def recognize_monster_name(position_x, position_y, blood_bar=None, save_debug=Tr
 
 
 # 执行单个怪物名称识别：只悬停并 OCR 当前指定怪物。
-def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_debug=True):
+def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_debug=False):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -2722,7 +2746,7 @@ def is_health_bar_filled_column(column, target_rgb, tolerance):
 
 
 # 识别怪物名区域：用 OP 大漠字库直接识别绑定窗口文字。
-def recognize_monster_name_box(box, save_debug=True):
+def recognize_monster_name_box(box, save_debug=False):
     empty_result = {
         "name": "未识别",
         "text": "",

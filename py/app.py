@@ -21,6 +21,7 @@ app_settings = {
     "auto_heal_interval_ms": 1000,
     "idle_stuck_enabled": True,
     "idle_stuck_seconds": 30,
+    "monster_name_debug_enabled": False,
 }
 # 当前绑定的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
 current_map = {}
