@@ -128,6 +128,11 @@ MAP_AUTO_OPEN_HOLD_MS = 120
 MAP_AUTO_OPEN_REPEAT = 2
 MAP_AUTO_OPEN_INTERVAL_MS = 150
 MAP_AUTO_OPEN_WAIT_SECONDS = 0.5
+# 大地图自动隐藏：绑定成功后后台按 M 一次收起地图。
+MAP_AUTO_HIDE_KEY = "M"
+MAP_AUTO_HIDE_HOLD_MS = 120
+MAP_AUTO_HIDE_REPEAT = 1
+MAP_AUTO_HIDE_INTERVAL_MS = 80
 # 玩家名称识别：绑定时在旧中心点附近用 OP 字库定位名字和脚底点。
 PLAYER_NAME_SEARCH_HALF_WIDTH = 220
 PLAYER_NAME_SEARCH_TOP_PADDING = 100
@@ -1600,7 +1605,7 @@ def bind_current_map_with_auto_open(player_info=None):
     if precheck["success"]:
         result = bind_current_map(player_info)
         result["message"] = f"地图预检查通过 max={precheck['max_x']}:{precheck['max_y']}；{result['message']}"
-        return result
+        return hide_current_map_after_bind(result)
 
     keyboard_result = press_keyboard(
         MAP_AUTO_OPEN_KEY,
@@ -1615,6 +1620,22 @@ def bind_current_map_with_auto_open(player_info=None):
         f"已尝试后台按 {MAP_AUTO_OPEN_KEY} {MAP_AUTO_OPEN_REPEAT} 次: {keyboard_result['message']}；"
         f"{result['message']}"
     )
+    return hide_current_map_after_bind(result)
+
+
+# 绑定成功后隐藏大地图：不影响绑定结果，只把隐藏动作写入返回信息。
+def hide_current_map_after_bind(result):
+    if not result.get("success"):
+        return result
+
+    hide_result = press_keyboard(
+        MAP_AUTO_HIDE_KEY,
+        hold_ms=MAP_AUTO_HIDE_HOLD_MS,
+        repeat=MAP_AUTO_HIDE_REPEAT,
+        interval_ms=MAP_AUTO_HIDE_INTERVAL_MS,
+    )
+    result["hide_keyboard"] = hide_result
+    result["message"] = f"{result['message']}；绑定成功后隐藏地图: {hide_result['message']}"
     return result
 
 
