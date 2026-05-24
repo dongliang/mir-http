@@ -1,6 +1,7 @@
 import ctypes
 import math
 import re
+import shutil
 import tempfile
 import threading
 import time
@@ -23,10 +24,8 @@ screenshot_dir = base_dir / "screenshots"
 debug_image_dir = base_dir / "DebugImage"
 # 文本配置目录：保存可运行时重载的简单清单。
 txt_dir = base_dir / "txt"
-# 怪物关键字清单：每行一个允许攻击的怪物名关键字。
-monster_keyword_file = txt_dir / "monster.txt"
-# 怪物名 OCR 颜色清单：每行一个 OP 颜色格式，例如 00f7f7-101010。
-monster_name_color_file = txt_dir / "monster_name_colors.txt"
+# 账号配置目录：每个账号一份可独立调整的 txt 配置。
+accounts_dir = base_dir / "accounts"
 # 地图坐标截图路径：保存游戏底部坐标区域截图，供诊断使用。
 coordinate_image = screenshot_dir / "map_coordinate.bmp"
 # PNG 资源目录：保存血条特征图等图像匹配资源。
@@ -47,6 +46,8 @@ coordinate_lock = threading.Lock()
 monster_scan_lock = threading.Lock()
 # 自动加血锁：避免页面主动刷新和后台刷新同时触发 F1。
 auto_heal_lock = threading.Lock()
+# 账号配置锁：保护当前账号名称和账号目录创建。
+account_lock = threading.Lock()
 # 地图角点快捷键锁：保护热键配置和最近触发状态。
 map_corner_hotkey_lock = threading.Lock()
 map_corner_hotkey_stop_event = threading.Event()
@@ -58,11 +59,16 @@ map_corner_hotkey_state = {
 }
 # 绑定玩家位置：绑定窗口时通过 OP 字库定位玩家名称得到脚底基准点。
 bound_player_position = {}
+# 当前账号配置：为空时读取根目录 txt/。
+account_state = {
+    "current": "",
+}
 # 怪物关键字清单缓存：运行时加载，可由网页按钮重载。
 monster_keyword_lock = threading.Lock()
 monster_keyword_state = {
     "loaded": False,
     "mtime": 0,
+    "path": "",
     "keywords": [],
     "message": "",
 }
@@ -71,6 +77,7 @@ monster_name_color_lock = threading.Lock()
 monster_name_color_state = {
     "loaded": False,
     "mtime": 0,
+    "path": "",
     "colors": [],
     "message": "",
 }
@@ -91,6 +98,12 @@ MAP_MAX_COORDINATE_OCR_OFFSET = {
 }
 # 地图右下角悬停等待：给游戏显示鼠标指向逻辑坐标留出时间。
 MAP_HOVER_WAIT_SECONDS = 0.25
+# 大地图自动打开：预检查失败时后台按 M 两次后再绑定。
+MAP_AUTO_OPEN_KEY = "M"
+MAP_AUTO_OPEN_HOLD_MS = 120
+MAP_AUTO_OPEN_REPEAT = 2
+MAP_AUTO_OPEN_INTERVAL_MS = 150
+MAP_AUTO_OPEN_WAIT_SECONDS = 0.5
 # 玩家名称识别：绑定时在旧中心点附近用 OP 字库定位名字和脚底点。
 PLAYER_NAME_SEARCH_HALF_WIDTH = 220
 PLAYER_NAME_SEARCH_TOP_PADDING = 100
@@ -477,11 +490,14 @@ def bind_window(keyword):
             ),
         }
 
+    account_result = activate_account(keyword)
+
     return {
         "success": success,
         "title": title,
-        "message": f"{message}；{position_result['message']}",
+        "message": f"{message}；{position_result['message']}；{account_result['message']}",
         "player_position": get_bound_player_position(),
+        "account": account_result,
     }
 
 
@@ -491,6 +507,8 @@ def unbind_window():
 
     if success:
         clear_bound_player_position()
+        text_config = clear_current_account()
+        message = f"{message}；账号已清空；{text_config.get('message', '')}"
 
     return {
         "success": success,
@@ -701,13 +719,183 @@ def apply_app_settings(app_settings):
         app_settings["map_corner_hotkey"] = configure_map_corner_hotkey(MAP_CORNER_HOTKEY_DEFAULT)
 
 
+# 清理账号目录名：保留可读名称，只替换 Windows 文件名非法字符。
+def normalize_account_name(account):
+    name = str(account or "").strip()
+    name = re.sub(r'[<>:"/\\|?*\x00-\x1f]+', "_", name)
+    return name.strip(" .")
+
+
+# 列出已有账号目录。
+def list_accounts():
+    if not accounts_dir.exists():
+        return []
+
+    return sorted(
+        path.name
+        for path in accounts_dir.iterdir()
+        if path.is_dir()
+    )
+
+
+# 获取当前账号名。
+def get_current_account():
+    with account_lock:
+        return account_state.get("current", "")
+
+
+# 清空当前账号，后续配置读取回到根目录 txt/。
+def clear_current_account():
+    with account_lock:
+        account_state["current"] = ""
+
+    return load_text_configs()
+
+
+# 获取账号配置目录。
+def get_account_dir(account):
+    return accounts_dir / normalize_account_name(account)
+
+
+# 获取当前 TXT 配置目录：未绑定账号时使用根目录 txt/。
+def get_current_txt_config_dir():
+    account = get_current_account()
+
+    if account:
+        return get_account_dir(account)
+
+    return txt_dir
+
+
+# 获取当前怪物关键字清单路径。
+def get_monster_keyword_file():
+    return get_current_txt_config_dir() / "monster.txt"
+
+
+# 获取当前怪物名颜色清单路径。
+def get_monster_name_color_file():
+    return get_current_txt_config_dir() / "monster_name_colors.txt"
+
+
+# 复制根目录 txt/*.txt 到指定账号目录。
+def copy_root_txt_files_to_account(account_dir, overwrite=False):
+    account_dir.mkdir(parents=True, exist_ok=True)
+    copied = []
+
+    if not txt_dir.exists():
+        return copied
+
+    for source_file in sorted(txt_dir.glob("*.txt")):
+        target_file = account_dir / source_file.name
+
+        if target_file.exists() and not overwrite:
+            continue
+
+        shutil.copy2(source_file, target_file)
+        copied.append(str(target_file))
+
+    return copied
+
+
+# 创建或切换账号，并在首次创建时复制根目录 txt 配置。
+def activate_account(account):
+    name = normalize_account_name(account)
+
+    if not name:
+        return {
+            "success": False,
+            "account": "",
+            "created": False,
+            "copied": [],
+            "message": "账号名不能为空",
+        }
+
+    try:
+        with account_lock:
+            account_dir = get_account_dir(name)
+            created = not account_dir.exists()
+            copied = copy_root_txt_files_to_account(account_dir, overwrite=False) if created else []
+            account_state["current"] = name
+    except Exception as error:
+        return {
+            "success": False,
+            "account": name,
+            "created": False,
+            "copied": [],
+            "message": f"账号配置切换失败 account={name}: {error}",
+        }
+
+    text_config = load_text_configs()
+    return {
+        "success": True,
+        "account": name,
+        "created": created,
+        "copied": copied,
+        "config_dir": str(account_dir),
+        "text_config": text_config,
+        "message": (
+            f"账号配置已切换 account={name} "
+            f"created={created} copied={len(copied)} config_dir={account_dir}；"
+            f"{text_config.get('message', '')}"
+        ),
+    }
+
+
+# 把根目录 txt/*.txt 覆盖复制到所有已有账号目录。
+def overwrite_account_configs():
+    accounts = list_accounts()
+    copied_count = 0
+    errors = []
+
+    for account in accounts:
+        try:
+            copied_count += len(copy_root_txt_files_to_account(get_account_dir(account), overwrite=True))
+        except Exception as error:
+            errors.append(f"{account}: {error}")
+
+    text_config = None
+    current_account = get_current_account()
+
+    if current_account and current_account in accounts:
+        text_config = load_text_configs()
+
+    message = f"复写配置完成 accounts={len(accounts)} files={copied_count}"
+
+    if errors:
+        message = f"{message}；失败 {len(errors)} 个: {' | '.join(errors)}"
+
+    if text_config:
+        message = f"{message}；当前账号配置已重载；{text_config.get('message', '')}"
+
+    return {
+        "success": not errors,
+        "accounts": make_accounts_status(),
+        "copied_files": copied_count,
+        "errors": errors,
+        "text_config": text_config or {},
+        "message": message,
+    }
+
+
+# 生成账号状态。
+def make_accounts_status():
+    current = get_current_account()
+    return {
+        "current": current,
+        "items": list_accounts(),
+        "config_dir": str(get_current_txt_config_dir()),
+    }
+
+
 # 读取怪物关键字清单：每行一个关键字，空行和 # 注释会跳过。
 def load_monster_keywords(force=False):
     with monster_keyword_lock:
         try:
             return load_monster_keywords_locked(force)
         except Exception as error:
+            monster_keyword_file = get_monster_keyword_file()
             monster_keyword_state["loaded"] = True
+            monster_keyword_state["path"] = str(monster_keyword_file)
             monster_keyword_state["keywords"] = []
             monster_keyword_state["message"] = f"怪物清单加载异常: {error}"
             return get_monster_keyword_status_locked()
@@ -715,18 +903,23 @@ def load_monster_keywords(force=False):
 
 # 执行怪物关键字清单加载。
 def load_monster_keywords_locked(force=False):
+    monster_keyword_file = get_monster_keyword_file()
+
     if not monster_keyword_file.exists():
         monster_keyword_state["loaded"] = True
         monster_keyword_state["mtime"] = 0
+        monster_keyword_state["path"] = str(monster_keyword_file)
         monster_keyword_state["keywords"] = []
         monster_keyword_state["message"] = f"怪物清单不存在 path={monster_keyword_file}"
         return get_monster_keyword_status_locked()
 
     current_mtime = monster_keyword_file.stat().st_mtime_ns
+    current_path = str(monster_keyword_file)
 
     if (
         not force
         and monster_keyword_state.get("loaded")
+        and monster_keyword_state.get("path") == current_path
         and monster_keyword_state.get("mtime") == current_mtime
     ):
         return get_monster_keyword_status_locked()
@@ -735,6 +928,7 @@ def load_monster_keywords_locked(force=False):
     keywords = parse_monster_keywords(text)
     monster_keyword_state["loaded"] = True
     monster_keyword_state["mtime"] = current_mtime
+    monster_keyword_state["path"] = current_path
     monster_keyword_state["keywords"] = keywords
     monster_keyword_state["message"] = f"怪物清单加载完成 count={len(keywords)} path={monster_keyword_file}"
     return get_monster_keyword_status_locked()
@@ -787,7 +981,7 @@ def get_monster_keyword_status():
 def get_monster_keyword_status_locked():
     keywords = list(monster_keyword_state.get("keywords", []))
     return {
-        "path": str(monster_keyword_file),
+        "path": monster_keyword_state.get("path") or str(get_monster_keyword_file()),
         "count": len(keywords),
         "keywords": keywords,
         "message": monster_keyword_state.get("message", ""),
@@ -800,7 +994,9 @@ def load_monster_name_colors(force=False):
         try:
             return load_monster_name_colors_locked(force)
         except Exception as error:
+            monster_name_color_file = get_monster_name_color_file()
             monster_name_color_state["loaded"] = True
+            monster_name_color_state["path"] = str(monster_name_color_file)
             monster_name_color_state["colors"] = list(DEFAULT_MONSTER_NAME_OCR_COLORS)
             monster_name_color_state["message"] = f"怪物名颜色加载异常，使用默认颜色: {error}"
             return get_monster_name_color_status_locked()
@@ -808,18 +1004,23 @@ def load_monster_name_colors(force=False):
 
 # 执行怪物名 OCR 颜色清单加载。
 def load_monster_name_colors_locked(force=False):
+    monster_name_color_file = get_monster_name_color_file()
+
     if not monster_name_color_file.exists():
         monster_name_color_state["loaded"] = True
         monster_name_color_state["mtime"] = 0
+        monster_name_color_state["path"] = str(monster_name_color_file)
         monster_name_color_state["colors"] = list(DEFAULT_MONSTER_NAME_OCR_COLORS)
         monster_name_color_state["message"] = f"怪物名颜色清单不存在，使用默认颜色 path={monster_name_color_file}"
         return get_monster_name_color_status_locked()
 
     current_mtime = monster_name_color_file.stat().st_mtime_ns
+    current_path = str(monster_name_color_file)
 
     if (
         not force
         and monster_name_color_state.get("loaded")
+        and monster_name_color_state.get("path") == current_path
         and monster_name_color_state.get("mtime") == current_mtime
     ):
         return get_monster_name_color_status_locked()
@@ -835,6 +1036,7 @@ def load_monster_name_colors_locked(force=False):
 
     monster_name_color_state["loaded"] = True
     monster_name_color_state["mtime"] = current_mtime
+    monster_name_color_state["path"] = current_path
     monster_name_color_state["colors"] = colors
     monster_name_color_state["message"] = message
     return get_monster_name_color_status_locked()
@@ -853,7 +1055,7 @@ def get_monster_name_color_status():
 def get_monster_name_color_status_locked():
     colors = list(monster_name_color_state.get("colors", []))
     return {
-        "path": str(monster_name_color_file),
+        "path": monster_name_color_state.get("path") or str(get_monster_name_color_file()),
         "count": len(colors),
         "colors": colors,
         "message": monster_name_color_state.get("message", ""),
@@ -956,6 +1158,7 @@ def get_status(
         "map": make_map_status(current_map),
         "patrol": make_patrol_status(patrol_points, patrol_state, patrol_control),
         "battle": make_battle_status(battle_control),
+        "accounts": make_accounts_status(),
         "monster_filter": get_monster_keyword_status(),
         "monster_name_colors": get_monster_name_color_status(),
         "state": make_state_status(current_state),
@@ -1154,6 +1357,95 @@ def move_mouse_to_map_rect_corner():
             f"地图角点前台移动 {'成功' if success else '失败'} "
             f"op={x},{y} raw={raw_x},{raw_y} screen={screen_x},{screen_y} "
             f"rect={left},{top},{right},{bottom}"
+        ),
+    }
+
+
+# 绑定当前大地图：预检查失败时先尝试后台打开地图。
+def bind_current_map_with_auto_open(player_info=None):
+    precheck = precheck_current_map_ready(player_info)
+
+    if precheck["success"]:
+        result = bind_current_map(player_info)
+        result["message"] = f"地图预检查通过 max={precheck['max_x']}:{precheck['max_y']}；{result['message']}"
+        return result
+
+    keyboard_result = press_keyboard(
+        MAP_AUTO_OPEN_KEY,
+        hold_ms=MAP_AUTO_OPEN_HOLD_MS,
+        repeat=MAP_AUTO_OPEN_REPEAT,
+        interval_ms=MAP_AUTO_OPEN_INTERVAL_MS,
+    )
+    time.sleep(MAP_AUTO_OPEN_WAIT_SECONDS)
+    result = bind_current_map(player_info)
+    result["message"] = (
+        f"地图预检查失败: {precheck['message']}；"
+        f"已尝试后台按 {MAP_AUTO_OPEN_KEY} {MAP_AUTO_OPEN_REPEAT} 次: {keyboard_result['message']}；"
+        f"{result['message']}"
+    )
+    return result
+
+
+# 预检查当前大地图是否已经打开并能读到右下角最大坐标。
+def precheck_current_map_ready(player_info=None):
+    with coordinate_lock:
+        try:
+            return precheck_current_map_ready_locked(player_info)
+        except Exception as error:
+            return {
+                "success": False,
+                "message": f"地图预检查异常: {error}",
+            }
+
+
+# 执行大地图预检查：只 hover 和 OCR，不保存地图截图。
+def precheck_current_map_ready_locked(player_info=None):
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口",
+        }
+
+    width, height = get_bound_client_size()
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    left, top, right, bottom = get_map_rect(width, height)
+    map_rect = make_map_rect(left, top, right, bottom)
+    hover_x, hover_y = right - 1, bottom - 1
+    move_success, move_message = op.move_mouse_to(hover_x, hover_y)
+
+    if not move_success:
+        return {
+            "success": False,
+            "message": f"地图右下角悬停失败: {move_message}",
+        }
+
+    time.sleep(MAP_HOVER_WAIT_SECONDS)
+    ocr_box = get_map_max_coordinate_ocr_box(map_rect, width, height)
+    text = op.ocr_text(
+        ocr_box["left"],
+        ocr_box["top"],
+        ocr_box["right"] - 1,
+        ocr_box["bottom"] - 1,
+    )
+    max_x, max_y = parse_map_max_coordinate_text(text, player_info)
+
+    return {
+        "success": True,
+        "max_x": max_x,
+        "max_y": max_y,
+        "rect": map_rect,
+        "ocr_box": ocr_box,
+        "ocr_text": text,
+        "message": (
+            f"地图预检查通过 max={max_x}:{max_y} "
+            f"ocr_box={ocr_box['left']},{ocr_box['top']},{ocr_box['right']},{ocr_box['bottom']} "
+            f"text={text!r} hover={hover_x},{hover_y}"
         ),
     }
 

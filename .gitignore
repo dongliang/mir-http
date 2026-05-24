@@ -59,5 +59,6 @@ screenshot.bmp
 log.txt
 screenshots/
 DebugImage/
+accounts/
 server.out.log
 server.err.log

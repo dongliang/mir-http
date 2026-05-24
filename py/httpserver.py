@@ -125,6 +125,8 @@ def create_server(
                     Div("状态: ", Span(current_state["name"], id="state-name")),
                     Div("巡逻: ", Span("关", id="patrol-enabled")),
                     Div("战斗: ", Span("关", id="battle-enabled")),
+                    Div("账号: ", Span("未选择", id="account-current")),
+                    Div("配置目录: ", Span("-", id="account-config-dir")),
                     Div("怪物过滤: ", Span("-", id="monster-filter")),
                     Div("怪物字色: ", Span("-", id="monster-name-colors")),
                     Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
@@ -204,16 +206,15 @@ def create_server(
     # 绑定地图接口：截图当前大地图，读取最大逻辑坐标并重置巡逻点。
     @rt("/api/map/bind")
     def post():
-        update_frame_safely(update_frame)
-        result = api.bind_current_map(player_info)
+        result = bind_map_and_reset(
+            update_frame,
+            player_info,
+            current_map,
+            patrol_points,
+            patrol_state,
+            patrol_control,
+        )
         log.write(result["message"])
-
-        if result["success"]:
-            current_map.clear()
-            current_map.update(result["map"])
-            patrol_points.clear()
-            patrol_state["index"] = -1
-            patrol_control["enabled"] = False
 
         return JSONResponse({
             "success": result["success"],
@@ -314,11 +315,28 @@ def create_server(
     def post(keyword: str = ""):
         # 绑定结果：记录窗口绑定是否成功、标题和说明消息。
         result = api.bind_window(keyword)
-        log.write(result["message"])
+        map_result = {}
+        messages = [result["message"]]
+
+        if result["success"]:
+            map_result = bind_map_and_reset(
+                update_frame,
+                player_info,
+                current_map,
+                patrol_points,
+                patrol_state,
+                patrol_control,
+            )
+            messages.append(map_result["message"])
+
+        message = "；".join(message for message in messages if message)
+        log.write(message)
         return JSONResponse({
             "success": result["success"],
             "title": result["title"],
-            "message": result["message"],
+            "message": message,
+            "map": map_result.get("map", {}),
+            "map_bind": map_result,
             "status": current_status(),
         })
 
@@ -500,6 +518,23 @@ def create_server(
             "status": current_status(),
         })
 
+    # 账号配置复写接口：用根目录 txt/*.txt 覆盖所有已存在账号配置。
+    @rt("/api/accounts/overwrite-configs")
+    def post():
+        result = api.overwrite_account_configs()
+        log.write(result["message"])
+        text_config = result.get("text_config", {})
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "accounts": result.get("accounts", {}),
+            "copied_files": result.get("copied_files", 0),
+            "errors": result.get("errors", []),
+            "monster_filter": text_config.get("monster_filter", api.get_monster_keyword_status()),
+            "monster_name_colors": text_config.get("monster_name_colors", api.get_monster_name_color_status()),
+            "status": current_status(),
+        })
+
     # 后台键盘输入接口：向当前绑定窗口发送指定按键。
     @rt("/api/keyboard/press")
     def post(key: str = "", hold_ms: int = 120, repeat: int = 1, interval_ms: int = 80):
@@ -603,6 +638,7 @@ def create_buttons(app_settings):
         Button("测试键盘(M)", onclick="pressKeyboard('M')"),
         Button("检测怪物列表", onclick="scanMonsters()"),
         Button("重载TXT配置", onclick="postApi('/api/monsters/reload-list')"),
+        Button("复写配置", onclick="postApi('/api/accounts/overwrite-configs')"),
         Button("绑定地图", onclick="bindMap()"),
         Button("保存巡逻点", onclick="savePatrolPoints()"),
         Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
@@ -614,6 +650,11 @@ def create_buttons(app_settings):
 
     return [
         Div(
+            Select(
+                Option("选择账号", value=""),
+                id="account-select",
+                onchange="selectAccountFromDropdown()",
+            ),
             Input(
                 id="bind-keyword",
                 type="text",
@@ -909,6 +950,28 @@ def save_patrol_points(data, current_map, patrol_points, patrol_state):
         "points": points,
         "message": f"保存巡逻点成功 count={len(points)}",
     }
+
+
+# 绑定地图并重置依赖旧地图的巡逻状态。
+def bind_map_and_reset(
+    update_frame,
+    player_info,
+    current_map,
+    patrol_points,
+    patrol_state,
+    patrol_control,
+):
+    update_frame_safely(update_frame)
+    result = api.bind_current_map_with_auto_open(player_info)
+
+    if result["success"]:
+        current_map.clear()
+        current_map.update(result["map"])
+        patrol_points.clear()
+        patrol_state["index"] = -1
+        patrol_control["enabled"] = False
+
+    return result
 
 
 # 移动到下一个巡逻点：复用状态模块里的单次巡逻移动逻辑。
@@ -1228,6 +1291,15 @@ async function bindWindow() {
 
     if (!keyword) {
         input.focus();
+    }
+}
+
+function selectAccountFromDropdown() {
+    const select = document.getElementById("account-select");
+    const input = document.getElementById("bind-keyword");
+
+    if (select.value) {
+        input.value = select.value;
     }
 }
 
@@ -1551,6 +1623,7 @@ function applyStatus(data) {
     document.getElementById("state-name").textContent = data.state ? data.state.name : "idle";
     document.getElementById("patrol-enabled").textContent = data.patrol && data.patrol.enabled ? "开" : "关";
     document.getElementById("battle-enabled").textContent = data.battle && data.battle.enabled ? "开" : "关";
+    updateAccountsPanel(data.accounts || {});
     updateMonsterFilterPanel(data.monster_filter || {});
     updateMonsterNameColorPanel(data.monster_name_colors || {});
     updateAutoHealPanel(data.auto_heal || {});
@@ -1570,6 +1643,33 @@ function applyStatus(data) {
     renderPatrolPoints();
     renderPatrolPointTable();
     updatePatrolMapInfo();
+}
+
+function updateAccountsPanel(accounts) {
+    const current = accounts.current || "";
+    const items = accounts.items || [];
+    const configDir = accounts.config_dir || "";
+    document.getElementById("account-current").textContent = current || "未选择";
+    document.getElementById("account-config-dir").textContent = configDir || "-";
+
+    const select = document.getElementById("account-select");
+    const oldValue = select.value;
+    const nextValue = current || oldValue;
+    select.textContent = "";
+
+    const emptyOption = document.createElement("option");
+    emptyOption.value = "";
+    emptyOption.textContent = "选择账号";
+    select.appendChild(emptyOption);
+
+    for (const item of items) {
+        const option = document.createElement("option");
+        option.value = item;
+        option.textContent = item;
+        select.appendChild(option);
+    }
+
+    select.value = items.includes(nextValue) ? nextValue : "";
 }
 
 function updateMonsterFilterPanel(monsterFilter) {
