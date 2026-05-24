@@ -95,12 +95,12 @@ PLAYER_NAME_TO_FOOT_OFFSET_X = 0
 PLAYER_NAME_TO_FOOT_OFFSET_Y = 32
 # 怪物悬停偏移：血条底边到怪物名字中点的位置，兼作怪物位置和鼠标悬停点。
 MONSTER_HOVER_OFFSET_Y = 45
-# 怪物名识别横向半宽：覆盖“变异骷髅(妖孽)”这类较长名字。
-MONSTER_NAME_HALF_WIDTH = 60
+# 怪物名识别横向半宽：总宽约 100 像素，覆盖“变异骷髅(妖孽)”并减少背景干扰。
+MONSTER_NAME_HALF_WIDTH = 50
 # 怪物名识别上边距：血条底边向下到名字区域顶部的距离。
-MONSTER_NAME_TOP_OFFSET = 30
+MONSTER_NAME_TOP_OFFSET = 32
 # 怪物名识别下边距：血条底边向下到名字区域底部的距离。
-MONSTER_NAME_BOTTOM_OFFSET = 60
+MONSTER_NAME_BOTTOM_OFFSET = 52
 # 血条特征匹配阈值：0 表示完全一致，保留极小容差兼容截图格式差异。
 MONSTER_FEATURE_MATCH_THRESHOLD = 0.001
 # 怪物名字显示等待时间：鼠标悬停后等待游戏显示名字。
