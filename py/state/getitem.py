@@ -135,6 +135,8 @@ def update_frame(game_data, state_data):
         }
 
     selected["move"] = {
+        "action": move.get("action", ""),
+        "logic_distance": move.get("logic_distance", ""),
         "direction": move.get("direction", ""),
         "player": move.get("player", {}),
         "item": move.get("item", {}),
@@ -150,7 +152,8 @@ def update_frame(game_data, state_data):
     state_data["next_action_at"] = time.time() + wait_ms / 1000
     message = (
         f"捡取物品移动 target={api.format_getitem_target(selected)} "
-        f"direction={move.get('direction', '')} wait={wait_ms}ms {move.get('message', '')}"
+        f"action={move.get('action', '')} direction={move.get('direction', '')} "
+        f"wait={wait_ms}ms {move.get('message', '')}"
     )
     api.set_getitem_runtime_status(message=message, target=selected)
 

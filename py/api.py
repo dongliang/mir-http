@@ -187,6 +187,8 @@ ITEM_NAME_OCR_SIM = 0.85
 GETITEM_TARGET_MATCH_RADIUS = 120
 # 逻辑坐标到达半径：物品拾取按格子判断，0 表示必须走到估算目标格。
 GETITEM_TARGET_ARRIVAL_RADIUS = 0
+# 捡取移动动作切换：距离 2 格以内走路，更远时跑步。
+GETITEM_WALK_MAX_LOGIC_DISTANCE = 2
 # 捡取点击后等待角色走路的默认间隔。
 GETITEM_DEFAULT_STEP_WAIT_MS = 800
 GETITEM_MIN_STEP_WAIT_MS = 100
@@ -3059,15 +3061,19 @@ def move_getitem_toward_target(target, previous_direction="", player_info=None):
         item_y,
         previous_direction,
     )
-    move = calculate_move("walk", direction, width, height, player_x, player_y)
+    action, logic_distance = get_getitem_move_action(target, player_info)
+    move = calculate_move(action, direction, width, height, player_x, player_y)
     success, message = op.click_mouse_at(move["click_x"], move["click_y"], move["button"])
     message = (
-        f"{message} direction={direction} player={player_x},{player_y} item={item_x},{item_y} "
+        f"{message} action={action} logic_distance={logic_distance} "
+        f"direction={direction} player={player_x},{player_y} item={item_x},{item_y} "
         f"move_click={move['click_x']},{move['click_y']} target_source={target_point['source']} "
         f"{direction_message}"
     )
     return {
         "success": success,
+        "action": action,
+        "logic_distance": logic_distance,
         "direction": direction,
         "player": {
             "x": player_x,
@@ -3083,6 +3089,24 @@ def move_getitem_toward_target(target, previous_direction="", player_info=None):
         "move": move,
         "message": message,
     }
+
+
+# 获取捡取移动动作：目标超过 2 格跑步，2 格以内走路。
+def get_getitem_move_action(target, player_info):
+    logic = (target or {}).get("logic", {})
+    target_x = parse_optional_int(logic.get("x"))
+    target_y = parse_optional_int(logic.get("y"))
+    player_x, player_y = get_player_logic_coordinate(player_info)
+
+    if target_x is None or target_y is None or player_x is None or player_y is None:
+        return "walk", ""
+
+    distance = max(abs(target_x - player_x), abs(target_y - player_y))
+
+    if distance <= GETITEM_WALK_MAX_LOGIC_DISTANCE:
+        return "walk", distance
+
+    return "run", distance
 
 
 # 获取物品移动用的当前屏幕目标点：优先用逻辑坐标重新投影，兜底用识别时点击点。
@@ -3423,6 +3447,8 @@ def make_getitem_target_status(target):
         "logic_x": int(logic.get("x", 0)) if logic else 0,
         "logic_y": int(logic.get("y", 0)) if logic else 0,
         "distance": int(target.get("distance", 0)),
+        "action": str(move.get("action", "")),
+        "logic_distance": move.get("logic_distance", ""),
         "direction": str(move.get("direction", "")),
         "move_click_x": int(move_click.get("x", 0)),
         "move_click_y": int(move_click.get("y", 0)),
