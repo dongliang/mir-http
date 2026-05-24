@@ -51,32 +51,53 @@ def update_frame(game_data, state_data):
             "message": message,
         }
 
-    scan = api.scan_getitems()
+    player_info = game_data.get("player", {})
+    target = state_data.get("target") or {}
 
-    if not scan.get("success", False):
-        message = f"捡取物品扫描失败，回到 idle: {scan.get('message', '')}"
-        api.set_getitem_runtime_status(message=message)
-        return {
-            "state": "idle",
-            "message": message,
-        }
+    if target and not api.has_getitem_target_logic(target):
+        target = {}
+        state_data["target"] = {}
 
-    items = scan.get("items", [])
-    target = state_data.get("target")
     picked_message = ""
+    selected = target
 
-    if target:
-        selected = api.find_matching_getitem_target(items, target)
+    if target and api.is_getitem_target_reached(target, player_info):
+        scan = api.scan_getitems(player_info)
+
+        if not scan.get("success", False):
+            message = f"捡取物品复查失败，回到 idle: {scan.get('message', '')}"
+            api.set_getitem_runtime_status(message=message, target=target)
+            return {
+                "state": "idle",
+                "message": message,
+            }
+
+        items = scan.get("items", [])
+        selected = api.find_same_keyword_getitem_target(items, target)
 
         if selected is None:
             picked_message = f"物品已消失，认为已捡取 target={api.format_getitem_target(target)}"
             state_data["target"] = {}
             selected = api.choose_getitem_target(items)
-    else:
+        else:
+            picked_message = f"物品仍存在，重新识别 target={api.format_getitem_target(selected)}"
+
+    if not selected and not picked_message:
+        scan = api.scan_getitems(player_info)
+
+        if not scan.get("success", False):
+            message = f"捡取物品扫描失败，回到 idle: {scan.get('message', '')}"
+            api.set_getitem_runtime_status(message=message)
+            return {
+                "state": "idle",
+                "message": message,
+            }
+
+        items = scan.get("items", [])
         selected = api.choose_getitem_target(items)
 
     if selected is None:
-        message = "周围可捡物品已处理完，回到 idle"
+        message = "可玩区域可捡物品已处理完，回到 idle"
 
         if picked_message:
             message = f"{picked_message}；{message}"
@@ -87,7 +108,23 @@ def update_frame(game_data, state_data):
             "message": message,
         }
 
-    move = api.move_getitem_toward_target(selected, state_data.get("last_direction", ""))
+    wait_ms = api.get_getitem_step_wait_ms(settings)
+
+    if api.is_getitem_target_reached(selected, player_info):
+        state_data["target"] = selected
+        state_data["next_action_at"] = time.time() + wait_ms / 1000
+        message = (
+            f"{picked_message + '；' if picked_message else ''}"
+            f"已到达物品逻辑坐标，等待拾取刷新 target={api.format_getitem_target(selected)} "
+            f"wait={wait_ms}ms"
+        )
+        api.set_getitem_runtime_status(message=message, target=selected)
+        return {
+            "logs": [picked_message] if picked_message else [],
+            "message": message,
+        }
+
+    move = api.move_getitem_toward_target(selected, state_data.get("last_direction", ""), player_info)
 
     if not move.get("success", False):
         message = f"捡取物品移动失败，回到 idle: {move.get('message', '')}"
@@ -97,11 +134,12 @@ def update_frame(game_data, state_data):
             "message": message,
         }
 
-    wait_ms = api.get_getitem_step_wait_ms(settings)
     selected["move"] = {
         "direction": move.get("direction", ""),
         "player": move.get("player", {}),
         "item": move.get("item", {}),
+        "target_source": move.get("target_source", ""),
+        "target_logic": move.get("target_logic", {}),
         "click": {
             "x": move.get("move", {}).get("click_x", 0),
             "y": move.get("move", {}).get("click_y", 0),

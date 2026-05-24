@@ -5,6 +5,7 @@ import shutil
 import tempfile
 import threading
 import time
+import unicodedata
 from ctypes import wintypes
 from pathlib import Path
 
@@ -88,6 +89,7 @@ item_keyword_state = {
     "mtime": 0,
     "path": "",
     "keywords": [],
+    "entries": [],
     "message": "",
 }
 # 物品名 OCR 颜色缓存：运行时加载，可由网页按钮重载。
@@ -172,16 +174,19 @@ DEFAULT_ITEM_NAME_OCR_COLORS = [
     "ffff00-101010",
     "00ffff-101010",
 ]
-# 捡取物品搜索范围：以角色脚底为中心，排除底部 UI。
+# 捡取安全检测范围：以角色脚底为中心，只用于近身怪物检测。
 GETITEM_SEARCH_WIDTH = 350
 GETITEM_SEARCH_HEIGHT = 250
 # 物品文字尺寸和点击偏移：OP 找字返回文字左上角，点击地面物品中心。
 ITEM_NAME_TEXT_WIDTH = 12
+ITEM_NAME_TEXT_ASCII_WIDTH = 6
 ITEM_NAME_TEXT_HEIGHT = 12
 ITEM_CLICK_OFFSET_Y = 32
 ITEM_NAME_OCR_SIM = 0.85
 # 同一目标跟踪半径：同名物品优先追踪上次点击附近的命中。
 GETITEM_TARGET_MATCH_RADIUS = 120
+# 逻辑坐标到达半径：物品拾取按格子判断，0 表示必须走到估算目标格。
+GETITEM_TARGET_ARRIVAL_RADIUS = 0
 # 捡取点击后等待角色走路的默认间隔。
 GETITEM_DEFAULT_STEP_WAIT_MS = 800
 GETITEM_MIN_STEP_WAIT_MS = 100
@@ -1159,6 +1164,7 @@ def load_item_keywords(force=False):
             item_keyword_state["loaded"] = True
             item_keyword_state["path"] = str(item_keyword_file)
             item_keyword_state["keywords"] = []
+            item_keyword_state["entries"] = []
             item_keyword_state["message"] = f"物品清单加载异常: {error}"
             return get_item_keyword_status_locked()
 
@@ -1172,6 +1178,7 @@ def load_item_keywords_locked(force=False):
         item_keyword_state["mtime"] = 0
         item_keyword_state["path"] = str(item_keyword_file)
         item_keyword_state["keywords"] = []
+        item_keyword_state["entries"] = []
         item_keyword_state["message"] = f"物品清单不存在 path={item_keyword_file}"
         return get_item_keyword_status_locked()
 
@@ -1187,11 +1194,13 @@ def load_item_keywords_locked(force=False):
         return get_item_keyword_status_locked()
 
     text = read_text_file_with_fallback(item_keyword_file)
-    keywords = parse_monster_keywords(text)
+    entries = parse_item_keywords(text)
+    keywords = [entry["keyword"] for entry in entries]
     item_keyword_state["loaded"] = True
     item_keyword_state["mtime"] = current_mtime
     item_keyword_state["path"] = current_path
     item_keyword_state["keywords"] = keywords
+    item_keyword_state["entries"] = entries
     item_keyword_state["message"] = f"物品清单加载完成 count={len(keywords)} path={item_keyword_file}"
     return get_item_keyword_status_locked()
 
@@ -1207,11 +1216,18 @@ def get_item_keyword_status():
 
 # 在已持有锁时复制物品关键字清单状态。
 def get_item_keyword_status_locked():
-    keywords = list(item_keyword_state.get("keywords", []))
+    entries = copy_item_keyword_entries(item_keyword_state.get("entries", []))
+    keywords = [entry["keyword"] for entry in entries]
+
+    if not entries:
+        keywords = list(item_keyword_state.get("keywords", []))
+        entries = [{"keyword": keyword, "anchor": keyword} for keyword in keywords]
+
     return {
         "path": item_keyword_state.get("path") or str(get_item_keyword_file()),
         "count": len(keywords),
         "keywords": keywords,
+        "entries": entries,
         "message": item_keyword_state.get("message", ""),
     }
 
@@ -1326,6 +1342,68 @@ def parse_monster_keywords(text):
         keywords.append(keyword)
 
     return keywords
+
+
+# 解析物品关键字清单：支持“识别词|锚点词”，锚点词只用于估算地面点。
+def parse_item_keywords(text):
+    entries = []
+    index_by_keyword = {}
+
+    for line in str(text or "").splitlines():
+        raw_line = line.strip()
+
+        if not raw_line or raw_line.startswith("#"):
+            continue
+
+        keyword, anchor = split_item_keyword_line(raw_line)
+
+        if not keyword:
+            continue
+
+        entry = {
+            "keyword": keyword,
+            "anchor": anchor or keyword,
+        }
+
+        if keyword in index_by_keyword:
+            entries[index_by_keyword[keyword]] = entry
+            continue
+
+        index_by_keyword[keyword] = len(entries)
+        entries.append(entry)
+
+    return entries
+
+
+# 拆分物品识别词和可选锚点词。
+def split_item_keyword_line(line):
+    if "|" not in line:
+        keyword = line.strip()
+        return keyword, keyword
+
+    keyword, anchor = line.split("|", 1)
+    keyword = keyword.strip()
+    anchor = anchor.strip() or keyword
+    return keyword, anchor
+
+
+# 复制物品关键字配置，避免外部修改缓存。
+def copy_item_keyword_entries(entries):
+    result = []
+
+    for entry in entries or []:
+        keyword = str(entry.get("keyword", "")).strip()
+        anchor = str(entry.get("anchor", "")).strip() or keyword
+
+        if not keyword:
+            continue
+
+        result.append({
+            "keyword": keyword,
+            "anchor": anchor,
+        })
+
+    return result
 
 
 # 解析 OP OCR 颜色清单文本。
@@ -2359,7 +2437,7 @@ def should_enter_getitem(game_data):
             "message": "",
         }
 
-    scan = scan_getitems()
+    scan = scan_getitems(game_data.get("player"))
 
     if not scan.get("success", False):
         message = f"捡取物品扫描失败: {scan.get('message', '')}"
@@ -2372,7 +2450,7 @@ def should_enter_getitem(game_data):
     items = scan.get("items", [])
 
     if not items:
-        set_getitem_runtime_status(message="周围没有可捡物品", target={})
+        set_getitem_runtime_status(message="可玩区域没有可捡物品", target={})
         return {
             "enter": False,
             "message": "",
@@ -2390,7 +2468,7 @@ def should_enter_getitem(game_data):
 
 # 捡取前安全检测：只把命中怪物清单的怪物当作危险。
 def check_getitem_safety():
-    context = get_getitem_scan_context()
+    context = get_getitem_safety_context()
 
     if not context.get("success", False):
         return {
@@ -2465,10 +2543,10 @@ def check_getitem_safety():
 
 
 # 扫描可拾取物品。
-def scan_getitems():
+def scan_getitems(player_info=None):
     with monster_scan_lock:
         try:
-            return scan_getitems_locked()
+            return scan_getitems_locked(player_info)
         except Exception as error:
             return {
                 "success": False,
@@ -2478,8 +2556,8 @@ def scan_getitems():
 
 
 # 执行物品扫描：由锁保护 OP 找字流程。
-def scan_getitems_locked():
-    context = get_getitem_scan_context()
+def scan_getitems_locked(player_info=None):
+    context = get_getitem_item_scan_context()
 
     if not context.get("success", False):
         return {
@@ -2489,7 +2567,8 @@ def scan_getitems_locked():
         }
 
     keyword_status = load_item_keywords(force=False)
-    keywords = keyword_status.get("keywords", [])
+    item_entries = keyword_status.get("entries", [])
+    keywords = [entry["keyword"] for entry in item_entries]
 
     if not keywords:
         return {
@@ -2521,7 +2600,16 @@ def scan_getitems_locked():
         )
 
         for match in matches:
-            item = make_getitem_from_match(match, keywords, color, width, height, player_x, player_y)
+            item = make_getitem_from_match(
+                match,
+                item_entries,
+                color,
+                width,
+                height,
+                player_x,
+                player_y,
+                player_info,
+            )
             add_unique_getitem(items, item)
 
     items.sort(key=lambda item: (item["distance"], item["keyword_index"], item["click"]["y"], item["click"]["x"]))
@@ -2536,8 +2624,8 @@ def scan_getitems_locked():
     }
 
 
-# 获取捡取扫描上下文：玩家脚底、窗口尺寸和有效搜索框。
-def get_getitem_scan_context():
+# 获取捡取基础上下文：玩家脚底和窗口尺寸。
+def get_getitem_base_context():
     if not op.is_window_bound():
         return {
             "success": False,
@@ -2563,6 +2651,28 @@ def get_getitem_scan_context():
             "message": str(error),
         }
 
+    return {
+        "success": True,
+        "client": client,
+        "player": {
+            "x": player_x,
+            "y": player_y,
+            "position": position,
+        },
+        "message": f"捡取基础上下文 player={player_x},{player_y} client={width}x{height}",
+    }
+
+
+# 获取捡取安全检测上下文：玩家脚底为中心 350x250。
+def get_getitem_safety_context():
+    context = get_getitem_base_context()
+
+    if not context.get("success", False):
+        return context
+
+    client = context["client"]
+    width, height = client["width"], client["height"]
+    player_x, player_y = context["player"]["x"], context["player"]["y"]
     play_area_bottom = max(1, height - BOTTOM_UI_HEIGHT)
     box = clamp_box(
         player_x - GETITEM_SEARCH_WIDTH / 2,
@@ -2572,39 +2682,54 @@ def get_getitem_scan_context():
         width,
         play_area_bottom,
     )
-    return {
-        "success": True,
-        "client": client,
-        "player": {
-            "x": player_x,
-            "y": player_y,
-            "position": position,
-        },
-        "box": box,
-        "message": f"捡取扫描区域 player={player_x},{player_y} box={format_box(box)}",
-    }
+    context["box"] = box
+    context["message"] = f"捡取安全区域 player={player_x},{player_y} box={format_box(box)}"
+    return context
+
+
+# 获取物品扫描上下文：整个可玩区域，排除底部 UI。
+def get_getitem_item_scan_context():
+    context = get_getitem_base_context()
+
+    if not context.get("success", False):
+        return context
+
+    client = context["client"]
+    width, height = client["width"], client["height"]
+    play_area_bottom = max(1, height - BOTTOM_UI_HEIGHT)
+    box = clamp_box(0, 0, width, play_area_bottom, width, play_area_bottom)
+    context["box"] = box
+    context["message"] = f"捡取物品扫描区域 box={format_box(box)}"
+    return context
 
 
 # 从 OP 找字结果生成物品目标。
-def make_getitem_from_match(match, keywords, color, width, height, player_x, player_y):
+def make_getitem_from_match(match, item_entries, color, width, height, player_x, player_y, player_info=None):
     keyword_index = int(match.get("index", -1))
-    keyword = keywords[keyword_index] if 0 <= keyword_index < len(keywords) else str(match.get("text", ""))
+    config = item_entries[keyword_index] if 0 <= keyword_index < len(item_entries) else {}
+    keyword = str(config.get("keyword") or match.get("text", ""))
+    anchor = str(config.get("anchor") or keyword)
     x = int(match.get("x", 0))
     y = int(match.get("y", 0))
     text_box = make_item_text_box(x, y, keyword, width, height)
-    click_x = clamp_number(round((text_box["left"] + text_box["right"]) / 2), 0, width - 1)
+    anchor_box = make_item_anchor_box(x, y, keyword, anchor, width, height)
+    click_x = clamp_number(round((anchor_box["left"] + anchor_box["right"]) / 2), 0, width - 1)
     click_y = clamp_number(text_box["top"] + ITEM_CLICK_OFFSET_Y, 0, height - 1)
     distance = round(math.dist((player_x, player_y), (click_x, click_y)))
+    logic = estimate_getitem_logic_target(click_x, click_y, player_x, player_y, player_info)
     return {
         "keyword": keyword,
+        "anchor": anchor,
         "keyword_index": keyword_index,
         "x": x,
         "y": y,
         "text_box": text_box,
+        "anchor_box": anchor_box,
         "click": {
             "x": click_x,
             "y": click_y,
         },
+        "logic": logic,
         "distance": distance,
         "color": color,
     }
@@ -2612,7 +2737,7 @@ def make_getitem_from_match(match, keywords, color, width, height, player_x, pla
 
 # 根据 OP 找字左上角估算物品文字框。
 def make_item_text_box(x, y, text, width, height):
-    text_width = max(ITEM_NAME_TEXT_WIDTH, len(text or "") * ITEM_NAME_TEXT_WIDTH)
+    text_width = max(ITEM_NAME_TEXT_WIDTH, estimate_text_width(text))
     return clamp_box(
         int(x),
         int(y),
@@ -2620,6 +2745,61 @@ def make_item_text_box(x, y, text, width, height):
         int(y) + ITEM_NAME_TEXT_HEIGHT,
         width,
         height,
+    )
+
+
+# 根据配置锚点估算物品文字里的有效水平中心。
+def make_item_anchor_box(x, y, keyword, anchor, width, height):
+    keyword = str(keyword or "")
+    anchor = str(anchor or keyword)
+    anchor_index = keyword.find(anchor)
+
+    if anchor_index < 0:
+        anchor = keyword
+        anchor_index = 0
+
+    prefix = keyword[:anchor_index]
+    anchor_left = int(x) + estimate_text_width(prefix)
+    anchor_width = max(ITEM_NAME_TEXT_WIDTH, estimate_text_width(anchor))
+    return clamp_box(
+        anchor_left,
+        int(y),
+        anchor_left + anchor_width,
+        int(y) + ITEM_NAME_TEXT_HEIGHT,
+        width,
+        height,
+    )
+
+
+# 估算 OP 字库文字宽度：中文/全角 12px，ASCII/半角符号 6px。
+def estimate_text_width(text):
+    width = 0
+
+    for char in str(text or ""):
+        if ord(char) < 128:
+            width += ITEM_NAME_TEXT_ASCII_WIDTH
+        elif unicodedata.east_asian_width(char) in {"F", "W"}:
+            width += ITEM_NAME_TEXT_WIDTH
+        else:
+            width += ITEM_NAME_TEXT_ASCII_WIDTH
+
+    return width
+
+
+# 用当前玩家逻辑坐标估算物品所在格子。
+def estimate_getitem_logic_target(click_x, click_y, player_x, player_y, player_info=None):
+    player_logic_x, player_logic_y = get_player_logic_coordinate(player_info)
+
+    if player_logic_x is None or player_logic_y is None:
+        return {}
+
+    return screen_to_logic_point(
+        click_x,
+        click_y,
+        player_x,
+        player_y,
+        player_logic_x,
+        player_logic_y,
     )
 
 
@@ -2638,6 +2818,16 @@ def add_unique_getitem(items, item):
 # 选择本轮要捡的物品：列表已经按距离和清单顺序排序。
 def choose_getitem_target(items):
     return items[0] if items else None
+
+
+# 从扫描结果里找同名物品：到达目标格后用于判断是否仍可见。
+def find_same_keyword_getitem_target(items, target):
+    if not target:
+        return None
+
+    keyword = str(target.get("keyword", ""))
+    candidates = [item for item in items if item.get("keyword") == keyword]
+    return choose_getitem_target(candidates)
 
 
 # 从重新扫描结果里找回当前目标。
@@ -2671,8 +2861,27 @@ def find_matching_getitem_target(items, target):
     return nearest
 
 
+# 判断物品目标是否已有逻辑坐标。
+def has_getitem_target_logic(target):
+    logic = (target or {}).get("logic", {})
+    return parse_optional_int(logic.get("x")) is not None and parse_optional_int(logic.get("y")) is not None
+
+
+# 判断玩家是否已走到当前物品目标逻辑坐标。
+def is_getitem_target_reached(target, player_info):
+    logic = (target or {}).get("logic", {})
+    target_x = parse_optional_int(logic.get("x"))
+    target_y = parse_optional_int(logic.get("y"))
+    player_x, player_y = get_player_logic_coordinate(player_info)
+
+    if target_x is None or target_y is None or player_x is None or player_y is None:
+        return False
+
+    return max(abs(target_x - player_x), abs(target_y - player_y)) <= GETITEM_TARGET_ARRIVAL_RADIUS
+
+
 # 朝物品目标方向走一步：不直接点击物品，避免宝宝挡住物品点。
-def move_getitem_toward_target(target, previous_direction=""):
+def move_getitem_toward_target(target, previous_direction="", player_info=None):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -2695,17 +2904,16 @@ def move_getitem_toward_target(target, previous_direction=""):
             "message": str(error),
         }
 
-    click = target.get("click", {})
+    target_point = get_getitem_move_screen_point(target, player_info, player_x, player_y)
 
-    try:
-        item_x = int(click.get("x"))
-        item_y = int(click.get("y"))
-    except (TypeError, ValueError):
+    if not target_point:
         return {
             "success": False,
             "message": f"物品坐标异常 target={target}",
         }
 
+    item_x = int(target_point["x"])
+    item_y = int(target_point["y"])
     direction, direction_message = get_direction_to_target(
         player_x,
         player_y,
@@ -2717,7 +2925,8 @@ def move_getitem_toward_target(target, previous_direction=""):
     success, message = op.click_mouse_at(move["click_x"], move["click_y"], move["button"])
     message = (
         f"{message} direction={direction} player={player_x},{player_y} item={item_x},{item_y} "
-        f"move_click={move['click_x']},{move['click_y']} {direction_message}"
+        f"move_click={move['click_x']},{move['click_y']} target_source={target_point['source']} "
+        f"{direction_message}"
     )
     return {
         "success": success,
@@ -2731,9 +2940,51 @@ def move_getitem_toward_target(target, previous_direction=""):
             "x": item_x,
             "y": item_y,
         },
+        "target_source": target_point["source"],
+        "target_logic": dict(target.get("logic", {})),
         "move": move,
         "message": message,
     }
+
+
+# 获取物品移动用的当前屏幕目标点：优先用逻辑坐标重新投影，兜底用识别时点击点。
+def get_getitem_move_screen_point(target, player_info, player_screen_x, player_screen_y):
+    logic = (target or {}).get("logic", {})
+    target_logic_x = parse_optional_int(logic.get("x"))
+    target_logic_y = parse_optional_int(logic.get("y"))
+    player_logic_x, player_logic_y = get_player_logic_coordinate(player_info)
+
+    if (
+        target_logic_x is not None
+        and target_logic_y is not None
+        and player_logic_x is not None
+        and player_logic_y is not None
+    ):
+        point = logic_to_screen_point(
+            target_logic_x,
+            target_logic_y,
+            player_logic_x,
+            player_logic_y,
+            player_screen_x,
+            player_screen_y,
+        )
+        return {
+            "x": point["x"],
+            "y": point["y"],
+            "source": "logic",
+            "point": point,
+        }
+
+    click = (target or {}).get("click", {})
+
+    try:
+        return {
+            "x": int(click.get("x")),
+            "y": int(click.get("y")),
+            "source": "screen",
+        }
+    except (TypeError, ValueError):
+        return None
 
 
 # 根据玩家脚点和物品点计算八方向。
@@ -2768,9 +3019,16 @@ def format_getitem_target(target):
         return "-"
 
     click = target.get("click", {})
+    logic = target.get("logic", {})
+    logic_text = ""
+
+    if logic:
+        logic_text = f" logic={logic.get('x', '')}:{logic.get('y', '')}"
+
     return (
         f"{target.get('keyword', '')}"
         f"@{click.get('x', '')},{click.get('y', '')}"
+        f"{logic_text}"
         f" distance={target.get('distance', '')}"
     )
 
@@ -3008,17 +3266,24 @@ def make_getitem_target_status(target):
     click = target.get("click", {})
     position = target.get("position", {})
     text_box = target.get("text_box", {})
+    anchor_box = target.get("anchor_box", {})
+    logic = target.get("logic", {})
     move = target.get("move", {})
     move_click = move.get("click", {})
     move_player = move.get("player", {})
     move_item = move.get("item", {})
     return {
         "keyword": str(target.get("keyword", "")),
+        "anchor": str(target.get("anchor", target.get("keyword", ""))),
         "keyword_index": int(target.get("keyword_index", -1)),
         "click_x": int(click.get("x", position.get("x", 0))),
         "click_y": int(click.get("y", position.get("y", 0))),
         "text_x": int(text_box.get("left", target.get("x", 0))),
         "text_y": int(text_box.get("top", target.get("y", 0))),
+        "anchor_x": int(anchor_box.get("left", click.get("x", 0))),
+        "anchor_y": int(anchor_box.get("top", click.get("y", 0))),
+        "logic_x": int(logic.get("x", 0)) if logic else 0,
+        "logic_y": int(logic.get("y", 0)) if logic else 0,
         "distance": int(target.get("distance", 0)),
         "direction": str(move.get("direction", "")),
         "move_click_x": int(move_click.get("x", 0)),
