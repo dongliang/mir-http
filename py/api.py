@@ -39,12 +39,8 @@ map_image_file = ref_dir / "map.png"
 map_max_coordinate_image = screenshot_dir / "map_max_coordinate.bmp"
 # 怪物血条特征图：血条最左侧小片段，用于统一查找满血和残血怪物。
 monster_blood_feature_image = png_dir / "残血血条特征图.png"
-# 红色血条模板：用于读取血条标准宽高。
-red_blood_bar_image = png_dir / "红色血条.png"
 # 自身绿色血条特征图：用于自动加血检测玩家头顶血条。
 player_blood_feature_image = png_dir / "自身绿色残血血条特征图.png"
-# 自身绿色血条模板：用于读取玩家血条宽高和绿色填充色。
-green_blood_bar_image = png_dir / "自身绿色血条.png"
 # 坐标读取锁：串行化截图和 OP 字库识别流程，避免并发读写同一张截图。
 coordinate_lock = threading.Lock()
 # 怪物扫描锁：串行化截图、鼠标悬停和 OP 字库识别流程。
@@ -133,13 +129,14 @@ MONSTER_REFRESH_SEARCH_HALF_WIDTH = 180
 MONSTER_REFRESH_SEARCH_TOP_OFFSET = 100
 MONSTER_REFRESH_SEARCH_BOTTOM_OFFSET = 160
 MONSTER_REFRESH_MAX_DISTANCE = 180
-# 血条模板几何：来自 png/红色血条.png，填充区 x=2..61，总填充长度 60。
-HEALTH_BAR_TEMPLATE_WIDTH = 64
-HEALTH_BAR_FILL_START_X = 2
-HEALTH_BAR_FULL_FILL_PIXELS = 60
-# 红色血条填充色：来自 png/红色血条.png，填充像素为纯 RGB(255, 0, 0)。
+# 血条填充像素：从匹配框第二列、第二行开始检测，避开黑色边框。
+HEALTH_BAR_WIDTH_PIXELS = 32
+HEALTH_BAR_FILL_START_X = 1
+HEALTH_BAR_FILL_START_Y = 1
+HEALTH_BAR_FULL_FILL_PIXELS = 30
+# 怪物红色血条填充色。
 RED_HEALTH_BAR_RGB = (255, 0, 0)
-# 绿色血条兜底填充色：自身绿色血条模板读取失败时使用。
+# 玩家绿色血条填充色。
 GREEN_HEALTH_BAR_RGB = (0, 255, 0)
 # 自动加血默认配置和边界：页面和接口都会按这些范围规整输入。
 AUTO_HEAL_DEFAULT_THRESHOLD_PERCENT = 50
@@ -1963,12 +1960,6 @@ def read_player_health_percent():
             "message": f"找不到自身血条特征图: {player_blood_feature_image}",
         }
 
-    if not green_blood_bar_image.exists():
-        return {
-            "success": False,
-            "message": f"找不到自身绿色血条模板: {green_blood_bar_image}",
-        }
-
     client = get_bound_client_info()
     width, height = client["width"], client["height"]
 
@@ -2016,10 +2007,9 @@ def read_player_health_percent():
 
         match = min(matches, key=lambda item: get_match_distance_to_point(item, player_x, player_y))
         blood_bar = make_blood_bar_from_match(match, width, height)
-        target_rgb = get_health_bar_fill_rgb(green_blood_bar_image)
 
         with Image.open(scan_file) as scan_image:
-            hp_percent = calculate_health_bar_percent(scan_image, blood_bar, target_rgb)
+            hp_percent = calculate_health_bar_percent(scan_image, blood_bar, GREEN_HEALTH_BAR_RGB)
 
     return {
         "success": True,
@@ -2062,15 +2052,14 @@ def find_player_blood_feature_matches(screen_file):
     return dedupe_matches(filter_player_blood_matches(screen, matches))
 
 
-# 获取玩家自身血条模板：使用资源原始尺寸匹配当前截图。
+# 获取玩家自身血条匹配配置：宽度固定，高度用特征图。
 def get_player_blood_feature_templates():
     feature = read_cv2_image(player_blood_feature_image)
-    blood_width, blood_height = get_image_size(green_blood_bar_image)
 
     return [{
         "image": feature,
-        "blood_width": blood_width,
-        "blood_height": blood_height,
+        "blood_width": HEALTH_BAR_WIDTH_PIXELS,
+        "blood_height": feature.shape[0],
     }]
 
 
@@ -2109,24 +2098,6 @@ def get_match_distance_to_point(match, x, y):
     center_x = int(match["x"]) + int(match.get("width", 0)) / 2
     center_y = int(match["y"]) + int(match.get("height", 0)) / 2
     return math.dist((x, y), (center_x, center_y))
-
-
-# 从血条模板读取主要填充色，失败时回退到纯绿色。
-def get_health_bar_fill_rgb(image_file):
-    try:
-        with Image.open(image_file) as image:
-            pixels = np.array(image.convert("RGB"))
-
-        bright_pixels = pixels[np.any(pixels > 80, axis=2)]
-
-        if len(bright_pixels) == 0:
-            return GREEN_HEALTH_BAR_RGB
-
-        colors, counts = np.unique(bright_pixels.reshape(-1, 3), axis=0, return_counts=True)
-        color = colors[int(counts.argmax())]
-        return int(color[0]), int(color[1]), int(color[2])
-    except Exception:
-        return GREEN_HEALTH_BAR_RGB
 
 
 # 截图：截取当前绑定窗口并返回截图保存路径。
@@ -2276,13 +2247,6 @@ def scan_monsters_locked():
             "message": f"找不到血条特征图: {monster_blood_feature_image}",
         }
 
-    if not red_blood_bar_image.exists():
-        return {
-            "success": False,
-            "monsters": [],
-            "message": f"找不到红色血条模板: {red_blood_bar_image}",
-        }
-
     client = get_bound_client_info()
     width, height = client["width"], client["height"]
 
@@ -2304,7 +2268,7 @@ def scan_monsters_locked():
             "message": str(error),
         }
 
-    blood_width, blood_height = get_image_size(red_blood_bar_image)
+    blood_width, blood_height = get_blood_bar_match_size(monster_blood_feature_image)
     debug_points = [
         make_debug_point(player_x, player_y, "blue"),
     ]
@@ -2679,7 +2643,7 @@ def normalize_blood_bar(blood_bar, width, height):
     )
 
 
-# 计算血条百分比：按目标颜色连续填充长度计算，适用于任意颜色血条。
+# 计算血条百分比：按第二行连续命中的填充像素计算。
 def calculate_health_bar_percent(image, health_bar, target_rgb, tolerance=20):
     if not is_valid_box(health_bar):
         return 0
@@ -2693,56 +2657,30 @@ def calculate_health_bar_percent(image, health_bar, target_rgb, tolerance=20):
     if bar_width <= 0 or bar_height <= 0:
         return 0
 
-    fill_start = scale_health_bar_value(HEALTH_BAR_FILL_START_X, bar_width)
-    full_fill_pixels = scale_health_bar_value(HEALTH_BAR_FULL_FILL_PIXELS, bar_width)
-
-    if full_fill_pixels <= 0:
+    if bar_width <= HEALTH_BAR_FILL_START_X or bar_height <= HEALTH_BAR_FILL_START_Y:
         return 0
 
+    fill_start = HEALTH_BAR_FILL_START_X
+    fill_end = min(bar_width, fill_start + HEALTH_BAR_FULL_FILL_PIXELS)
     crop = pixels[box["top"]:box["bottom"], box["left"]:box["right"]]
-    fill_rows = get_health_bar_fill_rows(bar_height)
     fill_pixels = 0
 
-    for column_index in range(fill_start, min(bar_width, fill_start + full_fill_pixels)):
-        column = crop[fill_rows, column_index, :]
+    for column_index in range(fill_start, fill_end):
+        pixel = crop[HEALTH_BAR_FILL_START_Y, column_index, :]
 
-        if not is_health_bar_filled_column(column, target_rgb, tolerance):
+        if not is_health_bar_fill_pixel(pixel, target_rgb, tolerance):
             break
 
         fill_pixels += 1
 
-    percent = round(fill_pixels * 100 / full_fill_pixels)
+    percent = round(fill_pixels * 100 / HEALTH_BAR_FULL_FILL_PIXELS)
     return clamp_number(percent, 0, 100)
 
-
-# 按模板宽度把血条几何常量换算到当前截图血条宽度。
-def scale_health_bar_value(value, bar_width):
-    return max(0, round(value * bar_width / HEALTH_BAR_TEMPLATE_WIDTH))
-
-
-# 获取血条内部填充行：排除上下黑边，按当前血条尺寸换算。
-def get_health_bar_fill_rows(bar_height):
-    if bar_height <= 2:
-        return np.arange(0, bar_height)
-
-    top = max(0, round(2 * bar_height / 8))
-    bottom = min(bar_height, round(6 * bar_height / 8))
-
-    if bottom <= top:
-        return np.arange(0, bar_height)
-
-    return np.arange(top, bottom)
-
-
-# 判断一列是否接近目标血条颜色。
-def is_health_bar_filled_column(column, target_rgb, tolerance):
-    if len(column) == 0:
-        return False
-
+# 判断单个像素是否接近目标血条颜色。
+def is_health_bar_fill_pixel(pixel, target_rgb, tolerance):
     target = np.array(target_rgb, dtype=np.int16)
-    delta = np.abs(column.astype(np.int16) - target)
-    matching_pixels = np.all(delta <= tolerance, axis=1)
-    return int(matching_pixels.sum()) * 2 >= len(column)
+    delta = np.abs(pixel.astype(np.int16) - target)
+    return bool(np.all(delta <= tolerance))
 
 
 # 识别怪物名区域：用 OP 大漠字库直接识别绑定窗口文字。
@@ -2965,15 +2903,14 @@ def filter_play_area_blood_matches(screen, matches):
     return filtered
 
 
-# 获取血条特征模板：使用资源原始尺寸匹配当前截图。
+# 获取怪物血条匹配配置：宽度固定，高度用特征图。
 def get_blood_feature_templates():
     feature = read_cv2_image(monster_blood_feature_image)
-    blood_width, blood_height = get_image_size(red_blood_bar_image)
 
     return [{
         "image": feature,
-        "blood_width": blood_width,
-        "blood_height": blood_height,
+        "blood_width": HEALTH_BAR_WIDTH_PIXELS,
+        "blood_height": feature.shape[0],
     }]
 
 
@@ -3049,10 +2986,11 @@ def dedupe_matches(matches):
     return deduped
 
 
-# 获取图片尺寸：用于血条模板宽高。
-def get_image_size(image_file):
-    with Image.open(image_file) as image:
-        return image.size
+# 获取血条匹配框尺寸：宽度固定，高度用实际特征图。
+def get_blood_bar_match_size(feature_image_file):
+    with Image.open(feature_image_file) as image:
+        _, blood_height = image.size
+    return HEALTH_BAR_WIDTH_PIXELS, blood_height
 
 
 # 限制矩形范围：使用 right/bottom 作为开区间。
