@@ -25,6 +25,8 @@ debug_image_dir = base_dir / "DebugImage"
 txt_dir = base_dir / "txt"
 # 怪物关键字清单：每行一个允许攻击的怪物名关键字。
 monster_keyword_file = txt_dir / "monster.txt"
+# 怪物名 OCR 颜色清单：每行一个 OP 颜色格式，例如 00f7f7-101010。
+monster_name_color_file = txt_dir / "monster_name_colors.txt"
 # 地图坐标截图路径：保存游戏底部坐标区域截图，供诊断使用。
 coordinate_image = screenshot_dir / "map_coordinate.bmp"
 # PNG 资源目录：保存血条特征图等图像匹配资源。
@@ -68,6 +70,14 @@ monster_keyword_state = {
     "keywords": [],
     "message": "",
 }
+# 怪物名 OCR 颜色缓存：运行时加载，可由网页按钮重载。
+monster_name_color_lock = threading.Lock()
+monster_name_color_state = {
+    "loaded": False,
+    "mtime": 0,
+    "colors": [],
+    "message": "",
+}
 # 底部界面高度：估算游戏底栏高度，用来计算角色移动点击原点。
 BOTTOM_UI_HEIGHT = 245
 # 默认键盘测试键：用于页面测试按钮验证后台键盘输入链路。
@@ -109,6 +119,13 @@ MONSTER_HOVER_WAIT_SECONDS = 0.25
 MONSTER_NAME_OCR_MAX_ATTEMPTS = 2
 # 怪物名字识别重试等待时间：给 hover 名字显示留出额外缓冲。
 MONSTER_NAME_OCR_RETRY_DELAY_SECONDS = 0.2
+# 怪物名默认 OCR 颜色：配置文件缺失或为空时使用。
+DEFAULT_MONSTER_NAME_OCR_COLORS = [
+    "00f7f7-101010",
+    "00ffff-101010",
+    "ffffff-101010",
+    "ffff00-101010",
+]
 # 怪物血条刷新搜索范围：识别名字前围绕旧血条局部重扫，降低怪物移动影响。
 MONSTER_REFRESH_SEARCH_HALF_WIDTH = 180
 MONSTER_REFRESH_SEARCH_TOP_OFFSET = 100
@@ -729,6 +746,35 @@ def reload_monster_keywords():
     return load_monster_keywords(force=True)
 
 
+# 重新加载 txt 目录下的运行配置。
+def reload_text_configs():
+    monster_filter = load_monster_keywords(force=True)
+    monster_name_colors = load_monster_name_colors(force=True)
+    return make_text_config_reload_result(monster_filter, monster_name_colors)
+
+
+# 启动时加载 txt 目录下的运行配置。
+def load_text_configs():
+    monster_filter = load_monster_keywords(force=True)
+    monster_name_colors = load_monster_name_colors(force=True)
+    return make_text_config_reload_result(monster_filter, monster_name_colors)
+
+
+# 组合 txt 配置重载结果。
+def make_text_config_reload_result(monster_filter, monster_name_colors):
+    message = (
+        f"TXT 配置加载完成 "
+        f"monsters={monster_filter.get('count', 0)} "
+        f"colors={monster_name_colors.get('count', 0)}"
+    )
+    return {
+        "success": True,
+        "monster_filter": monster_filter,
+        "monster_name_colors": monster_name_colors,
+        "message": message,
+    }
+
+
 # 复制怪物关键字清单状态。
 def get_monster_keyword_status():
     if not monster_keyword_state.get("loaded"):
@@ -747,6 +793,77 @@ def get_monster_keyword_status_locked():
         "keywords": keywords,
         "message": monster_keyword_state.get("message", ""),
     }
+
+
+# 读取怪物名 OCR 颜色清单。
+def load_monster_name_colors(force=False):
+    with monster_name_color_lock:
+        try:
+            return load_monster_name_colors_locked(force)
+        except Exception as error:
+            monster_name_color_state["loaded"] = True
+            monster_name_color_state["colors"] = list(DEFAULT_MONSTER_NAME_OCR_COLORS)
+            monster_name_color_state["message"] = f"怪物名颜色加载异常，使用默认颜色: {error}"
+            return get_monster_name_color_status_locked()
+
+
+# 执行怪物名 OCR 颜色清单加载。
+def load_monster_name_colors_locked(force=False):
+    if not monster_name_color_file.exists():
+        monster_name_color_state["loaded"] = True
+        monster_name_color_state["mtime"] = 0
+        monster_name_color_state["colors"] = list(DEFAULT_MONSTER_NAME_OCR_COLORS)
+        monster_name_color_state["message"] = f"怪物名颜色清单不存在，使用默认颜色 path={monster_name_color_file}"
+        return get_monster_name_color_status_locked()
+
+    current_mtime = monster_name_color_file.stat().st_mtime_ns
+
+    if (
+        not force
+        and monster_name_color_state.get("loaded")
+        and monster_name_color_state.get("mtime") == current_mtime
+    ):
+        return get_monster_name_color_status_locked()
+
+    text = read_text_file_with_fallback(monster_name_color_file)
+    colors = parse_ocr_colors(text)
+
+    if not colors:
+        colors = list(DEFAULT_MONSTER_NAME_OCR_COLORS)
+        message = f"怪物名颜色清单为空，使用默认颜色 count={len(colors)} path={monster_name_color_file}"
+    else:
+        message = f"怪物名颜色清单加载完成 count={len(colors)} path={monster_name_color_file}"
+
+    monster_name_color_state["loaded"] = True
+    monster_name_color_state["mtime"] = current_mtime
+    monster_name_color_state["colors"] = colors
+    monster_name_color_state["message"] = message
+    return get_monster_name_color_status_locked()
+
+
+# 复制怪物名 OCR 颜色状态。
+def get_monster_name_color_status():
+    if not monster_name_color_state.get("loaded"):
+        return load_monster_name_colors(force=False)
+
+    with monster_name_color_lock:
+        return get_monster_name_color_status_locked()
+
+
+# 在已持有锁时复制怪物名 OCR 颜色状态。
+def get_monster_name_color_status_locked():
+    colors = list(monster_name_color_state.get("colors", []))
+    return {
+        "path": str(monster_name_color_file),
+        "count": len(colors),
+        "colors": colors,
+        "message": monster_name_color_state.get("message", ""),
+    }
+
+
+# 读取当前怪物名 OCR 颜色列表。
+def get_monster_name_ocr_colors():
+    return get_monster_name_color_status().get("colors", []) or list(DEFAULT_MONSTER_NAME_OCR_COLORS)
 
 
 # 按常见文本编码读取清单文件。
@@ -782,6 +899,39 @@ def parse_monster_keywords(text):
     return keywords
 
 
+# 解析 OP OCR 颜色清单文本。
+def parse_ocr_colors(text):
+    colors = []
+    seen = set()
+
+    for line in str(text or "").splitlines():
+        color = normalize_ocr_color_line(line)
+
+        if not color or color in seen:
+            continue
+
+        seen.add(color)
+        colors.append(color)
+
+    return colors
+
+
+# 规范化单行 OP OCR 颜色：支持 00f7f7 或 00f7f7-101010。
+def normalize_ocr_color_line(line):
+    value = str(line or "").split("#", 1)[0].strip().lower()
+
+    if not value:
+        return ""
+
+    if re.fullmatch(r"[0-9a-f]{6}", value):
+        return f"{value}-101010"
+
+    if re.fullmatch(r"[0-9a-f]{6}-[0-9a-f]{6}", value):
+        return value
+
+    return ""
+
+
 # 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图、巡逻、战斗和状态机。
 def get_status(
     player_info,
@@ -808,6 +958,7 @@ def get_status(
         "patrol": make_patrol_status(patrol_points, patrol_state, patrol_control),
         "battle": make_battle_status(battle_control),
         "monster_filter": get_monster_keyword_status(),
+        "monster_name_colors": get_monster_name_color_status(),
         "state": make_state_status(current_state),
         "auto_heal": make_auto_heal_status(app_settings, auto_heal_state),
         "idle_stuck": make_idle_stuck_status(app_settings, idle_stuck_state),
@@ -1145,10 +1296,12 @@ def parse_map_max_coordinate_text(text, player_info=None):
     else:
         numbers = re.findall(r"\d+", text or "")
 
-        if len(numbers) < 2:
+        if len(numbers) >= 2:
+            x_text, y_text = numbers[-2], numbers[-1]
+        elif len(numbers) == 1:
+            x_text, y_text = split_compact_map_max_coordinate(numbers[0], player_info, text)
+        else:
             raise ValueError(f"无法识别地图最大逻辑坐标 text={text!r}")
-
-        x_text, y_text = numbers[-2], numbers[-1]
 
     max_x, max_y = int(x_text), int(y_text)
 
@@ -1164,6 +1317,44 @@ def parse_map_max_coordinate_text(text, player_info=None):
         raise ValueError(f"地图最大 Y 小于当前玩家 Y max_y={max_y} player_y={player_y} text={text!r}")
 
     return max_x, max_y
+
+
+# 拆分冒号漏识别的最大坐标，例如 699698 -> 699:698。
+def split_compact_map_max_coordinate(number_text, player_info=None, raw_text=""):
+    digits = re.sub(r"\D+", "", str(number_text or ""))
+
+    if len(digits) < 2 or len(digits) > 8:
+        raise ValueError(f"无法识别地图最大逻辑坐标 text={raw_text!r}")
+
+    player_x, player_y = get_player_logic_coordinate(player_info)
+    candidates = []
+
+    for split_at in range(1, len(digits)):
+        x_text = digits[:split_at]
+        y_text = digits[split_at:]
+
+        if len(x_text) > 4 or len(y_text) > 4:
+            continue
+
+        x, y = int(x_text), int(y_text)
+
+        if x <= 0 or y <= 0:
+            continue
+
+        if player_x is not None and x < player_x:
+            continue
+
+        if player_y is not None and y < player_y:
+            continue
+
+        # 分割点越接近中间越可信，避免 6 位数被拆成 6:99698 这类异常坐标。
+        candidates.append((abs(len(x_text) - len(y_text)), x, y, x_text, y_text))
+
+    if not candidates:
+        raise ValueError(f"无法识别地图最大逻辑坐标 text={raw_text!r}")
+
+    _, _, _, x_text, y_text = sorted(candidates)[0]
+    return x_text, y_text
 
 
 # 读取玩家当前逻辑坐标：用于过滤明显误识别的最大地图坐标。
@@ -2298,6 +2489,7 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_d
         "blood_bar": active_blood_bar,
         "raw_text": name_result["raw_text"],
         "mask_text": name_result["mask_text"],
+        "color": name_result.get("color", ""),
         "used_attempt": name_result["used_attempt"],
         "reject_reason": name_result["reject_reason"],
         "debug_images": name_result["debug_images"],
@@ -2308,6 +2500,7 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_d
         "message": (
             f"怪物名称识别完成 name={name} text={name_text} "
             f"raw={name_result['raw_text']} mask={name_result['mask_text']} "
+            f"color={name_result.get('color', '')} "
             f"attempt={name_result['used_attempt']} reject={name_result['reject_reason']} "
             f"bar={active_blood_bar} pos={hover_x},{hover_y}"
         ),
@@ -2517,6 +2710,7 @@ def recognize_monster_name_box(box, save_debug=True):
         "text": "",
         "raw_text": "",
         "mask_text": "",
+        "color": "",
         "used_attempt": 0,
         "reject_reason": "",
         "debug_images": [],
@@ -2530,6 +2724,7 @@ def recognize_monster_name_box(box, save_debug=True):
         debug_prefix = get_debug_image_prefix("monster_name")
 
     last_result = empty_result
+    ocr_colors = get_monster_name_ocr_colors()
 
     for attempt in range(1, MONSTER_NAME_OCR_MAX_ATTEMPTS + 1):
         if attempt > 1:
@@ -2563,52 +2758,58 @@ def recognize_monster_name_box(box, save_debug=True):
                 }
                 continue
 
-        raw_text = op.ocr_text(
-            box["left"],
-            box["top"],
-            box["right"] - 1,
-            box["bottom"] - 1,
-        )
-        mask_text = ""
-        selected_text = raw_text
-        selected_name = clean_monster_name(selected_text)
-        reject_reason = get_monster_name_reject_reason(selected_name)
-        debug_images = last_result["debug_images"]
+        for ocr_color in ocr_colors:
+            raw_text = op.ocr_text(
+                box["left"],
+                box["top"],
+                box["right"] - 1,
+                box["bottom"] - 1,
+                color=ocr_color,
+            )
+            mask_text = ""
+            selected_text = raw_text
+            selected_name = clean_monster_name(selected_text)
+            reject_reason = get_monster_name_reject_reason(selected_name)
+            debug_images = last_result["debug_images"]
 
-        if save_debug:
-            debug_images = [
-                *debug_images,
-                {
-                    "attempt": attempt,
-                    "raw": str(raw_file),
+            if save_debug:
+                debug_images = [
+                    *debug_images,
+                    {
+                        "attempt": attempt,
+                        "raw": str(raw_file),
+                        "color": ocr_color,
+                        "raw_text": raw_text,
+                        "mask_text": mask_text,
+                    },
+                ]
+
+            if reject_reason:
+                last_result = {
+                    "name": "未识别",
+                    "text": selected_text,
                     "raw_text": raw_text,
                     "mask_text": mask_text,
-                },
-            ]
+                    "color": ocr_color,
+                    "used_attempt": attempt,
+                    "reject_reason": reject_reason,
+                    "debug_images": debug_images,
+                }
+                continue
 
-        if reject_reason:
-            return {
-                "name": "未识别",
+            last_result = {
+                "name": selected_name,
                 "text": selected_text,
                 "raw_text": raw_text,
                 "mask_text": mask_text,
+                "color": ocr_color,
                 "used_attempt": attempt,
-                "reject_reason": reject_reason,
+                "reject_reason": "",
                 "debug_images": debug_images,
             }
 
-        last_result = {
-            "name": selected_name,
-            "text": selected_text,
-            "raw_text": raw_text,
-            "mask_text": mask_text,
-            "used_attempt": attempt,
-            "reject_reason": "",
-            "debug_images": debug_images,
-        }
-
-        if selected_name != "未识别":
-            return last_result
+            if selected_name != "未识别":
+                return last_result
 
     return last_result
 

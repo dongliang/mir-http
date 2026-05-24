@@ -126,6 +126,7 @@ def create_server(
                     Div("巡逻: ", Span("关", id="patrol-enabled")),
                     Div("战斗: ", Span("关", id="battle-enabled")),
                     Div("怪物过滤: ", Span("-", id="monster-filter")),
+                    Div("怪物字色: ", Span("-", id="monster-name-colors")),
                     Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
                     Div("卡住跳点: ", Span("开", id="idle-stuck-enabled-text")),
                     cls="status",
@@ -470,6 +471,7 @@ def create_server(
             "name_text": result.get("name_text", ""),
             "raw_text": result.get("raw_text", ""),
             "mask_text": result.get("mask_text", ""),
+            "color": result.get("color", ""),
             "used_attempt": result.get("used_attempt", 0),
             "reject_reason": result.get("reject_reason", ""),
             "debug_images": result.get("debug_images", []),
@@ -480,14 +482,15 @@ def create_server(
             "status": current_status(),
         })
 
-    # 怪物关键字清单重载接口：重新读取 txt/monster.txt。
+    # TXT 配置重载接口：重新读取 txt/monster.txt 和怪物名 OCR 颜色。
     @rt("/api/monsters/reload-list")
     def post():
-        result = api.reload_monster_keywords()
+        result = api.reload_text_configs()
         log.write(result["message"])
         return JSONResponse({
             "success": True,
-            "monster_filter": result,
+            "monster_filter": result["monster_filter"],
+            "monster_name_colors": result["monster_name_colors"],
             "message": result["message"],
             "status": current_status(),
         })
@@ -577,7 +580,7 @@ def create_buttons(app_settings):
         Button("地图角点", onclick="postApi('/api/map/rect-corner')"),
         Button("测试键盘(M)", onclick="pressKeyboard('M')"),
         Button("检测怪物列表", onclick="scanMonsters()"),
-        Button("重载怪物清单", onclick="postApi('/api/monsters/reload-list')"),
+        Button("重载TXT配置", onclick="postApi('/api/monsters/reload-list')"),
         Button("绑定地图", onclick="bindMap()"),
         Button("保存巡逻点", onclick="savePatrolPoints()"),
         Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
@@ -1481,6 +1484,7 @@ function applyStatus(data) {
     document.getElementById("patrol-enabled").textContent = data.patrol && data.patrol.enabled ? "开" : "关";
     document.getElementById("battle-enabled").textContent = data.battle && data.battle.enabled ? "开" : "关";
     updateMonsterFilterPanel(data.monster_filter || {});
+    updateMonsterNameColorPanel(data.monster_name_colors || {});
     updateAutoHealPanel(data.auto_heal || {});
     updateIdleStuckPanel(data.idle_stuck || {});
     updateMapCornerHotkeyPanel(data.settings || {});
@@ -1506,6 +1510,15 @@ function updateMonsterFilterPanel(monsterFilter) {
     const suffix = keywords.length > 6 ? "..." : "";
     const detail = preview ? ` (${preview}${suffix})` : "";
     document.getElementById("monster-filter").textContent = `${count} 个${detail}`;
+}
+
+function updateMonsterNameColorPanel(colorConfig) {
+    const count = colorConfig.count ?? 0;
+    const colors = colorConfig.colors || [];
+    const preview = colors.slice(0, 4).join("、");
+    const suffix = colors.length > 4 ? "..." : "";
+    const detail = preview ? ` (${preview}${suffix})` : "";
+    document.getElementById("monster-name-colors").textContent = `${count} 个${detail}`;
 }
 
 function updateAutoHealPanel(autoHeal) {

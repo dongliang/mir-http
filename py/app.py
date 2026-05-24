@@ -86,7 +86,7 @@ def main() -> None:
     log.start_log()
     log.write("程序启动: HTTP 服务模式")
     apply_app_settings()
-    load_monster_keywords()
+    load_text_configs()
     start_op()
     start_update_loop()
     httpserver.run_server(
@@ -169,9 +169,9 @@ def apply_app_settings():
     api.apply_app_settings(app_settings)
 
 
-# 加载怪物关键字清单：启动时读取 txt/monster.txt，运行中可在网页重载。
-def load_monster_keywords():
-    result = api.load_monster_keywords(force=True)
+# 加载 TXT 运行配置：启动时读取 txt/ 下的怪物清单和怪物名颜色。
+def load_text_configs():
+    result = api.load_text_configs()
     log.write(result.get("message", ""))
 
 
