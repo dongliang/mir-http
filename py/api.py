@@ -1523,6 +1523,7 @@ def attack_monster(monster):
             "y": y,
             "filter": filter_result,
             "name_message": filter_result.get("name_message", ""),
+            "name_messages": filter_result.get("name_messages", []),
             "monster": {
                 "id": monster.get("id", 0),
                 "distance": monster.get("distance", ""),
@@ -1547,6 +1548,7 @@ def attack_monster(monster):
         "y": y,
         "filter": filter_result,
         "name_message": filter_result.get("name_message", ""),
+        "name_messages": filter_result.get("name_messages", []),
         "monster": {
             "id": monster.get("id", 0),
             "distance": monster.get("distance", ""),
@@ -1596,6 +1598,10 @@ def verify_monster_name_before_attack(monster, x, y, width, height):
     move_success = name_result.get("move_success", True)
     move_message = name_result.get("move_message", "")
     name_message = name_result.get("message", "")
+    name_messages = list(name_result.get("ocr_logs", []))
+
+    if name_message:
+        name_messages.append(name_message)
 
     if not move_success:
         return {
@@ -1611,6 +1617,7 @@ def verify_monster_name_before_attack(monster, x, y, width, height):
             "move_message": move_message,
             "name_result": name_result,
             "name_message": name_message,
+            "name_messages": name_messages,
         }
 
     if not name_result.get("success", False):
@@ -1627,6 +1634,7 @@ def verify_monster_name_before_attack(monster, x, y, width, height):
             "move_message": move_message,
             "name_result": name_result,
             "name_message": name_message,
+            "name_messages": name_messages,
         }
 
     matched_keyword = get_matched_monster_keyword(name_result, keywords)
@@ -1645,6 +1653,7 @@ def verify_monster_name_before_attack(monster, x, y, width, height):
         "move_message": move_message,
         "name_result": name_result,
         "name_message": name_message,
+        "name_messages": name_messages,
     }
 
 
@@ -2501,6 +2510,7 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_d
         "used_attempt": name_result["used_attempt"],
         "reject_reason": name_result["reject_reason"],
         "debug_images": name_result["debug_images"],
+        "ocr_logs": name_result.get("ocr_logs", []),
         "move_success": move_success,
         "move_message": move_message,
         "client": client,
@@ -2722,6 +2732,7 @@ def recognize_monster_name_box(box, save_debug=True):
         "used_attempt": 0,
         "reject_reason": "",
         "debug_images": [],
+        "ocr_logs": [],
     }
 
     if not is_valid_box(box):
@@ -2733,6 +2744,7 @@ def recognize_monster_name_box(box, save_debug=True):
 
     last_result = empty_result
     ocr_colors = get_monster_name_ocr_colors()
+    ocr_logs = []
 
     for attempt in range(1, MONSTER_NAME_OCR_MAX_ATTEMPTS + 1):
         if attempt > 1:
@@ -2751,9 +2763,15 @@ def recognize_monster_name_box(box, save_debug=True):
             )
 
             if not success:
+                ocr_logs.append(
+                    f"怪物名OCR截图失败 attempt={attempt} "
+                    f"box={box.get('left')},{box.get('top')},{box.get('right')},{box.get('bottom')} "
+                    f"file={raw_file}"
+                )
                 last_result = {
                     **last_result,
                     "used_attempt": attempt,
+                    "ocr_logs": list(ocr_logs),
                     "debug_images": [
                         *last_result["debug_images"],
                         {
@@ -2779,6 +2797,12 @@ def recognize_monster_name_box(box, save_debug=True):
             selected_text = raw_text
             selected_name = selected_text or "未识别"
             reject_reason = get_monster_name_reject_reason(selected_name)
+            ocr_logs.append(
+                f"怪物名OCR调用 attempt={attempt} color={ocr_color} sim={MONSTER_NAME_OCR_SIM} "
+                f"raw={raw_text!r} reject={reject_reason} "
+                f"box={box.get('left')},{box.get('top')},{box.get('right')},{box.get('bottom')} "
+                f"file={raw_file}"
+            )
             debug_images = last_result["debug_images"]
 
             if save_debug:
@@ -2802,6 +2826,7 @@ def recognize_monster_name_box(box, save_debug=True):
                     "color": ocr_color,
                     "used_attempt": attempt,
                     "reject_reason": reject_reason,
+                    "ocr_logs": list(ocr_logs),
                     "debug_images": debug_images,
                 }
                 continue
@@ -2814,6 +2839,7 @@ def recognize_monster_name_box(box, save_debug=True):
                 "color": ocr_color,
                 "used_attempt": attempt,
                 "reject_reason": "",
+                "ocr_logs": list(ocr_logs),
                 "debug_images": debug_images,
             }
 
@@ -2843,7 +2869,7 @@ def get_monster_name_reject_reason(name):
     if not player_name:
         return ""
 
-    if name in player_name or player_name in name:
+    if normalize_player_name_text(name) == player_name:
         return "player_name_contamination"
 
     return ""
