@@ -123,11 +123,11 @@ MONSTER_NAME_BOTTOM_OFFSET = 52
 # 血条特征匹配阈值：0 表示完全一致，保留极小容差兼容截图格式差异。
 MONSTER_FEATURE_MATCH_THRESHOLD = 0.001
 # 怪物名字显示等待时间：鼠标悬停后等待游戏显示名字。
-MONSTER_HOVER_WAIT_SECONDS = 0.25
+MONSTER_HOVER_WAIT_SECONDS = 0.5
 # 怪物名字识别最大截图次数：第一次未截到字或识别为空时短暂重试。
 MONSTER_NAME_OCR_MAX_ATTEMPTS = 2
 # 怪物名字识别重试等待时间：给 hover 名字显示留出额外缓冲。
-MONSTER_NAME_OCR_RETRY_DELAY_SECONDS = 0.2
+MONSTER_NAME_OCR_RETRY_DELAY_SECONDS = 0.5
 # 怪物名字 OCR 相似度：彩色抗锯齿文字比白字更容易抖，略低于默认值。
 MONSTER_NAME_OCR_SIM = 0.85
 # 怪物名默认 OCR 颜色：配置文件缺失或为空时使用。
