@@ -50,10 +50,10 @@ def update_frame(game_data, state_data):
 
     for candidate in choose_target_candidates(monsters):
         attack = api.attack_monster(candidate)
-        name_log = attack.get("name_log", "")
+        name_message = attack.get("name_message", "")
 
-        if name_log:
-            logs.append(name_log)
+        if name_message:
+            logs.append(name_message)
 
         if attack.get("success"):
             target = candidate

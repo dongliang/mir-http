@@ -1,8 +1,186 @@
-[23:25:24] 日志开始
-[23:25:24] 程序启动: HTTP 服务模式
-[23:25:24] TXT 配置加载完成 monsters=6 colors=4
-[23:25:24] 开始初始化 OP
-[23:25:24] OP 版本: 0.4.5.0
-[23:25:24] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
-[23:25:24] OP 初始化成功
-[23:25:24] HTTP 服务启动: http://127.0.0.1:8765
+[00:00:03] 日志开始
+[00:00:03] 程序启动: HTTP 服务模式
+[00:00:03] TXT 配置加载完成 monsters=7 colors=4
+[00:00:03] 开始初始化 OP
+[00:00:03] OP 版本: 0.4.5.0
+[00:00:03] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
+[00:00:03] OP 初始化成功
+[00:00:03] HTTP 服务启动: http://127.0.0.1:8765
+[00:00:11] 绑定成功 hwnd=198352 title=^纵横四海 - 妖孽 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；玩家名称定位成功 name=妖孽 name_center=798,373 foot=798,405 method=op_dict
+[00:00:16] 战斗开关已打开，巡逻开关已关闭
+[00:00:17] 战斗开关已开启，进入战斗状态
+[00:00:17] 状态切换: idle -> battle
+[00:00:18] 怪物名称识别完成 name=: text=: raw=: mask= color=00f7f7-101010 attempt=2 reject= bar={'left': 694, 'top': 268, 'right': 726, 'bottom': 272} pos=710,317
+[00:00:18] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:18] 状态切换: battle -> idle
+[00:00:18] 战斗开关已开启，进入战斗状态
+[00:00:18] 状态切换: idle -> battle
+[00:00:19] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:19] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:19] 状态切换: battle -> idle
+[00:00:19] 战斗开关已开启，进入战斗状态
+[00:00:19] 状态切换: idle -> battle
+[00:00:20] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:20] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:20] 状态切换: battle -> idle
+[00:00:20] 战斗开关已开启，进入战斗状态
+[00:00:20] 状态切换: idle -> battle
+[00:00:21] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:21] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:21] 状态切换: battle -> idle
+[00:00:21] 战斗开关已开启，进入战斗状态
+[00:00:21] 状态切换: idle -> battle
+[00:00:22] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:22] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:22] 状态切换: battle -> idle
+[00:00:22] 战斗开关已开启，进入战斗状态
+[00:00:22] 状态切换: idle -> battle
+[00:00:23] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:23] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:23] 状态切换: battle -> idle
+[00:00:23] 战斗开关已开启，进入战斗状态
+[00:00:23] 状态切换: idle -> battle
+[00:00:24] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:24] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:24] 状态切换: battle -> idle
+[00:00:24] 战斗开关已开启，进入战斗状态
+[00:00:24] 状态切换: idle -> battle
+[00:00:26] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:26] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:26] 状态切换: battle -> idle
+[00:00:26] 战斗开关已开启，进入战斗状态
+[00:00:26] 状态切换: idle -> battle
+[00:00:27] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:27] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:27] 状态切换: battle -> idle
+[00:00:27] 战斗开关已开启，进入战斗状态
+[00:00:27] 状态切换: idle -> battle
+[00:00:28] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:28] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:28] 状态切换: battle -> idle
+[00:00:28] 战斗开关已开启，进入战斗状态
+[00:00:28] 状态切换: idle -> battle
+[00:00:29] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:29] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:29] 状态切换: battle -> idle
+[00:00:29] 战斗开关已开启，进入战斗状态
+[00:00:29] 状态切换: idle -> battle
+[00:00:30] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:30] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:30] 状态切换: battle -> idle
+[00:00:30] 战斗开关已开启，进入战斗状态
+[00:00:30] 状态切换: idle -> battle
+[00:00:32] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:32] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:32] 状态切换: battle -> idle
+[00:00:32] 战斗开关已开启，进入战斗状态
+[00:00:32] 状态切换: idle -> battle
+[00:00:33] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:33] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:33] 状态切换: battle -> idle
+[00:00:33] 战斗开关已开启，进入战斗状态
+[00:00:33] 状态切换: idle -> battle
+[00:00:34] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:34] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:34] 状态切换: battle -> idle
+[00:00:34] 战斗开关已开启，进入战斗状态
+[00:00:34] 状态切换: idle -> battle
+[00:00:35] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:35] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:35] 状态切换: battle -> idle
+[00:00:35] 战斗开关已开启，进入战斗状态
+[00:00:35] 状态切换: idle -> battle
+[00:00:36] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:36] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:36] 状态切换: battle -> idle
+[00:00:36] 战斗开关已开启，进入战斗状态
+[00:00:36] 状态切换: idle -> battle
+[00:00:37] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:37] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:37] 状态切换: battle -> idle
+[00:00:37] 战斗开关已开启，进入战斗状态
+[00:00:37] 状态切换: idle -> battle
+[00:00:39] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:39] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:39] 状态切换: battle -> idle
+[00:00:39] 战斗开关已开启，进入战斗状态
+[00:00:39] 状态切换: idle -> battle
+[00:00:40] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:40] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:40] 状态切换: battle -> idle
+[00:00:40] 战斗开关已开启，进入战斗状态
+[00:00:40] 状态切换: idle -> battle
+[00:00:41] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:41] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:41] 状态切换: battle -> idle
+[00:00:41] 战斗开关已开启，进入战斗状态
+[00:00:41] 状态切换: idle -> battle
+[00:00:42] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:42] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:42] 状态切换: battle -> idle
+[00:00:42] 战斗开关已开启，进入战斗状态
+[00:00:42] 状态切换: idle -> battle
+[00:00:43] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:43] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:43] 状态切换: battle -> idle
+[00:00:43] 战斗开关已开启，进入战斗状态
+[00:00:43] 状态切换: idle -> battle
+[00:00:44] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:44] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:44] 状态切换: battle -> idle
+[00:00:44] 战斗开关已开启，进入战斗状态
+[00:00:44] 状态切换: idle -> battle
+[00:00:45] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:45] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:45] 状态切换: battle -> idle
+[00:00:45] 战斗开关已开启，进入战斗状态
+[00:00:45] 状态切换: idle -> battle
+[00:00:46] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:46] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:46] 状态切换: battle -> idle
+[00:00:46] 战斗开关已开启，进入战斗状态
+[00:00:46] 状态切换: idle -> battle
+[00:00:48] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:48] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:48] 状态切换: battle -> idle
+[00:00:48] 战斗开关已开启，进入战斗状态
+[00:00:48] 状态切换: idle -> battle
+[00:00:49] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:49] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:49] 状态切换: battle -> idle
+[00:00:49] 战斗开关已开启，进入战斗状态
+[00:00:49] 状态切换: idle -> battle
+[00:00:50] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:50] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:50] 状态切换: battle -> idle
+[00:00:50] 战斗开关已开启，进入战斗状态
+[00:00:50] 状态切换: idle -> battle
+[00:00:51] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:51] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:51] 状态切换: battle -> idle
+[00:00:51] 战斗开关已开启，进入战斗状态
+[00:00:51] 状态切换: idle -> battle
+[00:00:52] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:52] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:52] 状态切换: battle -> idle
+[00:00:52] 战斗开关已开启，进入战斗状态
+[00:00:52] 状态切换: idle -> battle
+[00:00:53] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:53] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:53] 状态切换: battle -> idle
+[00:00:53] 战斗开关已开启，进入战斗状态
+[00:00:53] 状态切换: idle -> battle
+[00:00:54] 怪物名称识别完成 name=未识别 text= raw= mask= color=ffff00-101010 attempt=2 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:54] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:54] 状态切换: battle -> idle
+[00:00:54] 战斗开关已开启，进入战斗状态
+[00:00:54] 状态切换: idle -> battle
+[00:00:55] 战斗开关已关闭
+[00:00:55] 怪物名称识别完成 name=: text=: raw=: mask= color=ffff00-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[00:00:55] 扫描到 1 个怪物，但没有符合怪物清单的目标，跳过 1 个，留在原地继续扫描
+[00:00:55] 状态切换: battle -> idle
+[00:06:11] 点击成功 button=right method=down_up(1,1) x=928 y=405 last_error=0 client_size=1600x900
+[00:06:12] 点击成功 button=right method=down_up(1,1) x=668 y=405 last_error=0 client_size=1600x900
+[00:06:13] 点击成功 button=right method=down_up(1,1) x=668 y=275 last_error=0 client_size=1600x900
+[00:06:14] 点击成功 button=right method=down_up(1,1) x=928 y=535 last_error=0 client_size=1600x900
+[00:06:15] 点击成功 button=right method=down_up(1,1) x=798 y=535 last_error=0 client_size=1600x900

@@ -119,6 +119,8 @@ MONSTER_HOVER_WAIT_SECONDS = 0.25
 MONSTER_NAME_OCR_MAX_ATTEMPTS = 2
 # 怪物名字识别重试等待时间：给 hover 名字显示留出额外缓冲。
 MONSTER_NAME_OCR_RETRY_DELAY_SECONDS = 0.2
+# 怪物名字 OCR 相似度：彩色抗锯齿文字比白字更容易抖，略低于默认值。
+MONSTER_NAME_OCR_SIM = 0.85
 # 怪物名默认 OCR 颜色：配置文件缺失或为空时使用。
 DEFAULT_MONSTER_NAME_OCR_COLORS = [
     "00f7f7-101010",
@@ -1520,7 +1522,7 @@ def attack_monster(monster):
             "x": x,
             "y": y,
             "filter": filter_result,
-            "name_log": filter_result.get("log_message", ""),
+            "name_message": filter_result.get("name_message", ""),
             "monster": {
                 "id": monster.get("id", 0),
                 "distance": monster.get("distance", ""),
@@ -1544,7 +1546,7 @@ def attack_monster(monster):
         "x": x,
         "y": y,
         "filter": filter_result,
-        "name_log": filter_result.get("log_message", ""),
+        "name_message": filter_result.get("name_message", ""),
         "monster": {
             "id": monster.get("id", 0),
             "distance": monster.get("distance", ""),
@@ -1590,12 +1592,12 @@ def verify_monster_name_before_attack(monster, x, y, width, height):
             "message": "怪物缺少血条坐标，无法做名字过滤",
         }
 
-    name_result = recognize_monster_name(x, y, blood_bar, save_debug=False)
+    name_result = recognize_monster_name(x, y, blood_bar, save_debug=True)
     move_success = name_result.get("move_success", True)
     move_message = name_result.get("move_message", "")
+    name_message = name_result.get("message", "")
 
     if not move_success:
-        log_message = make_monster_name_log_message(name_result, "", False)
         return {
             "allowed": False,
             "reason": "hover_failed",
@@ -1608,11 +1610,10 @@ def verify_monster_name_before_attack(monster, x, y, width, height):
             "move_success": move_success,
             "move_message": move_message,
             "name_result": name_result,
-            "log_message": log_message,
+            "name_message": name_message,
         }
 
     if not name_result.get("success", False):
-        log_message = make_monster_name_log_message(name_result, "", False)
         return {
             "allowed": False,
             "reason": "monster_name_failed",
@@ -1625,12 +1626,11 @@ def verify_monster_name_before_attack(monster, x, y, width, height):
             "move_success": move_success,
             "move_message": move_message,
             "name_result": name_result,
-            "log_message": log_message,
+            "name_message": name_message,
         }
 
     matched_keyword = get_matched_monster_keyword(name_result, keywords)
     text = get_monster_name_filter_text(name_result)
-    log_message = make_monster_name_log_message(name_result, matched_keyword, bool(matched_keyword))
 
     return {
         "allowed": bool(matched_keyword),
@@ -1644,7 +1644,7 @@ def verify_monster_name_before_attack(monster, x, y, width, height):
         "move_success": move_success,
         "move_message": move_message,
         "name_result": name_result,
-        "log_message": log_message,
+        "name_message": name_message,
     }
 
 
@@ -2392,41 +2392,35 @@ def recognize_monster_name(position_x, position_y, blood_bar=None, save_debug=Tr
         try:
             return recognize_monster_name_locked(position_x, position_y, blood_bar, save_debug)
         except Exception as error:
-            result = {
+            return {
                 "success": False,
                 "name": "未识别",
                 "name_text": "",
                 "message": f"怪物名称识别异常: {error}",
             }
-            result["log_message"] = make_monster_name_log_message(result)
-            return result
 
 
 # 执行单个怪物名称识别：只悬停并 OCR 当前指定怪物。
 def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_debug=True):
     if not op.is_window_bound():
-        result = {
+        return {
             "success": False,
             "name": "未识别",
             "name_text": "",
             "message": "还没有绑定窗口",
         }
-        result["log_message"] = make_monster_name_log_message(result)
-        return result
 
     client = get_bound_client_info()
     width, height = client["width"], client["height"]
 
     if width <= 0 or height <= 0:
-        result = {
+        return {
             "success": False,
             "name": "未识别",
             "name_text": "",
             "client": client,
             "message": f"窗口尺寸异常 size={width}x{height}",
         }
-        result["log_message"] = make_monster_name_log_message(result)
-        return result
 
     active_blood_bar = None
 
@@ -2454,7 +2448,7 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_d
             make_debug_point(*box_center(name_box), "purple"),
         ])
 
-        result = {
+        return {
             "success": False,
             "name": "未识别",
             "name_text": "",
@@ -2475,8 +2469,6 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_d
             "debug_points": debug_points,
             "message": f"怪物名称识别失败: {move_message}",
         }
-        result["log_message"] = make_monster_name_log_message(result)
-        return result
 
     time.sleep(MONSTER_HOVER_WAIT_SECONDS)
 
@@ -2493,7 +2485,7 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_d
         make_debug_point(*box_center(name_box), "purple"),
     ])
 
-    result = {
+    return {
         "success": True,
         "name": name,
         "name_text": name_text,
@@ -2521,39 +2513,6 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_d
             f"bar={active_blood_bar} pos={hover_x},{hover_y}"
         ),
     }
-    result["log_message"] = make_monster_name_log_message(result)
-    return result
-
-
-# 生成怪物名识别日志：集中展示 OCR 文本、清洗名、区域和命中结果。
-def make_monster_name_log_message(result, matched_keyword="", allowed=None):
-    result = result or {}
-    position = result.get("position", {}) or {}
-    box = result.get("ocr_box", {}) or {}
-    blood_bar = result.get("blood_bar", {}) or {}
-
-    if allowed is None:
-        allowed_text = "-"
-    else:
-        allowed_text = "是" if allowed else "否"
-
-    return (
-        "怪物名识别 "
-        f"success={bool(result.get('success', False))} "
-        f"allowed={allowed_text} "
-        f"matched={(matched_keyword or '')!r} "
-        f"name={result.get('name', '')!r} "
-        f"text={result.get('name_text', '')!r} "
-        f"raw={result.get('raw_text', '')!r} "
-        f"mask={result.get('mask_text', '')!r} "
-        f"color={result.get('color', '')} "
-        f"attempt={result.get('used_attempt', 0)} "
-        f"reject={result.get('reject_reason', '')} "
-        f"box={box.get('left')},{box.get('top')},{box.get('right')},{box.get('bottom')} "
-        f"bar={blood_bar.get('left')},{blood_bar.get('top')},{blood_bar.get('right')},{blood_bar.get('bottom')} "
-        f"pos={position.get('x')},{position.get('y')} "
-        f"move={result.get('move_message', '')}"
-    )
 
 
 # 根据血条位置计算怪物名 OCR 区域。
@@ -2814,10 +2773,11 @@ def recognize_monster_name_box(box, save_debug=True):
                 box["right"] - 1,
                 box["bottom"] - 1,
                 color=ocr_color,
+                sim=MONSTER_NAME_OCR_SIM,
             )
             mask_text = ""
             selected_text = raw_text
-            selected_name = clean_monster_name(selected_text)
+            selected_name = selected_text or "未识别"
             reject_reason = get_monster_name_reject_reason(selected_name)
             debug_images = last_result["debug_images"]
 
@@ -2874,6 +2834,9 @@ def get_debug_image_prefix(prefix):
 def get_monster_name_reject_reason(name):
     if name == "未识别":
         return ""
+
+    if not re.search(r"[\u4e00-\u9fff]", str(name or "")):
+        return "no_chinese_text"
 
     player_name = get_bound_player_name()
 
@@ -3040,20 +3003,6 @@ def dedupe_matches(matches):
 def get_image_size(image_file):
     with Image.open(image_file) as image:
         return image.size
-
-
-# 清理怪物名识别文本：优先取 4 个以内中文字符。
-def clean_monster_name(text):
-    cleaned = re.sub(r"\s+", "", text or "")
-    match = re.search(r"[\u4e00-\u9fff]{1,6}", cleaned)
-
-    if match:
-        return match.group(0)[:4]
-
-    if cleaned:
-        return cleaned[:8]
-
-    return "未识别"
 
 
 # 限制矩形范围：使用 right/bottom 作为开区间。
