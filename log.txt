@@ -1,8 +1,164 @@
-[04:51:39] 日志开始
-[04:51:39] 程序启动: HTTP 服务模式
-[04:51:39] TXT 配置加载完成 monsters=14 monster_colors=5 items=29 item_colors=3
-[04:51:39] 开始初始化 OP
-[04:51:39] OP 版本: 0.4.5.0
-[04:51:39] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
-[04:51:39] OP 初始化成功
-[04:51:39] HTTP 服务启动: http://127.0.0.1:4622
+[05:02:15] 日志开始
+[05:02:15] 程序启动: HTTP 服务模式
+[05:02:15] TXT 配置加载完成 monsters=14 monster_colors=5 items=36 item_colors=3
+[05:02:15] 开始初始化 OP
+[05:02:15] OP 版本: 0.4.5.0
+[05:02:15] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
+[05:02:15] OP 初始化成功
+[05:02:15] HTTP 服务启动: http://127.0.0.1:5472
+[05:02:22] 绑定成功 hwnd=264886 title=^纵横四海 - 妖孽 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；玩家名称定位成功 name=妖孽 name_center=798,373 foot=798,405 method=op_dict；账号配置已切换 account=妖孽 created=False copied=0 config_dir=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\accounts\妖孽；TXT 配置加载完成 monsters=14 monster_colors=5 items=30 item_colors=3；地图预检查失败: 地图预检查异常: 无法识别地图最大逻辑坐标 text=''；已尝试后台按 M 2 次: 后台键盘输入成功 key=M vk=77 repeat=2 hold_ms=120 interval_ms=150 mode=dx2/windows/windows/0；绑定地图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\ref\map.png max=95:149 rect=525,275,1075,625 ocr_box=885,570,1073,623 text='95149' hover=1074,624 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\ref\map.png range=525,275,1074,624 last_error=0；绑定成功后隐藏地图: 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[05:02:29] 地图预检查失败: 地图预检查异常: 无法识别地图最大逻辑坐标 text=''；已尝试后台按 M 2 次: 后台键盘输入成功 key=M vk=77 repeat=2 hold_ms=120 interval_ms=150 mode=dx2/windows/windows/0；绑定地图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\ref\map.png max=199:199 rect=525,275,1075,625 ocr_box=885,570,1073,623 text='199199' hover=1074,624 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\ref\map.png range=525,275,1074,624 last_error=0；绑定成功后隐藏地图: 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[05:02:41] 拾取测试已进入 getitem 状态
+[05:02:43] 捡取物品移动 target=金币@948,217 logic=18:136 distance=241 direction=up_right wait=800ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=957,222 move_click=928,275 target_source=logic vector=159,-183 angle=-49.01
+[05:02:45] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=
+[05:02:45] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=
+[05:02:45] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=652,395,752,415 file=
+[05:02:45] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 686, 'top': 359, 'right': 718, 'bottom': 363} pos=702,408
+[05:02:45] 附近有清单内怪物，暂停捡取 matched=僵尸 text='僵尸'
+[05:02:45] 状态切换: getitem -> idle
+[05:02:51] 捡取物品设置已更新: 开 step_wait_ms=800
+[05:02:53] 拾取测试已进入 getitem 状态
+[05:02:53] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=
+[05:02:53] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=
+[05:02:53] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=652,395,752,415 file=
+[05:02:53] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 686, 'top': 359, 'right': 718, 'bottom': 363} pos=702,408
+[05:02:53] 附近有清单内怪物，暂停捡取 matched=僵尸 text='僵尸'
+[05:02:53] 状态切换: getitem -> idle
+[05:02:55] 自动加血设置已更新: 开 threshold=50% interval=1000ms
+[05:02:56] 拾取测试已进入 getitem 状态
+[05:02:57] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=
+[05:02:57] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=652,395,752,415 file=
+[05:02:57] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=652,395,752,415 file=
+[05:02:57] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 686, 'top': 359, 'right': 718, 'bottom': 363} pos=702,408
+[05:02:57] 附近有清单内怪物，暂停捡取 matched=僵尸 text='僵尸'
+[05:02:57] 状态切换: getitem -> idle
+[05:03:13] 拾取测试已进入 getitem 状态
+[05:03:15] 捡取物品移动 target=金币@948,217 logic=18:136 distance=241 direction=up_right wait=800ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=957,222 move_click=928,275 target_source=logic vector=159,-183 angle=-49.01
+[05:03:17] 捡取物品移动 target=金币@948,217 logic=18:136 distance=241 direction=up_right wait=800ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=905,252 move_click=928,275 target_source=logic vector=107,-153 angle=-55.03
+[05:03:19] 捡取物品移动 target=金币@948,217 logic=18:136 distance=241 direction=up_right wait=800ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=853,282 move_click=928,275 target_source=logic vector=55,-123 angle=-65.91
+[05:03:21] 捡取物品移动 target=金币@948,217 logic=18:136 distance=241 direction=up wait=800ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=801,312 move_click=798,275 target_source=logic vector=3,-93 angle=-88.15
+[05:03:24] 捡取物品移动 target=金币@948,217 logic=18:136 distance=241 direction=up wait=800ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=800,343 move_click=798,275 target_source=logic vector=2,-62 angle=-88.15
+[05:03:24] 自动加血触发: hp=30% threshold=50% mouse=0,0 key=F1
+[05:03:25] 自动加血血量恢复: hp=100% threshold=50%
+[05:03:26] 捡取物品移动 target=金币@948,217 logic=18:136 distance=241 direction=up wait=800ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=799,374 move_click=798,275 target_source=logic vector=1,-31 angle=-88.15
+[05:03:28] 物品已消失，认为已捡取 target=金币@948,217 logic=18:136 distance=241；可玩区域可捡物品已处理完，回到 idle
+[05:03:28] 状态切换: getitem -> idle
+[05:03:38] 拾取测试已进入 getitem 状态
+[05:03:40] 捡取物品移动 target=金币@756,377 logic=19:136 distance=50 direction=up_left wait=800ms 点击成功 button=left method=down_up(1,1) x=668 y=275 last_error=0 direction=up_left player=798,405 item=748,373 move_click=668,275 target_source=logic vector=-50,-32 angle=-147.38
+[05:03:42] 物品已消失，认为已捡取 target=金币@756,377 logic=19:136 distance=50；可玩区域可捡物品已处理完，回到 idle
+[05:03:42] 状态切换: getitem -> idle
+[05:03:45] 捡取物品设置已更新: 开 step_wait_ms=700
+[05:03:53] 拾取测试已进入 getitem 状态
+[05:03:54] 捡取物品移动 target=金币@996,185 logic=17:137 distance=296 direction=up_right wait=700ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=1009,192 move_click=928,275 target_source=logic vector=211,-213 angle=-45.27
+[05:03:56] 捡取物品移动 target=金币@996,185 logic=17:137 distance=296 direction=up_right wait=700ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=957,222 move_click=928,275 target_source=logic vector=159,-183 angle=-49.01
+[05:03:58] 捡取物品移动 target=金币@996,185 logic=17:137 distance=296 direction=up_right wait=700ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=905,252 move_click=928,275 target_source=logic vector=107,-153 angle=-55.03
+[05:04:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=652,427,752,447 file=
+[05:04:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=652,427,752,447 file=
+[05:04:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=652,427,752,447 file=
+[05:04:00] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 686, 'top': 391, 'right': 718, 'bottom': 395} pos=702,440
+[05:04:00] 附近有清单内怪物，暂停捡取 matched=僵尸 text='僵尸'
+[05:04:00] 状态切换: getitem -> idle
+[05:04:00] 捡取物品设置已更新: 开 step_wait_ms=600
+[05:04:05] 拾取测试已进入 getitem 状态
+[05:04:07] 捡取物品移动 target=金币@948,153 logic=17:137 distance=293 direction=up_right wait=600ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=959,160 move_click=928,275 target_source=logic vector=161,-245 angle=-56.69
+[05:04:09] 捡取物品移动 target=金币@948,153 logic=17:137 distance=293 direction=up_right wait=600ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=959,160 move_click=928,275 target_source=logic vector=161,-245 angle=-56.69
+[05:04:11] 捡取物品移动 target=金币@948,153 logic=17:137 distance=293 direction=up_right wait=600ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=907,190 move_click=928,275 target_source=logic vector=109,-215 angle=-63.12
+[05:04:13] 捡取物品移动 target=金币@948,153 logic=17:137 distance=293 direction=up wait=600ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=855,220 move_click=798,275 target_source=logic vector=57,-185 angle=-72.88
+[05:04:15] 捡取物品移动 target=金币@948,153 logic=17:137 distance=293 direction=up wait=600ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=854,251 move_click=798,275 target_source=logic vector=56,-154 angle=-70.02
+[05:04:17] 捡取物品移动 target=金币@948,153 logic=17:137 distance=293 direction=up_right wait=600ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=853,282 move_click=928,275 target_source=logic vector=55,-123 angle=-65.91
+[05:04:18] 捡取物品设置已更新: 开 step_wait_ms=500
+[05:04:19] 捡取物品移动 target=金币@948,153 logic=17:137 distance=293 direction=up wait=500ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=801,312 move_click=798,275 target_source=logic vector=3,-93 angle=-88.15
+[05:04:21] 捡取物品移动 target=金币@948,153 logic=17:137 distance=293 direction=up wait=500ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=803,250 move_click=798,275 target_source=logic vector=5,-155 angle=-88.15
+[05:04:23] 捡取物品移动 target=金币@948,153 logic=17:137 distance=293 direction=up_right wait=500ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=906,221 move_click=928,275 target_source=logic vector=108,-184 angle=-59.59
+[05:04:23] 拾取测试已进入 getitem 状态
+[05:04:24] 捡取物品移动 target=金币@948,153 logic=17:137 distance=293 direction=up wait=500ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=854,251 move_click=798,275 target_source=logic vector=56,-154 angle=-70.02
+[05:04:25] 捡取物品移动 target=金币@852,281 logic=17:137 distance=135 direction=up_right wait=500ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=853,282 move_click=928,275 target_source=logic vector=55,-123 angle=-65.91
+[05:04:27] 捡取物品移动 target=金币@852,281 logic=17:137 distance=135 direction=up wait=500ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=801,312 move_click=798,275 target_source=logic vector=3,-93 angle=-88.15
+[05:04:29] 捡取物品移动 target=金币@852,281 logic=17:137 distance=135 direction=up wait=500ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=800,343 move_click=798,275 target_source=logic vector=2,-62 angle=-88.15
+[05:04:29] 自动加血触发: hp=30% threshold=50% mouse=0,0 key=F1
+[05:04:31] 捡取物品移动 target=金币@852,281 logic=17:137 distance=135 direction=up wait=500ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=799,374 move_click=798,275 target_source=logic vector=1,-31 angle=-88.15
+[05:04:31] 自动加血血量恢复: hp=100% threshold=50%
+[05:04:31] 捡取物品设置已更新: 开 step_wait_ms=400
+[05:04:33] 物品已消失，认为已捡取 target=金币@852,281 logic=17:137 distance=135；可玩区域可捡物品已处理完，回到 idle
+[05:04:33] 状态切换: getitem -> idle
+[05:04:37] 拾取测试已进入 getitem 状态
+[05:04:38] 捡取物品移动 target=金币@1044,185 logic=18:136 distance=330 direction=up_right wait=400ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=1060,193 move_click=928,275 target_source=logic vector=262,-212 angle=-38.98
+[05:04:39] 捡取物品移动 target=金币@1044,185 logic=18:136 distance=330 direction=up_right wait=400ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=18 direction=up_right player=798,405 item=1008,223 move_click=928,275 target_source=logic vector=210,-182 angle=-40.91
+[05:04:41] 捡取物品移动 target=金币@1044,185 logic=18:136 distance=330 direction=up_right wait=400ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=956,253 move_click=928,275 target_source=logic vector=158,-152 angle=-43.89
+[05:04:43] 捡取物品移动 target=金币@1044,185 logic=18:136 distance=330 direction=up_right wait=400ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=904,283 move_click=928,275 target_source=logic vector=106,-122 angle=-49.01
+[05:04:44] 捡取物品移动 target=金币@1044,185 logic=18:136 distance=330 direction=up_right wait=400ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=852,313 move_click=928,275 target_source=logic vector=54,-92 angle=-59.59
+[05:04:46] 捡取物品设置已更新: 开 step_wait_ms=300
+[05:04:46] 捡取物品移动 target=金币@1044,185 logic=18:136 distance=330 direction=up wait=300ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=800,343 move_click=798,275 target_source=logic vector=2,-62 angle=-88.15
+[05:04:48] 捡取物品移动 target=金币@1044,185 logic=18:136 distance=330 direction=up wait=300ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=799,374 move_click=798,275 target_source=logic vector=1,-31 angle=-88.15
+[05:04:50] 物品已消失，认为已捡取 target=金币@1044,185 logic=18:136 distance=330；可玩区域可捡物品已处理完，回到 idle
+[05:04:50] 状态切换: getitem -> idle
+[05:05:00] 拾取测试已进入 getitem 状态
+[05:05:02] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up_right wait=300ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=1060,193 move_click=928,275 target_source=logic vector=262,-212 angle=-38.98
+[05:05:03] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up_right wait=300ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=1060,193 move_click=928,275 target_source=logic vector=262,-212 angle=-38.98
+[05:05:05] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up_right wait=300ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=1008,223 move_click=928,275 target_source=logic vector=210,-182 angle=-40.91
+[05:05:07] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up_right wait=300ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=956,253 move_click=928,275 target_source=logic vector=158,-152 angle=-43.89
+[05:05:08] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up_right wait=300ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=904,283 move_click=928,275 target_source=logic vector=106,-122 angle=-49.01
+[05:05:10] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up_right wait=300ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=852,313 move_click=928,275 target_source=logic vector=54,-92 angle=-59.59
+[05:05:12] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up wait=300ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=800,343 move_click=798,275 target_source=logic vector=2,-62 angle=-88.15
+[05:05:14] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up wait=300ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=854,251 move_click=798,275 target_source=logic vector=56,-154 angle=-70.02
+[05:05:15] 捡取物品设置已更新: 关 step_wait_ms=300
+[05:05:15] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up_right wait=300ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=853,282 move_click=928,275 target_source=logic vector=55,-123 angle=-65.91
+[05:05:15] 捡取物品设置已更新: 开 step_wait_ms=300
+[05:05:17] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up wait=300ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=801,312 move_click=798,275 target_source=logic vector=3,-93 angle=-88.15
+[05:05:19] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up wait=300ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=803,250 move_click=798,275 target_source=logic vector=5,-155 angle=-88.15
+[05:05:19] 捡取物品设置已更新: 开 step_wait_ms=200
+[05:05:20] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up_right wait=200ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=906,221 move_click=928,275 target_source=logic vector=108,-184 angle=-59.59
+[05:05:22] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=854,251 move_click=798,275 target_source=logic vector=56,-154 angle=-70.02
+[05:05:24] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up_right wait=200ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=853,282 move_click=928,275 target_source=logic vector=55,-123 angle=-65.91
+[05:05:26] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=801,312 move_click=798,275 target_source=logic vector=3,-93 angle=-88.15
+[05:05:28] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=800,343 move_click=798,275 target_source=logic vector=2,-62 angle=-88.15
+[05:05:28] 自动加血触发: hp=30% threshold=50% mouse=0,0 key=F1
+[05:05:29] 捡取物品移动 target=金币@1044,185 logic=19:135 distance=330 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=799,374 move_click=798,275 target_source=logic vector=1,-31 angle=-88.15
+[05:05:29] 自动加血血量恢复: hp=100% threshold=50%
+[05:05:31] 物品已消失，认为已捡取 target=金币@1044,185 logic=19:135 distance=330；可玩区域可捡物品已处理完，回到 idle
+[05:05:31] 状态切换: getitem -> idle
+[05:05:35] 捡取物品设置已更新: 关 step_wait_ms=200
+[05:05:35] 捡取物品设置已更新: 开 step_wait_ms=200
+[05:05:38] 拾取测试已进入 getitem 状态
+[05:05:39] 捡取物品移动 target=金币@852,185 logic=20:134 distance=227 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=856,189 move_click=798,275 target_source=logic vector=58,-216 angle=-74.97
+[05:05:41] 捡取物品移动 target=金币@852,185 logic=20:134 distance=227 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=855,220 move_click=798,275 target_source=logic vector=57,-185 angle=-72.88
+[05:05:42] 捡取物品移动 target=金币@852,185 logic=20:134 distance=227 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=854,251 move_click=798,275 target_source=logic vector=56,-154 angle=-70.02
+[05:05:44] 捡取物品移动 target=金币@852,185 logic=20:134 distance=227 direction=up_right wait=200ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=853,282 move_click=928,275 target_source=logic vector=55,-123 angle=-65.91
+[05:05:46] 捡取物品移动 target=金币@852,185 logic=20:134 distance=227 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=801,312 move_click=798,275 target_source=logic vector=3,-93 angle=-88.15
+[05:05:48] 捡取物品移动 target=金币@852,185 logic=20:134 distance=227 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=800,343 move_click=798,275 target_source=logic vector=2,-62 angle=-88.15
+[05:05:48] 自动加血触发: hp=30% threshold=50% mouse=0,0 key=F1
+[05:05:49] 捡取物品移动 target=金币@852,185 logic=20:134 distance=227 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=799,374 move_click=798,275 target_source=logic vector=1,-31 angle=-88.15
+[05:05:49] 自动加血血量恢复: hp=100% threshold=50%
+[05:05:51] 物品已消失，认为已捡取 target=金币@852,185 logic=20:134 distance=227；可玩区域可捡物品已处理完，回到 idle
+[05:05:51] 状态切换: getitem -> idle
+[05:05:53] 捡取物品设置已更新: 开 step_wait_ms=100
+[05:06:01] 拾取测试已进入 getitem 状态
+[05:06:01] 捡取物品移动 target=金币@1044,121 logic=21:133 distance=376 direction=up_right wait=100ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=1062,131 move_click=928,275 target_source=logic vector=264,-274 angle=-46.06
+[05:06:02] 捡取物品移动 target=金币@1044,121 logic=21:133 distance=376 direction=up_right wait=100ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=18 direction=up_right player=798,405 item=1010,161 move_click=928,275 target_source=logic vector=212,-244 angle=-49.01
+[05:06:03] 捡取物品移动 target=金币@1044,121 logic=21:133 distance=376 direction=up_right wait=100ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=1010,161 move_click=928,275 target_source=logic vector=212,-244 angle=-49.01
+[05:06:05] 捡取物品移动 target=金币@1044,121 logic=21:133 distance=376 direction=up_right wait=100ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=958,191 move_click=928,275 target_source=logic vector=160,-214 angle=-53.22
+[05:06:06] 捡取物品移动 target=金币@1044,121 logic=21:133 distance=376 direction=up_right wait=100ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=906,221 move_click=928,275 target_source=logic vector=108,-184 angle=-59.59
+[05:06:08] 捡取物品移动 target=金币@1044,121 logic=21:133 distance=376 direction=up wait=100ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=854,251 move_click=798,275 target_source=logic vector=56,-154 angle=-70.02
+[05:06:09] 捡取物品移动 target=金币@1044,121 logic=21:133 distance=376 direction=up_right wait=100ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=853,282 move_click=928,275 target_source=logic vector=55,-123 angle=-65.91
+[05:06:11] 捡取物品移动 target=金币@1044,121 logic=21:133 distance=376 direction=up wait=100ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=801,312 move_click=798,275 target_source=logic vector=3,-93 angle=-88.15
+[05:06:11] 捡取物品设置已更新: 开 step_wait_ms=200
+[05:06:12] 捡取物品移动 target=金币@1044,121 logic=21:133 distance=376 direction=up wait=200ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=800,343 move_click=798,275 target_source=logic vector=2,-62 angle=-88.15
+[05:06:12] 自动加血触发: hp=30% threshold=50% mouse=0,0 key=F1
+[05:06:13] 捡取物品设置已更新: 开 step_wait_ms=100
+[05:06:14] 捡取物品移动 target=金币@1044,121 logic=21:133 distance=376 direction=up wait=100ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=799,374 move_click=798,275 target_source=logic vector=1,-31 angle=-88.15
+[05:06:14] 自动加血血量恢复: hp=100% threshold=50%
+[05:06:15] 物品已消失，认为已捡取 target=金币@1044,121 logic=21:133 distance=376；可玩区域可捡物品已处理完，回到 idle
+[05:06:15] 状态切换: getitem -> idle
+[05:06:20] 拾取测试已进入 getitem 状态
+[05:06:20] 捡取物品移动 target=金币@948,185 logic=22:132 distance=266 direction=up_right wait=100ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=958,191 move_click=928,275 target_source=logic vector=160,-214 angle=-53.22
+[05:06:21] 捡取物品移动 target=金币@948,185 logic=22:132 distance=266 direction=up_right wait=100ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=18 direction=up_right player=798,405 item=906,221 move_click=928,275 target_source=logic vector=108,-184 angle=-59.59
+[05:06:22] 捡取物品移动 target=金币@948,185 logic=22:132 distance=266 direction=up_right wait=100ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=906,221 move_click=928,275 target_source=logic vector=108,-184 angle=-59.59
+[05:06:23] 捡取物品移动 target=金币@948,185 logic=22:132 distance=266 direction=up wait=100ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=854,251 move_click=798,275 target_source=logic vector=56,-154 angle=-70.02
+[05:06:24] 捡取物品移动 target=金币@948,185 logic=22:132 distance=266 direction=up_right wait=100ms 点击成功 button=left method=down_up(1,1) x=928 y=275 last_error=0 direction=up_right player=798,405 item=853,282 move_click=928,275 target_source=logic vector=55,-123 angle=-65.91
+[05:06:26] 捡取物品移动 target=金币@948,185 logic=22:132 distance=266 direction=up wait=100ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=801,312 move_click=798,275 target_source=logic vector=3,-93 angle=-88.15
+[05:06:28] 捡取物品移动 target=金币@948,185 logic=22:132 distance=266 direction=up wait=100ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=800,343 move_click=798,275 target_source=logic vector=2,-62 angle=-88.15
+[05:06:28] 自动加血触发: hp=30% threshold=50% mouse=0,0 key=F1
+[05:06:29] 捡取物品移动 target=金币@948,185 logic=22:132 distance=266 direction=up wait=100ms 点击成功 button=left method=down_up(1,1) x=798 y=275 last_error=0 direction=up player=798,405 item=799,374 move_click=798,275 target_source=logic vector=1,-31 angle=-88.15
+[05:06:29] 自动加血血量恢复: hp=100% threshold=50%
+[05:06:31] 物品已消失，认为已捡取 target=金币@948,185 logic=22:132 distance=266；可玩区域可捡物品已处理完，回到 idle
+[05:06:31] 状态切换: getitem -> idle

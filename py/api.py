@@ -2379,6 +2379,144 @@ def verify_monster_name_before_attack(monster, x, y, width, height, save_name_de
     }
 
 
+# 捡取安全校验怪物名：必须完整等于 txt/monster.txt 中的一行，避免宝宝名被短关键字误伤。
+def verify_monster_full_name_for_getitem_safety(monster, x, y, width, height, save_name_debug=False):
+    keyword_status = load_monster_keywords(force=False)
+    keywords = keyword_status.get("keywords", [])
+
+    if not keywords:
+        return {
+            "allowed": False,
+            "reason": "empty_keyword_list",
+            "keywords": keywords,
+            "text": "",
+            "names": [],
+            "matched_keyword": "",
+            "box": {},
+            "position": {"x": x, "y": y},
+            "message": keyword_status.get("message", ""),
+        }
+
+    blood_bar = monster.get("blood_bar", {})
+
+    if not is_valid_blood_bar(blood_bar):
+        return {
+            "allowed": False,
+            "reason": "missing_blood_bar",
+            "keywords": keywords,
+            "text": "",
+            "names": [],
+            "matched_keyword": "",
+            "box": {},
+            "position": {"x": x, "y": y},
+            "message": "怪物缺少血条坐标，无法做名字过滤",
+        }
+
+    name_result = recognize_monster_name(x, y, blood_bar, save_debug=save_name_debug)
+    move_success = name_result.get("move_success", True)
+    move_message = name_result.get("move_message", "")
+    name_message = name_result.get("message", "")
+    name_messages = list(name_result.get("ocr_logs", []))
+    names = get_monster_full_name_candidates(name_result)
+
+    if name_message:
+        name_messages.append(name_message)
+
+    if not move_success:
+        return {
+            "allowed": False,
+            "reason": "hover_failed",
+            "keywords": keywords,
+            "matched_keyword": "",
+            "text": " ".join(names),
+            "names": names,
+            "box": name_result.get("ocr_box", {}),
+            "blood_bar": name_result.get("blood_bar", {}),
+            "position": name_result.get("position", {"x": x, "y": y}),
+            "move_success": move_success,
+            "move_message": move_message,
+            "name_result": name_result,
+            "name_message": name_message,
+            "name_messages": name_messages,
+        }
+
+    if not name_result.get("success", False):
+        return {
+            "allowed": False,
+            "reason": "monster_name_failed",
+            "keywords": keywords,
+            "matched_keyword": "",
+            "text": " ".join(names),
+            "names": names,
+            "box": name_result.get("ocr_box", {}),
+            "blood_bar": name_result.get("blood_bar", {}),
+            "position": name_result.get("position", {"x": x, "y": y}),
+            "move_success": move_success,
+            "move_message": move_message,
+            "name_result": name_result,
+            "name_message": name_message,
+            "name_messages": name_messages,
+        }
+
+    matched_keyword = get_matched_monster_full_name(name_result, keywords)
+
+    return {
+        "allowed": bool(matched_keyword),
+        "reason": "" if matched_keyword else "full_name_not_found",
+        "keywords": keywords,
+        "matched_keyword": matched_keyword,
+        "text": " ".join(names),
+        "names": names,
+        "box": name_result.get("ocr_box", {}),
+        "blood_bar": name_result.get("blood_bar", {}),
+        "position": name_result.get("position", {"x": x, "y": y}),
+        "move_success": move_success,
+        "move_message": move_message,
+        "name_result": name_result,
+        "name_message": name_message,
+        "name_messages": name_messages,
+    }
+
+
+# 从统一怪物名识别结果里读取完整怪名候选。
+def get_monster_full_name_candidates(name_result):
+    names = []
+
+    for key in ("name", "name_text", "raw_text", "mask_text"):
+        name = str(name_result.get(key, "") or "").strip()
+
+        if not name or name == "未识别" or name in names:
+            continue
+
+        names.append(name)
+
+    return names
+
+
+# 捡取安全用完整怪名匹配：忽略 OCR 空白，但不做包含匹配。
+def get_matched_monster_full_name(name_result, keywords):
+    keyword_map = {}
+
+    for keyword in keywords:
+        normalized = normalize_monster_full_name(keyword)
+
+        if normalized and normalized not in keyword_map:
+            keyword_map[normalized] = keyword
+
+    for name in get_monster_full_name_candidates(name_result):
+        normalized = normalize_monster_full_name(name)
+
+        if normalized in keyword_map:
+            return keyword_map[normalized]
+
+    return ""
+
+
+# 规范化完整怪名：只去掉空白，保留括号和其他字符，避免短词误匹配。
+def normalize_monster_full_name(name):
+    return re.sub(r"\s+", "", str(name or "").strip())
+
+
 # 从统一怪物名识别结果里读取命中的怪物关键字。
 def get_matched_monster_keyword(name_result, keywords):
     text = get_monster_name_filter_text(name_result)
@@ -2501,7 +2639,7 @@ def check_getitem_safety():
 
     for monster in candidates:
         position = monster.get("position", {})
-        filter_result = verify_monster_name_before_attack(
+        filter_result = verify_monster_full_name_for_getitem_safety(
             monster,
             position.get("x", 0),
             position.get("y", 0),
