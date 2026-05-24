@@ -1856,7 +1856,10 @@ function updateGetitemPanel(getitem) {
     const stateText = enabled ? "开" : "关";
     const target = getitem.last_target || {};
     const targetText = target.keyword
-        ? target.keyword + "@" + String(target.click_x ?? "") + "," + String(target.click_y ?? "")
+        ? target.keyword
+            + " item=" + String(target.item_x ?? target.click_x ?? "") + "," + String(target.item_y ?? target.click_y ?? "")
+            + " dir=" + String(target.direction || "-")
+            + " move=" + String(target.move_click_x ?? "") + "," + String(target.move_click_y ?? "")
         : "-";
     document.getElementById("getitem-enabled-text").textContent = stateText;
     document.getElementById("getitem-enabled").checked = enabled;

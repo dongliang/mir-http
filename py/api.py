@@ -263,7 +263,7 @@ run_click_directions = {
 
 # 移动动作配置：定义移动动作使用的鼠标按钮、点击距离和坐标步长。
 move_actions = {
-    "walk": {"button": "left", "offset": 65, "step": 1},
+    "walk": {"button": "left", "offset": 130, "step": 1},
     "run": {"button": "right", "offset": 130, "step": 2},
 }
 
@@ -2577,26 +2577,95 @@ def find_matching_getitem_target(items, target):
     return nearest
 
 
-# 点击物品目标。
-def click_getitem_target(target):
+# 朝物品目标方向走一步：不直接点击物品，避免宝宝挡住物品点。
+def move_getitem_toward_target(target, previous_direction=""):
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口",
+        }
+
+    width, height = get_bound_client_size()
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    try:
+        player_x, player_y, player_position = get_bound_player_foot_point()
+    except ValueError as error:
+        return {
+            "success": False,
+            "message": str(error),
+        }
+
     click = target.get("click", {})
 
     try:
-        x = int(click.get("x"))
-        y = int(click.get("y"))
+        item_x = int(click.get("x"))
+        item_y = int(click.get("y"))
     except (TypeError, ValueError):
         return {
             "success": False,
-            "message": f"物品点击坐标异常 target={target}",
+            "message": f"物品坐标异常 target={target}",
         }
 
-    success, message = op.click_mouse_at(x, y, "left")
+    direction, direction_message = get_direction_to_target(
+        player_x,
+        player_y,
+        item_x,
+        item_y,
+        previous_direction,
+    )
+    move = calculate_move("walk", direction, width, height, player_x, player_y)
+    success, message = op.click_mouse_at(move["click_x"], move["click_y"], move["button"])
+    message = (
+        f"{message} direction={direction} player={player_x},{player_y} item={item_x},{item_y} "
+        f"move_click={move['click_x']},{move['click_y']} {direction_message}"
+    )
     return {
         "success": success,
-        "x": x,
-        "y": y,
+        "direction": direction,
+        "player": {
+            "x": player_x,
+            "y": player_y,
+            "position": player_position,
+        },
+        "item": {
+            "x": item_x,
+            "y": item_y,
+        },
+        "move": move,
         "message": message,
     }
+
+
+# 根据玩家脚点和物品点计算八方向。
+def get_direction_to_target(player_x, player_y, item_x, item_y, previous_direction=""):
+    dx = int(item_x) - int(player_x)
+    dy = int(item_y) - int(player_y)
+
+    if dx == 0 and dy == 0:
+        if previous_direction in directions:
+            return previous_direction, "target_overlap=1 use_previous_direction=1"
+
+        return "down", "target_overlap=1 fallback_direction=down"
+
+    ordered_directions = [
+        "right",
+        "down_right",
+        "down",
+        "down_left",
+        "left",
+        "up_left",
+        "up",
+        "up_right",
+    ]
+    angle = math.degrees(math.atan2(dy, dx))
+    index = int(round(angle / 45.0)) % len(ordered_directions)
+    return ordered_directions[index], f"vector={dx},{dy} angle={round(angle, 2)}"
 
 
 # 格式化物品目标，供日志阅读。
@@ -2845,6 +2914,10 @@ def make_getitem_target_status(target):
     click = target.get("click", {})
     position = target.get("position", {})
     text_box = target.get("text_box", {})
+    move = target.get("move", {})
+    move_click = move.get("click", {})
+    move_player = move.get("player", {})
+    move_item = move.get("item", {})
     return {
         "keyword": str(target.get("keyword", "")),
         "keyword_index": int(target.get("keyword_index", -1)),
@@ -2853,6 +2926,13 @@ def make_getitem_target_status(target):
         "text_x": int(text_box.get("left", target.get("x", 0))),
         "text_y": int(text_box.get("top", target.get("y", 0))),
         "distance": int(target.get("distance", 0)),
+        "direction": str(move.get("direction", "")),
+        "move_click_x": int(move_click.get("x", 0)),
+        "move_click_y": int(move_click.get("y", 0)),
+        "player_x": int(move_player.get("x", 0)),
+        "player_y": int(move_player.get("y", 0)),
+        "item_x": int(move_item.get("x", click.get("x", 0))),
+        "item_y": int(move_item.get("y", click.get("y", 0))),
     }
 
 

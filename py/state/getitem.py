@@ -87,10 +87,10 @@ def update_frame(game_data, state_data):
             "message": message,
         }
 
-    click = api.click_getitem_target(selected)
+    move = api.move_getitem_toward_target(selected, state_data.get("last_direction", ""))
 
-    if not click.get("success", False):
-        message = f"捡取物品点击失败，回到 idle: {click.get('message', '')}"
+    if not move.get("success", False):
+        message = f"捡取物品移动失败，回到 idle: {move.get('message', '')}"
         api.set_getitem_runtime_status(message=message, target=selected)
         return {
             "state": "idle",
@@ -98,11 +98,21 @@ def update_frame(game_data, state_data):
         }
 
     wait_ms = api.get_getitem_step_wait_ms(settings)
+    selected["move"] = {
+        "direction": move.get("direction", ""),
+        "player": move.get("player", {}),
+        "item": move.get("item", {}),
+        "click": {
+            "x": move.get("move", {}).get("click_x", 0),
+            "y": move.get("move", {}).get("click_y", 0),
+        },
+    }
     state_data["target"] = selected
+    state_data["last_direction"] = move.get("direction", "")
     state_data["next_action_at"] = time.time() + wait_ms / 1000
     message = (
-        f"捡取物品点击 target={api.format_getitem_target(selected)} "
-        f"wait={wait_ms}ms {click.get('message', '')}"
+        f"捡取物品移动 target={api.format_getitem_target(selected)} "
+        f"direction={move.get('direction', '')} wait={wait_ms}ms {move.get('message', '')}"
     )
     api.set_getitem_runtime_status(message=message, target=selected)
 
