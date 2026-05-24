@@ -6,7 +6,6 @@ import api
 import httpserver
 import log
 import move_to_next_patrol_point
-import ocr_client
 import player
 from state import battle
 from state import idle
@@ -78,7 +77,6 @@ game_data = {
 }
 # 停止事件：通知后台刷新循环在程序退出时结束。
 stop_event = threading.Event()
-atexit.register(ocr_client.stop_ocr_worker)
 atexit.register(api.stop_map_corner_hotkey)
 atexit.register(stop_event.set)
 

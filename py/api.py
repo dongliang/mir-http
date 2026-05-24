@@ -11,7 +11,6 @@ import cv2
 import numpy as np
 from PIL import Image
 
-import ocr_client
 import op
 import win32
 
@@ -20,9 +19,9 @@ import win32
 base_dir = Path(__file__).resolve().parent.parent
 # 截图目录：保存绑定窗口截图和调试图片。
 screenshot_dir = base_dir / "screenshots"
-# 调试图片目录：保存怪物名 OCR 前后的输入图，便于排查识别失败。
+# 调试图片目录：保存怪物名 OP 字库识别截图，便于排查缺字或区域偏移。
 debug_image_dir = base_dir / "DebugImage"
-# 地图坐标截图路径：保存游戏底部坐标区域截图，供 OCR 识别使用。
+# 地图坐标截图路径：保存游戏底部坐标区域截图，供诊断使用。
 coordinate_image = screenshot_dir / "map_coordinate.bmp"
 # PNG 资源目录：保存血条特征图等图像匹配资源。
 png_dir = base_dir / "png"
@@ -30,7 +29,7 @@ png_dir = base_dir / "png"
 ref_dir = base_dir / "ref"
 # 当前地图图片：网页巡逻面板直接显示这张图。
 map_image_file = ref_dir / "map.png"
-# 地图最大坐标 OCR 截图：运行时诊断文件，不提交。
+# 地图最大坐标截图：运行时诊断文件，不提交。
 map_max_coordinate_image = screenshot_dir / "map_max_coordinate.bmp"
 # 怪物血条特征图：血条最左侧小片段，用于统一查找满血和残血怪物。
 monster_blood_feature_image = png_dir / "残血血条特征图.png"
@@ -40,9 +39,9 @@ red_blood_bar_image = png_dir / "红色血条.png"
 player_blood_feature_image = png_dir / "自身绿色残血血条特征图.png"
 # 自身绿色血条模板：用于读取玩家血条宽高和绿色填充色。
 green_blood_bar_image = png_dir / "自身绿色血条.png"
-# 坐标读取锁：串行化截图和 OCR 流程，避免并发读写同一张截图。
+# 坐标读取锁：串行化截图和 OP 字库识别流程，避免并发读写同一张截图。
 coordinate_lock = threading.Lock()
-# 怪物扫描锁：串行化截图、鼠标悬停和 OCR 流程。
+# 怪物扫描锁：串行化截图、鼠标悬停和 OP 字库识别流程。
 monster_scan_lock = threading.Lock()
 # 自动加血锁：避免页面主动刷新和后台刷新同时触发 F1。
 auto_heal_lock = threading.Lock()
@@ -55,7 +54,7 @@ map_corner_hotkey_state = {
     "keys": [],
     "last_message": "",
 }
-# 绑定玩家位置：绑定窗口时通过玩家名称 OCR 得到的脚底基准点。
+# 绑定玩家位置：绑定窗口时通过 OP 字库定位玩家名称得到脚底基准点。
 bound_player_position = {}
 # 底部界面高度：估算游戏底栏高度，用来计算角色移动点击原点。
 BOTTOM_UI_HEIGHT = 245
@@ -65,7 +64,7 @@ keyboard_test_key = "M"
 MAP_IMAGE_WIDTH = 550
 # 大地图图片高度：游戏大地图固定高度，用于网页和逻辑坐标换算。
 MAP_IMAGE_HEIGHT = 350
-# 最大逻辑坐标 OCR 框偏移：相对大地图右下角向内取一块区域。
+# 最大逻辑坐标识别框偏移：相对大地图右下角向内取一块区域。
 MAP_MAX_COORDINATE_OCR_OFFSET = {
     "left": -190,
     "top": -55,
@@ -74,12 +73,12 @@ MAP_MAX_COORDINATE_OCR_OFFSET = {
 }
 # 地图右下角悬停等待：给游戏显示鼠标指向逻辑坐标留出时间。
 MAP_HOVER_WAIT_SECONDS = 0.25
-# 玩家名称 OCR：绑定时在旧中心点附近裁剪放大，定位名字中心和脚底点。
+# 玩家名称识别：绑定时在旧中心点附近用 OP 字库定位名字和脚底点。
 PLAYER_NAME_SEARCH_HALF_WIDTH = 220
 PLAYER_NAME_SEARCH_TOP_PADDING = 100
 PLAYER_NAME_SEARCH_BOTTOM_PADDING = 220
-PLAYER_NAME_OCR_SCALE = 3
-PLAYER_NAME_OCR_MIN_SCORE = 0.80
+PLAYER_NAME_TEXT_WIDTH = 12
+PLAYER_NAME_TEXT_HEIGHT = 12
 PLAYER_NAME_TO_FOOT_OFFSET_X = 0
 PLAYER_NAME_TO_FOOT_OFFSET_Y = 32
 # 怪物悬停偏移：血条底边到怪物名字中点的位置，兼作怪物位置和鼠标悬停点。
@@ -98,14 +97,6 @@ MONSTER_HOVER_WAIT_SECONDS = 0.25
 MONSTER_NAME_OCR_MAX_ATTEMPTS = 2
 # 怪物名字 OCR 重试等待时间：给 hover 名字显示留出额外缓冲。
 MONSTER_NAME_OCR_RETRY_DELAY_SECONDS = 0.2
-# 怪物名字白字阈值：用于从复杂背景中提取白色文字。
-MONSTER_NAME_WHITE_THRESHOLD = 155
-# 怪物名字白字像素阈值：低于此值时认为很可能还没有截到名字。
-MONSTER_NAME_WHITE_PIXEL_MIN = 12
-# 怪物名字白字连通块过滤：去除草地高光等单点噪声。
-MONSTER_NAME_COMPONENT_PIXEL_MIN = 2
-# 怪物名字 OCR 放大倍数：小号白字放大后再交给 PaddleOCR。
-MONSTER_NAME_MASK_SCALE = 4
 # 怪物血条刷新搜索范围：识别名字前围绕旧血条局部重扫，降低怪物移动影响。
 MONSTER_REFRESH_SEARCH_HALF_WIDTH = 180
 MONSTER_REFRESH_SEARCH_TOP_OFFSET = 100
@@ -498,24 +489,7 @@ def bind_player_position(player_name):
             "message": f"窗口尺寸异常 size={width}x{height}",
         }
 
-    with tempfile.TemporaryDirectory(prefix="mir2_player_name_") as temp_dir:
-        temp_path = Path(temp_dir)
-        screen_file = temp_path / "screen.bmp"
-        success, capture_message = capture_bound_client_checked(
-            0,
-            0,
-            width - 1,
-            height - 1,
-            screen_file,
-        )
-
-        if not success or not screen_file.exists():
-            return {
-                "success": False,
-                "message": f"玩家名称定位截图失败: {capture_message}",
-            }
-
-        result = locate_player_name_in_screen(screen_file, player_name, width, height, temp_path)
+    result = locate_player_name(player_name, width, height)
 
     if not result["success"]:
         return result
@@ -528,29 +502,39 @@ def bind_player_position(player_name):
         "message": (
             f"玩家名称定位成功 name={player_name} "
             f"name_center={name_center['x']},{name_center['y']} "
-            f"foot={foot['x']},{foot['y']} score={result['score']}"
+            f"foot={foot['x']},{foot['y']} method=op_dict"
         ),
     }
 
 
-# 在绑定截图中定位玩家名称。
-def locate_player_name_in_screen(screen_file, player_name, width, height, temp_path):
+# 在绑定窗口中用 OP 字库定位玩家名称。
+def locate_player_name(player_name, width, height):
     search_box = get_player_name_search_box(width, height)
-    crop_file = temp_path / "player_name_search.png"
-    save_scaled_crop(screen_file, search_box, PLAYER_NAME_OCR_SCALE, crop_file)
-    lines = ocr_client.recognize_text_lines(crop_file)
-    match = find_player_name_match(lines, player_name, search_box, PLAYER_NAME_OCR_SCALE)
+    matches = op.find_text(
+        search_box["left"],
+        search_box["top"],
+        search_box["right"] - 1,
+        search_box["bottom"] - 1,
+        player_name,
+    )
 
-    if not match:
+    if not matches:
+        text = op.ocr_text(
+            search_box["left"],
+            search_box["top"],
+            search_box["right"] - 1,
+            search_box["bottom"] - 1,
+        )
         return {
             "success": False,
             "message": (
                 f"没有识别到玩家名 name={player_name} "
-                f"search={format_box(search_box)} lines={format_ocr_lines(lines)}"
+                f"search={format_box(search_box)} text={text!r}"
             ),
         }
 
-    name_box = match["box"]
+    match = select_nearest_text_match(matches, search_box)
+    name_box = make_op_text_box(match["x"], match["y"], player_name, width, height)
     center_x = (name_box["left"] + name_box["right"]) / 2
     center_y = (name_box["top"] + name_box["bottom"]) / 2
     foot_x = clamp_number(round(center_x + PLAYER_NAME_TO_FOOT_OFFSET_X), 0, width - 1)
@@ -560,7 +544,7 @@ def locate_player_name_in_screen(screen_file, player_name, width, height, temp_p
         "success": True,
         "name": player_name,
         "matched_text": match["text"],
-        "score": round(float(match["score"]), 4),
+        "score": 1.0,
         "name_box": round_box(name_box),
         "name_center": {
             "x": round(center_x),
@@ -571,7 +555,6 @@ def locate_player_name_in_screen(screen_file, player_name, width, height, temp_p
             "y": foot_y,
         },
         "search_box": search_box,
-        "ocr_scale": PLAYER_NAME_OCR_SCALE,
     }
 
 
@@ -588,95 +571,29 @@ def get_player_name_search_box(width, height):
     )
 
 
-# 保存放大后的玩家名称搜索截图。
-def save_scaled_crop(screen_file, box, scale, crop_file):
-    with Image.open(screen_file) as image:
-        crop = image.crop((box["left"], box["top"], box["right"], box["bottom"]))
-        resample = Image.Resampling.LANCZOS if hasattr(Image, "Resampling") else Image.LANCZOS
-        crop = crop.resize((crop.width * scale, crop.height * scale), resample)
-        crop.save(crop_file)
-
-
-# 从 OCR 行中选择最像绑定玩家名的一行。
-def find_player_name_match(lines, player_name, search_box, scale):
-    target = normalize_player_name_text(player_name)
-    candidates = []
-
-    if not target:
-        return None
-
-    for line in lines:
-        text = str(line.get("text", ""))
-        score = float(line.get("score", 0.0) or 0.0)
-        box = line.get("box", {})
-
-        if score < PLAYER_NAME_OCR_MIN_SCORE or not is_ocr_box_valid(box):
-            continue
-
-        cleaned = normalize_player_name_text(text)
-        rank = get_player_name_match_rank(cleaned, target)
-
-        if rank <= 0:
-            continue
-
-        client_box = scale_ocr_box_to_client(box, search_box, scale)
-        center_x, center_y = box_center(client_box)
-        origin_x = (search_box["left"] + search_box["right"]) / 2
-        origin_y = (search_box["top"] + search_box["bottom"]) / 2
-        distance = math.dist((center_x, center_y), (origin_x, origin_y))
-        candidates.append({
-            "text": text,
-            "score": score,
-            "box": client_box,
-            "rank": rank,
-            "distance": distance,
-        })
-
-    if not candidates:
-        return None
-
-    return max(candidates, key=lambda item: (item["rank"], item["score"], -item["distance"]))
-
-
-# 清理玩家名称 OCR 文本，只保留可比较字符。
+# 清理玩家名称文本，只保留可比较字符。
 def normalize_player_name_text(text):
     return re.sub(r"[^\u4e00-\u9fffA-Za-z0-9_]", "", str(text or ""))
 
 
-# 玩家名称匹配等级：精确匹配优先，其次接受包含关系。
-def get_player_name_match_rank(text, target):
-    if not text:
-        return 0
-
-    if text == target:
-        return 3
-
-    if target in text:
-        return 2
-
-    if len(text) >= min(2, len(target)) and text in target:
-        return 1
-
-    return 0
+# 从 OP 找字结果中选离搜索框中心最近的匹配。
+def select_nearest_text_match(matches, search_box):
+    origin_x = (search_box["left"] + search_box["right"]) / 2
+    origin_y = (search_box["top"] + search_box["bottom"]) / 2
+    return min(matches, key=lambda item: math.dist((item["x"], item["y"]), (origin_x, origin_y)))
 
 
-# 判断 OCR 框是否可用。
-def is_ocr_box_valid(box):
-    return (
-        isinstance(box, dict)
-        and box.get("right", 0) > box.get("left", 0)
-        and box.get("bottom", 0) > box.get("top", 0)
+# 根据 OP 找字左上角估算文字框。
+def make_op_text_box(x, y, text, width, height):
+    text_width = max(PLAYER_NAME_TEXT_WIDTH, len(text or "") * PLAYER_NAME_TEXT_WIDTH)
+    return clamp_box(
+        int(x),
+        int(y),
+        int(x) + text_width,
+        int(y) + PLAYER_NAME_TEXT_HEIGHT,
+        width,
+        height,
     )
-
-
-# 把放大裁剪图里的 OCR 框换算回绑定客户区坐标。
-def scale_ocr_box_to_client(box, search_box, scale):
-    return {
-        "left": search_box["left"] + float(box["left"]) / scale,
-        "top": search_box["top"] + float(box["top"]) / scale,
-        "right": search_box["left"] + float(box["right"]) / scale,
-        "bottom": search_box["top"] + float(box["bottom"]) / scale,
-    }
 
 
 # 记录当前绑定玩家脚底定位。
@@ -690,7 +607,6 @@ def set_bound_player_position(position):
         "name_center": dict(position["name_center"]),
         "foot_point": dict(position["foot_point"]),
         "search_box": dict(position["search_box"]),
-        "ocr_scale": position["ocr_scale"],
         "offset": {
             "x": PLAYER_NAME_TO_FOOT_OFFSET_X,
             "y": PLAYER_NAME_TO_FOOT_OFFSET_Y,
@@ -717,7 +633,6 @@ def get_bound_player_position():
         "name_center": dict(bound_player_position.get("name_center", {})),
         "foot_point": dict(bound_player_position.get("foot_point", {})),
         "search_box": dict(bound_player_position.get("search_box", {})),
-        "ocr_scale": bound_player_position.get("ocr_scale", PLAYER_NAME_OCR_SCALE),
         "offset": dict(bound_player_position.get("offset", {})),
     }
 
@@ -746,16 +661,6 @@ def round_box(box):
 # 格式化矩形，便于错误日志查看。
 def format_box(box):
     return f"{box['left']},{box['top']},{box['right']},{box['bottom']}"
-
-
-# 格式化 OCR 行，避免错误消息过长。
-def format_ocr_lines(lines):
-    values = []
-
-    for line in lines[:8]:
-        values.append(f"{line.get('text', '')}:{round(float(line.get('score', 0.0) or 0.0), 3)}")
-
-    return " | ".join(values)
 
 
 # 应用运行设置：把内存中的应用设置同步到业务辅助模块。
@@ -920,38 +825,23 @@ def make_idle_stuck_coordinate_status(coordinate):
     }
 
 
-# 获取绑定窗口尺寸：根据绑定模式修正 OP 客户区尺寸。
+# 获取绑定窗口尺寸：直接使用 OP 返回的客户区尺寸。
 def get_bound_client_size():
     # 绑定窗口状态：读取当前 hwnd 供 OP 查询。
     bound = op.get_bound_window()
-    raw_width, raw_height = op.get_client_size(bound["hwnd"])
-
-    if raw_width <= 0 or raw_height <= 0:
-        return raw_width, raw_height
-
-    # 坐标缩放比例：补偿部分绑定模式下 OP 坐标减半的问题。
-    scale = op.get_bind_coordinate_scale()
-    return max(1, round(raw_width * scale)), max(1, round(raw_height * scale))
+    return op.get_client_size(bound["hwnd"])
 
 
-# 获取绑定窗口尺寸诊断：同时返回原始尺寸和 OP 有效坐标尺寸。
+# 获取绑定窗口尺寸诊断：返回 OP 读到的客户区尺寸。
 def get_bound_client_info():
     bound = op.get_bound_window()
-    raw_width, raw_height = op.get_client_size(bound["hwnd"])
-    scale = op.get_bind_coordinate_scale()
-
-    if raw_width <= 0 or raw_height <= 0:
-        width, height = raw_width, raw_height
-    else:
-        width = max(1, round(raw_width * scale))
-        height = max(1, round(raw_height * scale))
+    width, height = op.get_client_size(bound["hwnd"])
 
     return {
         "width": width,
         "height": height,
-        "raw_width": raw_width,
-        "raw_height": raw_height,
-        "bind_scale": scale,
+        "raw_width": width,
+        "raw_height": height,
     }
 
 
@@ -983,9 +873,8 @@ def move_mouse_to_map_rect_corner():
     left, top, right, bottom = get_map_rect(width, height)
     rect = make_map_rect(left, top, right, bottom)
     x, y = right - 1, bottom - 1
-    scale = client.get("bind_scale", 1.0) or 1.0
-    raw_x = clamp_number(round(x / scale), 0, max(0, client["raw_width"] - 1))
-    raw_y = clamp_number(round(y / scale), 0, max(0, client["raw_height"] - 1))
+    raw_x = clamp_number(x, 0, max(0, client["raw_width"] - 1))
+    raw_y = clamp_number(y, 0, max(0, client["raw_height"] - 1))
     bound = op.get_bound_window()
     screen_x, screen_y = win32.client_to_screen(bound["hwnd"], raw_x, raw_y)
     success = win32.move_cursor_to_screen(screen_x, screen_y)
@@ -1069,7 +958,12 @@ def bind_current_map_locked(player_info=None):
 
     ocr_box = get_map_max_coordinate_ocr_box(map_rect, width, height)
     crop_map_max_coordinate_image(map_rect, ocr_box)
-    text = ocr_client.recognize_text(map_max_coordinate_image)
+    text = op.ocr_text(
+        ocr_box["left"],
+        ocr_box["top"],
+        ocr_box["right"] - 1,
+        ocr_box["bottom"] - 1,
+    )
     max_x, max_y = parse_map_max_coordinate_text(text, player_info)
 
     current_map = {
@@ -1687,23 +1581,16 @@ def find_player_blood_feature_matches(screen_file):
     return dedupe_matches(filter_player_blood_matches(screen, matches))
 
 
-# 获取玩家自身血条模板：兼容原始尺寸和 dx2 半尺寸。
+# 获取玩家自身血条模板：使用资源原始尺寸匹配当前截图。
 def get_player_blood_feature_templates():
     feature = read_cv2_image(player_blood_feature_image)
     blood_width, blood_height = get_image_size(green_blood_bar_image)
-    templates = []
 
-    for scale in (1.0, 0.5):
-        width = max(1, round(feature.shape[1] * scale))
-        height = max(1, round(feature.shape[0] * scale))
-        resized = cv2.resize(feature, (width, height), interpolation=cv2.INTER_NEAREST)
-        templates.append({
-            "image": resized,
-            "blood_width": max(1, round(blood_width * scale)),
-            "blood_height": max(1, round(blood_height * scale)),
-        })
-
-    return templates
+    return [{
+        "image": feature,
+        "blood_width": blood_width,
+        "blood_height": blood_height,
+    }]
 
 
 # 过滤底部 UI 区域，避免把界面血量槽误认为玩家头顶血条。
@@ -1767,16 +1654,21 @@ def capture_screenshot():
         return {
             "success": False,
             "path": "",
+            "client": {},
+            "image": {},
             "message": "还没有绑定窗口",
         }
 
-    # 绑定窗口尺寸：确定截图范围是否有效。
-    width, height = get_bound_client_size()
+    # 绑定窗口尺寸：同时保留原始尺寸和实际截图尺寸，方便排查分辨率问题。
+    client = get_bound_client_info()
+    width, height = client["width"], client["height"]
 
     if width <= 0 or height <= 0:
         return {
             "success": False,
             "path": "",
+            "client": client,
+            "image": {},
             "message": f"窗口尺寸异常 size={width}x{height}",
         }
 
@@ -1785,15 +1677,29 @@ def capture_screenshot():
     success, message = capture_bound_client_checked(0, 0, width, height, screenshot_file)
 
     if success and screenshot_file.exists():
+        image = get_image_dimensions(screenshot_file)
+        image_text = ""
+
+        if image:
+            image_text = f" image={image['width']}x{image['height']}"
+
         return {
             "success": True,
             "path": str(screenshot_file),
-            "message": f"绑定窗口截图成功 path={screenshot_file} size={width}x{height} {message}",
+            "client": client,
+            "image": image,
+            "message": (
+                f"绑定窗口截图成功 path={screenshot_file} "
+                f"client={width}x{height} raw={client['raw_width']}x{client['raw_height']}"
+                f"{image_text} {message}"
+            ),
         }
 
     return {
         "success": False,
         "path": str(screenshot_file),
+        "client": client,
+        "image": {},
         "message": message,
     }
 
@@ -1828,6 +1734,18 @@ def image_has_content(image_file):
             return image.convert("RGB").getbbox() is not None
     except Exception:
         return False
+
+
+# 读取图片尺寸：截图诊断用，失败时返回空字典避免影响主流程。
+def get_image_dimensions(image_file):
+    try:
+        with Image.open(image_file) as image:
+            return {
+                "width": image.width,
+                "height": image.height,
+            }
+    except Exception:
+        return {}
 
 
 # 获取下一张截图文件：在截图目录中生成递增编号文件名。
@@ -2286,7 +2204,7 @@ def scale_health_bar_value(value, bar_width):
     return max(0, round(value * bar_width / HEALTH_BAR_TEMPLATE_WIDTH))
 
 
-# 获取血条内部填充行：排除上下黑边，兼容 64x8 和 dx2 半尺寸 32x4。
+# 获取血条内部填充行：排除上下黑边，按当前血条尺寸换算。
 def get_health_bar_fill_rows(bar_height):
     if bar_height <= 2:
         return np.arange(0, bar_height)
@@ -2311,7 +2229,7 @@ def is_health_bar_filled_column(column, target_rgb, tolerance):
     return int(matching_pixels.sum()) * 2 >= len(column)
 
 
-# 识别怪物名 OCR 框：保留调试图，并用白字 mask 放大图增强小字识别。
+# 识别怪物名区域：用 OP 大漠字库直接识别绑定窗口文字。
 def recognize_monster_name_box(box):
     empty_result = {
         "name": "未识别",
@@ -2335,7 +2253,6 @@ def recognize_monster_name_box(box):
             time.sleep(MONSTER_NAME_OCR_RETRY_DELAY_SECONDS)
 
         raw_file = debug_image_dir / f"{debug_prefix}_raw_{attempt}.bmp"
-        mask_file = debug_image_dir / f"{debug_prefix}_mask_{attempt}.png"
         success, _ = capture_bound_client_checked(
             box["left"],
             box["top"],
@@ -2353,23 +2270,21 @@ def recognize_monster_name_box(box):
                     {
                         "attempt": attempt,
                         "raw": str(raw_file),
-                        "mask": "",
                         "raw_text": "",
                         "mask_text": "",
-                        "white_pixels": 0,
                     },
                 ],
             }
             continue
 
-        raw_text = ocr_client.recognize_text(raw_file)
-        white_pixels = create_monster_name_mask(raw_file, mask_file)
+        raw_text = op.ocr_text(
+            box["left"],
+            box["top"],
+            box["right"] - 1,
+            box["bottom"] - 1,
+        )
         mask_text = ""
-
-        if white_pixels >= MONSTER_NAME_WHITE_PIXEL_MIN:
-            mask_text = ocr_client.recognize_text(mask_file)
-
-        selected_text = select_monster_name_text(raw_text, mask_text)
+        selected_text = raw_text
         selected_name = clean_monster_name(selected_text)
         reject_reason = get_monster_name_reject_reason(selected_name)
         debug_images = [
@@ -2377,10 +2292,8 @@ def recognize_monster_name_box(box):
             {
                 "attempt": attempt,
                 "raw": str(raw_file),
-                "mask": str(mask_file),
                 "raw_text": raw_text,
                 "mask_text": mask_text,
-                "white_pixels": white_pixels,
             },
         ]
 
@@ -2405,7 +2318,7 @@ def recognize_monster_name_box(box):
             "debug_images": debug_images,
         }
 
-        if selected_name != "未识别" and white_pixels >= MONSTER_NAME_WHITE_PIXEL_MIN:
+        if selected_name != "未识别":
             return last_result
 
     return last_result
@@ -2416,80 +2329,6 @@ def get_debug_image_prefix(prefix):
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     sequence = time.time_ns() % 1_000_000
     return f"{prefix}_{timestamp}_{sequence:06d}"
-
-
-# 生成黑底白字的怪物名 mask：去背景、去单点噪声并放大。
-def create_monster_name_mask(raw_file, mask_file):
-    with Image.open(raw_file) as image:
-        pixels = np.array(image.convert("RGB"))
-
-    white_mask = (
-        (pixels[:, :, 0] >= MONSTER_NAME_WHITE_THRESHOLD)
-        & (pixels[:, :, 1] >= MONSTER_NAME_WHITE_THRESHOLD)
-        & (pixels[:, :, 2] >= MONSTER_NAME_WHITE_THRESHOLD)
-    )
-    filtered_mask = filter_small_components(white_mask, MONSTER_NAME_COMPONENT_PIXEL_MIN)
-    white_pixels = int(filtered_mask.sum())
-    mask_pixels = (filtered_mask.astype(np.uint8) * 255)
-    mask_image = Image.fromarray(mask_pixels, mode="L")
-    mask_image = crop_mask_with_margin(mask_image, filtered_mask, 6)
-    mask_image = mask_image.resize(
-        (
-            max(1, mask_image.width * MONSTER_NAME_MASK_SCALE),
-            max(1, mask_image.height * MONSTER_NAME_MASK_SCALE),
-        ),
-        Image.Resampling.NEAREST,
-    )
-    mask_image.save(mask_file)
-    return white_pixels
-
-
-# 过滤白色 mask 中的单点噪声。
-def filter_small_components(mask, minimum_area):
-    component_count, labels, stats, _ = cv2.connectedComponentsWithStats(
-        mask.astype(np.uint8),
-        8,
-    )
-    filtered = np.zeros(mask.shape, dtype=np.uint8)
-
-    for component_index in range(1, component_count):
-        area = stats[component_index, cv2.CC_STAT_AREA]
-
-        if area >= minimum_area:
-            filtered[labels == component_index] = 1
-
-    return filtered.astype(bool)
-
-
-# 裁掉 mask 四周大块空白，保留少量边距帮助 OCR 检测文本。
-def crop_mask_with_margin(mask_image, mask, margin):
-    ys, xs = np.where(mask)
-
-    if len(xs) == 0 or len(ys) == 0:
-        return mask_image
-
-    left = max(0, int(xs.min()) - margin)
-    top = max(0, int(ys.min()) - margin)
-    right = min(mask_image.width, int(xs.max()) + margin + 1)
-    bottom = min(mask_image.height, int(ys.max()) + margin + 1)
-    return mask_image.crop((left, top, right, bottom))
-
-
-# 从原图 OCR 和 mask OCR 中选择更可信的怪物名文本。
-def select_monster_name_text(raw_text, mask_text):
-    candidates = [raw_text or "", mask_text or ""]
-    return max(candidates, key=score_monster_name_text)
-
-
-# 怪物名文本评分：优先中文更多、更长的候选。
-def score_monster_name_text(text):
-    name = clean_monster_name(text)
-
-    if name == "未识别":
-        return (0, 0, 0)
-
-    chinese_count = len(re.findall(r"[\u4e00-\u9fff]", name))
-    return (1 if chinese_count else 0, chinese_count, len(name))
 
 
 # 判断 OCR 结果是否像是误读到了主角名。
@@ -2574,23 +2413,16 @@ def filter_play_area_blood_matches(screen, matches):
     return filtered
 
 
-# 获取血条特征模板：同时尝试原始尺寸和 dx2 有效截图里的半尺寸。
+# 获取血条特征模板：使用资源原始尺寸匹配当前截图。
 def get_blood_feature_templates():
     feature = read_cv2_image(monster_blood_feature_image)
     blood_width, blood_height = get_image_size(red_blood_bar_image)
-    templates = []
 
-    for scale in (1.0, 0.5):
-        width = max(1, round(feature.shape[1] * scale))
-        height = max(1, round(feature.shape[0] * scale))
-        resized = cv2.resize(feature, (width, height), interpolation=cv2.INTER_NEAREST)
-        templates.append({
-            "image": resized,
-            "blood_width": max(1, round(blood_width * scale)),
-            "blood_height": max(1, round(blood_height * scale)),
-        })
-
-    return templates
+    return [{
+        "image": feature,
+        "blood_width": blood_width,
+        "blood_height": blood_height,
+    }]
 
 
 # 查找红色水平血条组件：作为特征模板未命中时的兜底。
@@ -2671,26 +2503,7 @@ def get_image_size(image_file):
         return image.size
 
 
-# 截取绑定窗口中的裁剪区域并 OCR。
-def recognize_bound_client_box(box, crop_file):
-    if not is_valid_box(box):
-        return ""
-
-    success, _ = capture_bound_client_checked(
-        box["left"],
-        box["top"],
-        box["right"] - 1,
-        box["bottom"] - 1,
-        crop_file,
-    )
-
-    if not success:
-        return ""
-
-    return ocr_client.recognize_text(crop_file)
-
-
-# 清理怪物名 OCR 文本：优先取 4 个以内中文字符。
+# 清理怪物名识别文本：优先取 4 个以内中文字符。
 def clean_monster_name(text):
     cleaned = re.sub(r"\s+", "", text or "")
     match = re.search(r"[\u4e00-\u9fff]{1,6}", cleaned)
@@ -2770,8 +2583,8 @@ def read_map_coordinate():
     if not success:
         return "", "", ""
 
-    # OCR 文本：承载坐标截图识别出的原始文字。
-    text = ocr_client.recognize_text(coordinate_image)
+    # OP 字库文本：承载坐标区域识别出的原始文字。
+    text = op.ocr_text(x1, y1, x2, y2)
     return parse_map_coordinate_text(text)
 
 

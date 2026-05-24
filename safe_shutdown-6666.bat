@@ -25,7 +25,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "if ($httpPort -lt 1 -or $httpPort -gt 65535) { Write-Host ('Invalid HTTP_PORT: {0}' -f $httpPortText); exit 1 };" ^
   "$projectPython=(Join-Path $root 'runtime\python310\python.exe');" ^
   "$projectPythonSlash=$projectPython -replace '\\','/';" ^
-  "$projectScripts=@((Join-Path $root 'py\app.py'), (Join-Path $root 'py\ocr_worker.py'));" ^
+  "$projectScripts=@((Join-Path $root 'py\app.py'));" ^
   "function Test-ProjectPython($process) { " ^
   "  $exePath=$process.ExecutablePath; " ^
   "  if ($exePath -and [string]::Equals($exePath, $projectPython, [StringComparison]::OrdinalIgnoreCase)) { return $true } " ^
@@ -42,7 +42,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "    $slashPath=$path -replace '\\','/'; " ^
   "    if ($commandLine -like ('*' + $path + '*') -or $slashCommand -like ('*' + $slashPath + '*')) { return $true } " ^
   "  } " ^
-  "  foreach ($marker in @('py/app.py', 'py/ocr_worker.py')) { " ^
+  "  foreach ($marker in @('py/app.py')) { " ^
   "    if ($slashCommand -like ('*' + $marker + '*')) { return $true } " ^
   "  } " ^
   "  return $false " ^

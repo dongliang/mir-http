@@ -364,6 +364,8 @@ def create_server(
         return JSONResponse({
             "success": result["success"],
             "path": result["path"],
+            "client": result.get("client", {}),
+            "image": result.get("image", {}),
             "message": result["message"],
             "status": current_status(),
         })

@@ -18,6 +18,16 @@ op_dll_directory = None
 base_dir = Path(__file__).resolve().parent.parent
 # OP 运行目录：定位免注册 OP 组件和 Python 包装文件。
 op_runtime_dir = base_dir / "vendor" / "op"
+# OP 字库文件：大漠字库统一放在 fonts/ 下。
+ocr_dict_file = base_dir / "fonts" / "main.txt"
+# OP 字库编号：项目只使用一份主字库。
+ocr_dict_index = 0
+# OP 字库修改时间：字库文件变更后自动重新加载。
+ocr_dict_mtime = 0
+# OP OCR 默认颜色：白字黑边，适配角色名、怪物名和常见界面白字。
+OCR_DEFAULT_COLOR = "ffffff-101010"
+# OP OCR 默认相似度：保留一点容错，缺字时由字库补全解决。
+OCR_DEFAULT_SIM = 0.95
 # 绑定模式候选：按优先级列出可尝试的显示、鼠标和键盘绑定组合。
 bind_mode_candidates = [
     ("dx2", "windows", "windows", 0),
@@ -68,24 +78,183 @@ def load_pyop():
 # 启动 OP：创建并缓存 OP 实例，同时读取版本信息。
 def start_op():
     global op_object
+    global ocr_dict_mtime
 
     # OP 实例：保存新创建的自动化对象供全局复用。
     op_object = create_op()
     op_object.SetShowErrorMsg(0)
+    ocr_dict_mtime = 0
     # OP 版本号：用于确认当前加载的组件版本。
     version = op_object.Ver()
-    return True, version, "OP 初始化成功（64 位免注册）"
+    _, dict_message = load_ocr_dict(op_object)
+    return True, version, f"OP 初始化成功（64 位免注册）；{dict_message}"
 
 
 # 获取 OP 对象：惰性创建并返回全局 OP 实例。
 def get_op():
     global op_object
+    global ocr_dict_mtime
 
     if op_object is None:
         # OP 实例：在首次需要时创建自动化对象。
         op_object = create_op()
+        ocr_dict_mtime = 0
 
     return op_object
+
+
+# 加载 OP 大漠字库：字库文件变化后会自动重新 SetDict/UseDict。
+def load_ocr_dict(op=None):
+    global ocr_dict_mtime
+
+    if not ocr_dict_file.exists():
+        return False, f"找不到 OP 字库: {ocr_dict_file}"
+
+    op = op or get_op()
+    current_mtime = ocr_dict_file.stat().st_mtime_ns
+
+    if ocr_dict_mtime == current_mtime:
+        use_result = op.UseDict(ocr_dict_index)
+        last_error = op.GetLastError()
+
+        if use_result == 1:
+            return True, f"OP 字库已加载 path={ocr_dict_file}"
+
+        ocr_dict_mtime = 0
+        return False, f"OP 字库启用失败 result={use_result} last_error={last_error}"
+
+    set_result = op.SetDict(ocr_dict_index, str(ocr_dict_file))
+    use_result = op.UseDict(ocr_dict_index)
+    last_error = op.GetLastError()
+
+    if set_result == 1 and use_result == 1:
+        ocr_dict_mtime = current_mtime
+        return True, f"OP 字库加载成功 path={ocr_dict_file}"
+
+    return False, f"OP 字库加载失败 set={set_result} use={use_result} last_error={last_error}"
+
+
+# 识别绑定窗口区域文字：返回 OP 字库识别出的文本。
+def ocr_text(x1, y1, x2, y2, color=None, sim=None):
+    if not bound_hwnd:
+        return ""
+
+    success, _ = load_ocr_dict()
+
+    if not success:
+        return ""
+
+    op = get_op()
+    color = color or OCR_DEFAULT_COLOR
+    sim = OCR_DEFAULT_SIM if sim is None else sim
+
+    try:
+        return str(op.Ocr(int(x1), int(y1), int(x2), int(y2), color, float(sim)) or "")
+    except Exception:
+        return ""
+
+
+# 识别绑定窗口区域文字并返回每个字的位置。
+def ocr_text_ex(x1, y1, x2, y2, color=None, sim=None):
+    if not bound_hwnd:
+        return []
+
+    success, _ = load_ocr_dict()
+
+    if not success:
+        return []
+
+    op = get_op()
+    color = color or OCR_DEFAULT_COLOR
+    sim = OCR_DEFAULT_SIM if sim is None else sim
+
+    try:
+        raw = op.OcrEx(int(x1), int(y1), int(x2), int(y2), color, float(sim))
+    except Exception:
+        return []
+
+    return parse_ocr_ex_result(raw)
+
+
+# 查找绑定窗口区域中的指定文字。
+def find_text(x1, y1, x2, y2, text, color=None, sim=None):
+    if not bound_hwnd or not text:
+        return []
+
+    success, _ = load_ocr_dict()
+
+    if not success:
+        return []
+
+    op = get_op()
+    color = color or OCR_DEFAULT_COLOR
+    sim = OCR_DEFAULT_SIM if sim is None else sim
+
+    try:
+        raw = op.FindStrEx(int(x1), int(y1), int(x2), int(y2), str(text), color, float(sim))
+    except Exception:
+        return []
+
+    return parse_find_text_result(raw, str(text).split("|"))
+
+
+# 解析 OP OcrEx 返回：格式为 x,y,文字|x,y,文字。
+def parse_ocr_ex_result(raw):
+    items = []
+
+    for part in str(raw or "").split("|"):
+        if not part:
+            continue
+
+        fields = part.split(",", 2)
+
+        if len(fields) < 3:
+            continue
+
+        try:
+            x = int(float(fields[0]))
+            y = int(float(fields[1]))
+        except ValueError:
+            continue
+
+        items.append({
+            "x": x,
+            "y": y,
+            "text": fields[2],
+        })
+
+    return items
+
+
+# 解析 OP FindStrEx 返回：格式为 字符串索引,x,y|字符串索引,x,y。
+def parse_find_text_result(raw, targets):
+    items = []
+
+    for part in str(raw or "").split("|"):
+        if not part:
+            continue
+
+        fields = part.split(",", 2)
+
+        if len(fields) < 3:
+            continue
+
+        try:
+            index = int(float(fields[0]))
+            x = int(float(fields[1]))
+            y = int(float(fields[2]))
+        except ValueError:
+            continue
+
+        found_text = targets[index] if 0 <= index < len(targets) else ""
+        items.append({
+            "index": index,
+            "x": x,
+            "y": y,
+            "text": found_text,
+        })
+
+    return items
 
 
 # 获取 OP 版本：读取已有或临时 OP 实例的版本号。
@@ -120,14 +289,6 @@ def format_active_bind_mode():
 
     display_mode, mouse_mode, keypad_mode, mode = active_bind_mode
     return f"{display_mode}/{mouse_mode}/{keypad_mode}/{mode}"
-
-
-# 获取绑定坐标缩放：依据当前显示绑定模式返回坐标换算比例。
-def get_bind_coordinate_scale():
-    if active_bind_mode and active_bind_mode[0] == "dx2":
-        return 0.5
-
-    return 1.0
 
 
 # 获取客户区原始尺寸：统一通过 OP 窗口接口读取，避免 Win32 DPI 虚拟化。
@@ -281,6 +442,7 @@ def restart_and_rebind_window():
     global bound_hwnd
     global bound_title
     global active_bind_mode
+    global ocr_dict_mtime
 
     if not bound_hwnd:
         return False, "", "当前没有绑定窗口"
@@ -295,6 +457,7 @@ def restart_and_rebind_window():
     try:
         op_object = create_op()
         op_object.SetShowErrorMsg(0)
+        ocr_dict_mtime = 0
     except Exception as error:
         op_object = None
         return False, title, f"OP 重启失败 hwnd={hwnd} title={title} error={error}"

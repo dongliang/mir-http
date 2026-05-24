@@ -9,15 +9,14 @@
 - `py/httpserver.py` 负责 HTTP 与页面层，只调用 `api.py`。
 - `py/api.py` 是业务层，封装窗口绑定、截图、坐标读取、移动、键盘输入、Overlay 和状态聚合。
 - `py/op.py` 只封装 OP 插件能力，`py/win32.py` 只封装 Win32 API。
-- OCR 由 `py/ocr_client.py` 管理子进程，`py/ocr_worker.py` 执行识别。
-- 资源图片放在 `png/` 和 `ref/`；OP 依赖放在 `vendor/op/`；内置 Python 与 OCR 运行时放在 `runtime/`。
+- 找字统一使用 OP 大漠字库，字库文件放在 `fonts/main.txt`。
+- 资源图片放在 `png/` 和 `ref/`；大漠字库放在 `fonts/`；OP 依赖放在 `vendor/op/`；内置 Python 运行时放在 `runtime/`。
 - `screenshots/`、`DebugImage/`、`log.txt` 是运行输出，不要提交。
 
 ### 构建、测试与本地运行
 
 - `start.bat`：使用内置 Python 启动 `py/app.py`，通常会以管理员权限运行。
 - `runtime\python310\python.exe py\app.py`：从项目根目录直接启动服务。
-- `setup_ocr.bat`：在 `runtime/python310` 内安装 OCR 依赖。
 - `safe_shutdown.bat`：停止本项目 Python 进程，并检查 `8765` 端口。
 - `runtime\python310\python.exe -m compileall py`：快速检查 `py/` 代码语法。
 
@@ -65,21 +64,19 @@
 - `py/app.py` 是入口，只负责启动、后台刷新循环、退出清理。
 - `py/httpserver.py` 是 HTTP 和页面层，只调用 `api.py`，不要直接调用 `op.py`。
 - `py/api.py` 是业务层，统一封装窗口绑定、截图、坐标读取、移动、键盘输入、Overlay 开关和状态聚合。
-- `py/op.py` 只封装 OP 插件能力：加载 OP、绑定/解绑、截图调用、鼠标输入、键盘输入、绑定模式状态。
+- `py/op.py` 只封装 OP 插件能力：加载 OP、绑定/解绑、截图调用、鼠标输入、键盘输入、绑定模式状态和大漠字库找字。
 - `py/win32.py` 只封装 Win32 API：窗口查找、窗口标题、客户区尺寸等。
 - `py/overlay.py` 只负责点击提示绘制，不属于 OP 插件功能。
-- `py/ocr_client.py` 管理 OCR 子进程，`py/ocr_worker.py` 执行 OCR 识别。
 - `py/player.py` 保存玩家状态，先用简单 dict。
 - `py/log.py` 统一写根目录的 `log.txt`。
 
 ## 依赖方向
 
-- `py/app.py -> api.py / httpserver.py / player.py / ocr_client.py / log.py`
+- `py/app.py -> api.py / httpserver.py / player.py / log.py`
 - `py/httpserver.py -> api.py / log.py`
-- `py/api.py -> op.py / win32.py / overlay.py / ocr_client.py`
+- `py/api.py -> op.py / win32.py / overlay.py`
 - `py/op.py -> vendor/op/pyop.py`
 - `py/overlay.py -> pywin32`
-- `py/ocr_client.py -> py/ocr_worker.py`
 
 不要让 `py/app.py` 或 `py/httpserver.py` 直接依赖 `op.py`。
 不要让 `py/op.py` 依赖 `overlay.py` 或业务层模块。
@@ -89,7 +86,8 @@
 - OP 绑定、点击、截图、OCR 坐标统一优先使用 `dx2/windows/windows/0`，不要在后续任务里随意切到其它显示模式。
 - `windows` 鼠标模式下不要用 `LeftClick/RightClick`，要用 `Down + Up`。
 - 后台键盘优先用绑定后的 `KeyDown + 短暂停留 + KeyUp`，不要只依赖过短的 `KeyPress`。
-- `dx2` 下 OP/Win32 返回的窗口尺寸是 2 倍，点击、截图和 OCR 使用 0.5 后的有效客户区尺寸。
+- `dx2` 下不要额外把窗口尺寸、点击、截图或 OCR 坐标乘以 `0.5`，直接使用 OP/Win32 返回的客户区坐标。
+- OP 找字统一加载 `fonts/main.txt`，缺字时补大漠字库，不要重新引入 PaddleOCR。
 - `gdi` 在当前环境截图会黑屏；截图黑屏时优先重启 OP 并重新绑定 `dx2/windows/windows/0`。
 - Overlay 直接沿用业务有效客户区坐标，不额外再乘除 DPI。
 - 后台键盘 HTTP API 是 `/api/keyboard/press?key=M&hold_ms=120&repeat=1&interval_ms=80`。

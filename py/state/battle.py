@@ -4,7 +4,7 @@ import api
 
 
 # 攻击后等待时间：给角色跑向怪物并攻击，随后回到 idle 重新扫描。
-ATTACK_RETURN_SECONDS = 2.0
+ATTACK_RETURN_SECONDS = 1.0
 
 
 # 战斗状态：扫描怪物，优先攻击最近残血怪，没有残血怪则攻击最近怪物。
