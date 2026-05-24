@@ -44,11 +44,16 @@ def update_frame(game_data, state_data):
         }
 
     skipped = []
+    logs = []
     target = None
     attack = None
 
     for candidate in choose_target_candidates(monsters):
         attack = api.attack_monster(candidate)
+        name_log = attack.get("name_log", "")
+
+        if name_log:
+            logs.append(name_log)
 
         if attack.get("success"):
             target = candidate
@@ -63,18 +68,21 @@ def update_frame(game_data, state_data):
 
         return {
             "state": "idle",
+            "logs": logs,
             "message": f"攻击怪物失败，回到 idle: {attack.get('message', '')}",
         }
 
     if target is None:
         return {
             "state": "idle",
+            "logs": logs,
             "message": f"扫描到 {len(monsters)} 个怪物，但没有符合怪物清单的目标，跳过 {len(skipped)} 个，留在原地继续扫描",
         }
 
     state_data["attack_started_at"] = now
     state_data["target"] = target
     return {
+        "logs": logs,
         "message": f"开始攻击怪物 hp={target.get('hp_percent', '')}% distance={target.get('distance', '')} {attack.get('message', '')}",
     }
 

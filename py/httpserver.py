@@ -464,7 +464,7 @@ def create_server(
             }
 
         result = api.recognize_monster_name(x, y, blood_bar)
-        log.write(result["message"])
+        log.write(result.get("log_message", result["message"]))
         return JSONResponse({
             "success": result["success"],
             "name": result.get("name", "未识别"),
@@ -478,6 +478,7 @@ def create_server(
             "position": result.get("position", {}),
             "ocr_box": result.get("ocr_box", {}),
             "blood_bar": result.get("blood_bar", {}),
+            "log_message": result.get("log_message", ""),
             "message": result["message"],
             "status": current_status(),
         })

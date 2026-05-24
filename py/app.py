@@ -132,6 +132,10 @@ def update_current_state():
     result = state_module.update_frame(game_data, current_state["data"]) or {}
     message = result.get("message", "")
 
+    for entry in result.get("logs", []):
+        if entry:
+            log.write(entry)
+
     if message:
         log.write(message)
 
