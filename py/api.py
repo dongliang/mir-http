@@ -186,6 +186,11 @@ GETITEM_TARGET_MATCH_RADIUS = 120
 GETITEM_DEFAULT_STEP_WAIT_MS = 800
 GETITEM_MIN_STEP_WAIT_MS = 100
 GETITEM_MAX_STEP_WAIT_MS = 10000
+# 拾取专用投影：逻辑坐标轴在游戏客户区屏幕上的像素偏移。
+GETITEM_LOGIC_X_SCREEN_DX = 51
+GETITEM_LOGIC_X_SCREEN_DY = 1
+GETITEM_LOGIC_Y_SCREEN_DX = -1
+GETITEM_LOGIC_Y_SCREEN_DY = 31
 # 怪物血条刷新搜索范围：识别名字前围绕旧血条局部重扫，降低怪物移动影响。
 MONSTER_REFRESH_SEARCH_HALF_WIDTH = 180
 MONSTER_REFRESH_SEARCH_TOP_OFFSET = 100
@@ -1939,6 +1944,95 @@ def logic_to_map_pixel(logic_x, logic_y, max_x, max_y):
     return {
         "x": round(logic_x * (MAP_IMAGE_WIDTH - 1) / max_x),
         "y": round(logic_y * (MAP_IMAGE_HEIGHT - 1) / max_y),
+    }
+
+
+# 游戏客户区屏幕坐标转逻辑坐标：用于拾取物品，不用于大地图。
+def screen_to_logic_point(screen_x, screen_y, player_screen_x, player_screen_y, player_logic_x, player_logic_y):
+    screen_x = float(screen_x)
+    screen_y = float(screen_y)
+    player_screen_x = float(player_screen_x)
+    player_screen_y = float(player_screen_y)
+    player_logic_x = int(float(player_logic_x))
+    player_logic_y = int(float(player_logic_y))
+
+    screen_dx = screen_x - player_screen_x
+    screen_dy = screen_y - player_screen_y
+    determinant = (
+        GETITEM_LOGIC_X_SCREEN_DX * GETITEM_LOGIC_Y_SCREEN_DY
+        - GETITEM_LOGIC_Y_SCREEN_DX * GETITEM_LOGIC_X_SCREEN_DY
+    )
+    logic_dx_float = (
+        GETITEM_LOGIC_Y_SCREEN_DY * screen_dx
+        - GETITEM_LOGIC_Y_SCREEN_DX * screen_dy
+    ) / determinant
+    logic_dy_float = (
+        -GETITEM_LOGIC_X_SCREEN_DY * screen_dx
+        + GETITEM_LOGIC_X_SCREEN_DX * screen_dy
+    ) / determinant
+    logic_dx = round(logic_dx_float)
+    logic_dy = round(logic_dy_float)
+
+    return {
+        "x": player_logic_x + logic_dx,
+        "y": player_logic_y + logic_dy,
+        "logic_dx": logic_dx,
+        "logic_dy": logic_dy,
+        "logic_dx_float": logic_dx_float,
+        "logic_dy_float": logic_dy_float,
+        "screen_dx": screen_dx,
+        "screen_dy": screen_dy,
+        "screen": {
+            "x": round(screen_x),
+            "y": round(screen_y),
+        },
+        "player": {
+            "screen_x": round(player_screen_x),
+            "screen_y": round(player_screen_y),
+            "logic_x": player_logic_x,
+            "logic_y": player_logic_y,
+        },
+    }
+
+
+# 逻辑坐标转游戏客户区屏幕坐标：用于拾取物品，不用于大地图。
+def logic_to_screen_point(logic_x, logic_y, player_logic_x, player_logic_y, player_screen_x, player_screen_y):
+    logic_x = int(float(logic_x))
+    logic_y = int(float(logic_y))
+    player_logic_x = int(float(player_logic_x))
+    player_logic_y = int(float(player_logic_y))
+    player_screen_x = float(player_screen_x)
+    player_screen_y = float(player_screen_y)
+    logic_dx = logic_x - player_logic_x
+    logic_dy = logic_y - player_logic_y
+    screen_dx = (
+        logic_dx * GETITEM_LOGIC_X_SCREEN_DX
+        + logic_dy * GETITEM_LOGIC_Y_SCREEN_DX
+    )
+    screen_dy = (
+        logic_dx * GETITEM_LOGIC_X_SCREEN_DY
+        + logic_dy * GETITEM_LOGIC_Y_SCREEN_DY
+    )
+    screen_x = player_screen_x + screen_dx
+    screen_y = player_screen_y + screen_dy
+
+    return {
+        "x": round(screen_x),
+        "y": round(screen_y),
+        "logic_dx": logic_dx,
+        "logic_dy": logic_dy,
+        "screen_dx": screen_dx,
+        "screen_dy": screen_dy,
+        "logic": {
+            "x": logic_x,
+            "y": logic_y,
+        },
+        "player": {
+            "screen_x": round(player_screen_x),
+            "screen_y": round(player_screen_y),
+            "logic_x": player_logic_x,
+            "logic_y": player_logic_y,
+        },
     }
 
 
