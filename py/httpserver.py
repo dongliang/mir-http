@@ -611,6 +611,8 @@ def create_server(
             data = {}
 
         result = api.update_getitem_settings(app_settings, data)
+        if current_state.get("name") == "getitem":
+            current_state.get("data", {})["next_action_at"] = 0
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -848,6 +850,7 @@ def create_getitem_controls(app_settings):
                 max=str(api.GETITEM_MAX_STEP_WAIT_MS),
                 step="100",
                 value=str(app_settings.get("getitem_step_wait_ms", api.GETITEM_DEFAULT_STEP_WAIT_MS)),
+                oninput="queueSaveGetitemSettings()",
                 onchange="saveGetitemSettings()",
             ),
             cls="getitem-field",
@@ -1445,7 +1448,21 @@ async function saveIdleStuckSettings() {
     await refreshLogs();
 }
 
+let getitemSettingsTimer = null;
+
+function queueSaveGetitemSettings() {
+    const stepWaitMs = document.getElementById("getitem-step-wait-ms").value;
+
+    if (stepWaitMs === "") {
+        return;
+    }
+
+    clearTimeout(getitemSettingsTimer);
+    getitemSettingsTimer = setTimeout(saveGetitemSettings, 300);
+}
+
 async function saveGetitemSettings() {
+    clearTimeout(getitemSettingsTimer);
     const enabled = document.getElementById("getitem-enabled").checked;
     const stepWaitMs = document.getElementById("getitem-step-wait-ms").value;
     const response = await fetch("/api/getitem/settings", {
