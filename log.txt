@@ -6,3 +6,29 @@
 [05:23:44] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
 [05:23:44] OP 初始化成功
 [05:23:44] HTTP 服务启动: http://127.0.0.1:7396
+[06:00:38] 本轮攻击等待结束，回到 idle
+[06:00:38] 状态切换: battle -> idle
+[06:00:39] 战斗开关已开启，进入战斗状态
+[06:00:39] 状态切换: idle -> battle
+[06:00:39] 自动加血触发: hp=73% threshold=80% mouse=0,0 key=F1
+[06:00:40] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[06:00:40] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[06:00:40] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,331,800,351 file=
+[06:00:40] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[06:00:40] 开始攻击怪物 hp=87% distance=78 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=87% distance=78 matched=僵尸 text='僵尸 僵尸 僵尸'
+[06:00:41] 自动加血触发: hp=77% threshold=80% mouse=0,0 key=F1
+[06:00:41] 自动加血血量恢复: hp=80% threshold=80%
+[06:00:43] 本轮攻击等待结束，回到 idle
+[06:00:43] 状态切换: battle -> idle
+[06:00:43] 战斗开关已开启，进入战斗状态
+[06:00:43] 状态切换: idle -> battle
+[06:00:44] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[06:00:44] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
+[06:00:44] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,331,800,351 file=
+[06:00:44] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
+[06:00:44] 开始攻击怪物 hp=57% distance=78 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=57% distance=78 matched=僵尸 text='僵尸 僵尸 僵尸'
+[06:00:46] 本轮攻击等待结束，回到 idle
+[06:00:46] 状态切换: battle -> idle
+[06:00:46] 玩家坐标 未知 21:39 连续 23 秒未变化，进入下一个巡逻点
+[06:00:46] 状态切换: idle -> move_to_next_patrol_point
+[06:00:47] 巡逻点 index=19 移动到巡逻点 成功 logic=36:40 map=198,140 client=723,415 click=点击成功 button=left method=down_up(1,1) x=723 y=415 last_error=0 close=后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
