@@ -4,7 +4,7 @@ import api
 
 
 # 攻击后等待时间：给角色跑向怪物并攻击，随后回到 idle 重新扫描。
-ATTACK_RETURN_SECONDS = 1.0
+ATTACK_RETURN_SECONDS = 3.0
 
 
 # 战斗状态：扫描怪物，优先攻击最近残血怪，没有残血怪则攻击最近怪物。
@@ -39,8 +39,8 @@ def update_frame(game_data, state_data):
 
     if not monsters:
         return {
-            "state": "move_to_next_patrol_point",
-            "message": "没有扫描到怪物，进入下一个巡逻点移动状态",
+            "state": "idle",
+            "message": "没有扫描到怪物，回到 idle 等待卡住保护判断",
         }
 
     skipped = []
@@ -68,8 +68,8 @@ def update_frame(game_data, state_data):
 
     if target is None:
         return {
-            "state": "move_to_next_patrol_point",
-            "message": f"没有符合怪物清单的目标，跳过 {len(skipped)} 个怪物，进入下一个巡逻点移动状态",
+            "state": "idle",
+            "message": f"扫描到 {len(monsters)} 个怪物，但没有符合怪物清单的目标，跳过 {len(skipped)} 个，留在原地继续扫描",
         }
 
     state_data["attack_started_at"] = now
