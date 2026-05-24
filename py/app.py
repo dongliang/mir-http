@@ -86,6 +86,7 @@ def main() -> None:
     log.start_log()
     log.write("程序启动: HTTP 服务模式")
     apply_app_settings()
+    load_monster_keywords()
     start_op()
     start_update_loop()
     httpserver.run_server(
@@ -166,6 +167,12 @@ def start_update_loop():
 # 应用运行设置：把内存中的应用设置同步到底层模块。
 def apply_app_settings():
     api.apply_app_settings(app_settings)
+
+
+# 加载怪物关键字清单：启动时读取 txt/monster.txt，运行中可在网页重载。
+def load_monster_keywords():
+    result = api.load_monster_keywords(force=True)
+    log.write(result.get("message", ""))
 
 
 # 后台刷新循环：按固定节奏刷新玩家坐标并控制退出。

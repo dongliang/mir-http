@@ -10,7 +10,7 @@
 - `py/api.py` 是业务层，封装窗口绑定、截图、坐标读取、移动、键盘输入、Overlay 和状态聚合。
 - `py/op.py` 只封装 OP 插件能力，`py/win32.py` 只封装 Win32 API。
 - 找字统一使用 OP 大漠字库，字库文件放在 `fonts/main.txt`。
-- 资源图片放在 `png/` 和 `ref/`；大漠字库放在 `fonts/`；OP 依赖放在 `vendor/op/`；内置 Python 运行时放在 `runtime/`。
+- 资源图片放在 `png/` 和 `ref/`；大漠字库放在 `fonts/`；文本清单放在 `txt/`；OP 依赖放在 `vendor/op/`；内置 Python 运行时放在 `runtime/`。
 - `screenshots/`、`DebugImage/`、`log.txt` 是运行输出，不要提交。
 
 ### 构建、测试与本地运行
@@ -88,6 +88,7 @@
 - 后台键盘优先用绑定后的 `KeyDown + 短暂停留 + KeyUp`，不要只依赖过短的 `KeyPress`。
 - `dx2` 下不要额外把窗口尺寸、点击、截图或 OCR 坐标乘以 `0.5`，直接使用 OP/Win32 返回的客户区坐标。
 - OP 找字统一加载 `fonts/main.txt`，缺字时补大漠字库，不要重新引入 PaddleOCR。
+- 怪物攻击前按 `txt/monster.txt` 做白名单过滤，每行一个怪物关键字；页面按钮“重载怪物清单”会运行时重新读取。
 - `gdi` 在当前环境截图会黑屏；截图黑屏时优先重启 OP 并重新绑定 `dx2/windows/windows/0`。
 - Overlay 直接沿用业务有效客户区坐标，不额外再乘除 DPI。
 - 后台键盘 HTTP API 是 `/api/keyboard/press?key=M&hold_ms=120&repeat=1&interval_ms=80`。

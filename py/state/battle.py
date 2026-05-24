@@ -43,13 +43,33 @@ def update_frame(game_data, state_data):
             "message": "没有扫描到怪物，进入下一个巡逻点移动状态",
         }
 
-    target = choose_target(monsters)
-    attack = api.attack_monster(target)
+    skipped = []
+    target = None
+    attack = None
 
-    if not attack.get("success"):
+    for candidate in choose_target_candidates(monsters):
+        attack = api.attack_monster(candidate)
+
+        if attack.get("success"):
+            target = candidate
+            break
+
+        if attack.get("reason") == "monster_filter_mismatch":
+            skipped.append({
+                "id": candidate.get("id", 0),
+                "message": attack.get("message", ""),
+            })
+            continue
+
         return {
             "state": "idle",
             "message": f"攻击怪物失败，回到 idle: {attack.get('message', '')}",
+        }
+
+    if target is None:
+        return {
+            "state": "move_to_next_patrol_point",
+            "message": f"没有符合怪物清单的目标，跳过 {len(skipped)} 个怪物，进入下一个巡逻点移动状态",
         }
 
     state_data["attack_started_at"] = now
@@ -59,14 +79,12 @@ def update_frame(game_data, state_data):
     }
 
 
-# 选择攻击目标：残血怪优先，怪物列表本身已经按距离排序。
-def choose_target(monsters):
+# 选择攻击目标列表：残血怪优先，怪物列表本身已经按距离排序。
+def choose_target_candidates(monsters):
     wounded = [monster for monster in monsters if get_hp_percent(monster) < 100]
+    normal = [monster for monster in monsters if get_hp_percent(monster) >= 100]
 
-    if wounded:
-        return wounded[0]
-
-    return monsters[0]
+    return wounded + normal
 
 
 # 读取怪物血量百分比：异常时按满血处理。

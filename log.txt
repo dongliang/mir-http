@@ -1,8 +1,35 @@
-[16:51:40] 日志开始
-[16:51:40] 程序启动: HTTP 服务模式
-[16:51:40] 开始初始化 OP
-[16:51:40] OP 版本: 0.4.5.0
-[16:51:40] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
-[16:51:40] OP 初始化成功
-[16:51:40] HTTP 服务启动: http://127.0.0.1:8765
-[16:51:46] 绑定成功 hwnd=132826 title=^纵横四海 - 妖孽 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；玩家名称定位成功 name=妖孽 name_center=798,373 foot=798,405 method=op_dict
+[17:48:48] 日志开始
+[17:48:48] 程序启动: HTTP 服务模式
+[17:48:48] 怪物清单加载完成 count=1 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\txt\monster.txt
+[17:48:48] 开始初始化 OP
+[17:48:48] OP 版本: 0.4.5.0
+[17:48:48] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
+[17:48:48] OP 初始化成功
+[17:48:48] HTTP 服务启动: http://127.0.0.1:8765
+[17:48:55] 绑定成功 hwnd=132826 title=^纵横四海 - 妖孽 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；玩家名称定位成功 name=妖孽 name_center=798,373 foot=798,405 method=op_dict
+[17:48:59] 怪物扫描完成 count=6 player=798,405 client_size=1600x900
+[17:48:59] 怪物 name=未识别 distance=78 hp=100% name_text= bar=830,295,862,299 pos=846,344
+[17:48:59] 怪物 name=未识别 distance=361 hp=100% name_text= bar=446,487,478,491 pos=462,536
+[17:48:59] 怪物 name=未识别 distance=488 hp=100% name_text= bar=350,583,382,587 pos=366,632
+[17:48:59] 怪物 name=未识别 distance=633 hp=100% name_text= bar=254,7,286,11 pos=270,56
+[17:48:59] 怪物 name=未识别 distance=769 hp=100% name_text= bar=14,327,46,331 pos=30,376
+[17:48:59] 怪物 name=未识别 distance=769 hp=100% name_text= bar=1550,391,1582,395 pos=1566,440
+[17:49:02] 怪物名称识别完成 name=未识别 text= raw= mask= attempt=2 reject= bar={'left': 830, 'top': 295, 'right': 862, 'bottom': 299} pos=846,344
+[17:49:03] 怪物名称识别完成 name=未识别 text= raw= mask= attempt=2 reject= bar={'left': 830, 'top': 295, 'right': 862, 'bottom': 299} pos=846,344
+[17:49:03] 怪物名称识别完成 name=钉耙猫 text=钉耙猫 raw=钉耙猫 mask= attempt=1 reject= bar={'left': 398, 'top': 455, 'right': 430, 'bottom': 459} pos=414,504
+[17:49:04] 怪物名称识别完成 name=稻草人 text=稻草人 raw=稻草人 mask= attempt=1 reject= bar={'left': 350, 'top': 583, 'right': 382, 'bottom': 587} pos=366,632
+[17:49:05] 怪物名称识别完成 name=钉耙猫 text=钉耙猫 raw=钉耙猫 mask= attempt=1 reject= bar={'left': 254, 'top': 7, 'right': 286, 'bottom': 11} pos=270,56
+[17:49:05] 怪物名称识别完成 name=钉耙猫 text=钉耙猫 raw=钉耙猫 mask= attempt=1 reject= bar={'left': 62, 'top': 327, 'right': 94, 'bottom': 331} pos=78,376
+[17:49:06] 怪物名称识别完成 name=兽人 text=兽人 raw=兽人 mask= attempt=1 reject= bar={'left': 1550, 'top': 391, 'right': 1582, 'bottom': 395} pos=1566,440
+[17:49:08] 怪物名称识别完成 name=兽人 text=兽人 raw=兽人 mask= attempt=1 reject= bar={'left': 1550, 'top': 391, 'right': 1582, 'bottom': 395} pos=1566,440
+[17:49:09] 怪物名称识别完成 name=半兽人 text=半兽人 raw=半兽人 mask= attempt=1 reject= bar={'left': 1550, 'top': 391, 'right': 1582, 'bottom': 395} pos=1566,440
+[17:49:09] 怪物名称识别完成 name=半兽人 text=半兽人 raw=半兽人 mask= attempt=1 reject= bar={'left': 1550, 'top': 391, 'right': 1582, 'bottom': 395} pos=1566,440
+[17:49:10] 怪物名称识别完成 name=半兽人 text=半兽人 raw=半兽人 mask= attempt=1 reject= bar={'left': 1550, 'top': 391, 'right': 1582, 'bottom': 395} pos=1566,440
+[17:49:10] 怪物名称识别完成 name=兽人 text=兽人 raw=兽人 mask= attempt=1 reject= bar={'left': 1550, 'top': 391, 'right': 1582, 'bottom': 395} pos=1566,440
+[17:49:11] 怪物名称识别完成 name=兽人 text=兽人 raw=兽人 mask= attempt=1 reject= bar={'left': 1550, 'top': 391, 'right': 1582, 'bottom': 395} pos=1566,440
+[17:49:11] 怪物名称识别完成 name=半兽人 text=半兽人 raw=半兽人 mask= attempt=1 reject= bar={'left': 1550, 'top': 391, 'right': 1582, 'bottom': 395} pos=1566,440
+[17:49:11] 怪物名称识别完成 name=半兽人 text=半兽人 raw=半兽人 mask= attempt=1 reject= bar={'left': 1550, 'top': 391, 'right': 1582, 'bottom': 395} pos=1566,440
+[17:49:12] 怪物名称识别完成 name=钉耙猫 text=钉耙猫 raw=钉耙猫 mask= attempt=1 reject= bar={'left': 110, 'top': 327, 'right': 142, 'bottom': 331} pos=126,376
+[17:49:12] 怪物名称识别完成 name=钉耙猫 text=钉耙猫 raw=钉耙猫 mask= attempt=1 reject= bar={'left': 110, 'top': 327, 'right': 142, 'bottom': 331} pos=126,376
+[17:49:14] 怪物名称识别完成 name=未识别 text= raw= mask= attempt=2 reject= bar={'left': 830, 'top': 295, 'right': 862, 'bottom': 299} pos=846,344
+[17:49:15] 怪物名称识别完成 name=未识别 text= raw= mask= attempt=2 reject= bar={'left': 830, 'top': 295, 'right': 862, 'bottom': 299} pos=846,344

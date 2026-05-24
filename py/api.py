@@ -21,6 +21,10 @@ base_dir = Path(__file__).resolve().parent.parent
 screenshot_dir = base_dir / "screenshots"
 # 调试图片目录：保存怪物名 OP 字库识别截图，便于排查缺字或区域偏移。
 debug_image_dir = base_dir / "DebugImage"
+# 文本配置目录：保存可运行时重载的简单清单。
+txt_dir = base_dir / "txt"
+# 怪物关键字清单：每行一个允许攻击的怪物名关键字。
+monster_keyword_file = txt_dir / "monster.txt"
 # 地图坐标截图路径：保存游戏底部坐标区域截图，供诊断使用。
 coordinate_image = screenshot_dir / "map_coordinate.bmp"
 # PNG 资源目录：保存血条特征图等图像匹配资源。
@@ -56,6 +60,14 @@ map_corner_hotkey_state = {
 }
 # 绑定玩家位置：绑定窗口时通过 OP 字库定位玩家名称得到脚底基准点。
 bound_player_position = {}
+# 怪物关键字清单缓存：运行时加载，可由网页按钮重载。
+monster_keyword_lock = threading.Lock()
+monster_keyword_state = {
+    "loaded": False,
+    "mtime": 0,
+    "keywords": [],
+    "message": "",
+}
 # 底部界面高度：估算游戏底栏高度，用来计算角色移动点击原点。
 BOTTOM_UI_HEIGHT = 245
 # 默认键盘测试键：用于页面测试按钮验证后台键盘输入链路。
@@ -83,19 +95,19 @@ PLAYER_NAME_TO_FOOT_OFFSET_X = 0
 PLAYER_NAME_TO_FOOT_OFFSET_Y = 32
 # 怪物悬停偏移：血条底边到怪物名字中点的位置，兼作怪物位置和鼠标悬停点。
 MONSTER_HOVER_OFFSET_Y = 45
-# 怪物名 OCR 横向半宽：约 5.5 个中文字总宽，避免两侧复杂背景干扰。
-MONSTER_NAME_HALF_WIDTH = 33
-# 怪物名 OCR 上边距：血条底边向下到名字区域顶部的距离。
+# 怪物名识别横向半宽：覆盖“变异骷髅(妖孽)”这类较长名字。
+MONSTER_NAME_HALF_WIDTH = 60
+# 怪物名识别上边距：血条底边向下到名字区域顶部的距离。
 MONSTER_NAME_TOP_OFFSET = 30
-# 怪物名 OCR 下边距：血条底边向下到名字区域底部的距离。
+# 怪物名识别下边距：血条底边向下到名字区域底部的距离。
 MONSTER_NAME_BOTTOM_OFFSET = 60
 # 血条特征匹配阈值：0 表示完全一致，保留极小容差兼容截图格式差异。
 MONSTER_FEATURE_MATCH_THRESHOLD = 0.001
 # 怪物名字显示等待时间：鼠标悬停后等待游戏显示名字。
 MONSTER_HOVER_WAIT_SECONDS = 0.25
-# 怪物名字 OCR 最大截图次数：第一次未截到字或 OCR 为空时短暂重试。
+# 怪物名字识别最大截图次数：第一次未截到字或识别为空时短暂重试。
 MONSTER_NAME_OCR_MAX_ATTEMPTS = 2
-# 怪物名字 OCR 重试等待时间：给 hover 名字显示留出额外缓冲。
+# 怪物名字识别重试等待时间：给 hover 名字显示留出额外缓冲。
 MONSTER_NAME_OCR_RETRY_DELAY_SECONDS = 0.2
 # 怪物血条刷新搜索范围：识别名字前围绕旧血条局部重扫，降低怪物移动影响。
 MONSTER_REFRESH_SEARCH_HALF_WIDTH = 180
@@ -673,6 +685,103 @@ def apply_app_settings(app_settings):
         app_settings["map_corner_hotkey"] = configure_map_corner_hotkey(MAP_CORNER_HOTKEY_DEFAULT)
 
 
+# 读取怪物关键字清单：每行一个关键字，空行和 # 注释会跳过。
+def load_monster_keywords(force=False):
+    with monster_keyword_lock:
+        try:
+            return load_monster_keywords_locked(force)
+        except Exception as error:
+            monster_keyword_state["loaded"] = True
+            monster_keyword_state["keywords"] = []
+            monster_keyword_state["message"] = f"怪物清单加载异常: {error}"
+            return get_monster_keyword_status_locked()
+
+
+# 执行怪物关键字清单加载。
+def load_monster_keywords_locked(force=False):
+    if not monster_keyword_file.exists():
+        monster_keyword_state["loaded"] = True
+        monster_keyword_state["mtime"] = 0
+        monster_keyword_state["keywords"] = []
+        monster_keyword_state["message"] = f"怪物清单不存在 path={monster_keyword_file}"
+        return get_monster_keyword_status_locked()
+
+    current_mtime = monster_keyword_file.stat().st_mtime_ns
+
+    if (
+        not force
+        and monster_keyword_state.get("loaded")
+        and monster_keyword_state.get("mtime") == current_mtime
+    ):
+        return get_monster_keyword_status_locked()
+
+    text = read_text_file_with_fallback(monster_keyword_file)
+    keywords = parse_monster_keywords(text)
+    monster_keyword_state["loaded"] = True
+    monster_keyword_state["mtime"] = current_mtime
+    monster_keyword_state["keywords"] = keywords
+    monster_keyword_state["message"] = f"怪物清单加载完成 count={len(keywords)} path={monster_keyword_file}"
+    return get_monster_keyword_status_locked()
+
+
+# 重新加载怪物关键字清单：供网页按钮调用。
+def reload_monster_keywords():
+    return load_monster_keywords(force=True)
+
+
+# 复制怪物关键字清单状态。
+def get_monster_keyword_status():
+    if not monster_keyword_state.get("loaded"):
+        return load_monster_keywords(force=False)
+
+    with monster_keyword_lock:
+        return get_monster_keyword_status_locked()
+
+
+# 在已持有锁时复制怪物关键字清单状态。
+def get_monster_keyword_status_locked():
+    keywords = list(monster_keyword_state.get("keywords", []))
+    return {
+        "path": str(monster_keyword_file),
+        "count": len(keywords),
+        "keywords": keywords,
+        "message": monster_keyword_state.get("message", ""),
+    }
+
+
+# 按常见文本编码读取清单文件。
+def read_text_file_with_fallback(path):
+    data = path.read_bytes()
+
+    for encoding in ("utf-8-sig", "gbk"):
+        try:
+            return data.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+
+    return data.decode("utf-8", errors="replace")
+
+
+# 解析怪物关键字清单文本。
+def parse_monster_keywords(text):
+    keywords = []
+    seen = set()
+
+    for line in str(text or "").splitlines():
+        keyword = line.strip()
+
+        if not keyword or keyword.startswith("#"):
+            continue
+
+        if keyword in seen:
+            continue
+
+        seen.add(keyword)
+        keywords.append(keyword)
+
+    return keywords
+
+
 # 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图、巡逻、战斗和状态机。
 def get_status(
     player_info,
@@ -698,6 +807,7 @@ def get_status(
         "map": make_map_status(current_map),
         "patrol": make_patrol_status(patrol_points, patrol_state, patrol_control),
         "battle": make_battle_status(battle_control),
+        "monster_filter": get_monster_keyword_status(),
         "state": make_state_status(current_state),
         "auto_heal": make_auto_heal_status(app_settings, auto_heal_state),
         "idle_stuck": make_idle_stuck_status(app_settings, idle_stuck_state),
@@ -1206,19 +1316,158 @@ def attack_monster(monster):
     x = clamp_number(x, 0, width - 1)
     y = clamp_number(y, 0, height - 1)
 
+    filter_result = verify_monster_name_before_attack(monster, x, y, width, height)
+
+    if not filter_result["allowed"]:
+        filter_reason = filter_result.get("reason", "monster_filter_failed")
+        reason = "monster_filter_mismatch" if filter_reason == "keyword_not_found" else filter_reason
+
+        return {
+            "success": False,
+            "reason": reason,
+            "filter_reason": filter_reason,
+            "x": x,
+            "y": y,
+            "filter": filter_result,
+            "monster": {
+                "id": monster.get("id", 0),
+                "distance": monster.get("distance", ""),
+                "hp_percent": monster.get("hp_percent", ""),
+            },
+            "message": (
+                f"跳过怪物，名称不在清单内 "
+                f"text={filter_result.get('text', '')!r} "
+                f"keywords={filter_result.get('keywords', [])} "
+                f"box={filter_result.get('box', {})}"
+            ),
+        }
+
+    position = filter_result.get("position", {})
+    x = int(position.get("x", x))
+    y = int(position.get("y", y))
     success, message = op.click_mouse_at(x, y, "left")
 
     return {
         "success": success,
         "x": x,
         "y": y,
+        "filter": filter_result,
         "monster": {
             "id": monster.get("id", 0),
             "distance": monster.get("distance", ""),
             "hp_percent": monster.get("hp_percent", ""),
         },
-        "message": f"攻击怪物 {message} hp={monster.get('hp_percent', '')}% distance={monster.get('distance', '')}",
+        "message": (
+            f"攻击怪物 {message} hp={monster.get('hp_percent', '')}% "
+            f"distance={monster.get('distance', '')} "
+            f"matched={filter_result.get('matched_keyword', '')} "
+            f"text={filter_result.get('text', '')!r}"
+        ),
     }
+
+
+# 攻击前校验怪物名：只有命中 txt/monster.txt 中的关键字才允许点击。
+def verify_monster_name_before_attack(monster, x, y, width, height):
+    keyword_status = load_monster_keywords(force=False)
+    keywords = keyword_status.get("keywords", [])
+
+    if not keywords:
+        return {
+            "allowed": False,
+            "reason": "empty_keyword_list",
+            "keywords": keywords,
+            "text": "",
+            "matched_keyword": "",
+            "box": {},
+            "position": {"x": x, "y": y},
+            "message": keyword_status.get("message", ""),
+        }
+
+    blood_bar = monster.get("blood_bar", {})
+
+    if not is_valid_blood_bar(blood_bar):
+        return {
+            "allowed": False,
+            "reason": "missing_blood_bar",
+            "keywords": keywords,
+            "text": "",
+            "matched_keyword": "",
+            "box": {},
+            "position": {"x": x, "y": y},
+            "message": "怪物缺少血条坐标，无法做名字过滤",
+        }
+
+    name_result = recognize_monster_name(x, y, blood_bar, save_debug=False)
+    move_success = name_result.get("move_success", True)
+    move_message = name_result.get("move_message", "")
+
+    if not move_success:
+        return {
+            "allowed": False,
+            "reason": "hover_failed",
+            "keywords": keywords,
+            "matched_keyword": "",
+            "text": name_result.get("name_text", ""),
+            "box": name_result.get("ocr_box", {}),
+            "blood_bar": name_result.get("blood_bar", {}),
+            "position": name_result.get("position", {"x": x, "y": y}),
+            "move_success": move_success,
+            "move_message": move_message,
+            "name_result": name_result,
+        }
+
+    if not name_result.get("success", False):
+        return {
+            "allowed": False,
+            "reason": "monster_name_failed",
+            "keywords": keywords,
+            "matched_keyword": "",
+            "text": get_monster_name_filter_text(name_result),
+            "box": name_result.get("ocr_box", {}),
+            "blood_bar": name_result.get("blood_bar", {}),
+            "position": name_result.get("position", {"x": x, "y": y}),
+            "move_success": move_success,
+            "move_message": move_message,
+            "name_result": name_result,
+        }
+
+    matched_keyword = get_matched_monster_keyword(name_result, keywords)
+    text = get_monster_name_filter_text(name_result)
+
+    return {
+        "allowed": bool(matched_keyword),
+        "reason": "" if matched_keyword else "keyword_not_found",
+        "keywords": keywords,
+        "matched_keyword": matched_keyword,
+        "text": text,
+        "box": name_result.get("ocr_box", {}),
+        "blood_bar": name_result.get("blood_bar", {}),
+        "position": name_result.get("position", {"x": x, "y": y}),
+        "move_success": move_success,
+        "move_message": move_message,
+        "name_result": name_result,
+    }
+
+
+# 从统一怪物名识别结果里读取命中的怪物关键字。
+def get_matched_monster_keyword(name_result, keywords):
+    text = get_monster_name_filter_text(name_result)
+
+    for keyword in keywords:
+        if keyword and keyword in text:
+            return keyword
+
+    return ""
+
+
+# 拼出怪物过滤用文本：同时保留清洗名和原始识别文本。
+def get_monster_name_filter_text(name_result):
+    parts = [
+        name_result.get("name", ""),
+        name_result.get("name_text", ""),
+        name_result.get("raw_text", ""),
+    ]
+    return " ".join(str(part or "") for part in parts)
 
 
 # 获取玩家当前屏幕位置：复用移动原点算法得到角色脚站地块位置。
@@ -1939,10 +2188,10 @@ def read_monster_from_match(index, match, scan_image, temp_path, width, height, 
 
 
 # 识别单个怪物名称：按表格传入的位置和血条信息补充名称。
-def recognize_monster_name(position_x, position_y, blood_bar=None):
+def recognize_monster_name(position_x, position_y, blood_bar=None, save_debug=True):
     with monster_scan_lock:
         try:
-            return recognize_monster_name_locked(position_x, position_y, blood_bar)
+            return recognize_monster_name_locked(position_x, position_y, blood_bar, save_debug)
         except Exception as error:
             return {
                 "success": False,
@@ -1953,7 +2202,7 @@ def recognize_monster_name(position_x, position_y, blood_bar=None):
 
 
 # 执行单个怪物名称识别：只悬停并 OCR 当前指定怪物。
-def recognize_monster_name_locked(position_x, position_y, blood_bar=None):
+def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_debug=True):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -1989,10 +2238,42 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None):
 
     move_success, move_message = op.move_mouse_to(hover_x, hover_y)
 
-    if move_success:
-        time.sleep(MONSTER_HOVER_WAIT_SECONDS)
+    if not move_success:
+        debug_points = []
 
-    name_result = recognize_monster_name_box(name_box)
+        if active_blood_bar:
+            debug_points.append(make_debug_point(active_blood_bar["left"], active_blood_bar["top"], "red"))
+
+        debug_points.extend([
+            make_debug_point(hover_x, hover_y, "orange"),
+            make_debug_point(*box_center(name_box), "purple"),
+        ])
+
+        return {
+            "success": False,
+            "name": "未识别",
+            "name_text": "",
+            "position": {
+                "x": hover_x,
+                "y": hover_y,
+            },
+            "ocr_box": name_box,
+            "blood_bar": active_blood_bar,
+            "raw_text": "",
+            "mask_text": "",
+            "used_attempt": 0,
+            "reject_reason": "hover_failed",
+            "debug_images": [],
+            "move_success": move_success,
+            "move_message": move_message,
+            "client": client,
+            "debug_points": debug_points,
+            "message": f"怪物名称识别失败: {move_message}",
+        }
+
+    time.sleep(MONSTER_HOVER_WAIT_SECONDS)
+
+    name_result = recognize_monster_name_box(name_box, save_debug)
     name_text = name_result["text"]
     name = name_result["name"]
     debug_points = []
@@ -2230,7 +2511,7 @@ def is_health_bar_filled_column(column, target_rgb, tolerance):
 
 
 # 识别怪物名区域：用 OP 大漠字库直接识别绑定窗口文字。
-def recognize_monster_name_box(box):
+def recognize_monster_name_box(box, save_debug=True):
     empty_result = {
         "name": "未识别",
         "text": "",
@@ -2244,38 +2525,43 @@ def recognize_monster_name_box(box):
     if not is_valid_box(box):
         return empty_result
 
-    debug_image_dir.mkdir(exist_ok=True)
-    debug_prefix = get_debug_image_prefix("monster_name")
+    if save_debug:
+        debug_image_dir.mkdir(exist_ok=True)
+        debug_prefix = get_debug_image_prefix("monster_name")
+
     last_result = empty_result
 
     for attempt in range(1, MONSTER_NAME_OCR_MAX_ATTEMPTS + 1):
         if attempt > 1:
             time.sleep(MONSTER_NAME_OCR_RETRY_DELAY_SECONDS)
 
-        raw_file = debug_image_dir / f"{debug_prefix}_raw_{attempt}.bmp"
-        success, _ = capture_bound_client_checked(
-            box["left"],
-            box["top"],
-            box["right"] - 1,
-            box["bottom"] - 1,
-            raw_file,
-        )
+        raw_file = ""
 
-        if not success:
-            last_result = {
-                **last_result,
-                "used_attempt": attempt,
-                "debug_images": [
-                    *last_result["debug_images"],
-                    {
-                        "attempt": attempt,
-                        "raw": str(raw_file),
-                        "raw_text": "",
-                        "mask_text": "",
-                    },
-                ],
-            }
-            continue
+        if save_debug:
+            raw_file = debug_image_dir / f"{debug_prefix}_raw_{attempt}.bmp"
+            success, _ = capture_bound_client_checked(
+                box["left"],
+                box["top"],
+                box["right"] - 1,
+                box["bottom"] - 1,
+                raw_file,
+            )
+
+            if not success:
+                last_result = {
+                    **last_result,
+                    "used_attempt": attempt,
+                    "debug_images": [
+                        *last_result["debug_images"],
+                        {
+                            "attempt": attempt,
+                            "raw": str(raw_file),
+                            "raw_text": "",
+                            "mask_text": "",
+                        },
+                    ],
+                }
+                continue
 
         raw_text = op.ocr_text(
             box["left"],
@@ -2287,15 +2573,18 @@ def recognize_monster_name_box(box):
         selected_text = raw_text
         selected_name = clean_monster_name(selected_text)
         reject_reason = get_monster_name_reject_reason(selected_name)
-        debug_images = [
-            *last_result["debug_images"],
-            {
-                "attempt": attempt,
-                "raw": str(raw_file),
-                "raw_text": raw_text,
-                "mask_text": mask_text,
-            },
-        ]
+        debug_images = last_result["debug_images"]
+
+        if save_debug:
+            debug_images = [
+                *debug_images,
+                {
+                    "attempt": attempt,
+                    "raw": str(raw_file),
+                    "raw_text": raw_text,
+                    "mask_text": mask_text,
+                },
+            ]
 
         if reject_reason:
             return {

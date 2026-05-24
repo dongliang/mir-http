@@ -125,6 +125,7 @@ def create_server(
                     Div("状态: ", Span(current_state["name"], id="state-name")),
                     Div("巡逻: ", Span("关", id="patrol-enabled")),
                     Div("战斗: ", Span("关", id="battle-enabled")),
+                    Div("怪物过滤: ", Span("-", id="monster-filter")),
                     Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
                     Div("卡住跳点: ", Span("开", id="idle-stuck-enabled-text")),
                     cls="status",
@@ -479,6 +480,18 @@ def create_server(
             "status": current_status(),
         })
 
+    # 怪物关键字清单重载接口：重新读取 txt/monster.txt。
+    @rt("/api/monsters/reload-list")
+    def post():
+        result = api.reload_monster_keywords()
+        log.write(result["message"])
+        return JSONResponse({
+            "success": True,
+            "monster_filter": result,
+            "message": result["message"],
+            "status": current_status(),
+        })
+
     # 后台键盘输入接口：向当前绑定窗口发送指定按键。
     @rt("/api/keyboard/press")
     def post(key: str = "", hold_ms: int = 120, repeat: int = 1, interval_ms: int = 80):
@@ -564,6 +577,7 @@ def create_buttons(app_settings):
         Button("地图角点", onclick="postApi('/api/map/rect-corner')"),
         Button("测试键盘(M)", onclick="pressKeyboard('M')"),
         Button("检测怪物列表", onclick="scanMonsters()"),
+        Button("重载怪物清单", onclick="postApi('/api/monsters/reload-list')"),
         Button("绑定地图", onclick="bindMap()"),
         Button("保存巡逻点", onclick="savePatrolPoints()"),
         Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
@@ -1466,6 +1480,7 @@ function applyStatus(data) {
     document.getElementById("state-name").textContent = data.state ? data.state.name : "idle";
     document.getElementById("patrol-enabled").textContent = data.patrol && data.patrol.enabled ? "开" : "关";
     document.getElementById("battle-enabled").textContent = data.battle && data.battle.enabled ? "开" : "关";
+    updateMonsterFilterPanel(data.monster_filter || {});
     updateAutoHealPanel(data.auto_heal || {});
     updateIdleStuckPanel(data.idle_stuck || {});
     updateMapCornerHotkeyPanel(data.settings || {});
@@ -1482,6 +1497,15 @@ function applyStatus(data) {
     renderPatrolPoints();
     renderPatrolPointTable();
     updatePatrolMapInfo();
+}
+
+function updateMonsterFilterPanel(monsterFilter) {
+    const count = monsterFilter.count ?? 0;
+    const keywords = monsterFilter.keywords || [];
+    const preview = keywords.slice(0, 6).join("、");
+    const suffix = keywords.length > 6 ? "..." : "";
+    const detail = preview ? ` (${preview}${suffix})` : "";
+    document.getElementById("monster-filter").textContent = `${count} 个${detail}`;
 }
 
 function updateAutoHealPanel(autoHeal) {
