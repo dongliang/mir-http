@@ -27,7 +27,7 @@ app_settings = {
     "idle_stuck_enabled": True,
     "idle_stuck_seconds": 30,
     "monster_name_debug_enabled": False,
-    "getitem_enabled": False,
+    "getitem_enabled": True,
     "getitem_step_wait_ms": api.GETITEM_DEFAULT_STEP_WAIT_MS,
     "no_monster_scan_limit": api.NO_MONSTER_SCAN_LIMIT_DEFAULT,
 }

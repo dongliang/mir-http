@@ -142,7 +142,7 @@ def create_server(
                     Div("物品字色: ", Span("-", id="item-name-colors")),
                     Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
                     Div("卡住跳点: ", Span("开", id="idle-stuck-enabled-text")),
-                    Div("捡取物品: ", Span("关", id="getitem-enabled-text")),
+                    Div("捡取物品: ", Span("开", id="getitem-enabled-text")),
                     Div("怪名Debug图: ", Span("关", id="monster-name-debug-enabled-text")),
                     cls="status",
                 ),
@@ -947,7 +947,7 @@ def create_getitem_controls(app_settings):
         "onchange": "saveGetitemSettings()",
     }
 
-    if app_settings.get("getitem_enabled", False):
+    if app_settings.get("getitem_enabled", True):
         enabled_attrs["checked"] = True
 
     return Div(
@@ -1380,12 +1380,12 @@ button {
 }
 .patrol-content {
     display: grid;
-    grid-template-columns: minmax(320px, 550px) minmax(180px, 260px);
+    grid-template-columns: minmax(520px, 900px) minmax(180px, 260px);
     gap: 12px;
     align-items: start;
 }
 .patrol-map-column {
-    width: min(550px, 100%);
+    width: min(900px, 100%);
 }
 .patrol-table-column {
     min-width: 0;

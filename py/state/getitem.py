@@ -8,7 +8,7 @@ def update_frame(game_data, state_data):
     settings = game_data.get("settings", {})
     manual_test = bool(state_data.get("manual_test", False))
 
-    if not manual_test and not settings.get("getitem_enabled", False):
+    if not manual_test and not settings.get("getitem_enabled", True):
         message = "捡取物品开关已关闭，回到 idle"
         api.set_getitem_runtime_status(message=message, target={})
         return {

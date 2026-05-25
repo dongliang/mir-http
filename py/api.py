@@ -1721,7 +1721,7 @@ def make_idle_stuck_coordinate_status(coordinate):
 def make_getitem_status(app_settings):
     runtime = get_getitem_runtime_status()
     return {
-        "enabled": bool(app_settings.get("getitem_enabled", False)),
+        "enabled": bool(app_settings.get("getitem_enabled", True)),
         "step_wait_ms": get_getitem_step_wait_ms(app_settings),
         "item_filter": get_item_keyword_status(),
         "item_name_colors": get_item_name_color_status(),
@@ -2709,7 +2709,7 @@ def get_monster_name_filter_text(name_result):
 def should_enter_getitem(game_data):
     settings = game_data.get("settings", {})
 
-    if not settings.get("getitem_enabled", False):
+    if not settings.get("getitem_enabled", True):
         return {
             "enter": False,
             "message": "",
@@ -3605,7 +3605,7 @@ def get_no_monster_scan_limit(app_settings):
 # 更新捡取物品设置：保存页面开关和每步等待间隔。
 def update_getitem_settings(app_settings, data):
     data = data if isinstance(data, dict) else {}
-    enabled = normalize_bool(data.get("enabled", app_settings.get("getitem_enabled", False)))
+    enabled = normalize_bool(data.get("enabled", app_settings.get("getitem_enabled", True)))
     step_wait_ms = normalize_number(
         data.get("step_wait_ms"),
         GETITEM_DEFAULT_STEP_WAIT_MS,
