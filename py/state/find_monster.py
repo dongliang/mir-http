@@ -134,7 +134,7 @@ def handle_no_target(game_data, runtime, scan_count, skipped, choose_reason, log
         return {
             "state": "idle",
             "logs": logs,
-            "message": f"{message}，但还没有绑定地图，无法跳巡逻点",
+            "message": f"{message}，但还没有加载地图，无法跳巡逻点",
         }
 
     if not game_data.get("patrol_points"):

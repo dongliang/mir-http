@@ -76,7 +76,7 @@ def update_idle_stuck(game_data):
         return None
 
     if not game_data.get("current_map"):
-        stuck_state["last_message"] = f"卡住跳点已达到 {stationary_seconds} 秒，但还没有绑定地图"
+        stuck_state["last_message"] = f"卡住跳点已达到 {stationary_seconds} 秒，但还没有加载地图"
         return None
 
     if not game_data.get("patrol_points"):

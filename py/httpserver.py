@@ -226,18 +226,20 @@ def create_server(
             "status": current_status(),
         })
 
-    # 当前地图图片：供网页巡逻面板显示 ref/map.png。
-    @rt("/ref/map.png")
-    def get():
-        if not api.map_image_file.exists():
+    # 当前地图图片：供网页巡逻面板显示 maps/<地图名>/image.png。
+    @rt("/api/map/image")
+    def get(name: str = ""):
+        image_file = api.get_map_image_file(name)
+
+        if not image_file.exists():
             return PlainTextResponse("map not found", status_code=404)
 
-        return FileResponse(api.map_image_file, media_type="image/png")
+        return FileResponse(image_file, media_type="image/png")
 
-    # 绑定地图接口：截图当前大地图，读取最大逻辑坐标并重置巡逻点。
-    @rt("/api/map/bind")
+    # 截取地图接口：手动截图当前大地图，保存到 maps/<地图名>/。
+    @rt("/api/map/capture")
     def post():
-        result = bind_map_and_reset(
+        result = capture_map_and_reset(
             update_frame,
             player_info,
             current_map,
@@ -254,15 +256,35 @@ def create_server(
             "status": current_status(),
         })
 
-    # 保存巡逻点接口：把网页当前点列表写入 app.py 的内存变量。
-    @rt("/api/patrol/save")
+    # 兼容旧路径：旧“绑定地图”等同于现在的“截取地图”。
+    @rt("/api/map/bind")
+    def post():
+        result = capture_map_and_reset(
+            update_frame,
+            player_info,
+            current_map,
+            patrol_points,
+            patrol_state,
+            patrol_control,
+        )
+        log.write(result["message"])
+
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "map": result.get("map", {}),
+            "status": current_status(),
+        })
+
+    # 保存巡逻点到全局 maps/<地图名>/巡逻点.txt。
+    @rt("/api/patrol/save/global")
     async def post(request: Request):
         try:
             data = await request.json()
         except Exception:
             data = {}
 
-        result = save_patrol_points(data, current_map, patrol_points, patrol_state)
+        result = save_patrol_points(data, current_map, patrol_points, patrol_state, "global")
 
         if result["success"] and not result.get("points", []):
             patrol_control["enabled"] = False
@@ -296,7 +318,7 @@ def create_server(
         api.reset_battle_runtime(battle_runtime_state, "开始巡逻，清空战斗运行状态")
 
         if not current_map:
-            message = "战斗开关已关闭；还没有绑定地图，不能开始巡逻"
+            message = "战斗开关已关闭；还没有加载地图，不能开始巡逻"
             log.write(message)
             return JSONResponse({
                 "success": False,
@@ -348,19 +370,15 @@ def create_server(
     def post(keyword: str = ""):
         # 绑定结果：记录窗口绑定是否成功、标题和说明消息。
         result = api.bind_window(keyword)
-        map_result = {}
         messages = [result["message"]]
 
         if result["success"]:
-            map_result = bind_map_and_reset(
-                update_frame,
-                player_info,
-                current_map,
-                patrol_points,
-                patrol_state,
-                patrol_control,
-            )
-            messages.append(map_result["message"])
+            output_dir = result.get("output_dir", "")
+
+            if output_dir:
+                log.use_run_dir(output_dir, clear=True)
+
+            update_frame_safely(update_frame)
 
         message = "；".join(message for message in messages if message)
         log.write(message)
@@ -368,8 +386,6 @@ def create_server(
             "success": result["success"],
             "title": result["title"],
             "message": message,
-            "map": map_result.get("map", {}),
-            "map_bind": map_result,
             "status": current_status(),
         })
 
@@ -378,6 +394,10 @@ def create_server(
     def post():
         # 解绑结果：记录窗口解绑是否成功、标题和说明消息。
         result = api.unbind_window()
+        output_dir = result.get("output_dir", "")
+
+        if output_dir:
+            log.use_run_dir(output_dir)
 
         log.write(result["message"])
         return JSONResponse({
@@ -550,6 +570,48 @@ def create_server(
             "item_filter": result["item_filter"],
             "item_name_colors": result["item_name_colors"],
             "message": result["message"],
+            "status": current_status(),
+        })
+
+    # 保存巡逻点到账号 accounts/<角色名>/maps/<地图名>/巡逻点.txt。
+    @rt("/api/patrol/save/account")
+    async def post(request: Request):
+        try:
+            data = await request.json()
+        except Exception:
+            data = {}
+
+        result = save_patrol_points(data, current_map, patrol_points, patrol_state, "account")
+
+        if result["success"] and not result.get("points", []):
+            patrol_control["enabled"] = False
+
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "points": result.get("points", []),
+            "status": current_status(),
+        })
+
+    # 兼容旧路径：默认保存到全局巡逻点。
+    @rt("/api/patrol/save")
+    async def post(request: Request):
+        try:
+            data = await request.json()
+        except Exception:
+            data = {}
+
+        result = save_patrol_points(data, current_map, patrol_points, patrol_state, "global")
+
+        if result["success"] and not result.get("points", []):
+            patrol_control["enabled"] = False
+
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "points": result.get("points", []),
             "status": current_status(),
         })
 
@@ -729,8 +791,9 @@ def create_buttons(app_settings):
         Button("重载TXT配置", onclick="postApi('/api/monsters/reload-list')"),
         Button("拾取测试", onclick="postApi('/api/getitem/test')"),
         Button("复写配置", onclick="postApi('/api/accounts/overwrite-configs')"),
-        Button("绑定地图", onclick="bindMap()"),
-        Button("保存巡逻点", onclick="savePatrolPoints()"),
+        Button("截取地图", onclick="captureMap()"),
+        Button("保存巡逻点到全局", onclick="savePatrolPoints('global')"),
+        Button("保存巡逻点到账号", onclick="savePatrolPoints('account')"),
         Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
         Button("开始巡逻", onclick="startPatrol()"),
         Button("关闭巡逻", onclick="stopPatrol()"),
@@ -1009,7 +1072,7 @@ def create_patrol_panel():
                     id="patrol-map-view",
                     cls="patrol-map-view empty",
                 ),
-                Div("未绑定地图", id="patrol-map-info", cls="patrol-map-info"),
+                Div("未加载地图", id="patrol-map-info", cls="patrol-map-info"),
                 cls="patrol-map-column",
             ),
             Div(
@@ -1093,66 +1156,40 @@ def get_status(
     )
 
 
-# 保存巡逻点：校验网页传来的逻辑坐标并写入内存列表。
-def save_patrol_points(data, current_map, patrol_points, patrol_state):
-    if not current_map:
-        return {
-            "success": False,
-            "message": "还没有绑定地图",
-        }
-
-    try:
-        max_x = int(current_map.get("max_x", 0))
-        max_y = int(current_map.get("max_y", 0))
-    except (TypeError, ValueError):
-        max_x, max_y = 0, 0
-
-    if max_x <= 0 or max_y <= 0:
-        return {
-            "success": False,
-            "message": "地图最大逻辑坐标异常",
-        }
-
+# 保存巡逻点：校验网页传来的逻辑坐标，写入全局或账号巡逻点文件。
+def save_patrol_points(data, current_map, patrol_points, patrol_state, target):
     points_data = data.get("points", []) if isinstance(data, dict) else []
 
-    if not isinstance(points_data, list):
-        return {
-            "success": False,
-            "message": "巡逻点数据格式错误",
-        }
-
-    points = []
-
     try:
-        for index, point in enumerate(points_data):
-            x = int(point.get("x", 0))
-            y = int(point.get("y", 0))
-
-            if x < 0 or x > max_x or y < 0 or y > max_y:
-                return {
-                    "success": False,
-                    "message": f"第 {index + 1} 个巡逻点超出地图范围 point={x}:{y} max={max_x}:{max_y}",
-                }
-
-            points.append({"x": x, "y": y})
-    except (AttributeError, TypeError, ValueError):
+        result = api.save_patrol_points_for_map(
+            current_map.get("name", ""),
+            current_map,
+            points_data,
+            target,
+        )
+    except ValueError as error:
         return {
             "success": False,
-            "message": "巡逻点坐标格式错误",
+            "message": str(error),
+        }
+    except Exception as error:
+        return {
+            "success": False,
+            "message": f"保存巡逻点异常: {error}",
         }
 
-    patrol_points[:] = points
+    if not result["success"]:
+        return result
+
+    patrol_points[:] = result["points"]
     patrol_state["index"] = -1
-
-    return {
-        "success": True,
-        "points": points,
-        "message": f"保存巡逻点成功 count={len(points)}",
-    }
+    patrol_state["source"] = result.get("source", "")
+    patrol_state["path"] = result.get("path", "")
+    return result
 
 
-# 绑定地图并重置依赖旧地图的巡逻状态。
-def bind_map_and_reset(
+# 截取地图并重置依赖旧地图的巡逻状态。
+def capture_map_and_reset(
     update_frame,
     player_info,
     current_map,
@@ -1166,9 +1203,46 @@ def bind_map_and_reset(
     if result["success"]:
         current_map.clear()
         current_map.update(result["map"])
-        patrol_points.clear()
-        patrol_state["index"] = -1
-        patrol_control["enabled"] = False
+        patrol_result = load_patrol_points_for_current_map(
+            current_map,
+            patrol_points,
+            patrol_state,
+            patrol_control,
+        )
+        result["patrol"] = patrol_result
+        result["message"] = f"{result['message']}；{patrol_result['message']}"
+
+    return result
+
+
+# 按当前地图加载巡逻点：账号文件优先，没有则读全局。
+def load_patrol_points_for_current_map(current_map, patrol_points, patrol_state, patrol_control):
+    patrol_points.clear()
+    patrol_state["index"] = -1
+    patrol_state["source"] = ""
+    patrol_state["path"] = ""
+    patrol_control["enabled"] = False
+
+    if not current_map:
+        return {
+            "success": True,
+            "points": [],
+            "message": "未加载地图，巡逻点已清空",
+        }
+
+    try:
+        result = api.load_patrol_points_for_map(current_map.get("name", ""), current_map)
+    except Exception as error:
+        return {
+            "success": False,
+            "points": [],
+            "message": f"读取巡逻点异常: {error}",
+        }
+
+    if result["success"]:
+        patrol_points[:] = result.get("points", [])
+        patrol_state["source"] = result.get("source", "")
+        patrol_state["path"] = result.get("path", "")
 
     return result
 
@@ -1690,16 +1764,16 @@ async function saveMapCornerHotkeySettings() {
     await refreshLogs();
 }
 
-async function bindMap() {
-    const response = await fetch("/api/map/bind", {method: "POST"});
+async function captureMap() {
+    const response = await fetch("/api/map/capture", {method: "POST"});
     const data = await response.json();
     console.log(data);
     applyStatus(data.status || {});
     await refreshLogs();
 }
 
-async function savePatrolPoints() {
-    const response = await fetch("/api/patrol/save", {
+async function savePatrolPoints(target) {
+    const response = await fetch("/api/patrol/save/" + target, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({points: patrolPoints}),
@@ -2215,12 +2289,13 @@ function updatePatrolMapInfo() {
     const info = document.getElementById("patrol-map-info");
 
     if (!currentMap) {
-        info.textContent = "未绑定地图";
+        info.textContent = "未加载地图";
         return;
     }
 
     const dirtyText = patrolDirty ? " 未保存" : "";
-    info.textContent = "最大坐标: " + currentMap.max_x + ":" + currentMap.max_y
+    info.textContent = "地图: " + (currentMap.name || "-")
+        + " 最大坐标: " + currentMap.max_x + ":" + currentMap.max_y
         + " 巡逻点: " + patrolPoints.length + dirtyText;
 }
 

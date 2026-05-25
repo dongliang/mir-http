@@ -1,5 +1,7 @@
 import ctypes
+import json
 import math
+import os
 import re
 import shutil
 import tempfile
@@ -8,6 +10,7 @@ import time
 import unicodedata
 from ctypes import wintypes
 from pathlib import Path
+from urllib.parse import quote
 
 import cv2
 import numpy as np
@@ -19,24 +22,71 @@ import win32
 
 # 项目根目录：业务脚本在 py/ 下，运行资源仍在项目根目录。
 base_dir = Path(__file__).resolve().parent.parent
-# 截图目录：保存绑定窗口截图和调试图片。
-screenshot_dir = base_dir / "screenshots"
-# 调试图片目录：保存怪物名 OP 字库识别截图，便于排查缺字或区域偏移。
-debug_image_dir = base_dir / "DebugImage"
 # 文本配置目录：保存可运行时重载的简单清单。
 txt_dir = base_dir / "txt"
 # 账号配置目录：每个账号一份可独立调整的 txt 配置。
 accounts_dir = base_dir / "accounts"
-# 地图坐标截图路径：保存游戏底部坐标区域截图，供诊断使用。
-coordinate_image = screenshot_dir / "map_coordinate.bmp"
+# 项目地图目录：保存手动截取的地图图片、元信息和全局巡逻点。
+maps_dir = base_dir / "maps"
 # PNG 资源目录：保存血条特征图等图像匹配资源。
 png_dir = base_dir / "png"
-# 参考资源目录：保存当前绑定的大地图图片。
-ref_dir = base_dir / "ref"
-# 当前地图图片：网页巡逻面板直接显示这张图。
-map_image_file = ref_dir / "map.png"
-# 地图最大坐标截图：运行时诊断文件，不提交。
-map_max_coordinate_image = screenshot_dir / "map_max_coordinate.bmp"
+
+
+# 生成未绑定时的实例目录名：优先使用 start.bat 注入的端口，缺省用进程号。
+def get_runtime_instance_name():
+    port_text = os.environ.get("MIR2AUTO_HTTP_PORT", "").strip()
+
+    if port_text.isdigit():
+        return f"port_{port_text}"
+
+    return f"pid_{os.getpid()}"
+
+
+# 获取未绑定实例目录。
+def get_initial_output_dir():
+    return accounts_dir / "_runtime" / get_runtime_instance_name()
+
+
+# 切换当前进程输出目录：截图、地图和诊断图都跟随这个目录。
+def configure_output_dir(run_dir):
+    global output_dir
+    global screenshot_dir
+    global debug_image_dir
+    global coordinate_image
+    global map_max_coordinate_image
+
+    output_dir = Path(run_dir)
+    screenshot_dir = output_dir / "screenshots"
+    debug_image_dir = output_dir / "DebugImage"
+    coordinate_image = screenshot_dir / "map_coordinate.bmp"
+    map_max_coordinate_image = screenshot_dir / "map_max_coordinate.bmp"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    return output_dir
+
+
+# 切换到未绑定实例目录。
+def configure_initial_output_dir():
+    return configure_output_dir(get_initial_output_dir())
+
+
+# 切换到账号目录。
+def configure_account_output_dir(account):
+    return configure_output_dir(get_account_dir(account))
+
+
+# 获取当前进程输出目录。
+def get_output_dir():
+    return output_dir
+
+
+# 当前运行输出目录：启动未绑定时按端口或进程号隔离。
+output_dir = configure_initial_output_dir()
+# 地图图片文件名：项目级地图库中固定保存为 image.png。
+MAP_IMAGE_NAME = "image.png"
+# 地图元信息文件名：保存最大逻辑坐标和截图时的诊断信息。
+MAP_METADATA_NAME = "map.json"
+# 巡逻点文件名：全局和账号目录下都使用同一个中文文件名。
+PATROL_POINTS_FILE_NAME = "巡逻点.txt"
 # 怪物血条特征图：血条最左侧小片段，用于统一查找满血和残血怪物。
 monster_blood_feature_image = png_dir / "残血血条特征图.png"
 # 自身绿色血条特征图：用于自动加血检测玩家头顶血条。
@@ -573,12 +623,27 @@ def bind_window(keyword):
 
     account_result = activate_account(keyword)
 
+    if not account_result["success"]:
+        unbind_success, _, unbind_message = op.unbind_window()
+        clear_bound_player_position()
+        return {
+            "success": False,
+            "title": title,
+            "message": (
+                f"{message}；账号切换失败: {account_result['message']}；"
+                f"已自动解绑 success={unbind_success} {unbind_message}"
+            ),
+            "account": account_result,
+            "output_dir": str(get_output_dir()),
+        }
+
     return {
         "success": success,
         "title": title,
         "message": f"{message}；{position_result['message']}；{account_result['message']}",
         "player_position": get_bound_player_position(),
         "account": account_result,
+        "output_dir": account_result.get("output_dir", str(get_output_dir())),
     }
 
 
@@ -595,6 +660,7 @@ def unbind_window():
         "success": success,
         "title": title,
         "message": message,
+        "output_dir": str(get_output_dir()),
     }
 
 
@@ -815,7 +881,7 @@ def list_accounts():
     return sorted(
         path.name
         for path in accounts_dir.iterdir()
-        if path.is_dir()
+        if path.is_dir() and path.name != "_runtime"
     )
 
 
@@ -830,12 +896,58 @@ def clear_current_account():
     with account_lock:
         account_state["current"] = ""
 
-    return load_text_configs()
+    output = configure_initial_output_dir()
+    result = load_text_configs()
+    result["output_dir"] = str(output)
+    return result
 
 
 # 获取账号配置目录。
 def get_account_dir(account):
     return accounts_dir / normalize_account_name(account)
+
+
+# 清理地图目录名：保留地图显示名，只替换 Windows 文件名非法字符。
+def normalize_map_name(map_name):
+    name = str(map_name or "").strip()
+    name = re.sub(r'[<>:"/\\|?*\x00-\x1f]+', "_", name)
+    return name.strip(" .")
+
+
+# 获取项目级地图目录。
+def get_map_dir(map_name):
+    return maps_dir / normalize_map_name(map_name)
+
+
+# 获取项目级地图图片文件。
+def get_map_image_file(map_name):
+    return get_map_dir(map_name) / MAP_IMAGE_NAME
+
+
+# 获取项目级地图元信息文件。
+def get_map_metadata_file(map_name):
+    return get_map_dir(map_name) / MAP_METADATA_NAME
+
+
+# 获取项目级巡逻点文件。
+def get_global_patrol_points_file(map_name):
+    return get_map_dir(map_name) / PATROL_POINTS_FILE_NAME
+
+
+# 获取账号级地图目录。
+def get_account_map_dir(account, map_name):
+    return get_account_dir(account) / "maps" / normalize_map_name(map_name)
+
+
+# 获取账号级巡逻点文件。
+def get_account_patrol_points_file(account, map_name):
+    return get_account_map_dir(account, map_name) / PATROL_POINTS_FILE_NAME
+
+
+# 获取地图图片 HTTP 地址。
+def make_map_image_url(map_name, image_file):
+    version = int(Path(image_file).stat().st_mtime_ns)
+    return f"/api/map/image?name={quote(str(map_name), safe='')}&v={version}"
 
 
 # 获取当前 TXT 配置目录：未绑定账号时使用根目录 txt/。
@@ -906,6 +1018,7 @@ def activate_account(account):
             account_dir = get_account_dir(name)
             created = not account_dir.exists()
             copied = copy_root_txt_files_to_account(account_dir, overwrite=False) if created else []
+            output = configure_account_output_dir(name)
             account_state["current"] = name
     except Exception as error:
         return {
@@ -923,10 +1036,11 @@ def activate_account(account):
         "created": created,
         "copied": copied,
         "config_dir": str(account_dir),
+        "output_dir": str(output),
         "text_config": text_config,
         "message": (
             f"账号配置已切换 account={name} "
-            f"created={created} copied={len(copied)} config_dir={account_dir}；"
+            f"created={created} copied={len(copied)} config_dir={account_dir} output_dir={output}；"
             f"{text_config.get('message', '')}"
         ),
     }
@@ -975,6 +1089,7 @@ def make_accounts_status():
         "current": current,
         "items": list_accounts(),
         "config_dir": str(get_current_txt_config_dir()),
+        "output_dir": str(get_output_dir()),
     }
 
 
@@ -1514,6 +1629,7 @@ def make_map_status(current_map):
         return {}
 
     return {
+        "name": current_map.get("name", ""),
         "path": current_map.get("path", ""),
         "url": current_map.get("url", ""),
         "rect": dict(current_map.get("rect", {})),
@@ -1522,6 +1638,7 @@ def make_map_status(current_map):
         "ocr_box": dict(current_map.get("ocr_box", {})),
         "ocr_offset": dict(current_map.get("ocr_offset", {})),
         "ocr_text": current_map.get("ocr_text", ""),
+        "source": current_map.get("source", ""),
     }
 
 
@@ -1539,6 +1656,8 @@ def make_patrol_status(patrol_points, patrol_state, patrol_control=None):
         "points": points,
         "index": int((patrol_state or {}).get("index", -1)),
         "enabled": bool((patrol_control or {}).get("enabled", False)),
+        "source": (patrol_state or {}).get("source", ""),
+        "path": (patrol_state or {}).get("path", ""),
     }
 
 
@@ -1757,6 +1876,257 @@ def get_map_rect(width, height):
     return left, top, left + MAP_IMAGE_WIDTH, top + MAP_IMAGE_HEIGHT
 
 
+# 获取玩家状态里的当前地图名。
+def get_player_map_name(player_info=None):
+    if not player_info:
+        return ""
+
+    return str(player_info.get("map_name", "") or "").strip()
+
+
+# 获取当前可操作窗口对应的大地图矩形；窗口不可用时回退到元信息里的旧矩形。
+def get_runtime_map_rect(metadata=None):
+    metadata = metadata or {}
+
+    if op.is_window_bound():
+        width, height = get_bound_client_size()
+
+        if width > 0 and height > 0:
+            return make_map_rect(*get_map_rect(width, height))
+
+    rect = metadata.get("rect", {})
+
+    if isinstance(rect, dict) and rect:
+        return dict(rect)
+
+    return make_map_rect(0, 0, MAP_IMAGE_WIDTH, MAP_IMAGE_HEIGHT)
+
+
+# 读取已保存地图元信息。
+def read_map_metadata(map_name):
+    metadata_file = get_map_metadata_file(map_name)
+
+    if not metadata_file.exists():
+        raise FileNotFoundError(f"找不到地图元信息: {metadata_file}")
+
+    return json.loads(metadata_file.read_text(encoding="utf-8"))
+
+
+# 写入已保存地图元信息。
+def write_map_metadata(map_name, metadata):
+    metadata_file = get_map_metadata_file(map_name)
+    metadata_file.parent.mkdir(parents=True, exist_ok=True)
+    metadata_file.write_text(
+        json.dumps(metadata, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+# 用已保存图片和元信息生成当前地图状态。
+def make_saved_map_status(map_name, metadata=None):
+    metadata = metadata or read_map_metadata(map_name)
+    image_file = get_map_image_file(map_name)
+    max_x, max_y = validate_map_max_coordinate(
+        metadata.get("max_x", 0),
+        metadata.get("max_y", 0),
+    )
+
+    return {
+        "name": str(metadata.get("name") or map_name),
+        "path": str(image_file),
+        "url": make_map_image_url(map_name, image_file),
+        "rect": get_runtime_map_rect(metadata),
+        "max_x": max_x,
+        "max_y": max_y,
+        "ocr_box": dict(metadata.get("ocr_box", {})),
+        "ocr_offset": dict(metadata.get("ocr_offset", MAP_MAX_COORDINATE_OCR_OFFSET)),
+        "ocr_text": metadata.get("ocr_text", ""),
+        "source": "saved",
+    }
+
+
+# 加载已手动保存的地图；没有保存过就只返回空地图。
+def load_saved_map(map_name):
+    name = str(map_name or "").strip()
+
+    if not normalize_map_name(name):
+        return {
+            "success": False,
+            "map": {},
+            "message": "地图名为空，跳过加载地图",
+        }
+
+    image_file = get_map_image_file(name)
+    metadata_file = get_map_metadata_file(name)
+
+    if not image_file.exists() or not metadata_file.exists():
+        return {
+            "success": False,
+            "map": {},
+            "message": f"未找到已保存地图 name={name} image={image_file}",
+        }
+
+    try:
+        metadata = read_map_metadata(name)
+        current_map = make_saved_map_status(name, metadata)
+    except Exception as error:
+        return {
+            "success": False,
+            "map": {},
+            "message": f"加载地图失败 name={name}: {error}",
+        }
+
+    return {
+        "success": True,
+        "map": current_map,
+        "message": f"加载地图成功 name={name} path={image_file}",
+    }
+
+
+# 规范化并校验巡逻点。
+def normalize_patrol_points(points_data, current_map):
+    if not current_map:
+        raise ValueError("还没有加载地图")
+
+    max_x, max_y = validate_map_max_coordinate(
+        current_map.get("max_x", 0),
+        current_map.get("max_y", 0),
+    )
+
+    if not isinstance(points_data, list):
+        raise ValueError("巡逻点数据格式错误")
+
+    points = []
+
+    for index, point in enumerate(points_data):
+        try:
+            x = int(point.get("x", 0))
+            y = int(point.get("y", 0))
+        except (AttributeError, TypeError, ValueError):
+            raise ValueError("巡逻点坐标格式错误")
+
+        if x < 0 or x > max_x or y < 0 or y > max_y:
+            raise ValueError(f"第 {index + 1} 个巡逻点超出地图范围 point={x}:{y} max={max_x}:{max_y}")
+
+        points.append({"x": x, "y": y})
+
+    return points
+
+
+# 从文本读取巡逻点，每行格式为 x,y。
+def parse_patrol_points_text(text, current_map):
+    points = []
+
+    for line_number, raw_line in enumerate(str(text or "").splitlines(), start=1):
+        line = raw_line.split("#", 1)[0].strip()
+
+        if not line:
+            continue
+
+        parts = [part.strip() for part in line.split(",", 1)]
+
+        if len(parts) != 2 or not parts[0] or not parts[1]:
+            raise ValueError(f"第 {line_number} 行巡逻点格式错误: {raw_line}")
+
+        points.append({"x": int(parts[0]), "y": int(parts[1])})
+
+    return normalize_patrol_points(points, current_map)
+
+
+# 加载当前地图巡逻点：账号文件优先，否则读取全局文件。
+def load_patrol_points_for_map(map_name, current_map):
+    name = str(map_name or "").strip()
+
+    if not normalize_map_name(name):
+        return {
+            "success": True,
+            "points": [],
+            "source": "",
+            "path": "",
+            "message": "地图名为空，巡逻点已清空",
+        }
+
+    account = get_current_account()
+    candidates = []
+
+    if account:
+        candidates.append(("account", get_account_patrol_points_file(account, name)))
+
+    candidates.append(("global", get_global_patrol_points_file(name)))
+
+    for source, patrol_file in candidates:
+        if not patrol_file.exists():
+            continue
+
+        try:
+            points = parse_patrol_points_text(patrol_file.read_text(encoding="utf-8"), current_map)
+        except Exception as error:
+            return {
+                "success": False,
+                "points": [],
+                "source": source,
+                "path": str(patrol_file),
+                "message": f"读取巡逻点失败 source={source} path={patrol_file}: {error}",
+            }
+
+        return {
+            "success": True,
+            "points": points,
+            "source": source,
+            "path": str(patrol_file),
+            "message": f"读取巡逻点成功 source={source} count={len(points)} path={patrol_file}",
+        }
+
+    return {
+        "success": True,
+        "points": [],
+        "source": "",
+        "path": "",
+        "message": f"当前地图没有巡逻点 name={name}",
+    }
+
+
+# 保存巡逻点到全局或账号目录。
+def save_patrol_points_for_map(map_name, current_map, points_data, target):
+    name = str(map_name or "").strip()
+
+    if not normalize_map_name(name):
+        raise ValueError("地图名为空，不能保存巡逻点")
+
+    points = normalize_patrol_points(points_data, current_map)
+
+    if target == "account":
+        account = get_current_account()
+
+        if not account:
+            return {
+                "success": False,
+                "points": [],
+                "message": "还没有绑定账号，不能保存账号巡逻点",
+            }
+
+        patrol_file = get_account_patrol_points_file(account, name)
+        source = "account"
+    else:
+        patrol_file = get_global_patrol_points_file(name)
+        source = "global"
+
+    patrol_file.parent.mkdir(parents=True, exist_ok=True)
+    text = "\n".join(f"{point['x']},{point['y']}" for point in points)
+
+    if text:
+        text += "\n"
+
+    patrol_file.write_text(text, encoding="utf-8")
+    return {
+        "success": True,
+        "points": points,
+        "source": source,
+        "path": str(patrol_file),
+        "message": f"保存巡逻点成功 source={source} count={len(points)} path={patrol_file}",
+    }
+
+
 # 移动鼠标到大地图右下角：用前台鼠标移动验证地图交互 rect 角点。
 def move_mouse_to_map_rect_corner():
     if not op.is_window_bound():
@@ -1802,7 +2172,7 @@ def move_mouse_to_map_rect_corner():
     }
 
 
-# 绑定当前大地图：预检查失败时先尝试后台打开地图。
+# 截取当前大地图：预检查失败时先尝试后台打开地图。
 def bind_current_map_with_auto_open(player_info=None):
     precheck = precheck_current_map_ready(player_info)
 
@@ -1827,7 +2197,7 @@ def bind_current_map_with_auto_open(player_info=None):
     return hide_current_map_after_bind(result)
 
 
-# 绑定成功后隐藏大地图：不影响绑定结果，只把隐藏动作写入返回信息。
+# 截取成功后隐藏大地图：不影响截取结果，只把隐藏动作写入返回信息。
 def hide_current_map_after_bind(result):
     if not result.get("success"):
         return result
@@ -1839,7 +2209,7 @@ def hide_current_map_after_bind(result):
         interval_ms=MAP_AUTO_HIDE_INTERVAL_MS,
     )
     result["hide_keyboard"] = hide_result
-    result["message"] = f"{result['message']}；绑定成功后隐藏地图: {hide_result['message']}"
+    result["message"] = f"{result['message']}；截取成功后隐藏地图: {hide_result['message']}"
     return result
 
 
@@ -1907,7 +2277,7 @@ def precheck_current_map_ready_locked(player_info=None):
     }
 
 
-# 绑定当前大地图：截图保存地图图片，并 OCR 鼠标悬停右下角时的最大逻辑坐标。
+# 截取当前大地图：截图保存地图图片，并 OCR 鼠标悬停右下角时的最大逻辑坐标。
 def bind_current_map(player_info=None):
     with coordinate_lock:
         try:
@@ -1915,16 +2285,25 @@ def bind_current_map(player_info=None):
         except Exception as error:
             return {
                 "success": False,
-                "message": f"绑定地图异常: {error}",
+                "message": f"截取地图异常: {error}",
             }
 
 
-# 执行地图绑定：由锁保护截图、鼠标悬停和 OCR 过程。
+# 执行地图截取：由锁保护截图、鼠标悬停和 OCR 过程。
 def bind_current_map_locked(player_info=None):
     if not op.is_window_bound():
         return {
             "success": False,
             "message": "还没有绑定窗口",
+        }
+
+    map_name = get_player_map_name(player_info)
+
+    if not normalize_map_name(map_name):
+        return {
+            "success": False,
+            "message": "当前地图名为空，不能截取地图",
+            "map": {},
         }
 
     width, height = get_bound_client_size()
@@ -1950,13 +2329,14 @@ def bind_current_map_locked(player_info=None):
 
     time.sleep(MAP_HOVER_WAIT_SECONDS)
 
-    ref_dir.mkdir(exist_ok=True)
+    image_file = get_map_image_file(map_name)
+    image_file.parent.mkdir(parents=True, exist_ok=True)
     capture_success, capture_message = capture_bound_client_checked(
         left,
         top,
         right - 1,
         bottom - 1,
-        map_image_file,
+        image_file,
     )
 
     if not capture_success:
@@ -1967,7 +2347,7 @@ def bind_current_map_locked(player_info=None):
         }
 
     ocr_box = get_map_max_coordinate_ocr_box(map_rect, width, height)
-    crop_map_max_coordinate_image(map_rect, ocr_box)
+    crop_map_max_coordinate_image(map_rect, ocr_box, image_file)
     text = op.ocr_text(
         ocr_box["left"],
         ocr_box["top"],
@@ -1975,23 +2355,24 @@ def bind_current_map_locked(player_info=None):
         ocr_box["bottom"] - 1,
     )
     max_x, max_y = parse_map_max_coordinate_text(text, player_info)
-
-    current_map = {
-        "path": str(map_image_file),
-        "url": f"/ref/map.png?v={int(time.time() * 1000)}",
+    metadata = {
+        "name": map_name,
         "rect": map_rect,
         "max_x": max_x,
         "max_y": max_y,
         "ocr_box": ocr_box,
         "ocr_offset": dict(MAP_MAX_COORDINATE_OCR_OFFSET),
         "ocr_text": text,
+        "updated_at": int(time.time()),
     }
+    write_map_metadata(map_name, metadata)
+    current_map = make_saved_map_status(map_name, metadata)
 
     return {
         "success": True,
         "map": current_map,
         "message": (
-            f"绑定地图成功 path={map_image_file} max={max_x}:{max_y} "
+            f"截取地图成功 name={map_name} path={image_file} max={max_x}:{max_y} "
             f"rect={left},{top},{right},{bottom} "
             f"ocr_box={ocr_box['left']},{ocr_box['top']},{ocr_box['right']},{ocr_box['bottom']} "
             f"text={text!r} hover={hover_x},{hover_y} {capture_message}"
@@ -2024,15 +2405,15 @@ def get_map_max_coordinate_ocr_box(map_rect, width, height):
 
 
 # 从地图截图中裁出最大坐标 OCR 区域。
-def crop_map_max_coordinate_image(map_rect, ocr_box):
+def crop_map_max_coordinate_image(map_rect, ocr_box, source_image_file):
     left = ocr_box["left"] - map_rect["left"]
     top = ocr_box["top"] - map_rect["top"]
     right = ocr_box["right"] - map_rect["left"]
     bottom = ocr_box["bottom"] - map_rect["top"]
 
-    map_max_coordinate_image.parent.mkdir(exist_ok=True)
+    map_max_coordinate_image.parent.mkdir(parents=True, exist_ok=True)
 
-    with Image.open(map_image_file) as image:
+    with Image.open(source_image_file) as image:
         image.crop((left, top, right, bottom)).save(map_max_coordinate_image)
 
 
@@ -2249,7 +2630,7 @@ def validate_map_max_coordinate(max_x, max_y):
 # 逻辑坐标转客户区点击坐标。
 def logic_to_client_point(logic_x, logic_y, current_map):
     if not current_map:
-        raise ValueError("还没有绑定地图")
+        raise ValueError("还没有加载地图")
 
     rect = current_map.get("rect", {})
     max_x, max_y = validate_map_max_coordinate(current_map.get("max_x", 0), current_map.get("max_y", 0))
@@ -4176,7 +4557,7 @@ def get_image_dimensions(image_file):
 
 # 获取下一张截图文件：在截图目录中生成递增编号文件名。
 def get_next_screenshot_file():
-    screenshot_dir.mkdir(exist_ok=True)
+    screenshot_dir.mkdir(parents=True, exist_ok=True)
 
     # 截图序号：从 1 开始递增查找可用文件名。
     index = 1
@@ -5120,7 +5501,7 @@ def recognize_monster_name_box(box, save_debug=False):
         return empty_result
 
     if save_debug:
-        debug_image_dir.mkdir(exist_ok=True)
+        debug_image_dir.mkdir(parents=True, exist_ok=True)
         debug_prefix = get_debug_image_prefix("monster_name")
 
     last_result = empty_result
@@ -5472,7 +5853,7 @@ def read_map_coordinate():
     # 截图右下角：限制坐标区域宽度并覆盖底部最后一行。
     x2, y2 = min(width - 1, 170), height - 1
 
-    coordinate_image.parent.mkdir(exist_ok=True)
+    coordinate_image.parent.mkdir(parents=True, exist_ok=True)
     success, _ = op.capture_bound_client(x1, y1, x2, y2, coordinate_image)
 
     if not success:

@@ -75,7 +75,7 @@ def move_once(game_data, commit_index=True):
     if not current_map:
         return {
             "success": False,
-            "message": "还没有绑定地图",
+            "message": "还没有加载地图",
         }
 
     if not patrol_points:

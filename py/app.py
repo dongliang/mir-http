@@ -31,13 +31,20 @@ app_settings = {
     "getitem_step_wait_ms": api.GETITEM_DEFAULT_STEP_WAIT_MS,
     "no_monster_scan_limit": api.NO_MONSTER_SCAN_LIMIT_DEFAULT,
 }
-# 当前绑定的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
+# 当前加载的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
 current_map = {}
+# 当前识别到的地图名称：地图名变化时自动加载已保存地图。
+current_map_name = {
+    "name": "",
+    "account": "",
+}
 # 当前地图巡逻点：保存网页确认后的逻辑坐标列表。
 patrol_points = []
 # 巡逻运行状态：记录下一次巡逻移动前的当前索引。
 patrol_state = {
     "index": -1,
+    "source": "",
+    "path": "",
 }
 # 巡逻控制：由页面按钮切换，打开后 idle 会进入巡逻移动状态。
 patrol_control = {
@@ -111,6 +118,8 @@ atexit.register(stop_event.set)
 
 # 主入口：初始化日志、OP 绑定能力、后台刷新循环和 HTTP 服务。
 def main() -> None:
+    api.configure_initial_output_dir()
+    log.use_run_dir(api.get_output_dir())
     log.start_log()
     log.write("程序启动: HTTP 服务模式")
     apply_app_settings()
@@ -140,8 +149,54 @@ def update_frame():
     # 当前地图坐标：承接 OCR 识别出的地图名和 x/y 坐标。
     map_name, x, y = api.get_map_coordinate()
     player.set_map_coordinate(current_player, map_name, x, y)
+    update_current_map(map_name)
     update_auto_heal()
     update_current_state()
+
+
+# 更新当前地图：地图名变化时只加载已保存的 maps/<地图名>/image.png。
+def update_current_map(map_name):
+    name = str(map_name or "").strip()
+    account = api.get_current_account()
+
+    if not name:
+        return
+
+    if name == current_map_name.get("name", "") and account == current_map_name.get("account", ""):
+        return
+
+    current_map_name["name"] = name
+    current_map_name["account"] = account
+    current_map.clear()
+    patrol_points.clear()
+    patrol_state["index"] = -1
+    patrol_state["source"] = ""
+    patrol_state["path"] = ""
+    patrol_control["enabled"] = False
+
+    result = api.load_saved_map(name)
+
+    if not result["success"]:
+        log.write(result["message"])
+        return
+
+    current_map.update(result["map"])
+
+    try:
+        patrol_result = api.load_patrol_points_for_map(name, current_map)
+    except Exception as error:
+        patrol_result = {
+            "success": False,
+            "points": [],
+            "message": f"读取巡逻点异常: {error}",
+        }
+
+    if patrol_result["success"]:
+        patrol_points[:] = patrol_result.get("points", [])
+        patrol_state["source"] = patrol_result.get("source", "")
+        patrol_state["path"] = patrol_result.get("path", "")
+
+    log.write(f"{result['message']}；{patrol_result['message']}")
 
 
 # 更新自动加血：独立于状态机，每帧按设置判断是否需要检测。

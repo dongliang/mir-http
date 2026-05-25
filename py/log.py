@@ -7,8 +7,25 @@ import sys
 log_file = Path(__file__).resolve().parent.parent / "log.txt"
 
 
+# 切换日志文件：多开时每个进程写自己的实例或账号目录。
+def set_log_file(path, clear=False):
+    global log_file
+
+    log_file = Path(path)
+    log_file.parent.mkdir(parents=True, exist_ok=True)
+
+    if clear:
+        log_file.write_text("", encoding="utf-8")
+
+
+# 按运行目录切换日志：日志文件固定叫 log.txt。
+def use_run_dir(run_dir, clear=False):
+    set_log_file(Path(run_dir) / "log.txt", clear=clear)
+
+
 # 启动日志：清空旧日志并写入新的开始标记。
 def start_log():
+    log_file.parent.mkdir(parents=True, exist_ok=True)
     log_file.write_text("", encoding="utf-8")
     write("日志开始")
 
