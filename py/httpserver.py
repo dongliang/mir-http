@@ -815,7 +815,7 @@ def create_auto_heal_controls(app_settings):
                 min="1",
                 max="100",
                 step="1",
-                value=str(app_settings.get("auto_heal_threshold_percent", 50)),
+                value=str(app_settings.get("auto_heal_threshold_percent", api.AUTO_HEAL_DEFAULT_THRESHOLD_PERCENT)),
                 onchange="saveAutoHealSettings()",
             ),
             cls="auto-heal-field",
@@ -2023,10 +2023,10 @@ function updateAutoHealPanel(autoHeal) {
     const triggeredText = autoHeal.triggered_low ? " 已触发" : "";
     document.getElementById("auto-heal-enabled-text").textContent = stateText;
     document.getElementById("auto-heal-enabled").checked = enabled;
-    setInputValueIfIdle("auto-heal-threshold", autoHeal.threshold_percent ?? 50);
+    setInputValueIfIdle("auto-heal-threshold", autoHeal.threshold_percent ?? 85);
     setInputValueIfIdle("auto-heal-interval", autoHeal.interval_ms ?? 1000);
     document.getElementById("auto-heal-message").textContent =
-        stateText + " hp=" + hpText + " threshold=" + (autoHeal.threshold_percent ?? 50) + "%" + triggeredText
+        stateText + " hp=" + hpText + " threshold=" + (autoHeal.threshold_percent ?? 85) + "%" + triggeredText
         + (autoHeal.last_message ? " " + autoHeal.last_message : "");
 }
 
@@ -2040,13 +2040,13 @@ function updatePetHealPanel(petHeal) {
     const logicText = logic.x === undefined ? "-" : String(logic.x) + ":" + String(logic.y);
 
     document.getElementById("pet-heal-enabled").checked = enabled;
-    setInputValueIfIdle("pet-heal-threshold", petHeal.threshold_percent ?? 50);
-    setInputValueIfIdle("pet-heal-key", petHeal.key ?? "F2");
+    setInputValueIfIdle("pet-heal-threshold", petHeal.threshold_percent ?? 85);
+    setInputValueIfIdle("pet-heal-key", petHeal.key ?? "F1");
     document.getElementById("pet-heal-message").textContent =
         stateText
         + " hp=" + hpText
-        + " threshold=" + String(petHeal.threshold_percent ?? 50) + "%"
-        + " key=" + String(petHeal.key ?? "F2")
+        + " threshold=" + String(petHeal.threshold_percent ?? 85) + "%"
+        + " key=" + String(petHeal.key ?? "F1")
         + " target=" + (target.name || "-")
         + " logic=" + logicText
         + (petHeal.last_message ? " " + petHeal.last_message : "");
@@ -2104,9 +2104,9 @@ function updateGetitemPanel(getitem) {
         : "-";
     document.getElementById("getitem-enabled-text").textContent = stateText;
     document.getElementById("getitem-enabled").checked = enabled;
-    setInputValueIfIdle("getitem-step-wait-ms", getitem.step_wait_ms ?? 800);
+    setInputValueIfIdle("getitem-step-wait-ms", getitem.step_wait_ms ?? 100);
     document.getElementById("getitem-message").textContent =
-        stateText + " wait=" + String(getitem.step_wait_ms ?? 800) + "ms"
+        stateText + " wait=" + String(getitem.step_wait_ms ?? 100) + "ms"
         + " target=" + targetText
         + (getitem.last_message ? " " + getitem.last_message : "");
 }

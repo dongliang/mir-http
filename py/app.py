@@ -19,7 +19,7 @@ current_player = player.create_player()
 app_settings = {
     "map_corner_hotkey": api.MAP_CORNER_HOTKEY_DEFAULT,
     "auto_heal_enabled": False,
-    "auto_heal_threshold_percent": 50,
+    "auto_heal_threshold_percent": api.AUTO_HEAL_DEFAULT_THRESHOLD_PERCENT,
     "auto_heal_interval_ms": 1000,
     "pet_heal_enabled": False,
     "pet_heal_threshold_percent": api.PET_HEAL_DEFAULT_THRESHOLD_PERCENT,
