@@ -23,7 +23,7 @@ def update_frame(game_data, state_data):
 
     player_info = game_data.get("player", {})
     runtime = game_data.get("battle_runtime_state")
-    result = api.scan_monsters(player_info)
+    result = api.findMonsterBloodBars(player_info)
 
     if not result.get("success"):
         return {

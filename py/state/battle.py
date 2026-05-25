@@ -29,7 +29,7 @@ def update_frame(game_data, state_data):
         return {}
 
     player_info = game_data.get("player", {})
-    scan = api.scan_monsters(player_info)
+    scan = api.findMonsterBloodBars(player_info)
 
     if not scan.get("success"):
         locked_target["next_recheck_at"] = now + api.TARGET_RECHECK_SECONDS

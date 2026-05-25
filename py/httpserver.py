@@ -7,6 +7,7 @@ import uvicorn
 import api
 import log
 import move_to_next_patrol_point as patrol_move_state
+import player as player_state
 
 
 DEFAULT_SERVER_PORT = 8765
@@ -416,11 +417,15 @@ def create_server(
 
         if result["success"]:
             output_dir = result.get("output_dir", "")
+            screen_blood_bar = result.get("screen_blood_bar", {})
+            player_state.set_screen_blood_bar(player_info, screen_blood_bar.get("blood_bar", {}))
 
             if output_dir:
                 log.use_run_dir(output_dir, clear=True)
 
             update_frame_safely(update_frame)
+        else:
+            player_state.clear_screen_blood_bar(player_info)
 
         message = "；".join(message for message in messages if message)
         log.write(message)
@@ -437,6 +442,9 @@ def create_server(
         # 解绑结果：记录窗口解绑是否成功、标题和说明消息。
         result = api.unbind_window()
         output_dir = result.get("output_dir", "")
+
+        if result["success"]:
+            player_state.clear_screen_blood_bar(player_info)
 
         if output_dir:
             log.use_run_dir(output_dir)
@@ -538,11 +546,10 @@ def create_server(
             "status": current_status(),
         })
 
-    # 怪物扫描接口：快速查找屏幕怪物并返回位置、距离和血量百分比。
-    @rt("/api/monsters/scan")
+    # 附近怪物扫描接口：查找人物血条附近的红色怪物血条。
+    @rt("/api/monsters/scan-nearby")
     def post():
-        # 怪物扫描结果：记录扫描摘要并把明细写入日志。
-        result = api.scan_monsters(player_info)
+        result = api.findNearbyMonsterBloodBars(player_info)
         log.write(result["message"])
         log_monster_scan_details(result)
         return JSONResponse({
@@ -550,6 +557,28 @@ def create_server(
             "monsters": result.get("monsters", []),
             "count": result.get("count", 0),
             "player": result.get("player", {}),
+            "screen_blood_bar": result.get("screen_blood_bar", {}),
+            "search_box": result.get("search_box", {}),
+            "client": result.get("client", {}),
+            "debug_points": result.get("debug_points", []),
+            "message": result["message"],
+            "status": current_status(),
+        })
+
+    # 怪物扫描接口：查找除底部 UI 以外的怪物血条。
+    @rt("/api/monsters/scan")
+    def post():
+        # 怪物扫描结果：记录扫描摘要并把明细写入日志。
+        result = api.findMonsterBloodBars(player_info)
+        log.write(result["message"])
+        log_monster_scan_details(result)
+        return JSONResponse({
+            "success": result["success"],
+            "monsters": result.get("monsters", []),
+            "count": result.get("count", 0),
+            "player": result.get("player", {}),
+            "screen_blood_bar": result.get("screen_blood_bar", {}),
+            "search_box": result.get("search_box", {}),
             "client": result.get("client", {}),
             "debug_points": result.get("debug_points", []),
             "message": result["message"],
@@ -829,7 +858,8 @@ def create_buttons(app_settings):
         Button("截图", onclick="takeScreenshot()"),
         Button("地图角点", onclick="postApi('/api/map/rect-corner')"),
         Button("测试键盘(M)", onclick="pressKeyboard('M')"),
-        Button("检测怪物列表", onclick="scanMonsters()"),
+        Button("找附近怪", onclick="scanMonsters('/api/monsters/scan-nearby')"),
+        Button("找全屏怪", onclick="scanMonsters('/api/monsters/scan')"),
         Button("重载TXT配置", onclick="postApi('/api/monsters/reload-list')"),
         Button("拾取测试", onclick="postApi('/api/getitem/test')"),
         Button("复写配置", onclick="postApi('/api/accounts/overwrite-configs')"),
@@ -1929,8 +1959,8 @@ async function stopBattle() {
     await refreshLogs();
 }
 
-async function scanMonsters() {
-    const response = await fetch("/api/monsters/scan", {method: "POST"});
+async function scanMonsters(url = "/api/monsters/scan") {
+    const response = await fetch(url, {method: "POST"});
     const data = await response.json();
     console.log(data);
     updateMonsterTable(data.monsters || []);

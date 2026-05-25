@@ -209,6 +209,9 @@ MONSTER_NAME_BOTTOM_OFFSET = 52
 MONSTER_FEATURE_MATCH_THRESHOLD = 0.001
 # 怪物名字显示等待时间：鼠标悬停后等待游戏显示名字。
 MONSTER_HOVER_WAIT_SECONDS = 0.5
+# 附近怪物血条范围：以玩家自身血条中心为中心的屏幕矩形。
+NEARBY_MONSTER_BLOOD_SEARCH_WIDTH = 150
+NEARBY_MONSTER_BLOOD_SEARCH_HEIGHT = 120
 # 怪物名字识别最大截图次数：第一次未截到字或识别为空时短暂重试。
 MONSTER_NAME_OCR_MAX_ATTEMPTS = 2
 # 怪物名字识别重试等待时间：给 hover 名字显示留出额外缓冲。
@@ -625,6 +628,34 @@ def bind_window(keyword):
             ),
         }
 
+    blood_result = read_player_health_percent()
+
+    if not blood_result["success"]:
+        unbind_success, _, unbind_message = op.unbind_window()
+        clear_bound_player_position()
+        return {
+            "success": False,
+            "title": title,
+            "message": (
+                f"{message}；玩家血条定位失败: {blood_result['message']}；"
+                f"已自动解绑 success={unbind_success} {unbind_message}"
+            ),
+        }
+
+    screen_blood_bar = make_screen_blood_bar(blood_result.get("blood_bar", {}))
+
+    if not screen_blood_bar:
+        unbind_success, _, unbind_message = op.unbind_window()
+        clear_bound_player_position()
+        return {
+            "success": False,
+            "title": title,
+            "message": (
+                f"{message}；玩家血条缓存失败 bar={blood_result.get('blood_bar', {})}；"
+                f"已自动解绑 success={unbind_success} {unbind_message}"
+            ),
+        }
+
     account_result = activate_account(keyword)
 
     if not account_result["success"]:
@@ -644,8 +675,12 @@ def bind_window(keyword):
     return {
         "success": success,
         "title": title,
-        "message": f"{message}；{position_result['message']}；{account_result['message']}",
+        "message": (
+            f"{message}；{position_result['message']}；{blood_result['message']}；"
+            f"{account_result['message']}"
+        ),
         "player_position": get_bound_player_position(),
+        "screen_blood_bar": screen_blood_bar,
         "account": account_result,
         "output_dir": account_result.get("output_dir", str(get_output_dir())),
     }
@@ -1580,6 +1615,36 @@ def normalize_ocr_color_line(line):
     return ""
 
 
+# 复制玩家屏幕血条缓存，避免状态接口暴露内部可变对象。
+def copy_screen_blood_bar(screen_blood_bar):
+    if not isinstance(screen_blood_bar, dict):
+        return {}
+
+    blood_bar = screen_blood_bar.get("blood_bar", {})
+    center = screen_blood_bar.get("center", {})
+    right_top = screen_blood_bar.get("right_top", {})
+
+    try:
+        return {
+            "blood_bar": {
+                "left": int(blood_bar["left"]),
+                "top": int(blood_bar["top"]),
+                "right": int(blood_bar["right"]),
+                "bottom": int(blood_bar["bottom"]),
+            },
+            "center": {
+                "x": int(center["x"]),
+                "y": int(center["y"]),
+            },
+            "right_top": {
+                "x": int(right_top["x"]),
+                "y": int(right_top["y"]),
+            },
+        }
+    except (KeyError, TypeError, ValueError):
+        return {}
+
+
 # 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图、巡逻、战斗和状态机。
 def get_status(
     player_info,
@@ -1601,6 +1666,7 @@ def get_status(
             "x": player_info["x"],
             "y": player_info["y"],
             "map_raw": get_map_coordinate_raw_text(),
+            "screen_blood_bar": copy_screen_blood_bar(player_info.get("screen_blood_bar", {})),
         },
         "player_position": get_bound_player_position(),
         "bound_window": op.get_bound_window(),
@@ -3110,7 +3176,7 @@ def should_enter_getitem(game_data):
             "message": "",
         }
 
-    safety = check_getitem_safety()
+    safety = check_getitem_safety(game_data.get("player"))
 
     if not safety.get("success", False):
         message = f"捡取安全检测失败: {safety.get('message', '')}"
@@ -3157,18 +3223,9 @@ def should_enter_getitem(game_data):
     }
 
 
-# 捡取前安全检测：只把命中怪物清单的怪物当作危险。
-def check_getitem_safety():
-    context = get_getitem_safety_context()
-
-    if not context.get("success", False):
-        return {
-            "success": False,
-            "safe": False,
-            "message": context.get("message", ""),
-        }
-
-    monster_result = scan_monsters()
+# 捡取前安全检测：附近红色血条数量大于 1 时暂停捡取。
+def check_getitem_safety(player_info=None):
+    monster_result = findNearbyMonsterBloodBars(player_info)
 
     if not monster_result.get("success", False):
         return {
@@ -3177,59 +3234,37 @@ def check_getitem_safety():
             "message": monster_result.get("message", ""),
         }
 
-    box = context["box"]
-    client = context["client"]
-    width, height = client["width"], client["height"]
-    candidates = []
+    monsters = monster_result.get("monsters", [])
+    nearby_count = len(monsters)
 
-    for monster in monster_result.get("monsters", []):
-        position = monster.get("position", {})
+    if nearby_count <= 1:
+        return {
+            "success": True,
+            "safe": True,
+            "candidate_count": nearby_count,
+            "logs": [],
+            "message": f"捡取安全检测通过 nearby_blood_bars={nearby_count}",
+        }
 
-        if is_point_in_box(position.get("x"), position.get("y"), box):
-            candidates.append(monster)
-
-    logs = []
-
-    for monster in candidates:
-        position = monster.get("position", {})
-        filter_result = verify_monster_full_name_for_getitem_safety(
-            monster,
-            position.get("x", 0),
-            position.get("y", 0),
-            width,
-            height,
-            save_name_debug=False,
-        )
-        logs.extend(filter_result.get("name_messages", []))
-
-        if filter_result.get("allowed", False):
-            danger = {
-                "keyword": filter_result.get("matched_keyword", ""),
-                "text": filter_result.get("text", ""),
-                "position": filter_result.get("position", position),
-                "monster": {
-                    "id": monster.get("id", 0),
-                    "distance": monster.get("distance", ""),
-                    "hp_percent": monster.get("hp_percent", ""),
-                },
-            }
-            return {
-                "success": True,
-                "safe": False,
-                "danger": danger,
-                "logs": logs,
-                "message": (
-                    f"附近有清单内怪物，暂停捡取 "
-                    f"matched={danger['keyword']} text={danger['text']!r}"
-                ),
-            }
+    nearest = monsters[0] if monsters else {}
+    danger = {
+        "position": nearest.get("position", {}),
+        "blood_bar": nearest.get("blood_bar", {}),
+        "monster": {
+            "id": nearest.get("id", 0),
+            "distance": nearest.get("distance", ""),
+            "hp_percent": nearest.get("hp_percent", ""),
+        },
+        "nearby_count": nearby_count,
+    }
 
     return {
         "success": True,
-        "safe": True,
-        "candidate_count": len(candidates),
-        "logs": logs,
-        "message": f"捡取安全检测通过 candidates={len(candidates)}",
+        "safe": False,
+        "danger": danger,
+        "candidate_count": nearby_count,
+        "logs": [],
+        "message": f"附近红色血条数量 {nearby_count} > 1，暂停捡取",
     }
 
 
@@ -4375,6 +4410,7 @@ def read_player_health_percent():
         "success": True,
         "hp_percent": hp_percent,
         "blood_bar": blood_bar,
+        "screen_blood_bar": make_screen_blood_bar(blood_bar),
         "match_count": len(matches),
         "player": {
             "x": player_x,
@@ -4450,6 +4486,40 @@ def make_blood_bar_from_match(match, width, height):
         "top": bar_top,
         "right": bar_right,
         "bottom": bar_bottom,
+    }
+
+
+# 生成人物血条缓存结构：保存血条、中心点和右上角。
+def make_screen_blood_bar(blood_bar):
+    if not isinstance(blood_bar, dict):
+        return {}
+
+    try:
+        left = int(blood_bar["left"])
+        top = int(blood_bar["top"])
+        right = int(blood_bar["right"])
+        bottom = int(blood_bar["bottom"])
+    except (KeyError, TypeError, ValueError):
+        return {}
+
+    if right <= left or bottom <= top:
+        return {}
+
+    return {
+        "blood_bar": {
+            "left": left,
+            "top": top,
+            "right": right,
+            "bottom": bottom,
+        },
+        "center": {
+            "x": round((left + right) / 2),
+            "y": round((top + bottom) / 2),
+        },
+        "right_top": {
+            "x": right,
+            "y": top,
+        },
     }
 
 
@@ -4578,21 +4648,39 @@ def get_next_screenshot_file():
         index += 1
 
 
-# 扫描怪物：查找血条、读取血量，并计算到玩家的距离。
+# 兼容旧接口：默认扫描除底部 UI 外的所有怪物血条。
 def scan_monsters(player_info=None):
+    return findMonsterBloodBars(player_info)
+
+
+# 找人物附近的怪物血条。
+def findNearbyMonsterBloodBars(player_info=None):
     with monster_scan_lock:
         try:
-            return scan_monsters_locked(player_info)
+            return find_monster_blood_bars_locked(player_info, "nearby")
         except Exception as error:
             return {
                 "success": False,
                 "monsters": [],
-                "message": f"怪物扫描异常: {error}",
+                "message": f"附近怪物血条扫描异常: {error}",
             }
 
 
-# 执行怪物扫描：由锁保护的实际扫描流程。
-def scan_monsters_locked(player_info=None):
+# 找除底部 UI 以外的怪物血条。
+def findMonsterBloodBars(player_info=None):
+    with monster_scan_lock:
+        try:
+            return find_monster_blood_bars_locked(player_info, "play_area")
+        except Exception as error:
+            return {
+                "success": False,
+                "monsters": [],
+                "message": f"怪物血条扫描异常: {error}",
+            }
+
+
+# 执行怪物血条扫描：由锁保护的实际扫描流程。
+def find_monster_blood_bars_locked(player_info=None, scan_mode="play_area"):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -4618,6 +4706,16 @@ def scan_monsters_locked(player_info=None):
             "message": f"窗口尺寸异常 size={width}x{height}",
         }
 
+    screen_blood_bar = get_player_screen_blood_bar(player_info)
+
+    if not screen_blood_bar:
+        return {
+            "success": False,
+            "monsters": [],
+            "client": client,
+            "message": "玩家血条缓存不可用，请重新绑定窗口",
+        }
+
     try:
         player_x, player_y, position = get_bound_player_foot_point()
     except ValueError as error:
@@ -4629,8 +4727,11 @@ def scan_monsters_locked(player_info=None):
         }
 
     blood_width, blood_height = get_blood_bar_match_size(monster_blood_feature_image)
+    search_box = get_monster_blood_search_box(scan_mode, screen_blood_bar, width, height)
     debug_points = [
         make_debug_point(player_x, player_y, "blue"),
+        make_debug_point(screen_blood_bar["center"]["x"], screen_blood_bar["center"]["y"], "green"),
+        make_debug_point(screen_blood_bar["right_top"]["x"], screen_blood_bar["right_top"]["y"], "cyan"),
     ]
 
     with tempfile.TemporaryDirectory(prefix="mir2_monster_scan_") as temp_dir:
@@ -4653,6 +4754,10 @@ def scan_monsters_locked(player_info=None):
             }
 
         matches = find_blood_feature_matches(scan_file, ignore_bottom_ui=True)
+
+        if scan_mode == "nearby":
+            matches = filter_blood_matches_by_box(matches, search_box)
+
         monsters = []
 
         with Image.open(scan_file) as scan_image:
@@ -4673,11 +4778,8 @@ def scan_monsters_locked(player_info=None):
                 debug_points.extend(monster["debug_points"])
 
     logic_available = add_monsters_logic(monsters, player_info, player_x, player_y)
-
-    monsters.sort(key=lambda monster: (get_monster_logic_distance(monster), monster["distance"]))
-
-    for index, monster in enumerate(monsters, start=1):
-        monster["id"] = index
+    sort_monster_blood_bars_by_player(monsters, screen_blood_bar)
+    message_prefix = "附近怪物血条扫描完成" if scan_mode == "nearby" else "怪物血条扫描完成"
 
     return {
         "success": True,
@@ -4686,17 +4788,87 @@ def scan_monsters_locked(player_info=None):
         "player": {
             "x": player_x,
             "y": player_y,
+            "screen_blood_bar": screen_blood_bar,
         },
         "player_position": position,
+        "screen_blood_bar": screen_blood_bar,
         "player_logic": make_player_logic_status(player_info),
         "logic_available": logic_available,
         "client": client,
+        "search_box": search_box,
         "debug_points": debug_points,
         "message": (
-            f"怪物扫描完成 count={len(monsters)} player={player_x},{player_y} "
-            f"logic={'ok' if logic_available else 'missing'} client_size={width}x{height}"
+            f"{message_prefix} count={len(monsters)} player={player_x},{player_y} "
+            f"blood_right_top={screen_blood_bar['right_top']['x']},{screen_blood_bar['right_top']['y']} "
+            f"box={format_box(search_box)} logic={'ok' if logic_available else 'missing'} "
+            f"client_size={width}x{height}"
         ),
     }
+
+
+# 读取玩家屏幕血条缓存。
+def get_player_screen_blood_bar(player_info):
+    return copy_screen_blood_bar((player_info or {}).get("screen_blood_bar", {}))
+
+
+# 获取怪物血条扫描区域。
+def get_monster_blood_search_box(scan_mode, screen_blood_bar, width, height):
+    if scan_mode == "nearby":
+        center = screen_blood_bar["center"]
+        return clamp_box(
+            int(center["x"]) - NEARBY_MONSTER_BLOOD_SEARCH_WIDTH / 2,
+            int(center["y"]) - NEARBY_MONSTER_BLOOD_SEARCH_HEIGHT / 2,
+            int(center["x"]) + NEARBY_MONSTER_BLOOD_SEARCH_WIDTH / 2,
+            int(center["y"]) + NEARBY_MONSTER_BLOOD_SEARCH_HEIGHT / 2,
+            width,
+            height,
+        )
+
+    play_area_bottom = max(1, height - BOTTOM_UI_HEIGHT)
+    return clamp_box(0, 0, width, play_area_bottom, width, play_area_bottom)
+
+
+# 只保留血条中心点落在指定矩形里的匹配。
+def filter_blood_matches_by_box(matches, box):
+    filtered = []
+
+    for match in matches:
+        center_x = int(match["x"]) + int(match.get("width", 0)) / 2
+        center_y = int(match["y"]) + int(match.get("height", 0)) / 2
+
+        if is_point_in_box(round(center_x), round(center_y), box):
+            filtered.append(match)
+
+    return filtered
+
+
+# 按玩家血条右上角到怪物血条左上角的距离排序。
+def sort_monster_blood_bars_by_player(monsters, screen_blood_bar):
+    for monster in monsters:
+        monster["distance"] = get_monster_blood_bar_distance(monster, screen_blood_bar)
+
+    monsters.sort(key=lambda monster: (
+        int(monster.get("distance", 999999)),
+        int(monster.get("blood_bar", {}).get("top", 999999)),
+        int(monster.get("blood_bar", {}).get("left", 999999)),
+    ))
+
+    for index, monster in enumerate(monsters, start=1):
+        monster["id"] = index
+
+
+# 计算怪物血条左上角到玩家血条右上角的距离。
+def get_monster_blood_bar_distance(monster, screen_blood_bar):
+    blood_bar = (monster or {}).get("blood_bar", {})
+    right_top = (screen_blood_bar or {}).get("right_top", {})
+
+    try:
+        return round(math.dist(
+            (int(right_top["x"]), int(right_top["y"])),
+            (int(blood_bar["left"]), int(blood_bar["top"])),
+        ))
+    except (KeyError, TypeError, ValueError):
+        return 999999
 
 
 # 根据一个血条匹配点读取怪物信息。

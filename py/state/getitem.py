@@ -32,7 +32,7 @@ def update_frame(game_data, state_data):
     if next_action_at and now < next_action_at:
         return {}
 
-    safety = api.check_getitem_safety()
+    safety = api.check_getitem_safety(game_data.get("player", {}))
 
     if not safety.get("success", False):
         message = f"捡取安全检测失败，回到 idle: {safety.get('message', '')}"
