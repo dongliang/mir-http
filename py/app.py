@@ -148,7 +148,6 @@ def main() -> None:
 def update_frame():
     # 当前地图坐标：承接 OCR 识别出的地图名和 x/y 坐标。
     map_name, x, y = api.get_map_coordinate()
-    log.write(api.get_map_coordinate_debug_message())
     player.set_map_coordinate(current_player, map_name, x, y)
     update_current_map(map_name)
     update_auto_heal()

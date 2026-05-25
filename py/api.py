@@ -157,9 +157,9 @@ getitem_runtime_state = {
     "last_target": {},
     "last_message": "",
 }
-# 地图坐标识别诊断：保存最近一次截图/OCR/解析的完整信息，供 app 写日志。
+# 地图坐标识别原文：保存最近一次 OP OCR 返回的 raw 文本，供页面常驻显示。
 map_coordinate_debug_state = {
-    "message": "",
+    "raw": "",
 }
 # 底部界面高度：估算游戏底栏高度，用来计算角色移动点击原点。
 BOTTOM_UI_HEIGHT = 245
@@ -1600,6 +1600,7 @@ def get_status(
             "map_name": player_info["map_name"],
             "x": player_info["x"],
             "y": player_info["y"],
+            "map_raw": get_map_coordinate_raw_text(),
         },
         "player_position": get_bound_player_position(),
         "bound_window": op.get_bound_window(),
@@ -5842,26 +5843,26 @@ def get_map_coordinate():
         return read_map_coordinate()
 
 
-# 获取最近一次地图坐标识别诊断信息。
-def get_map_coordinate_debug_message():
-    return map_coordinate_debug_state.get("message", "")
+# 获取最近一次地图坐标 OCR 原文。
+def get_map_coordinate_raw_text():
+    return map_coordinate_debug_state.get("raw", "")
 
 
-# 保存地图坐标识别诊断信息。
-def set_map_coordinate_debug_message(message):
-    map_coordinate_debug_state["message"] = str(message or "")
+# 保存地图坐标 OCR 原文。
+def set_map_coordinate_raw_text(text):
+    map_coordinate_debug_state["raw"] = str(text or "")
 
 
 # 读取地图坐标：从绑定窗口截图底部区域并交给 OCR 解析坐标。
 def read_map_coordinate():
     if not op.is_window_bound():
-        set_map_coordinate_debug_message("地图坐标识别: 未绑定窗口")
+        set_map_coordinate_raw_text("")
         return "", "", ""
 
     # 绑定窗口尺寸：用于确定坐标区域截图范围。
     width, height = get_bound_client_size()
     if width <= 0 or height <= 0:
-        set_map_coordinate_debug_message(f"地图坐标识别: 窗口尺寸异常 size={width}x{height}")
+        set_map_coordinate_raw_text("")
         return "", "", ""
 
     # 截图左上角：从窗口底部裁剪 18 像素高的坐标显示区域。
@@ -5870,24 +5871,16 @@ def read_map_coordinate():
     x2, y2 = min(width - 1, 170), height - 1
 
     coordinate_image.parent.mkdir(parents=True, exist_ok=True)
-    success, capture_message = op.capture_bound_client(x1, y1, x2, y2, coordinate_image)
+    success, _ = op.capture_bound_client(x1, y1, x2, y2, coordinate_image)
 
     if not success:
-        set_map_coordinate_debug_message(
-            f"地图坐标识别: 截图失败 size={width}x{height} "
-            f"box={x1},{y1},{x2},{y2} path={coordinate_image} capture={capture_message}"
-        )
+        set_map_coordinate_raw_text("")
         return "", "", ""
 
     # OP 字库文本：承载坐标区域识别出的原始文字。
     text = op.ocr_text(x1, y1, x2, y2)
-    map_name, x, y = parse_map_coordinate_text(text)
-    set_map_coordinate_debug_message(
-        f"地图坐标识别: size={width}x{height} box={x1},{y1},{x2},{y2} "
-        f"path={coordinate_image} capture={capture_message} raw={text!r} "
-        f"parsed map={map_name!r} x={x!r} y={y!r}"
-    )
-    return map_name, x, y
+    set_map_coordinate_raw_text(text)
+    return parse_map_coordinate_text(text)
 
 
 # 解析地图坐标文本：从 OCR 文本中提取地图名和 x/y 坐标。

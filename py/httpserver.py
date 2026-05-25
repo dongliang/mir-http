@@ -129,6 +129,7 @@ def create_server(
                 Div(
                     Div("绑定窗口: ", Span("未绑定", id="bound-title")),
                     Div("地图: ", Span(player_info["map_name"], id="map-name")),
+                    Div("地图原文: ", Span("-", id="map-raw")),
                     Div("坐标: ", Span(f"{player_info['x']}:{player_info['y']}", id="coordinate")),
                     Div("状态: ", Span(current_state["name"], id="state-name")),
                     Div("巡逻: ", Span("关", id="patrol-enabled")),
@@ -2099,6 +2100,7 @@ function applyStatus(data) {
 
     const boundTitle = data.bound_window.title || "";
     document.getElementById("map-name").textContent = data.player.map_name;
+    document.getElementById("map-raw").textContent = data.player.map_raw || "-";
     document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
     document.getElementById("bound-title").textContent = boundTitle || "未绑定";
     document.getElementById("state-name").textContent = data.state ? data.state.name : "idle";
