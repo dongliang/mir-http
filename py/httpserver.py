@@ -1380,20 +1380,23 @@ button {
 }
 .patrol-content {
     display: grid;
-    grid-template-columns: minmax(520px, 900px) minmax(180px, 260px);
+    grid-template-columns: minmax(0, 1fr) 190px;
     gap: 12px;
     align-items: start;
 }
 .patrol-map-column {
-    width: min(900px, 100%);
+    min-width: 0;
 }
 .patrol-table-column {
     min-width: 0;
+    width: 190px;
+    justify-self: end;
 }
 .patrol-map-view {
     position: relative;
     width: 100%;
     aspect-ratio: 550 / 350;
+    box-sizing: border-box;
     border: 1px solid #bbb;
     background: #222;
     overflow: hidden;
@@ -1438,7 +1441,8 @@ button {
     font-size: 12px;
 }
 .patrol-point-table {
-    min-width: 180px;
+    width: 100%;
+    min-width: 0;
 }
 .patrol-point-table th:first-child,
 .patrol-point-table td:first-child {
@@ -1493,6 +1497,9 @@ th {
     .status,
     .patrol-content {
         grid-template-columns: 1fr;
+    }
+    .patrol-table-column {
+        width: 100%;
     }
 }
 """
