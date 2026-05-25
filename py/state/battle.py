@@ -89,7 +89,15 @@ def update_frame(game_data, state_data):
         }
 
     if attack.get("reason") == "monster_filter_mismatch":
-        return handle_target_miss(game_data, state_data, locked_target, "锁定目标名称不再匹配清单", logs)
+        logic = locked_target.get("last_logic") or locked_target.get("origin_logic", {})
+        api.add_ignored_target(runtime, logic, "locked_target_filter_mismatch")
+        api.clear_battle_locked_target(runtime, "锁定目标名称不在清单内，释放目标")
+        state_data["locked_target"] = {}
+        return {
+            "state": "find_monster",
+            "logs": logs,
+            "message": f"锁定目标名称不在清单内，释放目标: {attack.get('message', '')}",
+        }
 
     locked_target["next_recheck_at"] = now + api.TARGET_RECHECK_SECONDS
     state_data["locked_target"] = locked_target

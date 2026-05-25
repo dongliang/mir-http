@@ -2324,7 +2324,11 @@ def attack_monster(monster, save_name_debug=False):
 
     if not filter_result["allowed"]:
         filter_reason = filter_result.get("reason", "monster_filter_failed")
-        reason = "monster_filter_mismatch" if filter_reason == "keyword_not_found" else filter_reason
+        reason = (
+            "monster_filter_mismatch"
+            if filter_reason in {"keyword_not_found", "full_name_not_found", "player_summon"}
+            else filter_reason
+        )
 
         return {
             "success": False,
@@ -2374,7 +2378,7 @@ def attack_monster(monster, save_name_debug=False):
     }
 
 
-# 攻击前校验怪物名：只有命中 txt/monster.txt 中的关键字才允许点击。
+# 攻击前校验怪物名：只有完整等于 txt/monster.txt 中的一行才允许点击。
 def verify_monster_name_before_attack(monster, x, y, width, height, save_name_debug=False):
     keyword_status = load_monster_keywords(force=False)
     keywords = keyword_status.get("keywords", [])
@@ -2448,15 +2452,36 @@ def verify_monster_name_before_attack(monster, x, y, width, height, save_name_de
             "name_messages": name_messages,
         }
 
-    matched_keyword = get_matched_monster_keyword(name_result, keywords)
-    text = get_monster_name_filter_text(name_result)
+    names = get_monster_full_name_candidates(name_result)
+
+    if is_current_account_summon_name(name_result):
+        return {
+            "allowed": False,
+            "reason": "player_summon",
+            "keywords": keywords,
+            "matched_keyword": "",
+            "text": " ".join(names),
+            "names": names,
+            "box": name_result.get("ocr_box", {}),
+            "blood_bar": name_result.get("blood_bar", {}),
+            "position": name_result.get("position", {"x": x, "y": y}),
+            "move_success": move_success,
+            "move_message": move_message,
+            "name_result": name_result,
+            "name_message": name_message,
+            "name_messages": name_messages,
+        }
+
+    matched_keyword = get_matched_monster_full_name(name_result, keywords)
+    text = " ".join(names)
 
     return {
         "allowed": bool(matched_keyword),
-        "reason": "" if matched_keyword else "keyword_not_found",
+        "reason": "" if matched_keyword else "full_name_not_found",
         "keywords": keywords,
         "matched_keyword": matched_keyword,
         "text": text,
+        "names": names,
         "box": name_result.get("ocr_box", {}),
         "blood_bar": name_result.get("blood_bar", {}),
         "position": name_result.get("position", {"x": x, "y": y}),
@@ -2599,6 +2624,27 @@ def get_matched_monster_full_name(name_result, keywords):
             return keyword_map[normalized]
 
     return ""
+
+
+# 判断怪名是否像当前账号的召唤物，例如 变异骷髅(妖孽)。
+def is_current_account_summon_name(name_result):
+    account = normalize_monster_full_name(get_current_account())
+
+    if not account:
+        return False
+
+    suffixes = [
+        f"({account})",
+        f"（{account}）",
+    ]
+
+    for name in get_monster_full_name_candidates(name_result):
+        normalized = normalize_monster_full_name(name)
+
+        if any(suffix in normalized for suffix in suffixes):
+            return True
+
+    return False
 
 
 # 规范化完整怪名：只去掉空白，保留括号和其他字符，避免短词误匹配。

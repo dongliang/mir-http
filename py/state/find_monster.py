@@ -12,6 +12,15 @@ def update_frame(game_data, state_data):
             "message": "战斗开关已关闭，回到 idle",
         }
 
+    getitem_result = api.should_enter_getitem(game_data)
+
+    if getitem_result.get("enter", False):
+        api.reset_no_monster_count(game_data.get("battle_runtime_state"), "找怪前进入捡取物品，清空无怪次数")
+        return {
+            "state": "getitem",
+            "message": getitem_result.get("message", "找怪前发现可捡物品，进入捡取物品状态"),
+        }
+
     player_info = game_data.get("player", {})
     runtime = game_data.get("battle_runtime_state")
     result = api.scan_monsters(player_info)
@@ -62,13 +71,19 @@ def update_frame(game_data, state_data):
             }
 
         if attack.get("reason") == "monster_filter_mismatch":
+            target_logic = target.get("logic", {})
+            before_count = len(monsters)
             skipped.append({
                 "id": target.get("id", 0),
-                "logic": target.get("logic", {}),
+                "logic": target_logic,
                 "message": attack.get("message", ""),
             })
-            api.add_ignored_target(runtime, target.get("logic", {}), "monster_filter_mismatch")
-            monsters = [monster for monster in monsters if monster is not target]
+            api.add_ignored_target(runtime, target_logic, "monster_filter_mismatch")
+            monsters = remove_same_logic_monsters(monsters, target_logic)
+            removed_count = before_count - len(monsters)
+            logs.append(
+                f"非清单怪物已从本轮候选移除 logic={format_logic(target_logic)} removed={removed_count}"
+            )
             continue
 
         return {
@@ -135,6 +150,18 @@ def append_attack_logs(logs, attack):
         logs.extend(name_messages)
     elif name_message:
         logs.append(name_message)
+
+
+# 从本轮候选列表里移除同一逻辑点附近的怪物。
+def remove_same_logic_monsters(monsters, target_logic):
+    if not api.is_valid_logic(target_logic):
+        return [monster for monster in monsters if monster.get("logic", {}) != target_logic]
+
+    return [
+        monster
+        for monster in monsters
+        if api.get_logic_distance(monster.get("logic", {}), target_logic) > api.IGNORED_TARGET_RADIUS
+    ]
 
 
 # 格式化逻辑坐标。

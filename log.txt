@@ -1,34 +1,1830 @@
-[05:23:44] 日志开始
-[05:23:44] 程序启动: HTTP 服务模式
-[05:23:44] TXT 配置加载完成 monsters=14 monster_colors=5 items=50 item_colors=3
-[05:23:44] 开始初始化 OP
-[05:23:44] OP 版本: 0.4.5.0
-[05:23:44] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
-[05:23:44] OP 初始化成功
-[05:23:44] HTTP 服务启动: http://127.0.0.1:7396
-[06:00:38] 本轮攻击等待结束，回到 idle
-[06:00:38] 状态切换: battle -> idle
-[06:00:39] 战斗开关已开启，进入战斗状态
-[06:00:39] 状态切换: idle -> battle
-[06:00:39] 自动加血触发: hp=73% threshold=80% mouse=0,0 key=F1
-[06:00:40] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
-[06:00:40] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
-[06:00:40] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,331,800,351 file=
-[06:00:40] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[06:00:40] 开始攻击怪物 hp=87% distance=78 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=87% distance=78 matched=僵尸 text='僵尸 僵尸 僵尸'
-[06:00:41] 自动加血触发: hp=77% threshold=80% mouse=0,0 key=F1
-[06:00:41] 自动加血血量恢复: hp=80% threshold=80%
-[06:00:43] 本轮攻击等待结束，回到 idle
-[06:00:43] 状态切换: battle -> idle
-[06:00:43] 战斗开关已开启，进入战斗状态
-[06:00:43] 状态切换: idle -> battle
-[06:00:44] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
-[06:00:44] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,331,800,351 file=
-[06:00:44] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,331,800,351 file=
-[06:00:44] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 295, 'right': 766, 'bottom': 299} pos=750,344
-[06:00:44] 开始攻击怪物 hp=57% distance=78 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=344 last_error=0 hp=57% distance=78 matched=僵尸 text='僵尸 僵尸 僵尸'
-[06:00:46] 本轮攻击等待结束，回到 idle
-[06:00:46] 状态切换: battle -> idle
-[06:00:46] 玩家坐标 未知 21:39 连续 23 秒未变化，进入下一个巡逻点
-[06:00:46] 状态切换: idle -> move_to_next_patrol_point
-[06:00:47] 巡逻点 index=19 移动到巡逻点 成功 logic=36:40 map=198,140 client=723,415 click=点击成功 button=left method=down_up(1,1) x=723 y=415 last_error=0 close=后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[13:57:04] 日志开始
+[13:57:04] 程序启动: HTTP 服务模式
+[13:57:04] TXT 配置加载完成 monsters=14 monster_colors=5 items=50 item_colors=3
+[13:57:04] 开始初始化 OP
+[13:57:04] OP 版本: 0.4.5.0
+[13:57:04] OP 初始化成功（64 位免注册）；OP 字库加载成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\fonts\main.txt
+[13:57:04] OP 初始化成功
+[13:57:04] HTTP 服务启动: http://127.0.0.1:7597
+[13:57:10] 绑定成功 hwnd=280232596 title=^纵横四海 - 妖孽 display=dx2 mouse=windows keypad=windows mode=0 unbind=0 last_error=0；玩家名称定位成功 name=妖孽 name_center=798,373 foot=798,405 method=op_dict；账号配置已切换 account=妖孽 created=False copied=0 config_dir=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\accounts\妖孽；TXT 配置加载完成 monsters=14 monster_colors=5 items=50 item_colors=3；地图预检查失败: 地图预检查异常: 无法识别地图最大逻辑坐标 text=''；已尝试后台按 M 2 次: 后台键盘输入成功 key=M vk=77 repeat=2 hold_ms=120 interval_ms=150 mode=dx2/windows/windows/0；绑定地图异常: 无法识别地图最大逻辑坐标 text=''
+[13:57:26] 地图预检查通过 max=200:199；绑定地图成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\ref\map.png max=200:199 rect=525,275,1075,625 ocr_box=885,570,1073,623 text='200199' hover=1074,624 截图调用成功 path=D:\99.Resources\2.ProjectLink\83.mir2auto-python-clean\ref\map.png range=525,275,1074,624 last_error=0；绑定成功后隐藏地图: 后台键盘输入成功 key=M vk=77 repeat=1 hold_ms=120 interval_ms=80 mode=dx2/windows/windows/0
+[13:57:33] 自动加血设置已更新: 关 threshold=85% interval=1000ms
+[13:57:33] 自动加血设置已更新: 开 threshold=85% interval=1000ms
+[13:57:35] 战斗设置已更新: no_monster_scan_limit=1
+[13:57:38] 捡取物品设置已更新: 关 step_wait_ms=100
+[13:57:38] 捡取物品设置已更新: 关 step_wait_ms=100
+[13:57:38] 捡取物品设置已更新: 开 step_wait_ms=100
+[13:57:49] 战斗开关已打开，巡逻开关已关闭
+[13:57:51] 发现可捡物品 count=1 target=魔法药(中量)@745,377 logic=143:109 distance=60
+[13:57:51] 状态切换: idle -> getitem
+[13:57:52] 捡取物品移动 target=魔法药(中量)@745,377 logic=143:109 distance=60 action=walk direction=up_left wait=100ms 点击成功 button=left method=down_up(1,1) x=668 y=275 last_error=0 action=walk logic_distance=1 direction=up_left player=798,405 item=748,373 move_click=668,275 target_source=logic vector=-50,-32 angle=-147.38
+[13:57:54] 捡取物品移动 target=魔法药(中量)@745,377 logic=143:109 distance=60 action=walk direction=up_left wait=100ms 点击成功 button=left method=down_up(1,1) x=668 y=275 last_error=0 action=walk logic_distance=1 direction=up_left player=798,405 item=748,373 move_click=668,275 target_source=logic vector=-50,-32 angle=-147.38
+[13:57:55] 捡取物品移动 target=魔法药(中量)@745,377 logic=143:109 distance=60 action=walk direction=up_left wait=100ms 点击成功 button=left method=down_up(1,1) x=668 y=275 last_error=0 action=walk logic_distance=1 direction=up_left player=798,405 item=748,373 move_click=668,275 target_source=logic vector=-50,-32 angle=-147.38
+[13:57:57] 捡取物品移动 target=魔法药(中量)@745,377 logic=143:109 distance=60 action=walk direction=up_left wait=100ms 点击成功 button=left method=down_up(1,1) x=668 y=275 last_error=0 action=walk logic_distance=1 direction=up_left player=798,405 item=748,373 move_click=668,275 target_source=logic vector=-50,-32 angle=-147.38
+[13:57:58] 捡取物品移动 target=魔法药(中量)@745,377 logic=143:109 distance=60 action=walk direction=up_left wait=100ms 点击成功 button=left method=down_up(1,1) x=668 y=275 last_error=0 action=walk logic_distance=1 direction=up_left player=798,405 item=748,373 move_click=668,275 target_source=logic vector=-50,-32 angle=-147.38
+[13:58:00] 物品仍存在，重新识别 target=魔法药(中量)@769,393 logic=142:109 distance=31
+[13:58:00] 捡取物品移动 target=魔法药(中量)@769,393 logic=142:109 distance=31 action=walk direction=left wait=100ms 点击成功 button=left method=down_up(1,1) x=668 y=405 last_error=0 action=walk logic_distance=1 direction=left player=798,405 item=747,404 move_click=668,405 target_source=logic vector=-51,-1 angle=-178.88
+[13:58:01] 物品已消失，认为已捡取 target=魔法药(中量)@769,393 logic=142:109 distance=31；可玩区域可捡物品已处理完，回到 idle
+[13:58:01] 状态切换: getitem -> idle
+[13:58:02] 战斗开关已开启，进入找怪状态
+[13:58:02] 状态切换: idle -> find_monster
+[13:58:05] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:05] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:05] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='孽' reject= box=796,363,896,383 file=
+[13:58:05] 怪物名称识别完成 name=孽 text=孽 raw=孽 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:05] 非清单怪物已从本轮候选移除 logic=143:108 removed=1
+[13:58:05] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=124,107,224,127 file=
+[13:58:05] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=124,107,224,127 file=
+[13:58:05] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=124,107,224,127 file=
+[13:58:05] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=124,107,224,127 file=
+[13:58:05] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='' reject= box=124,107,224,127 file=
+[13:58:05] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=124,107,224,127 file=
+[13:58:05] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=124,107,224,127 file=
+[13:58:05] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=124,107,224,127 file=
+[13:58:05] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=124,107,224,127 file=
+[13:58:05] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='' reject= box=124,107,224,127 file=
+[13:58:05] 怪物名称识别完成 name=未识别 text= raw= mask= color=37afe7-101010 attempt=2 reject= bar={'left': 158, 'top': 71, 'right': 190, 'bottom': 75} pos=174,120
+[13:58:05] 非清单怪物已从本轮候选移除 logic=130:100 removed=1
+[13:58:05] 扫描到 2 个怪物，但没有符合怪物清单的目标，连续无怪 1/1，但还没有保存巡逻点，无法跳巡逻点
+[13:58:05] 状态切换: find_monster -> idle
+[13:58:06] 战斗开关已开启，进入找怪状态
+[13:58:06] 状态切换: idle -> find_monster
+[13:58:07] 没有可攻击怪物，连续无怪 2/1，但还没有保存巡逻点，无法跳巡逻点
+[13:58:07] 状态切换: find_monster -> idle
+[13:58:08] 战斗开关已开启，进入找怪状态
+[13:58:08] 状态切换: idle -> find_monster
+[13:58:08] 没有可攻击怪物，连续无怪 3/1，但还没有保存巡逻点，无法跳巡逻点
+[13:58:08] 状态切换: find_monster -> idle
+[13:58:09] 战斗开关已开启，进入找怪状态
+[13:58:09] 状态切换: idle -> find_monster
+[13:58:10] 没有可攻击怪物，连续无怪 4/1，但还没有保存巡逻点，无法跳巡逻点
+[13:58:10] 状态切换: find_monster -> idle
+[13:58:12] 战斗开关已开启，进入找怪状态
+[13:58:12] 状态切换: idle -> find_monster
+[13:58:14] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:14] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:14] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:14] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:14] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:14] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:14] 锁定怪物 logic=143:108 hp=100% logic_distance=1 近处最近优先 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:14] 状态切换: find_monster -> battle
+[13:58:15] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:17] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:17] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:17] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:17] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:17] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:17] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:17] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:17] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:19] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:19] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:19] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:19] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:19] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:19] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:19] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:20] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:21] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:21] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:21] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:21] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:21] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:21] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:21] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:22] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:24] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:24] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:24] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:24] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:24] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:24] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:24] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:25] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:26] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:26] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:26] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:26] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:26] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:26] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:26] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:27] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:29] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:29] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:29] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:29] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:29] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:29] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:29] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:30] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:31] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:31] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:31] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:31] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:31] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:31] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:31] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:32] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:34] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:34] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:34] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:34] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:34] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:34] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:34] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:34] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:36] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:36] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:36] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:36] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:37] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:39] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:39] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:39] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:39] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:39] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:39] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:39] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:39] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:41] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:41] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:41] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:41] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:41] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:41] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:41] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:42] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:43] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:43] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:43] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:43] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:43] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:43] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:44] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:46] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:46] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:46] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:46] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:46] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:46] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:46] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:46] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:48] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:48] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:48] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:48] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:48] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:48] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:48] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:49] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:50] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:50] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:50] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:50] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:50] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:50] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:50] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:51] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:53] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:53] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:53] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:53] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:53] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:53] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:53] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:53] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:55] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:55] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:55] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:55] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:55] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:55] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:55] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:56] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:58:57] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:57] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:58:57] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:57] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:58:57] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:58:57] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:58:57] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:58:58] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:00] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:00] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:00] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:00] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:00] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:02] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:02] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:02] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:02] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:02] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:02] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:02] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:03] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:04] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:04] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:04] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:04] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:04] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:04] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:04] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:05] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:06] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:06] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:06] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:06] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:06] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:06] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:06] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:07] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:09] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:09] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:09] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:09] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:09] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:09] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:09] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:09] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:11] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:11] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:11] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:11] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:11] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:11] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:11] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:12] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:13] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:13] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:13] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:13] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:13] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:13] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:13] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:14] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:16] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:16] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:16] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:16] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:16] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:16] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:16] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:16] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:18] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:18] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:18] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:18] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:18] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:18] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:18] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:19] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:20] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:20] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:20] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:20] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:20] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:20] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:20] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:21] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:23] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:23] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:23] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:23] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:23] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:23] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:23] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:23] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:25] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:25] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:25] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:25] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:25] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:25] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:25] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:25] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:27] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:27] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:27] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:27] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:27] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:27] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:27] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:28] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:29] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:29] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:29] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:29] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:29] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:29] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:29] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:30] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:32] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:32] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:32] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:32] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:32] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:32] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:32] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:32] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:34] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:34] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:34] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:34] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:34] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:34] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:34] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:35] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:36] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:36] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:36] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:36] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:37] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:39] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:39] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:39] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:39] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:39] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:39] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:39] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:39] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:41] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:41] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:41] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:41] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:41] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:41] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:41] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:42] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:43] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:43] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:43] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:43] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:43] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:43] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:44] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:45] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:45] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:45] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:45] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:45] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:45] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:45] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:46] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:48] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:48] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:48] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:48] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:48] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:48] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:48] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:48] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:50] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:50] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:50] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:50] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:50] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:50] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:50] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:51] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:52] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:52] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:52] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:52] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:52] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:52] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:52] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:53] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:55] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:55] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:55] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:55] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:55] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:55] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:55] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:55] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:57] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:57] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:57] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:57] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:57] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:57] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:57] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[13:59:58] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[13:59:59] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:59] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[13:59:59] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:59] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[13:59:59] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[13:59:59] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[13:59:59] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:00] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:02] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:02] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:02] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:02] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:02] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:02] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:02] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:02] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:04] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:04] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:04] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:04] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:04] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:04] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:04] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:04] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:06] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:06] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:06] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:06] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:06] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:06] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:06] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:07] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:08] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:08] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:08] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:08] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:08] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:08] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:08] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:09] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:11] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:11] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:11] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:11] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:11] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:11] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:11] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:11] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:13] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:13] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:13] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:13] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:13] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:13] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:13] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:14] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:15] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:15] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:15] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:15] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:15] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:15] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:15] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:16] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:17] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:17] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:17] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:17] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:17] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:17] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:17] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:18] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:20] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:20] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:20] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:20] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:20] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:20] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:20] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:20] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:22] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:22] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:22] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:22] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:22] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:22] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:22] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:23] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:24] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:24] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:24] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:24] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:24] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:24] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:24] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:25] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:27] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:27] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:27] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:27] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:27] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:27] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:27] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:27] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:29] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:29] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:29] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:29] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:29] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:29] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:29] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:30] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:31] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:31] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:31] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:31] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:31] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:31] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:31] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:32] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:34] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:34] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:34] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:34] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:34] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:34] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:34] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:34] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:36] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:36] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:36] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:36] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:36] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:38] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:38] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:38] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:38] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:38] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:38] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:38] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:39] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:40] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:40] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:40] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:40] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:40] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:40] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:40] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:41] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:43] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:43] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:43] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:43] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:43] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:43] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:43] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:45] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:45] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:45] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:45] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:45] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:45] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:45] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:46] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:47] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:47] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:47] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:47] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:47] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:47] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:47] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:48] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:50] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:50] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:50] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:50] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:50] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:50] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:50] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:50] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:52] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:52] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:52] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:52] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:52] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:52] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:52] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:53] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:54] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:54] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:54] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:54] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:54] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:54] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:54] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:55] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:57] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:57] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:57] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:57] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:57] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:57] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:57] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:57] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:00:59] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:59] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:00:59] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:59] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:00:59] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:00:59] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:00:59] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:00:59] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:01:01] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:01] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:01] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:01] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:01] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:01:01] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:01:01] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:01:02] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:01:03] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:03] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:03] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:03] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:03] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:01:03] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:01:03] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:01:04] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:01:06] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:06] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:06] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:06] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:06] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:01:06] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:01:06] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:01:06] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:01:08] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:08] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:08] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:08] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:08] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:01:08] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:01:08] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:01:09] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:01:10] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:10] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:10] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:10] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:10] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:01:10] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:01:10] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:01:11] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:01:13] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:13] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:13] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:13] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:13] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:01:13] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:01:13] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:01:13] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:01:15] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:15] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:15] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:15] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:15] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:01:15] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:01:15] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:01:16] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:01:17] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:17] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:17] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:17] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:17] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:01:17] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:01:17] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:01:18] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:01:20] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:20] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=796,363,896,383 file=
+[14:01:20] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:20] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=796,363,896,383 file=
+[14:01:20] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=796,363,896,383 file=
+[14:01:20] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 830, 'top': 327, 'right': 862, 'bottom': 331} pos=846,376
+[14:01:20] 续打锁定目标 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=846 y=376 last_error=0 hp=100% distance=56 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:01:20] 锁定目标仍在 logic=143:108 hp=100% 强匹配 logic_distance=0 screen_distance=22
+[14:01:22] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:22] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:22] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:22] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:22] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='变异骷髅(妖孽)' reject= box=748,331,848,351 file=
+[14:01:22] 怪物名称识别完成 name=变异骷髅(妖孽) text=变异骷髅(妖孽) raw=变异骷髅(妖孽) mask= color=37afe7-101010 attempt=1 reject= bar={'left': 782, 'top': 295, 'right': 814, 'bottom': 299} pos=798,344
+[14:01:22] 续打锁定目标 logic=142:107 hp=100% 强匹配 logic_distance=1 screen_distance=61 攻击怪物 点击成功 button=left method=down_up(1,1) x=798 y=344 last_error=0 hp=100% distance=61 matched=骷髅 text='变异骷髅(妖孽) 变异骷髅(妖孽) 变异骷髅(妖孽)'
+[14:01:23] 锁定目标仍在 logic=142:107 hp=100% 强匹配 logic_distance=0 screen_distance=2
+[14:01:25] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:25] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:25] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:25] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:25] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=748,331,848,351 file=
+[14:01:25] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:25] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:25] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:25] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=748,331,848,351 file=
+[14:01:25] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=748,331,848,351 file=
+[14:01:25] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 782, 'top': 295, 'right': 814, 'bottom': 299} pos=798,344
+[14:01:25] 锁定目标名称不在清单内，释放目标: 跳过怪物，名称不在清单内 text='未识别 :: ::' keywords=['鹿', '半兽人', '稻草人', '钉耙猫', '半兽战士', '毒蜘蛛', '森林雪人', '僵尸', '洞蛆', '骷髅', '骷髅战士', '骷髅精灵', '蝎子', '山洞蝙蝠'] box={'left': 748, 'top': 331, 'right': 848, 'bottom': 351}
+[14:01:25] 状态切换: battle -> find_monster
+[14:01:27] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=220,587,320,607 file=
+[14:01:27] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=220,587,320,607 file=
+[14:01:27] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='洞蛆' reject= box=220,587,320,607 file=
+[14:01:27] 怪物名称识别完成 name=洞蛆 text=洞蛆 raw=洞蛆 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 254, 'top': 551, 'right': 286, 'bottom': 555} pos=270,600
+[14:01:27] 锁定怪物 logic=132:116 hp=100% logic_distance=10 远处最近优先 攻击怪物 点击成功 button=left method=down_up(1,1) x=270 y=600 last_error=0 hp=100% distance=563 matched=洞蛆 text='洞蛆 洞蛆 洞蛆'
+[14:01:27] 状态切换: find_monster -> battle
+[14:01:28] 锁定目标仍在 logic=131:116 hp=100% 强匹配 logic_distance=1 screen_distance=44
+[14:01:30] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=460,406,560,426 file=
+[14:01:30] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=460,406,560,426 file=
+[14:01:30] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=460,406,560,426 file=
+[14:01:30] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=460,406,560,426 file=
+[14:01:30] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='::::' reject=no_chinese_text box=460,406,560,426 file=
+[14:01:30] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=460,406,560,426 file=
+[14:01:30] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=460,406,560,426 file=
+[14:01:30] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=460,406,560,426 file=
+[14:01:30] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=460,406,560,426 file=
+[14:01:30] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':::::' reject=no_chinese_text box=460,406,560,426 file=
+[14:01:30] 怪物名称识别完成 name=未识别 text=::::: raw=::::: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 494, 'top': 370, 'right': 526, 'bottom': 374} pos=510,419
+[14:01:30] 锁定目标名称不在清单内，释放目标: 跳过怪物，名称不在清单内 text='未识别 ::::: :::::' keywords=['鹿', '半兽人', '稻草人', '钉耙猫', '半兽战士', '毒蜘蛛', '森林雪人', '僵尸', '洞蛆', '骷髅', '骷髅战士', '骷髅精灵', '蝎子', '山洞蝙蝠'] box={'left': 460, 'top': 406, 'right': 560, 'bottom': 426}
+[14:01:30] 状态切换: battle -> find_monster
+[14:01:32] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:32] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:32] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:32] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:32] 锁定怪物 logic=128:115 hp=100% logic_distance=8 远处最近优先 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:32] 状态切换: find_monster -> battle
+[14:01:33] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:35] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:35] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:35] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:35] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:35] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:36] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:38] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:38] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:38] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:38] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:38] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:38] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:40] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:40] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:40] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:40] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:40] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:41] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:42] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:42] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:42] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:42] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:42] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:43] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:45] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:45] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:45] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:45] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:45] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:45] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:47] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:47] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:47] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:47] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:47] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:48] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:49] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:49] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:49] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:49] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:49] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:50] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:52] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:52] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:52] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:52] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:52] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:52] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:54] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:54] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:54] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:54] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:54] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:55] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:56] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:56] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:56] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:56] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:56] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:57] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:01:59] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:59] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:01:59] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:01:59] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:01:59] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:01:59] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:02:01] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:01] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:01] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:02:01] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:02:01] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:02] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:02:03] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:03] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:03] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:02:03] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:02:03] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:04] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:02:06] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:06] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:06] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:02:06] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:02:06] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:06] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:02:08] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:08] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:08] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:02:08] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:02:08] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:09] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:02:10] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:10] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:10] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=364,363,464,383 file=
+[14:02:10] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:02:10] 续打锁定目标 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=414 y=376 last_error=0 hp=100% distance=385 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:11] 锁定目标仍在 logic=128:115 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:02:12] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:12] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=364,363,464,383 file=
+[14:02:12] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='尸' reject= box=364,363,464,383 file=
+[14:02:12] 怪物名称识别完成 name=尸 text=尸 raw=尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 398, 'top': 327, 'right': 430, 'bottom': 331} pos=414,376
+[14:02:12] 锁定目标名称不在清单内，释放目标: 跳过怪物，名称不在清单内 text='尸 尸 尸' keywords=['鹿', '半兽人', '稻草人', '钉耙猫', '半兽战士', '毒蜘蛛', '森林雪人', '僵尸', '洞蛆', '骷髅', '骷髅战士', '骷髅精灵', '蝎子', '山洞蝙蝠'] box={'left': 364, 'top': 363, 'right': 464, 'bottom': 383}
+[14:02:12] 状态切换: battle -> find_monster
+[14:02:15] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=556,331,656,351 file=
+[14:02:15] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=556,331,656,351 file=
+[14:02:15] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=556,331,656,351 file=
+[14:02:15] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=556,331,656,351 file=
+[14:02:15] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='髅(妖孽):' reject= box=556,331,656,351 file=
+[14:02:15] 怪物名称识别完成 name=髅(妖孽): text=髅(妖孽): raw=髅(妖孽): mask= color=37afe7-101010 attempt=1 reject= bar={'left': 590, 'top': 295, 'right': 622, 'bottom': 299} pos=606,344
+[14:02:15] 非清单怪物已从本轮候选移除 logic=132:114 removed=1
+[14:02:15] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=268,459,368,479 file=
+[14:02:15] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=268,459,368,479 file=
+[14:02:15] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=268,459,368,479 file=
+[14:02:15] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 302, 'top': 423, 'right': 334, 'bottom': 427} pos=318,472
+[14:02:15] 锁定怪物 logic=127:118 hp=100% logic_distance=9 远处最近优先 攻击怪物 点击成功 button=left method=down_up(1,1) x=318 y=472 last_error=0 hp=100% distance=485 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:15] 状态切换: find_monster -> battle
+[14:02:16] 锁定目标仍在 logic=127:118 hp=100% 强匹配 logic_distance=0 screen_distance=13
+[14:02:18] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=572,363,672,383 file=
+[14:02:18] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=572,363,672,383 file=
+[14:02:18] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=572,363,672,383 file=
+[14:02:18] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=572,363,672,383 file=
+[14:02:18] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=572,363,672,383 file=
+[14:02:18] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=572,363,672,383 file=
+[14:02:18] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=572,363,672,383 file=
+[14:02:18] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=572,363,672,383 file=
+[14:02:18] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=572,363,672,383 file=
+[14:02:18] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=572,363,672,383 file=
+[14:02:18] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 606, 'top': 327, 'right': 638, 'bottom': 331} pos=622,376
+[14:02:18] 锁定目标名称不在清单内，释放目标: 跳过怪物，名称不在清单内 text='未识别 : :' keywords=['鹿', '半兽人', '稻草人', '钉耙猫', '半兽战士', '毒蜘蛛', '森林雪人', '僵尸', '洞蛆', '骷髅', '骷髅战士', '骷髅精灵', '蝎子', '山洞蝙蝠'] box={'left': 572, 'top': 363, 'right': 672, 'bottom': 383}
+[14:02:18] 状态切换: battle -> find_monster
+[14:02:21] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=604,523,704,543 file=
+[14:02:21] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=604,523,704,543 file=
+[14:02:21] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=604,523,704,543 file=
+[14:02:21] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 638, 'top': 487, 'right': 670, 'bottom': 491} pos=654,536
+[14:02:21] 锁定怪物 logic=125:123 hp=100% logic_distance=4 近处最近优先 攻击怪物 点击成功 button=left method=down_up(1,1) x=654 y=536 last_error=0 hp=100% distance=195 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:21] 状态切换: find_monster -> battle
+[14:02:22] 锁定目标仍在 logic=125:122 hp=100% 强匹配 logic_distance=1 screen_distance=37
+[14:02:24] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:24] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:24] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:24] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:24] 续打锁定目标 logic=125:122 hp=100% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=100% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:24] 自动加血触发: hp=53% threshold=85% mouse=0,0 key=F1
+[14:02:25] 锁定目标仍在 logic=125:122 hp=100% 强匹配 logic_distance=0 screen_distance=5
+[14:02:25] 自动加血血量恢复: hp=90% threshold=85%
+[14:02:26] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:26] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:26] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:26] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:26] 续打锁定目标 logic=125:122 hp=93% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=93% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:27] 锁定目标仍在 logic=125:122 hp=83% 强匹配 logic_distance=0 screen_distance=5
+[14:02:29] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:29] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:29] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:29] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:29] 续打锁定目标 logic=125:122 hp=80% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=80% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:29] 锁定目标仍在 logic=125:122 hp=70% 强匹配 logic_distance=0 screen_distance=5
+[14:02:31] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:31] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:31] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:31] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:31] 续打锁定目标 logic=125:122 hp=67% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=67% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:32] 锁定目标仍在 logic=125:122 hp=57% 强匹配 logic_distance=0 screen_distance=5
+[14:02:33] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:33] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:33] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:33] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:33] 续打锁定目标 logic=125:122 hp=47% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=47% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:34] 锁定目标仍在 logic=125:122 hp=33% 强匹配 logic_distance=0 screen_distance=5
+[14:02:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:36] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:36] 续打锁定目标 logic=125:122 hp=23% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=23% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:37] 锁定目标仍在 logic=125:122 hp=3% 强匹配 logic_distance=0 screen_distance=5
+[14:02:39] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,395,848,415 file=
+[14:02:39] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=748,395,848,415 file=
+[14:02:39] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=748,395,848,415 file=
+[14:02:39] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=748,395,848,415 file=
+[14:02:39] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='' reject= box=748,395,848,415 file=
+[14:02:39] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=748,395,848,415 file=
+[14:02:39] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=748,395,848,415 file=
+[14:02:39] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=748,395,848,415 file=
+[14:02:39] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=748,395,848,415 file=
+[14:02:39] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='' reject= box=748,395,848,415 file=
+[14:02:39] 怪物名称识别完成 name=未识别 text= raw= mask= color=37afe7-101010 attempt=2 reject= bar={'left': 782, 'top': 359, 'right': 814, 'bottom': 363} pos=798,408
+[14:02:39] 锁定目标名称不在清单内，释放目标: 跳过怪物，名称不在清单内 text='未识别  ' keywords=['鹿', '半兽人', '稻草人', '钉耙猫', '半兽战士', '毒蜘蛛', '森林雪人', '僵尸', '洞蛆', '骷髅', '骷髅战士', '骷髅精灵', '蝎子', '山洞蝙蝠'] box={'left': 748, 'top': 395, 'right': 848, 'bottom': 415}
+[14:02:39] 状态切换: battle -> find_monster
+[14:02:41] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,587,752,607 file=
+[14:02:41] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=652,587,752,607 file=
+[14:02:41] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=652,587,752,607 file=
+[14:02:41] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=652,587,752,607 file=
+[14:02:41] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=652,587,752,607 file=
+[14:02:41] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,587,752,607 file=
+[14:02:41] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=652,587,752,607 file=
+[14:02:41] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=652,587,752,607 file=
+[14:02:41] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=652,587,752,607 file=
+[14:02:41] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=652,587,752,607 file=
+[14:02:41] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 686, 'top': 551, 'right': 718, 'bottom': 555} pos=702,600
+[14:02:41] 非清单怪物已从本轮候选移除 logic=124:128 removed=1
+[14:02:41] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=412,587,512,607 file=
+[14:02:41] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=412,587,512,607 file=
+[14:02:41] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=412,587,512,607 file=
+[14:02:41] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 446, 'top': 551, 'right': 478, 'bottom': 555} pos=462,600
+[14:02:41] 锁定怪物 logic=120:128 hp=100% logic_distance=6 近处最近优先 攻击怪物 点击成功 button=left method=down_up(1,1) x=462 y=600 last_error=0 hp=100% distance=388 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:41] 状态切换: find_monster -> battle
+[14:02:43] 锁定目标仍在 logic=119:129 hp=100% 强匹配 logic_distance=1 screen_distance=59
+[14:02:44] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:44] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:44] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:44] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:44] 续打锁定目标 logic=119:128 hp=100% 强匹配 logic_distance=1 screen_distance=27 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=100% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:45] 锁定目标仍在 logic=119:128 hp=80% 强匹配 logic_distance=0 screen_distance=5
+[14:02:47] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:47] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:47] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:47] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:47] 续打锁定目标 logic=119:128 hp=70% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=70% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:48] 锁定目标仍在 logic=119:128 hp=63% 强匹配 logic_distance=0 screen_distance=5
+[14:02:48] 自动加血触发: hp=77% threshold=85% mouse=0,0 key=F1
+[14:02:50] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:50] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,395,800,415 file=
+[14:02:50] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:50] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:50] 续打锁定目标 logic=119:128 hp=57% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=57% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:50] 锁定目标仍在 logic=119:128 hp=43% 强匹配 logic_distance=0 screen_distance=5
+[14:02:52] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:52] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:52] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:52] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:52] 续打锁定目标 logic=119:128 hp=40% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=40% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:52] 自动加血触发: hp=73% threshold=85% mouse=0,0 key=F1
+[14:02:52] 锁定目标仍在 logic=119:128 hp=30% 强匹配 logic_distance=0 screen_distance=5
+[14:02:53] 自动加血触发: hp=70% threshold=85% mouse=0,0 key=F1
+[14:02:54] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:54] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:54] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:54] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:54] 续打锁定目标 logic=119:128 hp=30% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=30% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:54] 自动加血触发: hp=80% threshold=85% mouse=0,0 key=F1
+[14:02:54] 锁定目标仍在 logic=119:128 hp=30% 强匹配 logic_distance=0 screen_distance=5
+[14:02:55] 自动加血触发: hp=83% threshold=85% mouse=0,0 key=F1
+[14:02:56] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,395,800,415 file=
+[14:02:56] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:02:56] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=700,395,800,415 file=
+[14:02:56] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:02:56] 续打锁定目标 logic=119:128 hp=30% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=408 last_error=0 hp=30% distance=48 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:02:56] 自动加血血量恢复: hp=87% threshold=85%
+[14:02:56] 锁定目标仍在 logic=119:128 hp=20% 强匹配 logic_distance=0 screen_distance=5
+[14:02:57] 自动加血触发: hp=83% threshold=85% mouse=0,0 key=F1
+[14:02:58] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='::' reject=no_chinese_text box=700,363,800,383 file=
+[14:02:58] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,363,800,383 file=
+[14:02:58] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸:妖' reject= box=700,363,800,383 file=
+[14:02:58] 怪物名称识别完成 name=僵尸:妖 text=僵尸:妖 raw=僵尸:妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 766, 'bottom': 331} pos=750,376
+[14:02:58] 续打锁定目标 logic=119:128 hp=10% 强匹配 logic_distance=0 screen_distance=5 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=0 hp=10% distance=48 matched=僵尸 text='僵尸:妖 僵尸:妖 僵尸:妖'
+[14:02:58] 自动加血触发: hp=77% threshold=85% mouse=0,0 key=F1
+[14:02:59] 锁定目标仍在 logic=119:127 hp=100% 强匹配 logic_distance=1 screen_distance=28
+[14:02:59] 自动加血触发: hp=73% threshold=85% mouse=0,0 key=F1
+[14:03:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,363,800,383 file=
+[14:03:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,363,800,383 file=
+[14:03:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸妖' reject= box=700,363,800,383 file=
+[14:03:00] 怪物名称识别完成 name=僵尸妖 text=僵尸妖 raw=僵尸妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 766, 'bottom': 331} pos=750,376
+[14:03:00] 续打锁定目标 logic=119:127 hp=100% 强匹配 logic_distance=0 screen_distance=4 攻击怪物 点击成功 button=left method=down_up(1,1) x=750 y=376 last_error=0 hp=100% distance=56 matched=僵尸 text='僵尸妖 僵尸妖 僵尸妖'
+[14:03:01] 自动加血触发: hp=80% threshold=85% mouse=0,0 key=F1
+[14:03:01] 锁定目标仍在 logic=119:127 hp=100% 强匹配 logic_distance=0 screen_distance=4
+[14:03:02] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,363,800,383 file=
+[14:03:02] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,363,800,383 file=
+[14:03:02] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='妖' reject= box=700,363,800,383 file=
+[14:03:02] 怪物名称识别完成 name=妖 text=妖 raw=妖 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 734, 'top': 327, 'right': 766, 'bottom': 331} pos=750,376
+[14:03:02] 锁定目标名称不在清单内，释放目标: 跳过怪物，名称不在清单内 text='妖 妖 妖' keywords=['鹿', '半兽人', '稻草人', '钉耙猫', '半兽战士', '毒蜘蛛', '森林雪人', '僵尸', '洞蛆', '骷髅', '骷髅战士', '骷髅精灵', '蝎子', '山洞蝙蝠'] box={'left': 700, 'top': 363, 'right': 800, 'bottom': 383}
+[14:03:02] 状态切换: battle -> find_monster
+[14:03:04] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:04] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:04] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:04] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:04] 锁定怪物 logic=126:134 hp=100% logic_distance=6 近处最近优先 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:04] 状态切换: find_monster -> battle
+[14:03:04] 自动加血血量恢复: hp=87% threshold=85%
+[14:03:05] 自动加血触发: hp=80% threshold=85% mouse=0,0 key=F1
+[14:03:06] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:07] 自动加血触发: hp=73% threshold=85% mouse=0,0 key=F1
+[14:03:07] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:07] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:07] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:07] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:07] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:08] 自动加血触发: hp=63% threshold=85% mouse=0,0 key=F1
+[14:03:08] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:09] 自动加血触发: hp=67% threshold=85% mouse=0,0 key=F1
+[14:03:09] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:09] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:09] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:09] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:09] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:10] 自动加血触发: hp=60% threshold=85% mouse=0,0 key=F1
+[14:03:10] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:12] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:12] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:12] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:12] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:12] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:12] 自动加血触发: hp=43% threshold=85% mouse=0,0 key=F1
+[14:03:12] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:13] 自动加血触发: hp=50% threshold=85% mouse=0,0 key=F1
+[14:03:14] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:14] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:14] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:14] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:14] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:14] 自动加血触发: hp=73% threshold=85% mouse=0,0 key=F1
+[14:03:14] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:15] 自动加血触发: hp=77% threshold=85% mouse=0,0 key=F1
+[14:03:16] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:16] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:16] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:16] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:16] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:16] 自动加血血量恢复: hp=87% threshold=85%
+[14:03:16] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:18] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:18] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:18] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:18] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:18] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:19] 自动加血触发: hp=83% threshold=85% mouse=0,0 key=F1
+[14:03:19] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:21] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:21] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:21] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:21] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:21] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:21] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:22] 自动加血血量恢复: hp=87% threshold=85%
+[14:03:23] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:23] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:23] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:23] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:23] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:24] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:25] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:25] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:25] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:25] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:25] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:26] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:28] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:28] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:28] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:28] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:28] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:28] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:30] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:30] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:30] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:30] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:30] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:30] 自动加血触发: hp=77% threshold=85% mouse=0,0 key=F1
+[14:03:31] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:32] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:32] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:32] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:32] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:32] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:32] 自动加血触发: hp=80% threshold=85% mouse=0,0 key=F1
+[14:03:33] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:33] 自动加血触发: hp=73% threshold=85% mouse=0,0 key=F1
+[14:03:34] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:34] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:34] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1036,587,1136,607 file=
+[14:03:34] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:34] 续打锁定目标 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12 攻击怪物 点击成功 button=left method=down_up(1,1) x=1086 y=600 last_error=0 hp=100% distance=348 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:35] 自动加血触发: hp=57% threshold=85% mouse=0,0 key=F1
+[14:03:35] 锁定目标仍在 logic=126:134 hp=100% 强匹配 logic_distance=0 screen_distance=12
+[14:03:36] 自动加血触发: hp=60% threshold=85% mouse=0,0 key=F1
+[14:03:37] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:37] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:37] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:37] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:37] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=1036,587,1136,607 file=
+[14:03:37] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:37] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:37] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:37] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=1036,587,1136,607 file=
+[14:03:37] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=1036,587,1136,607 file=
+[14:03:37] 怪物名称识别完成 name=未识别 text=:: raw=:: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 1070, 'top': 551, 'right': 1102, 'bottom': 555} pos=1086,600
+[14:03:37] 锁定目标名称不在清单内，释放目标: 跳过怪物，名称不在清单内 text='未识别 :: ::' keywords=['鹿', '半兽人', '稻草人', '钉耙猫', '半兽战士', '毒蜘蛛', '森林雪人', '僵尸', '洞蛆', '骷髅', '骷髅战士', '骷髅精灵', '蝎子', '山洞蝙蝠'] box={'left': 1036, 'top': 587, 'right': 1136, 'bottom': 607}
+[14:03:37] 状态切换: battle -> find_monster
+[14:03:37] 自动加血触发: hp=67% threshold=85% mouse=0,0 key=F1
+[14:03:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=700,395,800,415 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='' reject= box=700,395,800,415 file=
+[14:03:43] 怪物名称识别完成 name=未识别 text= raw= mask= color=37afe7-101010 attempt=2 reject= bar={'left': 734, 'top': 359, 'right': 766, 'bottom': 363} pos=750,408
+[14:03:43] 非清单怪物已从本轮候选移除 logic=119:128 removed=8
+[14:03:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=940,363,1040,383 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=940,363,1040,383 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=940,363,1040,383 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=940,363,1040,383 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='::::::' reject=no_chinese_text box=940,363,1040,383 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=940,363,1040,383 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=940,363,1040,383 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=940,363,1040,383 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=940,363,1040,383 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw='::::::' reject=no_chinese_text box=940,363,1040,383 file=
+[14:03:43] 怪物名称识别完成 name=未识别 text=:::::: raw=:::::: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 974, 'top': 327, 'right': 1006, 'bottom': 331} pos=990,376
+[14:03:43] 非清单怪物已从本轮候选移除 logic=124:127 removed=1
+[14:03:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1132,43,1232,63 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1132,43,1232,63 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=1132,43,1232,63 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=1132,43,1232,63 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=1132,43,1232,63 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=1132,43,1232,63 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=1132,43,1232,63 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=1132,43,1232,63 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=1132,43,1232,63 file=
+[14:03:43] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':' reject=no_chinese_text box=1132,43,1232,63 file=
+[14:03:43] 怪物名称识别完成 name=未识别 text=: raw=: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 1166, 'top': 7, 'right': 1198, 'bottom': 11} pos=1182,56
+[14:03:43] 非清单怪物已从本轮候选移除 logic=127:117 removed=1
+[14:03:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1516,555,1600,575 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1516,555,1600,575 file=
+[14:03:43] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1516,555,1600,575 file=
+[14:03:43] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1550, 'top': 519, 'right': 1582, 'bottom': 523} pos=1566,568
+[14:03:43] 锁定怪物 logic=133:134 hp=100% logic_distance=13 远处最近优先 攻击怪物 点击成功 button=left method=down_up(1,1) x=1566 y=568 last_error=0 hp=100% distance=700 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:43] 状态切换: find_monster -> battle
+[14:03:44] 锁定目标仍在 logic=134:134 hp=100% 强匹配 logic_distance=1 screen_distance=49
+[14:03:47] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,555,752,575 file=
+[14:03:47] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=652,555,752,575 file=
+[14:03:47] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='' reject= box=652,555,752,575 file=
+[14:03:47] 怪物名OCR调用 attempt=1 color=ffff00-101010 sim=0.85 raw='' reject= box=652,555,752,575 file=
+[14:03:47] 怪物名OCR调用 attempt=1 color=37afe7-101010 sim=0.85 raw='::' reject=no_chinese_text box=652,555,752,575 file=
+[14:03:47] 怪物名OCR调用 attempt=2 color=00f7f7-101010 sim=0.85 raw='' reject= box=652,555,752,575 file=
+[14:03:47] 怪物名OCR调用 attempt=2 color=00ffff-101010 sim=0.85 raw='' reject= box=652,555,752,575 file=
+[14:03:47] 怪物名OCR调用 attempt=2 color=ffffff-101010 sim=0.85 raw='' reject= box=652,555,752,575 file=
+[14:03:47] 怪物名OCR调用 attempt=2 color=ffff00-101010 sim=0.85 raw='' reject= box=652,555,752,575 file=
+[14:03:47] 怪物名OCR调用 attempt=2 color=37afe7-101010 sim=0.85 raw=':::' reject=no_chinese_text box=652,555,752,575 file=
+[14:03:47] 怪物名称识别完成 name=未识别 text=::: raw=::: mask= color=37afe7-101010 attempt=2 reject=no_chinese_text bar={'left': 686, 'top': 519, 'right': 718, 'bottom': 523} pos=702,568
+[14:03:47] 锁定目标名称不在清单内，释放目标: 跳过怪物，名称不在清单内 text='未识别 ::: :::' keywords=['鹿', '半兽人', '稻草人', '钉耙猫', '半兽战士', '毒蜘蛛', '森林雪人', '僵尸', '洞蛆', '骷髅', '骷髅战士', '骷髅精灵', '蝎子', '山洞蝙蝠'] box={'left': 652, 'top': 555, 'right': 752, 'bottom': 575}
+[14:03:47] 状态切换: battle -> find_monster
+[14:03:48] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:03:48] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:03:48] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1180,427,1280,447 file=
+[14:03:48] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1214, 'top': 391, 'right': 1246, 'bottom': 395} pos=1230,440
+[14:03:48] 锁定怪物 logic=145:129 hp=100% logic_distance=8 远处最近优先 攻击怪物 点击成功 button=left method=down_up(1,1) x=1230 y=440 last_error=0 hp=100% distance=433 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:48] 状态切换: find_monster -> battle
+[14:03:49] 自动加血触发: hp=73% threshold=85% mouse=0,0 key=F1
+[14:03:50] 自动加血触发: hp=77% threshold=85% mouse=0,0 key=F1
+[14:03:50] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:03:51] 自动加血触发: hp=83% threshold=85% mouse=0,0 key=F1
+[14:03:51] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:03:51] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:03:51] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1180,427,1280,447 file=
+[14:03:51] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1214, 'top': 391, 'right': 1246, 'bottom': 395} pos=1230,440
+[14:03:51] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=1230 y=440 last_error=0 hp=100% distance=433 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:52] 自动加血血量恢复: hp=87% threshold=85%
+[14:03:52] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:03:54] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:03:54] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:03:54] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1180,427,1280,447 file=
+[14:03:54] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1214, 'top': 391, 'right': 1246, 'bottom': 395} pos=1230,440
+[14:03:54] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=1230 y=440 last_error=0 hp=100% distance=433 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:55] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:03:56] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:03:56] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:03:56] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1180,427,1280,447 file=
+[14:03:56] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1214, 'top': 391, 'right': 1246, 'bottom': 395} pos=1230,440
+[14:03:56] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=1230 y=440 last_error=0 hp=100% distance=433 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:57] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:03:58] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:03:58] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:03:58] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1180,427,1280,447 file=
+[14:03:58] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1214, 'top': 391, 'right': 1246, 'bottom': 395} pos=1230,440
+[14:03:58] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=1230 y=440 last_error=0 hp=100% distance=433 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:03:59] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:04:01] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:04:01] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:04:01] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1180,427,1280,447 file=
+[14:04:01] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1214, 'top': 391, 'right': 1246, 'bottom': 395} pos=1230,440
+[14:04:01] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=1230 y=440 last_error=0 hp=100% distance=433 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:02] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:04:03] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:04:03] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:04:03] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1180,427,1280,447 file=
+[14:04:03] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1214, 'top': 391, 'right': 1246, 'bottom': 395} pos=1230,440
+[14:04:03] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=1230 y=440 last_error=0 hp=100% distance=433 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:04] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:04:06] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:04:06] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1180,427,1280,447 file=
+[14:04:06] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1180,427,1280,447 file=
+[14:04:06] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1214, 'top': 391, 'right': 1246, 'bottom': 395} pos=1230,440
+[14:04:06] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25 攻击怪物 点击成功 button=left method=down_up(1,1) x=1230 y=440 last_error=0 hp=100% distance=433 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:06] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=25
+[14:04:08] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:08] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:08] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1132,427,1232,447 file=
+[14:04:08] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1166, 'top': 391, 'right': 1198, 'bottom': 395} pos=1182,440
+[14:04:08] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23 攻击怪物 点击成功 button=left method=down_up(1,1) x=1182 y=440 last_error=0 hp=100% distance=386 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:09] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23
+[14:04:10] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:10] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:10] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1132,427,1232,447 file=
+[14:04:10] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1166, 'top': 391, 'right': 1198, 'bottom': 395} pos=1182,440
+[14:04:10] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23 攻击怪物 点击成功 button=left method=down_up(1,1) x=1182 y=440 last_error=0 hp=100% distance=386 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:11] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23
+[14:04:13] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:13] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:13] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1132,427,1232,447 file=
+[14:04:13] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1166, 'top': 391, 'right': 1198, 'bottom': 395} pos=1182,440
+[14:04:13] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23 攻击怪物 点击成功 button=left method=down_up(1,1) x=1182 y=440 last_error=0 hp=100% distance=386 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:13] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23
+[14:04:15] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:15] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:15] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1132,427,1232,447 file=
+[14:04:15] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1166, 'top': 391, 'right': 1198, 'bottom': 395} pos=1182,440
+[14:04:15] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23 攻击怪物 点击成功 button=left method=down_up(1,1) x=1182 y=440 last_error=0 hp=100% distance=386 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:16] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23
+[14:04:17] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:17] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:17] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1132,427,1232,447 file=
+[14:04:17] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1166, 'top': 391, 'right': 1198, 'bottom': 395} pos=1182,440
+[14:04:17] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23 攻击怪物 点击成功 button=left method=down_up(1,1) x=1182 y=440 last_error=0 hp=100% distance=386 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:18] 锁定目标仍在 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23
+[14:04:20] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:20] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1132,427,1232,447 file=
+[14:04:20] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1132,427,1232,447 file=
+[14:04:20] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1166, 'top': 391, 'right': 1198, 'bottom': 395} pos=1182,440
+[14:04:20] 续打锁定目标 logic=145:129 hp=100% 强匹配 logic_distance=0 screen_distance=23 攻击怪物 点击成功 button=left method=down_up(1,1) x=1182 y=440 last_error=0 hp=100% distance=386 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:20] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=1 screen_distance=55
+[14:04:22] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:22] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:22] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:22] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:22] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:23] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:24] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:24] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:24] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:24] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:24] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:25] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:27] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:27] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:27] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:27] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:27] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:28] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:29] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:29] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:29] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:29] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:29] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:30] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:31] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:31] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:31] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:31] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:31] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:32] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:34] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:34] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:34] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:34] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:34] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:35] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:36] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:36] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:36] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:36] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:36] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:37] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:38] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:38] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:38] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:38] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:38] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:39] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:41] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:41] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:41] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:41] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:41] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:42] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:43] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:43] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:43] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:43] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:43] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:44] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:46] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:46] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:46] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:46] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:46] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:46] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:48] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:48] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:48] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:48] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:48] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:49] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:50] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:50] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:50] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:50] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:50] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:51] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:53] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:53] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:53] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:53] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:53] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:53] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:55] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:55] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:55] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:55] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:55] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:56] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:04:57] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:57] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:04:57] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:04:57] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:04:57] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:04:58] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:05:00] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:05:00] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:05:00] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:05:00] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:05:00] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:05:00] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:05:02] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:05:02] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:05:02] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:05:02] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:05:02] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:05:03] 锁定目标仍在 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20
+[14:05:04] 怪物名OCR调用 attempt=1 color=00f7f7-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:05:04] 怪物名OCR调用 attempt=1 color=00ffff-101010 sim=0.85 raw='' reject= box=1084,427,1184,447 file=
+[14:05:04] 怪物名OCR调用 attempt=1 color=ffffff-101010 sim=0.85 raw='僵尸' reject= box=1084,427,1184,447 file=
+[14:05:04] 怪物名称识别完成 name=僵尸 text=僵尸 raw=僵尸 mask= color=ffffff-101010 attempt=1 reject= bar={'left': 1118, 'top': 391, 'right': 1150, 'bottom': 395} pos=1134,440
+[14:05:04] 续打锁定目标 logic=144:129 hp=100% 强匹配 logic_distance=0 screen_distance=20 攻击怪物 点击成功 button=left method=down_up(1,1) x=1134 y=440 last_error=0 hp=100% distance=338 matched=僵尸 text='僵尸 僵尸 僵尸'
+[14:05:05] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:05] 自动加血检测失败: 窗口尺寸异常 size=-32000x-32000
+[14:05:06] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:07] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:08] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:09] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:10] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:11] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:12] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:13] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:14] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:15] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:16] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:17] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:18] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:19] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:20] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:21] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:22] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:23] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:24] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:25] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:26] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:27] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:28] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:29] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:30] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:31] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:32] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:33] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:34] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:35] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:36] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:38] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:39] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:40] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:41] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:42] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:43] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:44] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:45] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:46] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:47] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:48] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:49] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:50] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:51] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:52] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:53] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:54] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:55] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:56] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:57] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:58] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:05:59] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:00] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:01] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:02] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:03] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:04] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:05] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:06] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:07] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:08] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:09] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:10] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:11] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:12] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:13] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:14] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:15] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:16] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:17] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:18] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:19] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:20] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:21] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:22] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:24] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:25] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:26] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:27] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:28] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:29] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:30] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:31] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:32] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:33] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:34] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:35] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:36] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:37] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:38] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:39] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:40] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:41] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:42] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:43] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:44] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:45] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:46] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:47] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:48] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:49] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:50] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:51] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:52] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:53] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:54] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:55] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:56] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:57] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:58] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:06:59] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:00] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:01] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:02] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:03] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:04] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:05] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:06] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:08] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:09] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:10] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:11] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:12] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:13] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:14] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:15] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:16] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:17] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:18] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:19] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:20] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:21] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:22] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:23] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:24] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:25] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:26] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:27] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:28] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:29] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:30] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:31] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:32] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:33] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:34] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:35] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:36] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:37] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:38] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:39] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:40] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:41] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:42] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:43] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:44] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:45] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:46] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:47] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:48] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:49] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:50] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:51] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:52] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:53] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:54] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:55] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:57] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:58] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:07:59] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:00] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:01] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:02] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:03] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:04] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:05] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:06] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:07] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:08] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:09] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:10] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:11] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:12] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:13] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:14] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:15] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:16] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:17] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:18] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:19] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:20] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:21] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:22] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:23] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:24] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:25] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:26] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:27] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:28] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:29] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:30] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:31] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:32] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:33] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:34] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:35] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:36] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:37] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:38] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:39] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:40] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:41] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:43] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:44] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:45] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:46] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:47] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:48] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:49] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:50] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:51] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:52] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:53] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:54] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:55] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:56] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:57] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:58] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:08:59] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:00] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:01] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:02] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:03] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:04] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:05] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:06] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:07] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:08] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:09] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:10] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:11] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:12] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:13] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:14] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:15] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:16] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:17] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:18] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:19] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:20] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:21] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:22] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:23] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:24] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:25] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:26] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:28] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:29] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:30] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:31] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:32] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:33] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:34] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:35] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:36] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:37] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:38] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:39] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:40] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:41] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:42] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:43] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:44] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:45] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:46] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:47] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:48] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:49] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:50] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:51] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:52] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:53] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:54] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:55] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:56] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:57] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:58] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:09:59] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:00] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:01] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:02] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:03] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:04] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:05] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:06] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:07] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:08] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:09] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:10] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:11] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:12] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:13] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:15] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:16] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:17] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:18] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:19] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:20] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:21] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:22] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:23] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:24] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:25] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:26] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:27] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:28] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:29] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:30] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:31] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:32] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:33] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:34] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:35] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:36] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:37] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:38] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:39] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:40] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:41] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:42] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:43] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:44] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:45] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:46] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:47] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:48] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:49] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:50] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:51] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:52] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:53] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:54] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:55] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:56] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:57] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:58] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:10:59] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:00] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:01] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:03] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:04] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:05] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:06] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:07] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:08] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:09] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:10] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:11] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:12] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:13] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:14] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:15] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:16] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:17] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:18] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:19] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:20] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:21] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:22] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:23] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:24] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:25] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:26] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:27] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:28] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:29] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:30] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:31] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:32] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:33] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:34] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:35] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:36] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:37] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:38] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:39] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:40] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:41] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:42] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:43] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:44] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:45] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:47] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:48] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:49] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:50] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:51] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:52] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:53] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:54] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:55] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:56] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:57] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:58] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:11:59] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:00] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:01] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:02] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:03] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:04] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:05] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:06] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:07] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:08] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:09] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:10] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:11] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:12] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:13] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:14] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:15] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:16] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
+[14:12:17] 锁定目标复查失败，不释放目标: 窗口尺寸异常 size=-32000x-32000
