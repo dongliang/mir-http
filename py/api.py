@@ -219,6 +219,12 @@ AUTO_HEAL_MIN_THRESHOLD_PERCENT = 1
 AUTO_HEAL_MAX_THRESHOLD_PERCENT = 100
 AUTO_HEAL_MIN_INTERVAL_MS = 500
 AUTO_HEAL_MAX_INTERVAL_MS = 60000
+# 宝宝加血默认配置：找怪时识别到当前账号召唤物后按阈值触发。
+PET_HEAL_DEFAULT_THRESHOLD_PERCENT = 50
+PET_HEAL_MIN_THRESHOLD_PERCENT = 1
+PET_HEAL_MAX_THRESHOLD_PERCENT = 100
+PET_HEAL_DEFAULT_KEY = "F2"
+PET_HEAL_COOLDOWN_SECONDS = 3.0
 # idle 卡住保护默认配置和边界。
 IDLE_STUCK_DEFAULT_SECONDS = 30
 IDLE_STUCK_MIN_SECONDS = 5
@@ -1468,6 +1474,7 @@ def get_status(
     auto_heal_state=None,
     idle_stuck_state=None,
     battle_runtime_state=None,
+    pet_heal_state=None,
 ):
     return {
         "player": {
@@ -1486,6 +1493,7 @@ def get_status(
         "monster_name_colors": get_monster_name_color_status(),
         "state": make_state_status(current_state),
         "auto_heal": make_auto_heal_status(app_settings, auto_heal_state),
+        "pet_heal": make_pet_heal_status(app_settings, pet_heal_state),
         "idle_stuck": make_idle_stuck_status(app_settings, idle_stuck_state),
         "getitem": make_getitem_status(app_settings),
     }
@@ -1537,10 +1545,11 @@ def make_patrol_status(patrol_points, patrol_state, patrol_control=None):
 # 生成战斗开关状态。
 def make_battle_status(battle_control, app_settings=None, battle_runtime_state=None):
     runtime = battle_runtime_state or {}
+    limit = get_no_monster_scan_limit(app_settings or {})
     return {
         "enabled": bool((battle_control or {}).get("enabled", False)),
-        "no_monster_scan_limit": get_no_monster_scan_limit(app_settings or {}),
-        "no_monster_count": int(runtime.get("no_monster_count") or 0),
+        "no_monster_scan_limit": limit,
+        "no_monster_count": normalize_number(runtime.get("no_monster_count"), 0, 0, limit),
         "last_no_monster_reason": runtime.get("last_no_monster_reason", ""),
         "locked_target": make_locked_target_status(runtime.get("last_target", {})),
         "ignored_targets": make_ignored_targets_status(runtime.get("ignored_targets", [])),
@@ -1644,6 +1653,29 @@ def make_auto_heal_status(app_settings, auto_heal_state=None):
         ),
         "last_hp_percent": last_hp_percent,
         "triggered_low": bool(state.get("triggered_low", False)),
+        "last_message": state.get("last_message", ""),
+    }
+
+
+# 生成宝宝加血状态。
+def make_pet_heal_status(app_settings, pet_heal_state=None):
+    state = pet_heal_state or {}
+    last_hp_percent = state.get("last_hp_percent", "")
+
+    if last_hp_percent is None:
+        last_hp_percent = ""
+
+    return {
+        "enabled": bool(app_settings.get("pet_heal_enabled", False)),
+        "threshold_percent": normalize_number(
+            app_settings.get("pet_heal_threshold_percent"),
+            PET_HEAL_DEFAULT_THRESHOLD_PERCENT,
+            PET_HEAL_MIN_THRESHOLD_PERCENT,
+            PET_HEAL_MAX_THRESHOLD_PERCENT,
+        ),
+        "key": normalize_pet_heal_key(app_settings.get("pet_heal_key", PET_HEAL_DEFAULT_KEY)),
+        "last_hp_percent": last_hp_percent,
+        "last_target": dict(state.get("last_target", {})),
         "last_message": state.get("last_message", ""),
     }
 
@@ -3461,6 +3493,49 @@ def update_auto_heal_settings(app_settings, auto_heal_state, data):
     }
 
 
+# 更新宝宝加血设置：保存开关、触发血量和加血按键。
+def update_pet_heal_settings(app_settings, pet_heal_state, data):
+    data = data if isinstance(data, dict) else {}
+    enabled = normalize_bool(data.get("enabled", app_settings.get("pet_heal_enabled", False)))
+    threshold_percent = normalize_number(
+        data.get("threshold_percent"),
+        PET_HEAL_DEFAULT_THRESHOLD_PERCENT,
+        PET_HEAL_MIN_THRESHOLD_PERCENT,
+        PET_HEAL_MAX_THRESHOLD_PERCENT,
+    )
+    key = normalize_pet_heal_key(data.get("key", app_settings.get("pet_heal_key", PET_HEAL_DEFAULT_KEY)))
+
+    app_settings["pet_heal_enabled"] = enabled
+    app_settings["pet_heal_threshold_percent"] = threshold_percent
+    app_settings["pet_heal_key"] = key
+
+    state_text = "开" if enabled else "关"
+    message = f"宝宝加血设置已更新: {state_text} threshold={threshold_percent}% key={key}"
+
+    if pet_heal_state is not None:
+        pet_heal_state["last_message"] = message
+
+    return {
+        "success": True,
+        "message": message,
+        "pet_heal": make_pet_heal_status(app_settings, pet_heal_state),
+    }
+
+
+# 规整宝宝加血按键：无效按键回退到默认值。
+def normalize_pet_heal_key(key):
+    text = str(key or "").strip().upper()
+
+    if not text:
+        text = PET_HEAL_DEFAULT_KEY
+
+    try:
+        key_name, _ = resolve_keyboard_key(text)
+        return key_name
+    except ValueError:
+        return PET_HEAL_DEFAULT_KEY
+
+
 # 更新 idle 卡住保护设置：规整页面输入并重新开始停留计时。
 def update_idle_stuck_settings(app_settings, idle_stuck_state, data):
     data = data if isinstance(data, dict) else {}
@@ -3507,6 +3582,7 @@ def update_battle_settings(app_settings, battle_runtime_state, data):
     message = f"战斗设置已更新: no_monster_scan_limit={limit}"
 
     if battle_runtime_state is not None:
+        clamp_no_monster_count(battle_runtime_state, limit)
         battle_runtime_state["last_message"] = message
 
     return {
@@ -3730,8 +3806,118 @@ def set_auto_heal_message(auto_heal_state, message, log_once=True):
     if auto_heal_state.get("last_logged_message") == message:
         return ""
 
-    auto_heal_state["last_logged_message"] = message
+        auto_heal_state["last_logged_message"] = message
     return message
+
+
+# 找怪时识别到宝宝后，按血量阈值尝试给宝宝加血。
+def maybe_heal_pet(monster, filter_result, app_settings, pet_heal_state):
+    if not app_settings.get("pet_heal_enabled", False):
+        return {
+            "success": True,
+            "healed": False,
+            "message": "",
+        }
+
+    if pet_heal_state is None:
+        pet_heal_state = {}
+
+    hp_percent = get_monster_hp_percent(monster)
+    pet_heal_state["last_hp_percent"] = hp_percent
+    pet_heal_state["last_target"] = make_pet_heal_target_status(monster, filter_result)
+    threshold_percent = normalize_number(
+        app_settings.get("pet_heal_threshold_percent"),
+        PET_HEAL_DEFAULT_THRESHOLD_PERCENT,
+        PET_HEAL_MIN_THRESHOLD_PERCENT,
+        PET_HEAL_MAX_THRESHOLD_PERCENT,
+    )
+
+    if hp_percent >= threshold_percent:
+        message = f"宝宝血量正常: hp={hp_percent}% threshold={threshold_percent}%"
+        pet_heal_state["last_message"] = message
+        return {
+            "success": True,
+            "healed": False,
+            "message": message,
+        }
+
+    now = time.time()
+    last_healed_at = float(pet_heal_state.get("last_healed_at") or 0.0)
+
+    if now - last_healed_at < PET_HEAL_COOLDOWN_SECONDS:
+        message = (
+            f"宝宝加血冷却中: hp={hp_percent}% threshold={threshold_percent}% "
+            f"cooldown={PET_HEAL_COOLDOWN_SECONDS:g}s"
+        )
+        pet_heal_state["last_message"] = message
+        return {
+            "success": True,
+            "healed": False,
+            "message": message,
+        }
+
+    position = filter_result.get("position") or (monster or {}).get("position", {})
+
+    try:
+        x = int(position.get("x"))
+        y = int(position.get("y"))
+    except (TypeError, ValueError, AttributeError):
+        message = f"宝宝加血失败: 位置异常 position={position}"
+        pet_heal_state["last_message"] = message
+        return {
+            "success": False,
+            "healed": False,
+            "message": message,
+        }
+
+    move_success, move_message = op.move_mouse_to(x, y)
+
+    if not move_success:
+        message = f"宝宝加血移动鼠标失败: hp={hp_percent}% {move_message}"
+        pet_heal_state["last_message"] = message
+        return {
+            "success": False,
+            "healed": False,
+            "message": message,
+        }
+
+    key = normalize_pet_heal_key(app_settings.get("pet_heal_key", PET_HEAL_DEFAULT_KEY))
+    key_result = press_keyboard(key, hold_ms=120, repeat=1, interval_ms=80)
+
+    if not key_result.get("success"):
+        message = f"宝宝加血按键失败: hp={hp_percent}% key={key} {key_result.get('message', '')}"
+        pet_heal_state["last_message"] = message
+        return {
+            "success": False,
+            "healed": False,
+            "message": message,
+        }
+
+    pet_heal_state["last_healed_at"] = now
+    message = f"宝宝加血触发: hp={hp_percent}% threshold={threshold_percent}% mouse={x},{y} key={key}"
+    pet_heal_state["last_message"] = message
+    return {
+        "success": True,
+        "healed": True,
+        "message": message,
+    }
+
+
+# 生成宝宝加血最近目标状态。
+def make_pet_heal_target_status(monster, filter_result):
+    monster = monster or {}
+    filter_result = filter_result or {}
+    position = filter_result.get("position") or monster.get("position", {})
+    logic = monster.get("logic", {})
+    x = parse_optional_int((position or {}).get("x")) or 0
+    y = parse_optional_int((position or {}).get("y")) or 0
+    return {
+        "name": filter_result.get("text", ""),
+        "hp_percent": get_monster_hp_percent(monster),
+        "x": x,
+        "y": y,
+        "logic": make_logic_status(logic),
+    }
 
 
 # 读取玩家自身血量百分比：用绿色自身血条特征图定位头顶血条。
@@ -4375,17 +4561,32 @@ def reset_no_monster_count(battle_runtime_state, reason=""):
 
 
 # 增加连续无怪计数。
-def increment_no_monster_count(battle_runtime_state, reason=""):
+def increment_no_monster_count(battle_runtime_state, reason="", limit=None):
     if battle_runtime_state is None:
         return 0
 
     count = int(battle_runtime_state.get("no_monster_count") or 0) + 1
     battle_runtime_state["no_monster_count"] = count
+
+    if limit is not None:
+        count = clamp_no_monster_count(battle_runtime_state, limit)
+
     battle_runtime_state["last_no_monster_reason"] = reason
 
     if reason:
         battle_runtime_state["last_message"] = f"连续无怪 {count} 次: {reason}"
 
+    return count
+
+
+# 把连续无怪计数限制在当前设置范围内。
+def clamp_no_monster_count(battle_runtime_state, limit):
+    if battle_runtime_state is None:
+        return 0
+
+    limit = normalize_number(limit, NO_MONSTER_SCAN_LIMIT_DEFAULT, NO_MONSTER_SCAN_LIMIT_MIN, NO_MONSTER_SCAN_LIMIT_MAX)
+    count = normalize_number(battle_runtime_state.get("no_monster_count"), 0, 0, limit)
+    battle_runtime_state["no_monster_count"] = count
     return count
 
 

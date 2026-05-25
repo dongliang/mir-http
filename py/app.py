@@ -21,6 +21,9 @@ app_settings = {
     "auto_heal_enabled": False,
     "auto_heal_threshold_percent": 50,
     "auto_heal_interval_ms": 1000,
+    "pet_heal_enabled": False,
+    "pet_heal_threshold_percent": api.PET_HEAL_DEFAULT_THRESHOLD_PERCENT,
+    "pet_heal_key": api.PET_HEAL_DEFAULT_KEY,
     "idle_stuck_enabled": True,
     "idle_stuck_seconds": 30,
     "monster_name_debug_enabled": False,
@@ -59,6 +62,13 @@ auto_heal_state = {
     "triggered_low": False,
     "last_message": "",
 }
+# 宝宝加血状态：由找怪流程识别当前账号召唤物时更新。
+pet_heal_state = {
+    "last_healed_at": 0.0,
+    "last_hp_percent": "",
+    "last_target": {},
+    "last_message": "",
+}
 # idle 卡住保护状态：跨 idle/battle 保存坐标停留计时。
 idle_stuck_state = {
     "last_coordinate": None,
@@ -90,6 +100,7 @@ game_data = {
     "battle_control": battle_control,
     "battle_runtime_state": battle_runtime_state,
     "auto_heal_state": auto_heal_state,
+    "pet_heal_state": pet_heal_state,
     "idle_stuck_state": idle_stuck_state,
 }
 # 停止事件：通知后台刷新循环在程序退出时结束。
@@ -117,6 +128,7 @@ def main() -> None:
         battle_control,
         current_state,
         auto_heal_state,
+        pet_heal_state,
         idle_stuck_state,
         battle_runtime_state,
         game_data,

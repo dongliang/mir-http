@@ -73,17 +73,39 @@ def update_frame(game_data, state_data):
         if attack.get("reason") == "monster_filter_mismatch":
             target_logic = target.get("logic", {})
             before_count = len(monsters)
+            pet_heal = None
             skipped.append({
                 "id": target.get("id", 0),
                 "logic": target_logic,
                 "message": attack.get("message", ""),
             })
+
+            if attack.get("filter_reason") == "player_summon":
+                pet_heal = api.maybe_heal_pet(
+                    target,
+                    attack.get("filter", {}),
+                    game_data.get("settings", {}),
+                    game_data.get("pet_heal_state"),
+                )
+
+                if pet_heal.get("message"):
+                    logs.append(pet_heal["message"])
+
             api.add_ignored_target(runtime, target_logic, "monster_filter_mismatch")
             monsters = remove_same_logic_monsters(monsters, target_logic)
             removed_count = before_count - len(monsters)
             logs.append(
                 f"非清单怪物已从本轮候选移除 logic={format_logic(target_logic)} removed={removed_count}"
             )
+
+            if pet_heal and pet_heal.get("healed"):
+                api.clear_battle_locked_target(runtime, "宝宝加血后重新找怪")
+                return {
+                    "state": "find_monster",
+                    "logs": logs,
+                    "message": "宝宝加血完成，重新找怪",
+                }
+
             continue
 
         return {
@@ -97,8 +119,8 @@ def update_frame(game_data, state_data):
 def handle_no_target(game_data, runtime, scan_count, skipped, choose_reason, logs):
     settings = game_data.get("settings", {})
     reason = make_no_target_reason(scan_count, skipped, choose_reason)
-    count = api.increment_no_monster_count(runtime, reason)
     limit = api.get_no_monster_scan_limit(settings)
+    count = api.increment_no_monster_count(runtime, reason, limit)
     message = f"{reason}，连续无怪 {count}/{limit}"
 
     if count < limit:

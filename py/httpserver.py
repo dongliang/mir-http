@@ -48,6 +48,7 @@ def run_server(
     battle_control,
     current_state,
     auto_heal_state,
+    pet_heal_state,
     idle_stuck_state,
     battle_runtime_state,
     game_data,
@@ -64,6 +65,7 @@ def run_server(
         battle_control,
         current_state,
         auto_heal_state,
+        pet_heal_state,
         idle_stuck_state,
         battle_runtime_state,
         game_data,
@@ -84,6 +86,7 @@ def create_server(
     battle_control,
     current_state,
     auto_heal_state,
+    pet_heal_state,
     idle_stuck_state,
     battle_runtime_state,
     game_data,
@@ -103,6 +106,7 @@ def create_server(
             battle_control,
             current_state,
             auto_heal_state,
+            pet_heal_state,
             idle_stuck_state,
             battle_runtime_state,
         )
@@ -611,6 +615,23 @@ def create_server(
             "status": current_status(),
         })
 
+    # 宝宝加血设置接口：保存页面开关、触发血量和加血按键。
+    @rt("/api/pet-heal/settings")
+    async def post(request: Request):
+        try:
+            data = await request.json()
+        except Exception:
+            data = {}
+
+        result = api.update_pet_heal_settings(app_settings, pet_heal_state, data)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "pet_heal": result.get("pet_heal", {}),
+            "status": current_status(),
+        })
+
     # idle 卡住保护设置接口：保存页面开关和停留秒数。
     @rt("/api/idle-stuck/settings")
     async def post(request: Request):
@@ -735,6 +756,7 @@ def create_buttons(app_settings):
             cls="bind-controls",
         ),
         create_auto_heal_controls(app_settings),
+        create_pet_heal_controls(app_settings),
         create_battle_controls(app_settings),
         create_idle_stuck_controls(app_settings),
         create_getitem_controls(app_settings),
@@ -813,6 +835,51 @@ def create_auto_heal_controls(app_settings):
         ),
         Div("", id="auto-heal-message", cls="auto-heal-message"),
         cls="auto-heal-controls",
+    )
+
+
+# 创建宝宝加血控制栏：开关、触发血量和加血按键。
+def create_pet_heal_controls(app_settings):
+    enabled_attrs = {
+        "id": "pet-heal-enabled",
+        "type": "checkbox",
+        "onchange": "savePetHealSettings()",
+    }
+
+    if app_settings.get("pet_heal_enabled", False):
+        enabled_attrs["checked"] = True
+
+    return Div(
+        Label(
+            Input(**enabled_attrs),
+            Span("宝宝加血"),
+            cls="pet-heal-toggle",
+        ),
+        Label(
+            Span("触发血量%"),
+            Input(
+                id="pet-heal-threshold",
+                type="number",
+                min="1",
+                max="100",
+                step="1",
+                value=str(app_settings.get("pet_heal_threshold_percent", api.PET_HEAL_DEFAULT_THRESHOLD_PERCENT)),
+                onchange="savePetHealSettings()",
+            ),
+            cls="pet-heal-field",
+        ),
+        Label(
+            Span("加血按键"),
+            Input(
+                id="pet-heal-key",
+                type="text",
+                value=str(app_settings.get("pet_heal_key", api.PET_HEAL_DEFAULT_KEY)),
+                onchange="savePetHealSettings()",
+            ),
+            cls="pet-heal-field",
+        ),
+        Div("", id="pet-heal-message", cls="pet-heal-message"),
+        cls="pet-heal-controls",
     )
 
 
@@ -1006,21 +1073,23 @@ def get_status(
     battle_control=None,
     current_state=None,
     auto_heal_state=None,
+    pet_heal_state=None,
     idle_stuck_state=None,
     battle_runtime_state=None,
 ):
     return api.get_status(
-        player_info,
-        app_settings,
-        current_map,
-        patrol_points,
-        patrol_state,
-        patrol_control,
-        battle_control,
-        current_state,
-        auto_heal_state,
-        idle_stuck_state,
-        battle_runtime_state,
+        player_info=player_info,
+        app_settings=app_settings,
+        current_map=current_map,
+        patrol_points=patrol_points,
+        patrol_state=patrol_state,
+        patrol_control=patrol_control,
+        battle_control=battle_control,
+        current_state=current_state,
+        auto_heal_state=auto_heal_state,
+        pet_heal_state=pet_heal_state,
+        idle_stuck_state=idle_stuck_state,
+        battle_runtime_state=battle_runtime_state,
     )
 
 
@@ -1166,6 +1235,12 @@ h2 {
     gap: 8px;
     align-items: center;
 }
+.pet-heal-controls {
+    display: grid;
+    grid-template-columns: minmax(110px, 130px) minmax(120px, 150px) minmax(110px, 140px) minmax(180px, 1fr);
+    gap: 8px;
+    align-items: center;
+}
 .idle-stuck-controls {
     display: grid;
     grid-template-columns: minmax(110px, 130px) minmax(120px, 150px) minmax(180px, 1fr);
@@ -1198,6 +1273,8 @@ h2 {
 }
 .auto-heal-toggle,
 .auto-heal-field,
+.pet-heal-toggle,
+.pet-heal-field,
 .idle-stuck-toggle,
 .idle-stuck-field,
 .battle-settings-field,
@@ -1216,6 +1293,7 @@ h2 {
     font-size: 12px;
 }
 .auto-heal-toggle input,
+.pet-heal-toggle input,
 .idle-stuck-toggle input,
 .getitem-toggle input,
 .monster-name-debug-toggle input {
@@ -1224,6 +1302,7 @@ h2 {
     padding: 0;
 }
 .auto-heal-field input,
+.pet-heal-field input,
 .idle-stuck-field input,
 .battle-settings-field input,
 .getitem-field input,
@@ -1232,6 +1311,7 @@ h2 {
     flex: 1;
 }
 .auto-heal-message,
+.pet-heal-message,
 .idle-stuck-message,
 .battle-settings-message,
 .getitem-message,
@@ -1403,6 +1483,7 @@ th {
 @media (max-width: 640px) {
     .bind-controls,
     .auto-heal-controls,
+    .pet-heal-controls,
     .battle-settings-controls,
     .idle-stuck-controls,
     .getitem-controls,
@@ -1501,6 +1582,25 @@ async function saveBattleSettings() {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             no_monster_scan_limit: limit,
+        }),
+    });
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
+async function savePetHealSettings() {
+    const enabled = document.getElementById("pet-heal-enabled").checked;
+    const threshold = document.getElementById("pet-heal-threshold").value;
+    const key = document.getElementById("pet-heal-key").value;
+    const response = await fetch("/api/pet-heal/settings", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            enabled,
+            threshold_percent: threshold,
+            key,
         }),
     });
     const data = await response.json();
@@ -1830,6 +1930,7 @@ function applyStatus(data) {
     updateItemFilterPanel(data.getitem || {});
     updateItemNameColorPanel(data.getitem || {});
     updateAutoHealPanel(data.auto_heal || {});
+    updatePetHealPanel(data.pet_heal || {});
     updateIdleStuckPanel(data.idle_stuck || {});
     updateGetitemPanel(data.getitem || {});
     updateMonsterNameDebugPanel(data.settings || {});
@@ -1927,6 +2028,28 @@ function updateAutoHealPanel(autoHeal) {
     document.getElementById("auto-heal-message").textContent =
         stateText + " hp=" + hpText + " threshold=" + (autoHeal.threshold_percent ?? 50) + "%" + triggeredText
         + (autoHeal.last_message ? " " + autoHeal.last_message : "");
+}
+
+function updatePetHealPanel(petHeal) {
+    const enabled = !!petHeal.enabled;
+    const stateText = enabled ? "开" : "关";
+    const lastHp = petHeal.last_hp_percent;
+    const hpText = lastHp === "" || lastHp === null || lastHp === undefined ? "-" : String(lastHp) + "%";
+    const target = petHeal.last_target || {};
+    const logic = target.logic || {};
+    const logicText = logic.x === undefined ? "-" : String(logic.x) + ":" + String(logic.y);
+
+    document.getElementById("pet-heal-enabled").checked = enabled;
+    setInputValueIfIdle("pet-heal-threshold", petHeal.threshold_percent ?? 50);
+    setInputValueIfIdle("pet-heal-key", petHeal.key ?? "F2");
+    document.getElementById("pet-heal-message").textContent =
+        stateText
+        + " hp=" + hpText
+        + " threshold=" + String(petHeal.threshold_percent ?? 50) + "%"
+        + " key=" + String(petHeal.key ?? "F2")
+        + " target=" + (target.name || "-")
+        + " logic=" + logicText
+        + (petHeal.last_message ? " " + petHeal.last_message : "");
 }
 
 function updateBattlePanel(battle) {
