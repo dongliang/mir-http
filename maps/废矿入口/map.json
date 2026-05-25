@@ -1,0 +1,27 @@
+{
+  "name": "废矿入口",
+  "rect": {
+    "left": 525,
+    "top": 275,
+    "right": 1075,
+    "bottom": 625,
+    "width": 550,
+    "height": 350
+  },
+  "max_x": 200,
+  "max_y": 199,
+  "ocr_box": {
+    "left": 885,
+    "top": 570,
+    "right": 1073,
+    "bottom": 623
+  },
+  "ocr_offset": {
+    "left": -190,
+    "top": -55,
+    "right": -2,
+    "bottom": -2
+  },
+  "ocr_text": "200199",
+  "updated_at": 1779735603
+}

@@ -311,6 +311,47 @@ def create_server(
             "status": current_status(),
         })
 
+    # 选中巡逻点接口：只更新当前巡逻点 index。
+    @rt("/api/patrol/select")
+    def post(index: int = -1):
+        result = patrol_move_state.select_index(game_data, index)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "point": result.get("point", {}),
+            "index": result.get("index", patrol_state["index"]),
+            "status": current_status(),
+        })
+
+    # 移动到指定巡逻点接口：移动成功后把该点设为当前巡逻点。
+    @rt("/api/patrol/move")
+    def post(index: int = -1):
+        result = patrol_move_state.move_to_index(game_data, index)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "point": result.get("point", {}),
+            "index": result.get("index", patrol_state["index"]),
+            "move": result.get("move", {}),
+            "status": current_status(),
+        })
+
+    # 移动到当前巡逻点接口：使用 patrol_state["index"]。
+    @rt("/api/patrol/current")
+    def post():
+        result = patrol_move_state.move_current(game_data)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "point": result.get("point", {}),
+            "index": result.get("index", patrol_state["index"]),
+            "move": result.get("move", {}),
+            "status": current_status(),
+        })
+
     # 开始巡逻接口：打开巡逻开关，同时关闭战斗开关。
     @rt("/api/patrol/start")
     def post():
@@ -795,6 +836,7 @@ def create_buttons(app_settings):
         Button("保存巡逻点到全局", onclick="savePatrolPoints('global')"),
         Button("保存巡逻点到账号", onclick="savePatrolPoints('account')"),
         Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
+        Button("移动到当前巡逻点", onclick="moveToCurrentPatrolPoint()"),
         Button("开始巡逻", onclick="startPatrol()"),
         Button("关闭巡逻", onclick="stopPatrol()"),
         Button("开始战斗", onclick="startBattle()"),
@@ -1081,11 +1123,14 @@ def create_patrol_panel():
                         Tr(
                             Th("序号"),
                             Th("逻辑坐标"),
+                            Th("删除"),
+                            Th("移动到"),
+                            Th("选中"),
                         )
                     ),
                     Tbody(
                         Tr(
-                            Td("暂无巡逻点", colspan="2"),
+                            Td("暂无巡逻点", colspan="5"),
                         ),
                         id="patrol-point-body",
                     ),
@@ -1794,7 +1839,61 @@ async function moveToNextPatrolPoint() {
     const data = await response.json();
     console.log(data);
     applyStatus(data.status || {});
+    updatePatrolIndexFromResponse(data);
     await refreshLogs();
+}
+
+async function moveToCurrentPatrolPoint() {
+    const response = await fetch("/api/patrol/current", {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    updatePatrolIndexFromResponse(data);
+    await refreshLogs();
+}
+
+async function moveToPatrolPoint(index) {
+    const response = await fetch("/api/patrol/move?index=" + encodeURIComponent(String(index)), {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    updatePatrolIndexFromResponse(data);
+    await refreshLogs();
+}
+
+async function selectPatrolPoint(index) {
+    const response = await fetch("/api/patrol/select?index=" + encodeURIComponent(String(index)), {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    updatePatrolIndexFromResponse(data);
+    await refreshLogs();
+}
+
+function updatePatrolIndexFromResponse(data) {
+    if (!data || !data.success || data.index === undefined || data.index === null) return;
+
+    patrolIndex = Number(data.index);
+    renderPatrolPoints();
+    renderPatrolPointTable();
+    updatePatrolMapInfo();
+}
+
+function deletePatrolPoint(index) {
+    if (index < 0 || index >= patrolPoints.length) return;
+
+    patrolPoints.splice(index, 1);
+
+    if (patrolIndex === index) {
+        patrolIndex = -1;
+    } else if (patrolIndex > index) {
+        patrolIndex -= 1;
+    }
+
+    patrolDirty = true;
+    renderPatrolPoints();
+    renderPatrolPointTable();
+    updatePatrolMapInfo();
 }
 
 async function startPatrol() {
@@ -2265,7 +2364,7 @@ function renderPatrolPointTable() {
     if (!patrolPoints.length) {
         const row = document.createElement("tr");
         const cell = document.createElement("td");
-        cell.colSpan = 2;
+        cell.colSpan = 5;
         cell.textContent = "暂无巡逻点";
         row.appendChild(cell);
         body.appendChild(row);
@@ -2281,8 +2380,21 @@ function renderPatrolPointTable() {
 
         appendCell(row, String(index + 1));
         appendCell(row, String(point.x) + ":" + String(point.y));
+        appendPatrolActionCell(row, "删除", () => deletePatrolPoint(index));
+        appendPatrolActionCell(row, "移动到", () => moveToPatrolPoint(index));
+        appendPatrolActionCell(row, "选中", () => selectPatrolPoint(index));
         body.appendChild(row);
     });
+}
+
+function appendPatrolActionCell(row, label, onClick) {
+    const cell = document.createElement("td");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = label;
+    button.onclick = onClick;
+    cell.appendChild(button);
+    row.appendChild(cell);
 }
 
 function updatePatrolMapInfo() {
