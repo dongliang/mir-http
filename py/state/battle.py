@@ -3,105 +3,144 @@ import time
 import api
 
 
-# 攻击后等待时间：给角色跑向怪物并攻击，随后回到 idle 重新扫描。
-ATTACK_RETURN_SECONDS = 3.0
-
-
-# 战斗状态：扫描怪物，优先攻击最近残血怪，没有残血怪则攻击最近怪物。
+# 战斗状态：只追踪一个锁定目标，不重新做全局选怪。
 def update_frame(game_data, state_data):
+    runtime = game_data.get("battle_runtime_state")
+
     if not game_data["battle_control"].get("enabled", False):
+        api.reset_battle_runtime(runtime, "战斗开关已关闭")
         return {
             "state": "idle",
             "message": "战斗开关已关闭，回到 idle",
         }
 
+    locked_target = state_data.get("locked_target") or (runtime or {}).get("last_target", {})
+
+    if not locked_target:
+        return {
+            "state": "find_monster",
+            "message": "战斗状态缺少锁定目标，回到找怪",
+        }
+
     now = time.time()
-    attack_started_at = state_data.get("attack_started_at")
+    next_recheck_at = float(locked_target.get("next_recheck_at") or 0)
 
-    if attack_started_at:
-        if now - attack_started_at >= ATTACK_RETURN_SECONDS:
-            return {
-                "state": "idle",
-                "message": "本轮攻击等待结束，回到 idle",
-            }
-
+    if now < next_recheck_at:
         return {}
 
-    result = api.scan_monsters()
+    player_info = game_data.get("player", {})
+    scan = api.scan_monsters(player_info)
 
-    if not result.get("success"):
+    if not scan.get("success"):
+        locked_target["next_recheck_at"] = now + api.TARGET_RECHECK_SECONDS
+        api.set_battle_locked_target(runtime, locked_target)
         return {
-            "state": "idle",
-            "message": f"战斗扫描失败，回到 idle: {result.get('message', '')}",
+            "message": f"锁定目标复查失败，不释放目标: {scan.get('message', '')}",
         }
 
-    monsters = result.get("monsters", [])
-
-    if not monsters:
+    if not scan.get("logic_available", False):
+        locked_target["next_recheck_at"] = now + api.TARGET_RECHECK_SECONDS
+        api.set_battle_locked_target(runtime, locked_target)
         return {
-            "state": "idle",
-            "message": "没有扫描到怪物，回到 idle 等待卡住保护判断",
+            "message": "锁定目标复查缺少玩家逻辑坐标，本轮等待",
         }
 
-    skipped = []
-    logs = []
-    target = None
-    attack = None
+    matched, match_message = api.find_locked_monster(
+        scan.get("monsters", []),
+        locked_target,
+        player_info,
+        scan.get("player", {}),
+    )
+
+    if matched is None:
+        return handle_target_miss(game_data, state_data, locked_target, match_message)
+
+    api.update_locked_target(locked_target, matched, now)
+    next_attack_at = float(locked_target.get("next_attack_at") or 0)
+
+    if now < next_attack_at:
+        message = (
+            f"锁定目标仍在 logic={format_logic(locked_target.get('last_logic', {}))} "
+            f"hp={locked_target.get('last_hp_percent', '')}% {match_message}"
+        )
+        api.set_battle_locked_target(runtime, locked_target, message)
+        state_data["locked_target"] = locked_target
+        return {
+            "message": message,
+        }
+
     save_name_debug = bool(game_data.get("settings", {}).get("monster_name_debug_enabled", False))
+    attack = api.attack_monster(matched, save_name_debug=save_name_debug)
+    logs = []
+    append_attack_logs(logs, attack)
 
-    for candidate in choose_target_candidates(monsters):
-        attack = api.attack_monster(candidate, save_name_debug=save_name_debug)
-        name_messages = attack.get("name_messages", [])
-        name_message = attack.get("name_message", "")
-
-        if name_messages:
-            logs.extend(name_messages)
-        elif name_message:
-            logs.append(name_message)
-
-        if attack.get("success"):
-            target = candidate
-            break
-
-        if attack.get("reason") == "monster_filter_mismatch":
-            skipped.append({
-                "id": candidate.get("id", 0),
-                "message": attack.get("message", ""),
-            })
-            continue
-
+    if attack.get("success"):
+        locked_target["next_attack_at"] = now + api.ATTACK_CLICK_INTERVAL_SECONDS
+        api.update_locked_target(locked_target, matched, now)
+        state_data["locked_target"] = locked_target
+        message = (
+            f"续打锁定目标 logic={format_logic(locked_target.get('last_logic', {}))} "
+            f"hp={locked_target.get('last_hp_percent', '')}% {match_message} {attack.get('message', '')}"
+        )
+        api.set_battle_locked_target(runtime, locked_target, message)
         return {
-            "state": "idle",
             "logs": logs,
-            "message": f"攻击怪物失败，回到 idle: {attack.get('message', '')}",
+            "message": message,
         }
 
-    if target is None:
-        return {
-            "state": "idle",
-            "logs": logs,
-            "message": f"扫描到 {len(monsters)} 个怪物，但没有符合怪物清单的目标，跳过 {len(skipped)} 个，留在原地继续扫描",
-        }
+    if attack.get("reason") == "monster_filter_mismatch":
+        return handle_target_miss(game_data, state_data, locked_target, "锁定目标名称不再匹配清单", logs)
 
-    state_data["attack_started_at"] = now
-    state_data["target"] = target
+    locked_target["next_recheck_at"] = now + api.TARGET_RECHECK_SECONDS
+    state_data["locked_target"] = locked_target
+    api.set_battle_locked_target(runtime, locked_target)
     return {
         "logs": logs,
-        "message": f"开始攻击怪物 hp={target.get('hp_percent', '')}% distance={target.get('distance', '')} {attack.get('message', '')}",
+        "message": f"续打锁定目标失败，暂不释放: {attack.get('message', '')}",
     }
 
 
-# 选择攻击目标列表：残血怪优先，怪物列表本身已经按距离排序。
-def choose_target_candidates(monsters):
-    wounded = [monster for monster in monsters if get_hp_percent(monster) < 100]
-    normal = [monster for monster in monsters if get_hp_percent(monster) >= 100]
+# 处理锁定目标丢失：连续达到阈值后释放并回到找怪。
+def handle_target_miss(game_data, state_data, locked_target, reason, logs=None):
+    logs = logs or []
+    runtime = game_data.get("battle_runtime_state")
+    miss_count = int(locked_target.get("miss_count") or 0) + 1
+    locked_target["miss_count"] = miss_count
+    locked_target["next_recheck_at"] = time.time() + api.TARGET_RECHECK_SECONDS
+    state_data["locked_target"] = locked_target
 
-    return wounded + normal
+    if miss_count < api.TARGET_LOST_SCAN_COUNT:
+        message = f"锁定目标暂时丢失 {miss_count}/{api.TARGET_LOST_SCAN_COUNT}: {reason}"
+        api.set_battle_locked_target(runtime, locked_target, message)
+        return {
+            "logs": logs,
+            "message": message,
+        }
+
+    logic = locked_target.get("last_logic") or locked_target.get("origin_logic", {})
+    api.add_ignored_target(runtime, logic, "locked_target_lost")
+    api.clear_battle_locked_target(runtime, "锁定目标连续丢失，回到找怪")
+    return {
+        "state": "find_monster",
+        "logs": logs,
+        "message": f"锁定目标连续丢失，认为死亡或不可达: {reason}",
+    }
 
 
-# 读取怪物血量百分比：异常时按满血处理。
-def get_hp_percent(monster):
-    try:
-        return int(float(monster.get("hp_percent", 100)))
-    except (TypeError, ValueError):
-        return 100
+# 收集攻击前名称识别日志。
+def append_attack_logs(logs, attack):
+    name_messages = attack.get("name_messages", [])
+    name_message = attack.get("name_message", "")
+
+    if name_messages:
+        logs.extend(name_messages)
+    elif name_message:
+        logs.append(name_message)
+
+
+# 格式化逻辑坐标。
+def format_logic(logic):
+    if not api.is_valid_logic(logic):
+        return "-"
+
+    return f"{int(logic['x'])}:{int(logic['y'])}"

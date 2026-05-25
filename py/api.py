@@ -223,6 +223,20 @@ AUTO_HEAL_MAX_INTERVAL_MS = 60000
 IDLE_STUCK_DEFAULT_SECONDS = 30
 IDLE_STUCK_MIN_SECONDS = 5
 IDLE_STUCK_MAX_SECONDS = 600
+# 战斗找怪默认配置：近处优先、连续无怪跳点和锁定目标找回。
+NO_MONSTER_SCAN_LIMIT_DEFAULT = 3
+NO_MONSTER_SCAN_LIMIT_MIN = 1
+NO_MONSTER_SCAN_LIMIT_MAX = 20
+NEAR_MONSTER_LOGIC_RADIUS = 6
+TARGET_RECHECK_SECONDS = 1.0
+ATTACK_CLICK_INTERVAL_SECONDS = 2.0
+TARGET_LOST_SCAN_COUNT = 2
+LOCK_STRONG_RADIUS = 1
+LOCK_WEAK_RADIUS = 2
+LOCK_WEAK_SCREEN_RADIUS = 120
+LOCK_HP_RISE_TOLERANCE = 15
+IGNORED_TARGET_SECONDS = 8
+IGNORED_TARGET_RADIUS = 2
 # 地图角点快捷键默认值：只在当前前台窗口是已绑定窗口时触发。
 MAP_CORNER_HOTKEY_DEFAULT = "F8"
 MAP_CORNER_HOTKEY_POLL_SECONDS = 0.05
@@ -1453,6 +1467,7 @@ def get_status(
     current_state=None,
     auto_heal_state=None,
     idle_stuck_state=None,
+    battle_runtime_state=None,
 ):
     return {
         "player": {
@@ -1465,7 +1480,7 @@ def get_status(
         "settings": make_app_settings_status(app_settings),
         "map": make_map_status(current_map),
         "patrol": make_patrol_status(patrol_points, patrol_state, patrol_control),
-        "battle": make_battle_status(battle_control),
+        "battle": make_battle_status(battle_control, app_settings, battle_runtime_state),
         "accounts": make_accounts_status(),
         "monster_filter": get_monster_keyword_status(),
         "monster_name_colors": get_monster_name_color_status(),
@@ -1520,10 +1535,82 @@ def make_patrol_status(patrol_points, patrol_state, patrol_control=None):
 
 
 # 生成战斗开关状态。
-def make_battle_status(battle_control):
+def make_battle_status(battle_control, app_settings=None, battle_runtime_state=None):
+    runtime = battle_runtime_state or {}
     return {
         "enabled": bool((battle_control or {}).get("enabled", False)),
+        "no_monster_scan_limit": get_no_monster_scan_limit(app_settings or {}),
+        "no_monster_count": int(runtime.get("no_monster_count") or 0),
+        "last_no_monster_reason": runtime.get("last_no_monster_reason", ""),
+        "locked_target": make_locked_target_status(runtime.get("last_target", {})),
+        "ignored_targets": make_ignored_targets_status(runtime.get("ignored_targets", [])),
+        "last_message": runtime.get("last_message", ""),
     }
+
+
+# 生成锁定目标状态：只暴露页面调试需要的稳定字段。
+def make_locked_target_status(target):
+    if not target:
+        return {}
+
+    last_logic = target.get("last_logic", {})
+    origin_logic = target.get("origin_logic", {})
+    last_position = target.get("last_position", {})
+    return {
+        "origin_logic": make_logic_status(origin_logic),
+        "last_logic": make_logic_status(last_logic),
+        "last_hp_percent": target.get("last_hp_percent", ""),
+        "miss_count": int(target.get("miss_count") or 0),
+        "last_position": {
+            "x": int(last_position.get("x", 0)) if last_position else 0,
+            "y": int(last_position.get("y", 0)) if last_position else 0,
+        },
+        "last_seen_seconds": get_elapsed_seconds(target.get("last_seen_at")),
+    }
+
+
+# 生成忽略目标状态：过滤过期条目，只返回逻辑点和剩余时间。
+def make_ignored_targets_status(targets):
+    now = time.time()
+    items = []
+
+    for target in targets or []:
+        expires_at = float(target.get("expires_at") or 0)
+
+        if expires_at <= now:
+            continue
+
+        items.append({
+            "logic": make_logic_status(target.get("logic", {})),
+            "remaining_seconds": max(0, round(expires_at - now, 1)),
+            "reason": target.get("reason", ""),
+        })
+
+    return items
+
+
+# 生成逻辑坐标状态。
+def make_logic_status(logic):
+    if not is_valid_logic(logic):
+        return {}
+
+    return {
+        "x": int(logic.get("x")),
+        "y": int(logic.get("y")),
+    }
+
+
+# 计算距某时间点的秒数，供页面展示。
+def get_elapsed_seconds(started_at):
+    try:
+        started_at = float(started_at)
+    except (TypeError, ValueError):
+        return ""
+
+    if started_at <= 0:
+        return ""
+
+    return round(max(0, time.time() - started_at), 1)
 
 
 # 生成当前状态机状态。
@@ -3360,6 +3447,39 @@ def update_idle_stuck_settings(app_settings, idle_stuck_state, data):
     }
 
 
+# 更新战斗设置：当前只保存连续无怪跳点次数。
+def update_battle_settings(app_settings, battle_runtime_state, data):
+    data = data if isinstance(data, dict) else {}
+    limit = normalize_number(
+        data.get("no_monster_scan_limit"),
+        NO_MONSTER_SCAN_LIMIT_DEFAULT,
+        NO_MONSTER_SCAN_LIMIT_MIN,
+        NO_MONSTER_SCAN_LIMIT_MAX,
+    )
+
+    app_settings["no_monster_scan_limit"] = limit
+    message = f"战斗设置已更新: no_monster_scan_limit={limit}"
+
+    if battle_runtime_state is not None:
+        battle_runtime_state["last_message"] = message
+
+    return {
+        "success": True,
+        "message": message,
+        "battle": make_battle_status({}, app_settings, battle_runtime_state),
+    }
+
+
+# 读取连续无怪跳点次数。
+def get_no_monster_scan_limit(app_settings):
+    return normalize_number(
+        app_settings.get("no_monster_scan_limit"),
+        NO_MONSTER_SCAN_LIMIT_DEFAULT,
+        NO_MONSTER_SCAN_LIMIT_MIN,
+        NO_MONSTER_SCAN_LIMIT_MAX,
+    )
+
+
 # 更新捡取物品设置：保存页面开关和每步等待间隔。
 def update_getitem_settings(app_settings, data):
     data = data if isinstance(data, dict) else {}
@@ -3841,10 +3961,10 @@ def get_next_screenshot_file():
 
 
 # 扫描怪物：查找血条、读取血量，并计算到玩家的距离。
-def scan_monsters():
+def scan_monsters(player_info=None):
     with monster_scan_lock:
         try:
-            return scan_monsters_locked()
+            return scan_monsters_locked(player_info)
         except Exception as error:
             return {
                 "success": False,
@@ -3854,7 +3974,7 @@ def scan_monsters():
 
 
 # 执行怪物扫描：由锁保护的实际扫描流程。
-def scan_monsters_locked():
+def scan_monsters_locked(player_info=None):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -3934,7 +4054,9 @@ def scan_monsters_locked():
                 monsters.append(monster)
                 debug_points.extend(monster["debug_points"])
 
-    monsters.sort(key=lambda monster: monster["distance"])
+    logic_available = add_monsters_logic(monsters, player_info, player_x, player_y)
+
+    monsters.sort(key=lambda monster: (get_monster_logic_distance(monster), monster["distance"]))
 
     for index, monster in enumerate(monsters, start=1):
         monster["id"] = index
@@ -3948,9 +4070,14 @@ def scan_monsters_locked():
             "y": player_y,
         },
         "player_position": position,
+        "player_logic": make_player_logic_status(player_info),
+        "logic_available": logic_available,
         "client": client,
         "debug_points": debug_points,
-        "message": f"怪物扫描完成 count={len(monsters)} player={player_x},{player_y} client_size={width}x{height}",
+        "message": (
+            f"怪物扫描完成 count={len(monsters)} player={player_x},{player_y} "
+            f"logic={'ok' if logic_available else 'missing'} client_size={width}x{height}"
+        ),
     }
 
 
@@ -4003,6 +4130,429 @@ def read_monster_from_match(index, match, scan_image, temp_path, width, height, 
             make_debug_point(*box_center(name_box), "purple"),
         ],
     }
+
+
+# 给怪物扫描结果补充逻辑坐标；坐标不可用时保留空字典。
+def add_monsters_logic(monsters, player_info, player_screen_x, player_screen_y):
+    player_logic_x, player_logic_y = get_player_logic_coordinate(player_info)
+
+    if player_logic_x is None or player_logic_y is None:
+        for monster in monsters:
+            monster["logic"] = {}
+        return False
+
+    for monster in monsters:
+        position = monster.get("position", {})
+
+        try:
+            point = screen_to_logic_point(
+                position.get("x"),
+                position.get("y"),
+                player_screen_x,
+                player_screen_y,
+                player_logic_x,
+                player_logic_y,
+            )
+        except (TypeError, ValueError):
+            monster["logic"] = {}
+            continue
+
+        logic_dx = int(point.get("logic_dx", 0))
+        logic_dy = int(point.get("logic_dy", 0))
+        monster["logic"] = {
+            "x": int(point["x"]),
+            "y": int(point["y"]),
+            "dx": logic_dx,
+            "dy": logic_dy,
+            "distance": max(abs(logic_dx), abs(logic_dy)),
+        }
+
+    return True
+
+
+# 生成玩家逻辑坐标状态。
+def make_player_logic_status(player_info):
+    player_x, player_y = get_player_logic_coordinate(player_info)
+
+    if player_x is None or player_y is None:
+        return {}
+
+    return {
+        "x": player_x,
+        "y": player_y,
+    }
+
+
+# 怪物逻辑距离兜底值：没有逻辑坐标时排到后面。
+def get_monster_logic_distance(monster):
+    logic = (monster or {}).get("logic", {})
+
+    try:
+        return int(logic.get("distance"))
+    except (TypeError, ValueError):
+        return 999999
+
+
+# 读取怪物血量百分比：异常时按满血处理。
+def get_monster_hp_percent(monster):
+    try:
+        return int(float((monster or {}).get("hp_percent", 100)))
+    except (TypeError, ValueError):
+        return 100
+
+
+# 判断逻辑坐标是否可用。
+def is_valid_logic(logic):
+    if not isinstance(logic, dict):
+        return False
+
+    try:
+        int(logic.get("x"))
+        int(logic.get("y"))
+    except (TypeError, ValueError):
+        return False
+
+    return True
+
+
+# 计算两个逻辑坐标的棋盘距离。
+def get_logic_distance(first, second):
+    if not is_valid_logic(first) or not is_valid_logic(second):
+        return 999999
+
+    return max(
+        abs(int(first["x"]) - int(second["x"])),
+        abs(int(first["y"]) - int(second["y"])),
+    )
+
+
+# 复制逻辑坐标，避免状态里保存扫描结果引用。
+def copy_logic(logic):
+    if not is_valid_logic(logic):
+        return {}
+
+    return {
+        "x": int(logic["x"]),
+        "y": int(logic["y"]),
+    }
+
+
+# 复制屏幕位置。
+def copy_position(position):
+    try:
+        return {
+            "x": int(position.get("x")),
+            "y": int(position.get("y")),
+        }
+    except (AttributeError, TypeError, ValueError):
+        return {}
+
+
+# 复制血条矩形。
+def copy_blood_bar(blood_bar):
+    if not isinstance(blood_bar, dict):
+        return {}
+
+    try:
+        return {
+            "left": int(blood_bar["left"]),
+            "top": int(blood_bar["top"]),
+            "right": int(blood_bar["right"]),
+            "bottom": int(blood_bar["bottom"]),
+        }
+    except (KeyError, TypeError, ValueError):
+        return {}
+
+
+# 根据成功点击的怪物创建锁定目标。
+def make_locked_target(monster, now=None):
+    now = time.time() if now is None else now
+    logic = copy_logic((monster or {}).get("logic", {}))
+    return {
+        "origin_logic": dict(logic),
+        "last_logic": dict(logic),
+        "last_hp_percent": get_monster_hp_percent(monster),
+        "last_blood_bar": copy_blood_bar((monster or {}).get("blood_bar", {})),
+        "last_position": copy_position((monster or {}).get("position", {})),
+        "miss_count": 0,
+        "locked_at": now,
+        "last_seen_at": now,
+        "next_recheck_at": now + TARGET_RECHECK_SECONDS,
+        "next_attack_at": now + ATTACK_CLICK_INTERVAL_SECONDS,
+    }
+
+
+# 用重新找回的怪物刷新锁定目标。
+def update_locked_target(locked_target, monster, now=None):
+    now = time.time() if now is None else now
+    locked_target["last_logic"] = copy_logic((monster or {}).get("logic", {}))
+    locked_target["last_hp_percent"] = get_monster_hp_percent(monster)
+    locked_target["last_blood_bar"] = copy_blood_bar((monster or {}).get("blood_bar", {}))
+    locked_target["last_position"] = copy_position((monster or {}).get("position", {}))
+    locked_target["miss_count"] = 0
+    locked_target["last_seen_at"] = now
+    locked_target["next_recheck_at"] = now + TARGET_RECHECK_SECONDS
+    return locked_target
+
+
+# 写入当前锁定目标状态。
+def set_battle_locked_target(battle_runtime_state, locked_target, message=""):
+    if battle_runtime_state is None:
+        return
+
+    battle_runtime_state["last_target"] = locked_target or {}
+
+    if message:
+        battle_runtime_state["last_message"] = message
+
+
+# 清空当前锁定目标。
+def clear_battle_locked_target(battle_runtime_state, message=""):
+    if battle_runtime_state is None:
+        return
+
+    battle_runtime_state["last_target"] = {}
+
+    if message:
+        battle_runtime_state["last_message"] = message
+
+
+# 清空连续无怪计数。
+def reset_no_monster_count(battle_runtime_state, reason=""):
+    if battle_runtime_state is None:
+        return
+
+    battle_runtime_state["no_monster_count"] = 0
+
+    if reason:
+        battle_runtime_state["last_no_monster_reason"] = reason
+
+
+# 增加连续无怪计数。
+def increment_no_monster_count(battle_runtime_state, reason=""):
+    if battle_runtime_state is None:
+        return 0
+
+    count = int(battle_runtime_state.get("no_monster_count") or 0) + 1
+    battle_runtime_state["no_monster_count"] = count
+    battle_runtime_state["last_no_monster_reason"] = reason
+
+    if reason:
+        battle_runtime_state["last_message"] = f"连续无怪 {count} 次: {reason}"
+
+    return count
+
+
+# 移动或停止自动流程时清理战斗运行状态。
+def reset_battle_runtime(battle_runtime_state, reason=""):
+    if battle_runtime_state is None:
+        return
+
+    battle_runtime_state["no_monster_count"] = 0
+    battle_runtime_state["last_no_monster_reason"] = reason
+    battle_runtime_state["last_target"] = {}
+    battle_runtime_state["ignored_targets"] = []
+
+    if reason:
+        battle_runtime_state["last_message"] = reason
+
+
+# 清理过期忽略目标。
+def prune_ignored_targets(battle_runtime_state, now=None):
+    if battle_runtime_state is None:
+        return []
+
+    now = time.time() if now is None else now
+    targets = []
+
+    for target in battle_runtime_state.get("ignored_targets", []):
+        try:
+            expires_at = float(target.get("expires_at") or 0)
+        except (TypeError, ValueError):
+            continue
+
+        if expires_at > now:
+            targets.append(target)
+
+    battle_runtime_state["ignored_targets"] = targets
+    return targets
+
+
+# 添加临时忽略目标，避免失败点立刻被重新选择。
+def add_ignored_target(battle_runtime_state, logic, reason="", now=None):
+    if battle_runtime_state is None or not is_valid_logic(logic):
+        return
+
+    now = time.time() if now is None else now
+    prune_ignored_targets(battle_runtime_state, now)
+    battle_runtime_state.setdefault("ignored_targets", []).append({
+        "logic": copy_logic(logic),
+        "expires_at": now + IGNORED_TARGET_SECONDS,
+        "reason": reason,
+    })
+
+
+# 判断某个逻辑点是否处于忽略期。
+def is_logic_ignored(logic, battle_runtime_state, now=None):
+    if not is_valid_logic(logic):
+        return False
+
+    for target in prune_ignored_targets(battle_runtime_state, now):
+        if get_logic_distance(logic, target.get("logic", {})) <= IGNORED_TARGET_RADIUS:
+            return True
+
+    return False
+
+
+# 判断怪物是否可作为新目标。
+def is_attackable_monster(monster, battle_runtime_state=None, now=None):
+    logic = (monster or {}).get("logic", {})
+
+    if not is_valid_logic(logic):
+        return False
+
+    if get_monster_hp_percent(monster) <= 0:
+        return False
+
+    if is_logic_ignored(logic, battle_runtime_state, now):
+        return False
+
+    return True
+
+
+# 在扫描结果中选择新攻击目标：近处优先，近处残血优先。
+def choose_new_monster_target(monsters, battle_runtime_state=None, now=None):
+    candidates = [
+        monster
+        for monster in monsters or []
+        if is_attackable_monster(monster, battle_runtime_state, now)
+    ]
+
+    if not candidates:
+        return None, "没有可攻击怪物"
+
+    near = [
+        monster
+        for monster in candidates
+        if get_monster_logic_distance(monster) <= NEAR_MONSTER_LOGIC_RADIUS
+    ]
+    group = near if near else candidates
+    group_name = "近处" if near else "远处"
+    wounded = [monster for monster in group if get_monster_hp_percent(monster) < 100]
+
+    if wounded:
+        target = sorted(
+            wounded,
+            key=lambda monster: (
+                get_monster_hp_percent(monster),
+                get_monster_logic_distance(monster),
+                int(monster.get("distance", 999999)),
+            ),
+        )[0]
+        return target, f"{group_name}残血优先"
+
+    target = sorted(
+        group,
+        key=lambda monster: (
+            get_monster_logic_distance(monster),
+            int(monster.get("distance", 999999)),
+        ),
+    )[0]
+    return target, f"{group_name}最近优先"
+
+
+# 把逻辑点投影到当前屏幕坐标。
+def project_logic_to_screen(logic, player_info, player_screen):
+    if not is_valid_logic(logic):
+        return None
+
+    player_logic_x, player_logic_y = get_player_logic_coordinate(player_info)
+
+    if player_logic_x is None or player_logic_y is None:
+        return None
+
+    try:
+        return logic_to_screen_point(
+            logic["x"],
+            logic["y"],
+            player_logic_x,
+            player_logic_y,
+            player_screen["x"],
+            player_screen["y"],
+        )
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+# 计算屏幕点距离。
+def get_screen_distance(first, second):
+    try:
+        return math.dist(
+            (int(first.get("x")), int(first.get("y"))),
+            (int(second.get("x")), int(second.get("y"))),
+        )
+    except (AttributeError, TypeError, ValueError):
+        return 999999
+
+
+# 从扫描结果里找回锁定目标。
+def find_locked_monster(monsters, locked_target, player_info, player_screen):
+    last_logic = (locked_target or {}).get("last_logic", {})
+
+    if not is_valid_logic(last_logic):
+        return None, "锁定目标缺少逻辑坐标"
+
+    projected = project_logic_to_screen(last_logic, player_info, player_screen)
+    strong = []
+    weak = []
+
+    for monster in monsters or []:
+        logic = monster.get("logic", {})
+
+        if not is_valid_logic(logic) or get_monster_hp_percent(monster) <= 0:
+            continue
+
+        logic_distance = get_logic_distance(logic, last_logic)
+        screen_distance = 999999
+
+        if projected:
+            screen_distance = get_screen_distance(monster.get("position", {}), projected)
+
+        item = {
+            "monster": monster,
+            "logic_distance": logic_distance,
+            "screen_distance": screen_distance,
+        }
+
+        if logic_distance <= LOCK_STRONG_RADIUS:
+            strong.append(item)
+        elif logic_distance <= LOCK_WEAK_RADIUS and screen_distance <= LOCK_WEAK_SCREEN_RADIUS:
+            weak.append(item)
+
+    candidates = strong if strong else weak
+
+    if not candidates:
+        return None, "锁定目标附近没有匹配怪物"
+
+    last_hp = get_monster_hp_percent({"hp_percent": locked_target.get("last_hp_percent", 100)})
+
+    def sort_key(item):
+        monster = item["monster"]
+        hp = get_monster_hp_percent(monster)
+        hp_rise_penalty = 1 if hp > last_hp + LOCK_HP_RISE_TOLERANCE else 0
+        return (
+            item["logic_distance"],
+            hp_rise_penalty,
+            item["screen_distance"],
+            hp,
+        )
+
+    selected = sorted(candidates, key=sort_key)[0]
+    match_type = "强匹配" if strong else "弱匹配"
+    return selected["monster"], (
+        f"{match_type} logic_distance={selected['logic_distance']} "
+        f"screen_distance={round(selected['screen_distance'])}"
+    )
 
 
 # 识别单个怪物名称：按表格传入的位置和血条信息补充名称。

@@ -8,6 +8,7 @@ import log
 import move_to_next_patrol_point
 import player
 from state import battle
+from state import find_monster
 from state import getitem
 from state import idle
 
@@ -25,6 +26,7 @@ app_settings = {
     "monster_name_debug_enabled": False,
     "getitem_enabled": False,
     "getitem_step_wait_ms": api.GETITEM_DEFAULT_STEP_WAIT_MS,
+    "no_monster_scan_limit": api.NO_MONSTER_SCAN_LIMIT_DEFAULT,
 }
 # 当前绑定的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
 current_map = {}
@@ -41,6 +43,14 @@ patrol_control = {
 # 战斗控制：由页面按钮切换，状态机会按它决定是否进入战斗。
 battle_control = {
     "enabled": False,
+}
+# 战斗运行状态：保存连续无怪、锁定目标和临时忽略目标。
+battle_runtime_state = {
+    "no_monster_count": 0,
+    "last_no_monster_reason": "",
+    "ignored_targets": [],
+    "last_target": {},
+    "last_message": "",
 }
 # 自动加血状态：独立于状态机，记录检测节奏、最近血量和低血触发锁。
 auto_heal_state = {
@@ -64,6 +74,7 @@ current_state = {
 # 状态模块表：状态名到模块的映射，供每帧调度。
 state_modules = {
     "idle": idle,
+    "find_monster": find_monster,
     "battle": battle,
     "getitem": getitem,
     "move_to_next_patrol_point": move_to_next_patrol_point,
@@ -77,6 +88,7 @@ game_data = {
     "patrol_state": patrol_state,
     "patrol_control": patrol_control,
     "battle_control": battle_control,
+    "battle_runtime_state": battle_runtime_state,
     "auto_heal_state": auto_heal_state,
     "idle_stuck_state": idle_stuck_state,
 }
@@ -106,6 +118,7 @@ def main() -> None:
         current_state,
         auto_heal_state,
         idle_stuck_state,
+        battle_runtime_state,
         game_data,
     )
 
@@ -132,9 +145,22 @@ def update_auto_heal():
 def update_current_state():
     state_name = current_state.get("name", "idle")
     state_module = state_modules.get(state_name, idle)
+    stuck_result = None
+
+    if state_name != "move_to_next_patrol_point":
+        stuck_result = idle.update_idle_stuck(game_data)
+
+    if stuck_result:
+        handle_state_result(stuck_result)
+        return
 
     # 状态结果：包含可选的下一状态和日志消息。
     result = state_module.update_frame(game_data, current_state["data"]) or {}
+    handle_state_result(result)
+
+
+# 处理状态返回：写日志并按需切换状态。
+def handle_state_result(result):
     message = result.get("message", "")
 
     for entry in result.get("logs", []):
@@ -147,11 +173,11 @@ def update_current_state():
     next_state = result.get("state")
 
     if next_state:
-        switch_state(next_state)
+        switch_state(next_state, result.get("data"))
 
 
 # 切换状态：重置状态私有数据并写入切换日志。
-def switch_state(next_state):
+def switch_state(next_state, next_data=None):
     if next_state not in state_modules:
         log.write(f"未知状态 {next_state}，回到 idle")
         next_state = "idle"
@@ -162,7 +188,7 @@ def switch_state(next_state):
         return
 
     current_state["name"] = next_state
-    current_state["data"] = {}
+    current_state["data"] = next_data if isinstance(next_data, dict) else {}
     log.write(f"状态切换: {old_state} -> {next_state}")
 
 

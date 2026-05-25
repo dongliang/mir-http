@@ -49,6 +49,7 @@ def run_server(
     current_state,
     auto_heal_state,
     idle_stuck_state,
+    battle_runtime_state,
     game_data,
 ):
     # FastHTML 应用：承载页面和所有 API 路由。
@@ -64,6 +65,7 @@ def run_server(
         current_state,
         auto_heal_state,
         idle_stuck_state,
+        battle_runtime_state,
         game_data,
     )
     log.write_console(f"HTTP 服务启动: http://{SERVER_HOST}:{SERVER_PORT}")
@@ -83,6 +85,7 @@ def create_server(
     current_state,
     auto_heal_state,
     idle_stuck_state,
+    battle_runtime_state,
     game_data,
 ):
     # 应用和路由器：由 FastHTML 创建页面应用和路由装饰器。
@@ -101,6 +104,7 @@ def create_server(
             current_state,
             auto_heal_state,
             idle_stuck_state,
+            battle_runtime_state,
         )
 
     # 首页路由：渲染窗口绑定、移动控制和日志面板。
@@ -125,6 +129,7 @@ def create_server(
                     Div("状态: ", Span(current_state["name"], id="state-name")),
                     Div("巡逻: ", Span("关", id="patrol-enabled")),
                     Div("战斗: ", Span("关", id="battle-enabled")),
+                    Div("连续无怪: ", Span("-", id="battle-no-monster")),
                     Div("账号: ", Span("未选择", id="account-current")),
                     Div("配置目录: ", Span("-", id="account-config-dir")),
                     Div("怪物过滤: ", Span("-", id="monster-filter")),
@@ -178,6 +183,7 @@ def create_server(
     def post():
         battle_control["enabled"] = True
         patrol_control["enabled"] = False
+        api.reset_no_monster_count(battle_runtime_state, "战斗开关已打开")
         message = "战斗开关已打开，巡逻开关已关闭"
         log.write(message)
         return JSONResponse({
@@ -190,11 +196,29 @@ def create_server(
     @rt("/api/battle/stop")
     def post():
         battle_control["enabled"] = False
+        api.reset_battle_runtime(battle_runtime_state, "战斗开关已关闭")
         message = "战斗开关已关闭"
         log.write(message)
         return JSONResponse({
             "success": True,
             "message": message,
+            "status": current_status(),
+        })
+
+    # 战斗设置接口：保存连续无怪跳点次数。
+    @rt("/api/battle/settings")
+    async def post(request: Request):
+        try:
+            data = await request.json()
+        except Exception:
+            data = {}
+
+        result = api.update_battle_settings(app_settings, battle_runtime_state, data)
+        log.write(result["message"])
+        return JSONResponse({
+            "success": result["success"],
+            "message": result["message"],
+            "battle": result.get("battle", {}),
             "status": current_status(),
         })
 
@@ -265,6 +289,7 @@ def create_server(
     @rt("/api/patrol/start")
     def post():
         battle_control["enabled"] = False
+        api.reset_battle_runtime(battle_runtime_state, "开始巡逻，清空战斗运行状态")
 
         if not current_map:
             message = "战斗开关已关闭；还没有绑定地图，不能开始巡逻"
@@ -297,6 +322,7 @@ def create_server(
     @rt("/api/patrol/stop")
     def post():
         patrol_control["enabled"] = False
+        api.reset_no_monster_count(battle_runtime_state, "巡逻开关已关闭")
         message = "巡逻开关已关闭"
         log.write(message)
         return JSONResponse({
@@ -450,7 +476,7 @@ def create_server(
     @rt("/api/monsters/scan")
     def post():
         # 怪物扫描结果：记录扫描摘要并把明细写入日志。
-        result = api.scan_monsters()
+        result = api.scan_monsters(player_info)
         log.write(result["message"])
         log_monster_scan_details(result)
         return JSONResponse({
@@ -709,6 +735,7 @@ def create_buttons(app_settings):
             cls="bind-controls",
         ),
         create_auto_heal_controls(app_settings),
+        create_battle_controls(app_settings),
         create_idle_stuck_controls(app_settings),
         create_getitem_controls(app_settings),
         create_monster_name_debug_controls(app_settings),
@@ -786,6 +813,27 @@ def create_auto_heal_controls(app_settings):
         ),
         Div("", id="auto-heal-message", cls="auto-heal-message"),
         cls="auto-heal-controls",
+    )
+
+
+# 创建战斗控制栏：连续无怪次数用于刷空后跳巡逻点。
+def create_battle_controls(app_settings):
+    return Div(
+        Label(
+            Span("连续无怪次数"),
+            Input(
+                id="no-monster-scan-limit",
+                type="number",
+                min=str(api.NO_MONSTER_SCAN_LIMIT_MIN),
+                max=str(api.NO_MONSTER_SCAN_LIMIT_MAX),
+                step="1",
+                value=str(app_settings.get("no_monster_scan_limit", api.NO_MONSTER_SCAN_LIMIT_DEFAULT)),
+                onchange="saveBattleSettings()",
+            ),
+            cls="battle-settings-field",
+        ),
+        Div("", id="battle-settings-message", cls="battle-settings-message"),
+        cls="battle-settings-controls",
     )
 
 
@@ -959,6 +1007,7 @@ def get_status(
     current_state=None,
     auto_heal_state=None,
     idle_stuck_state=None,
+    battle_runtime_state=None,
 ):
     return api.get_status(
         player_info,
@@ -971,6 +1020,7 @@ def get_status(
         current_state,
         auto_heal_state,
         idle_stuck_state,
+        battle_runtime_state,
     )
 
 
@@ -1076,10 +1126,13 @@ def log_monster_scan_details(result):
     for monster in result.get("monsters", []):
         bar = monster.get("blood_bar", {})
         position = monster.get("position", {})
+        logic = monster.get("logic", {})
         log.write(
             "怪物 "
             f"name={monster.get('name', '')} "
             f"distance={monster.get('distance', '')} "
+            f"logic={logic.get('x', '')}:{logic.get('y', '')} "
+            f"logic_distance={logic.get('distance', '')} "
             f"hp={monster.get('hp_percent', '')}% "
             f"name_text={monster.get('name_text', '')} "
             f"bar={bar.get('left')},{bar.get('top')},{bar.get('right')},{bar.get('bottom')} "
@@ -1119,6 +1172,12 @@ h2 {
     gap: 8px;
     align-items: center;
 }
+.battle-settings-controls {
+    display: grid;
+    grid-template-columns: minmax(140px, 170px) minmax(180px, 1fr);
+    gap: 8px;
+    align-items: center;
+}
 .getitem-controls {
     display: grid;
     grid-template-columns: minmax(110px, 130px) minmax(130px, 160px) minmax(180px, 1fr);
@@ -1141,6 +1200,7 @@ h2 {
 .auto-heal-field,
 .idle-stuck-toggle,
 .idle-stuck-field,
+.battle-settings-field,
 .getitem-toggle,
 .getitem-field,
 .monster-name-debug-toggle,
@@ -1165,6 +1225,7 @@ h2 {
 }
 .auto-heal-field input,
 .idle-stuck-field input,
+.battle-settings-field input,
 .getitem-field input,
 .map-corner-hotkey-field input {
     min-width: 0;
@@ -1172,6 +1233,7 @@ h2 {
 }
 .auto-heal-message,
 .idle-stuck-message,
+.battle-settings-message,
 .getitem-message,
 .monster-name-debug-message,
 .map-corner-hotkey-message {
@@ -1341,6 +1403,7 @@ th {
 @media (max-width: 640px) {
     .bind-controls,
     .auto-heal-controls,
+    .battle-settings-controls,
     .idle-stuck-controls,
     .getitem-controls,
     .monster-name-debug-controls,
@@ -1423,6 +1486,21 @@ async function saveAutoHealSettings() {
             enabled,
             threshold_percent: threshold,
             interval_ms: interval,
+        }),
+    });
+    const data = await response.json();
+    console.log(data);
+    applyStatus(data.status || {});
+    await refreshLogs();
+}
+
+async function saveBattleSettings() {
+    const limit = document.getElementById("no-monster-scan-limit").value;
+    const response = await fetch("/api/battle/settings", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            no_monster_scan_limit: limit,
         }),
     });
     const data = await response.json();
@@ -1745,7 +1823,7 @@ function applyStatus(data) {
     document.getElementById("bound-title").textContent = boundTitle || "未绑定";
     document.getElementById("state-name").textContent = data.state ? data.state.name : "idle";
     document.getElementById("patrol-enabled").textContent = data.patrol && data.patrol.enabled ? "开" : "关";
-    document.getElementById("battle-enabled").textContent = data.battle && data.battle.enabled ? "开" : "关";
+    updateBattlePanel(data.battle || {});
     updateAccountsPanel(data.accounts || {});
     updateMonsterFilterPanel(data.monster_filter || {});
     updateMonsterNameColorPanel(data.monster_name_colors || {});
@@ -1849,6 +1927,29 @@ function updateAutoHealPanel(autoHeal) {
     document.getElementById("auto-heal-message").textContent =
         stateText + " hp=" + hpText + " threshold=" + (autoHeal.threshold_percent ?? 50) + "%" + triggeredText
         + (autoHeal.last_message ? " " + autoHeal.last_message : "");
+}
+
+function updateBattlePanel(battle) {
+    const enabled = !!battle.enabled;
+    const stateText = enabled ? "开" : "关";
+    const count = battle.no_monster_count ?? 0;
+    const limit = battle.no_monster_scan_limit ?? 3;
+    const target = battle.locked_target || {};
+    const logic = target.last_logic || {};
+    const logicText = logic.x === undefined ? "-" : String(logic.x) + ":" + String(logic.y);
+    const hpText = target.last_hp_percent === undefined || target.last_hp_percent === "" ? "-" : String(target.last_hp_percent) + "%";
+    const missText = target.miss_count === undefined ? "-" : String(target.miss_count);
+
+    document.getElementById("battle-enabled").textContent = stateText;
+    document.getElementById("battle-no-monster").textContent = String(count) + "/" + String(limit);
+    setInputValueIfIdle("no-monster-scan-limit", limit);
+    document.getElementById("battle-settings-message").textContent =
+        "无怪=" + String(count) + "/" + String(limit)
+        + " target=" + logicText
+        + " hp=" + hpText
+        + " miss=" + missText
+        + (battle.last_no_monster_reason ? " " + battle.last_no_monster_reason : "")
+        + (battle.last_message ? " " + battle.last_message : "");
 }
 
 function updateIdleStuckPanel(idleStuck) {

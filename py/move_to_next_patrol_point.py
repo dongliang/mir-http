@@ -19,6 +19,7 @@ def update_frame(game_data, state_data):
         }
 
     if not state_data.get("move_started"):
+        api.reset_battle_runtime(game_data.get("battle_runtime_state"), "开始移动到下一个巡逻点")
         result = move_once(game_data, commit_index=False)
 
         if not result.get("success"):
@@ -90,6 +91,7 @@ def move_once(game_data, commit_index=True):
 
     if move.get("success") and commit_index:
         commit_target_index(game_data, next_index)
+        api.reset_battle_runtime(game_data.get("battle_runtime_state"), "手动移动到下一个巡逻点")
 
     return {
         "success": move.get("success", False),

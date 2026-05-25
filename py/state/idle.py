@@ -7,18 +7,15 @@ import api
 IDLE_STUCK_DEFAULT_SECONDS = 30
 
 
-# 空闲状态：先检查卡住保护，再尝试捡物品，最后按开关进入战斗或巡逻移动状态。
+# 空闲状态：先尝试捡物品，最后按开关进入找怪或巡逻移动状态。
 def update_frame(game_data, state_data):
     battle_control = game_data["battle_control"]
     patrol_control = game_data["patrol_control"]
-    stuck_result = update_idle_stuck(game_data)
-
-    if stuck_result:
-        return stuck_result
 
     getitem_result = api.should_enter_getitem(game_data)
 
     if getitem_result.get("enter", False):
+        api.reset_no_monster_count(game_data.get("battle_runtime_state"), "进入捡取物品，清空无怪次数")
         return {
             "state": "getitem",
             "message": getitem_result.get("message", "发现可捡物品，进入捡取物品状态"),
@@ -26,8 +23,8 @@ def update_frame(game_data, state_data):
 
     if battle_control.get("enabled", False):
         return {
-            "state": "battle",
-            "message": "战斗开关已开启，进入战斗状态",
+            "state": "find_monster",
+            "message": "战斗开关已开启，进入找怪状态",
         }
 
     if patrol_control.get("enabled", False):
@@ -89,6 +86,7 @@ def update_idle_stuck(game_data):
     stuck_state["last_coordinate"] = None
     stuck_state["stationary_started_at"] = now
     stuck_state["stationary_seconds"] = 0
+    api.reset_battle_runtime(game_data.get("battle_runtime_state"), "卡住跳点触发，清空战斗运行状态")
     map_name, x, y = coordinate
     message = f"玩家坐标 {map_name} {x}:{y} 连续 {stationary_seconds} 秒未变化，进入下一个巡逻点"
     stuck_state["last_message"] = message
