@@ -68,7 +68,7 @@ pet_heal_state = {
     "last_target": {},
     "last_message": "",
 }
-# idle 卡住保护状态：跨 idle/battle 保存坐标停留计时。
+# idle 卡住保护状态：跨自动状态保存坐标停留计时。
 idle_stuck_state = {
     "last_coordinate": None,
     "stationary_started_at": 0.0,

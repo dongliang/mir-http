@@ -24,8 +24,6 @@ def update_frame(game_data, state_data):
             "message": message,
         }
 
-    reset_idle_stuck_state(game_data)
-
     now = time.time()
     next_action_at = float(state_data.get("next_action_at") or 0.0)
 
@@ -174,16 +172,3 @@ def is_auto_flow_enabled(game_data):
         game_data.get("battle_control", {}).get("enabled", False)
         or game_data.get("patrol_control", {}).get("enabled", False)
     )
-
-
-# 捡取期间重置 idle 卡住保护，避免走向物品时被误判卡住。
-def reset_idle_stuck_state(game_data):
-    stuck_state = game_data.get("idle_stuck_state")
-
-    if stuck_state is None:
-        return
-
-    stuck_state["last_coordinate"] = None
-    stuck_state["stationary_started_at"] = time.time()
-    stuck_state["stationary_seconds"] = 0
-    stuck_state["last_message"] = "捡取物品进行中，卡住跳点计时暂停"
