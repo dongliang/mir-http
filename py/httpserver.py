@@ -189,7 +189,7 @@ def create_server(
     def post():
         battle_control["enabled"] = True
         patrol_control["enabled"] = False
-        api.reset_no_monster_count(battle_runtime_state, "战斗开关已打开")
+        api.reset_battle_runtime(battle_runtime_state, "战斗开关已打开")
         message = "战斗开关已打开，巡逻开关已关闭"
         log.write(message)
         return JSONResponse({
@@ -211,7 +211,7 @@ def create_server(
             "status": current_status(),
         })
 
-    # 战斗设置接口：保存连续无怪跳点次数。
+    # 战斗设置接口：保存连续无怪跳点次数和单次战斗等待秒数。
     @rt("/api/battle/settings")
     async def post(request: Request):
         try:
@@ -1019,7 +1019,7 @@ def create_pet_heal_controls(app_settings):
     )
 
 
-# 创建战斗控制栏：连续无怪次数用于刷空后跳巡逻点。
+# 创建战斗控制栏：连续无怪次数用于刷空跳点，战斗秒数用于单次点击后的等待。
 def create_battle_controls(app_settings):
     return Div(
         Label(
@@ -1031,6 +1031,19 @@ def create_battle_controls(app_settings):
                 max=str(api.NO_MONSTER_SCAN_LIMIT_MAX),
                 step="1",
                 value=str(app_settings.get("no_monster_scan_limit", api.NO_MONSTER_SCAN_LIMIT_DEFAULT)),
+                onchange="saveBattleSettings()",
+            ),
+            cls="battle-settings-field",
+        ),
+        Label(
+            Span("战斗秒数"),
+            Input(
+                id="battle-duration-seconds",
+                type="number",
+                min=str(api.BATTLE_DURATION_SECONDS_MIN),
+                max=str(api.BATTLE_DURATION_SECONDS_MAX),
+                step="1",
+                value=str(app_settings.get("battle_duration_seconds", api.BATTLE_DURATION_SECONDS_DEFAULT)),
                 onchange="saveBattleSettings()",
             ),
             cls="battle-settings-field",
@@ -1734,11 +1747,13 @@ async function saveAutoHealSettings() {
 
 async function saveBattleSettings() {
     const limit = document.getElementById("no-monster-scan-limit").value;
+    const duration = document.getElementById("battle-duration-seconds").value;
     const response = await fetch("/api/battle/settings", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             no_monster_scan_limit: limit,
+            battle_duration_seconds: duration,
         }),
     });
     const data = await response.json();
@@ -2269,20 +2284,25 @@ function updateBattlePanel(battle) {
     const stateText = enabled ? "开" : "关";
     const count = battle.no_monster_count ?? 0;
     const limit = battle.no_monster_scan_limit ?? 3;
-    const target = battle.locked_target || {};
-    const logic = target.last_logic || {};
-    const logicText = logic.x === undefined ? "-" : String(logic.x) + ":" + String(logic.y);
-    const hpText = target.last_hp_percent === undefined || target.last_hp_percent === "" ? "-" : String(target.last_hp_percent) + "%";
-    const missText = target.miss_count === undefined ? "-" : String(target.miss_count);
+    const duration = battle.battle_duration_seconds ?? 5;
+    const remaining = battle.battle_remaining_seconds ?? 0;
+    const target = battle.current_target || {};
+    const position = target.position || {};
+    const positionText = position.x === undefined ? "-" : String(position.x) + "," + String(position.y);
+    const targetName = target.name || target.matched_keyword || "-";
+    const hpText = target.hp_percent === undefined || target.hp_percent === "" ? "-" : String(target.hp_percent) + "%";
 
     document.getElementById("battle-enabled").textContent = stateText;
     document.getElementById("battle-no-monster").textContent = String(count) + "/" + String(limit);
     setInputValueIfIdle("no-monster-scan-limit", limit);
+    setInputValueIfIdle("battle-duration-seconds", duration);
     document.getElementById("battle-settings-message").textContent =
         "无怪=" + String(count) + "/" + String(limit)
-        + " target=" + logicText
+        + " 战斗=" + String(duration) + "s"
+        + " 剩余=" + String(remaining) + "s"
+        + " target=" + targetName
+        + " pos=" + positionText
         + " hp=" + hpText
-        + " miss=" + missText
         + (battle.last_no_monster_reason ? " " + battle.last_no_monster_reason : "")
         + (battle.last_message ? " " + battle.last_message : "");
 }

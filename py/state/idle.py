@@ -23,8 +23,8 @@ def update_frame(game_data, state_data):
 
     if battle_control.get("enabled", False):
         return {
-            "state": "find_monster",
-            "message": "战斗开关已开启，进入找怪状态",
+            "state": "selectMonster",
+            "message": "战斗开关已开启，进入选怪状态",
         }
 
     if patrol_control.get("enabled", False):

@@ -8,9 +8,9 @@ import log
 import move_to_next_patrol_point
 import player
 from state import battle
-from state import find_monster
 from state import getitem
 from state import idle
+from state import select_monster
 
 
 # 当前玩家状态：保存页面和后台循环共享的地图坐标信息。
@@ -30,6 +30,7 @@ app_settings = {
     "getitem_enabled": True,
     "getitem_step_wait_ms": api.GETITEM_DEFAULT_STEP_WAIT_MS,
     "no_monster_scan_limit": api.NO_MONSTER_SCAN_LIMIT_DEFAULT,
+    "battle_duration_seconds": api.BATTLE_DURATION_SECONDS_DEFAULT,
 }
 # 当前加载的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
 current_map = {}
@@ -54,12 +55,13 @@ patrol_control = {
 battle_control = {
     "enabled": False,
 }
-# 战斗运行状态：保存连续无怪、锁定目标和临时忽略目标。
+# 战斗运行状态：保存连续无怪、当前战斗目标和计时信息。
 battle_runtime_state = {
     "no_monster_count": 0,
     "last_no_monster_reason": "",
-    "ignored_targets": [],
-    "last_target": {},
+    "current_target": {},
+    "battle_started_at": 0.0,
+    "battle_ends_at": 0.0,
     "last_message": "",
 }
 # 自动加血状态：独立于状态机，记录检测节奏、最近血量和低血触发锁。
@@ -91,7 +93,7 @@ current_state = {
 # 状态模块表：状态名到模块的映射，供每帧调度。
 state_modules = {
     "idle": idle,
-    "find_monster": find_monster,
+    "selectMonster": select_monster,
     "battle": battle,
     "getitem": getitem,
     "move_to_next_patrol_point": move_to_next_patrol_point,

@@ -290,6 +290,9 @@ IDLE_STUCK_MAX_SECONDS = 600
 NO_MONSTER_SCAN_LIMIT_DEFAULT = 3
 NO_MONSTER_SCAN_LIMIT_MIN = 1
 NO_MONSTER_SCAN_LIMIT_MAX = 20
+BATTLE_DURATION_SECONDS_DEFAULT = 5
+BATTLE_DURATION_SECONDS_MIN = 1
+BATTLE_DURATION_SECONDS_MAX = 600
 NEAR_MONSTER_LOGIC_RADIUS = 6
 TARGET_RECHECK_SECONDS = 1.0
 ATTACK_CLICK_INTERVAL_SECONDS = 2.0
@@ -1736,15 +1739,56 @@ def make_patrol_status(patrol_points, patrol_state, patrol_control=None):
 def make_battle_status(battle_control, app_settings=None, battle_runtime_state=None):
     runtime = battle_runtime_state or {}
     limit = get_no_monster_scan_limit(app_settings or {})
+    current_target = runtime.get("current_target", {}) or runtime.get("last_target", {})
     return {
         "enabled": bool((battle_control or {}).get("enabled", False)),
         "no_monster_scan_limit": limit,
+        "battle_duration_seconds": get_battle_duration_seconds(app_settings or {}),
         "no_monster_count": normalize_number(runtime.get("no_monster_count"), 0, 0, limit),
         "last_no_monster_reason": runtime.get("last_no_monster_reason", ""),
+        "current_target": make_battle_target_status(current_target),
+        "battle_remaining_seconds": get_battle_remaining_seconds(runtime),
         "locked_target": make_locked_target_status(runtime.get("last_target", {})),
         "ignored_targets": make_ignored_targets_status(runtime.get("ignored_targets", [])),
         "last_message": runtime.get("last_message", ""),
     }
+
+
+# 生成当前战斗目标状态：只暴露页面调试需要的稳定字段。
+def make_battle_target_status(target):
+    if not target:
+        return {}
+
+    position = copy_position(target.get("position", {}))
+    blood_bar = copy_blood_bar(target.get("blood_bar", {}))
+    logic = target.get("logic", {})
+    return {
+        "id": int(target.get("id") or 0),
+        "name": target.get("name", ""),
+        "name_text": target.get("name_text", ""),
+        "matched_keyword": target.get("matched_keyword", ""),
+        "hp_percent": target.get("hp_percent", ""),
+        "distance": target.get("distance", ""),
+        "position": {
+            "x": int(position.get("x", 0)) if position else 0,
+            "y": int(position.get("y", 0)) if position else 0,
+        },
+        "blood_bar": blood_bar,
+        "logic": make_logic_status(logic),
+    }
+
+
+# 计算当前战斗剩余秒数。
+def get_battle_remaining_seconds(runtime):
+    try:
+        ends_at = float((runtime or {}).get("battle_ends_at") or 0)
+    except (TypeError, ValueError):
+        return 0
+
+    if ends_at <= 0:
+        return 0
+
+    return max(0, round(ends_at - time.time(), 1))
 
 
 # 生成锁定目标状态：只暴露页面调试需要的稳定字段。
@@ -2763,6 +2807,46 @@ def move_to_logic_point(point, current_map):
             f"client={target['client_x']},{target['client_y']} "
             f"click={click_message} close={close_result['message']}"
         ),
+    }
+
+
+# 点击怪物 hover 点：battle 状态只负责施加一次打怪点击。
+def click_monster_hover(monster):
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口",
+        }
+
+    monster = monster or {}
+    position = monster.get("position", {})
+
+    try:
+        x = int(position.get("x", 0))
+        y = int(position.get("y", 0))
+    except (AttributeError, TypeError, ValueError):
+        return {
+            "success": False,
+            "message": f"怪物位置异常 position={position}",
+        }
+
+    width, height = get_bound_client_size()
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    x = clamp_number(x, 0, width - 1)
+    y = clamp_number(y, 0, height - 1)
+    success, message = op.click_mouse_at(x, y, "left")
+
+    return {
+        "success": success,
+        "x": x,
+        "y": y,
+        "message": message,
     }
 
 
@@ -3989,18 +4073,25 @@ def update_idle_stuck_settings(app_settings, idle_stuck_state, data):
     }
 
 
-# 更新战斗设置：当前只保存连续无怪跳点次数。
+# 更新战斗设置：保存连续无怪跳点次数和单次战斗等待秒数。
 def update_battle_settings(app_settings, battle_runtime_state, data):
     data = data if isinstance(data, dict) else {}
     limit = normalize_number(
-        data.get("no_monster_scan_limit"),
+        data.get("no_monster_scan_limit", app_settings.get("no_monster_scan_limit")),
         NO_MONSTER_SCAN_LIMIT_DEFAULT,
         NO_MONSTER_SCAN_LIMIT_MIN,
         NO_MONSTER_SCAN_LIMIT_MAX,
     )
+    duration = normalize_number(
+        data.get("battle_duration_seconds", app_settings.get("battle_duration_seconds")),
+        BATTLE_DURATION_SECONDS_DEFAULT,
+        BATTLE_DURATION_SECONDS_MIN,
+        BATTLE_DURATION_SECONDS_MAX,
+    )
 
     app_settings["no_monster_scan_limit"] = limit
-    message = f"战斗设置已更新: no_monster_scan_limit={limit}"
+    app_settings["battle_duration_seconds"] = duration
+    message = f"战斗设置已更新: no_monster_scan_limit={limit} battle_duration_seconds={duration}"
 
     if battle_runtime_state is not None:
         clamp_no_monster_count(battle_runtime_state, limit)
@@ -4020,6 +4111,16 @@ def get_no_monster_scan_limit(app_settings):
         NO_MONSTER_SCAN_LIMIT_DEFAULT,
         NO_MONSTER_SCAN_LIMIT_MIN,
         NO_MONSTER_SCAN_LIMIT_MAX,
+    )
+
+
+# 读取单次战斗等待秒数。
+def get_battle_duration_seconds(app_settings):
+    return normalize_number(
+        app_settings.get("battle_duration_seconds"),
+        BATTLE_DURATION_SECONDS_DEFAULT,
+        BATTLE_DURATION_SECONDS_MIN,
+        BATTLE_DURATION_SECONDS_MAX,
     )
 
 
@@ -5107,6 +5208,52 @@ def clear_battle_locked_target(battle_runtime_state, message=""):
         battle_runtime_state["last_message"] = message
 
 
+# 根据选怪结果生成 battle 状态使用的轻量目标。
+def make_battle_target(monster, filter_result=None):
+    monster = monster or {}
+    filter_result = filter_result or {}
+    matched_keyword = filter_result.get("matched_keyword", "")
+    names = filter_result.get("names", [])
+    name = matched_keyword or (names[0] if names else "")
+    return {
+        "id": int(monster.get("id") or 0),
+        "name": name,
+        "name_text": filter_result.get("text", "") or monster.get("name_text", ""),
+        "matched_keyword": matched_keyword,
+        "hp_percent": monster.get("hp_percent", ""),
+        "distance": monster.get("distance", ""),
+        "position": copy_position(filter_result.get("position") or monster.get("position", {})),
+        "blood_bar": copy_blood_bar(filter_result.get("blood_bar") or monster.get("blood_bar", {})),
+        "logic": copy_logic(monster.get("logic", {})),
+    }
+
+
+# 写入当前战斗目标和计时信息。
+def set_battle_current_target(battle_runtime_state, target, started_at=0, ends_at=0, message=""):
+    if battle_runtime_state is None:
+        return
+
+    battle_runtime_state["current_target"] = make_battle_target_status(target) if target else {}
+    battle_runtime_state["battle_started_at"] = float(started_at or 0)
+    battle_runtime_state["battle_ends_at"] = float(ends_at or 0)
+
+    if message:
+        battle_runtime_state["last_message"] = message
+
+
+# 清空当前战斗目标。
+def clear_battle_current_target(battle_runtime_state, message=""):
+    if battle_runtime_state is None:
+        return
+
+    battle_runtime_state["current_target"] = {}
+    battle_runtime_state["battle_started_at"] = 0.0
+    battle_runtime_state["battle_ends_at"] = 0.0
+
+    if message:
+        battle_runtime_state["last_message"] = message
+
+
 # 清空连续无怪计数。
 def reset_no_monster_count(battle_runtime_state, reason=""):
     if battle_runtime_state is None:
@@ -5157,6 +5304,9 @@ def reset_battle_runtime(battle_runtime_state, reason=""):
     battle_runtime_state["last_no_monster_reason"] = reason
     battle_runtime_state["last_target"] = {}
     battle_runtime_state["ignored_targets"] = []
+    battle_runtime_state["current_target"] = {}
+    battle_runtime_state["battle_started_at"] = 0.0
+    battle_runtime_state["battle_ends_at"] = 0.0
 
     if reason:
         battle_runtime_state["last_message"] = reason
