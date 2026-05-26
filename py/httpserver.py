@@ -150,11 +150,18 @@ def create_server(
         battle_control["enabled"] = True
         patrol_control["enabled"] = False
         api.reset_battle_runtime(battle_runtime_state, "战斗开关已打开")
+        nearest_result = patrol_move_state.select_nearest_to_player(game_data)
         message = "战斗开关已打开，巡逻开关已关闭"
+        nearest_message = nearest_result.get("message", "")
+
+        if nearest_message:
+            message = f"{message}；{nearest_message}"
+
         log.write(message)
         return JSONResponse({
             "success": True,
             "message": message,
+            "nearest_patrol": nearest_result,
             "status": current_status(),
         })
 

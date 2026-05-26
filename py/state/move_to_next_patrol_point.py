@@ -125,6 +125,69 @@ def move_once(game_data, commit_index=True):
     }
 
 
+# 按玩家当前逻辑坐标选中最近巡逻点：只更新 index，不执行移动。
+def select_nearest_to_player(game_data):
+    if not game_data.get("current_map"):
+        return {
+            "success": False,
+            "message": "最近巡逻点未设置: 还没有加载地图",
+        }
+
+    patrol_points = game_data["patrol_points"]
+
+    if not patrol_points:
+        return {
+            "success": False,
+            "message": "最近巡逻点未设置: 还没有保存巡逻点",
+        }
+
+    player = game_data.get("player", {})
+
+    try:
+        player_logic = {
+            "x": int(player.get("x")),
+            "y": int(player.get("y")),
+        }
+    except (TypeError, ValueError):
+        return {
+            "success": False,
+            "message": "最近巡逻点未设置: 玩家坐标无效",
+        }
+
+    nearest = None
+
+    for index, point in enumerate(patrol_points):
+        distance = api.get_logic_distance(player_logic, point)
+        item = {
+            "index": index,
+            "point": point,
+            "distance": distance,
+        }
+
+        if nearest is None or (distance, index) < (nearest["distance"], nearest["index"]):
+            nearest = item
+
+    if nearest is None or nearest["distance"] >= 999999:
+        return {
+            "success": False,
+            "message": "最近巡逻点未设置: 巡逻点坐标无效",
+        }
+
+    index = commit_target_index(game_data, nearest["index"])
+    point = nearest["point"]
+    return {
+        "success": True,
+        "point": point,
+        "index": index,
+        "distance": nearest["distance"],
+        "message": (
+            f"最近巡逻点 index={index} "
+            f"logic={int(point.get('x'))}:{int(point.get('y'))} "
+            f"distance={nearest['distance']}"
+        ),
+    }
+
+
 # 边走边打扫描：发现附近血条超过阈值时取消移动，并让 idle 重新找怪。
 def update_fight_while_moving(game_data, state_data):
     if not should_fight_while_moving(game_data):
