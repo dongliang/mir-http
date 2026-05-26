@@ -39,7 +39,7 @@ bind_mode_candidates = [
     ("gdi", "normal", "normal", 0),
     ("normal", "normal", "normal", 0),
 ]
-# 当前绑定模式：记录成功绑定时采用的模式，供坐标缩放和点击方式判断。
+# 当前绑定模式：记录成功绑定时采用的模式，供绑定状态和点击方式判断。
 active_bind_mode = None
 
 
@@ -198,6 +198,30 @@ def find_text(x1, y1, x2, y2, text, color=None, sim=None):
     return parse_find_text_result(raw, str(text).split("|"))
 
 
+# 查找绑定窗口区域中的指定图片。
+def find_pic(x1, y1, x2, y2, image_file, delta_color="000000", sim=1.0, direction=0):
+    if not bound_hwnd or not image_file:
+        return []
+
+    op = get_op()
+
+    try:
+        raw = op.FindPicEx(
+            int(x1),
+            int(y1),
+            int(x2),
+            int(y2),
+            str(image_file),
+            str(delta_color),
+            float(sim),
+            int(direction),
+        )
+    except Exception:
+        return []
+
+    return parse_find_pic_result(raw)
+
+
 # 解析 OP OcrEx 返回：格式为 x,y,文字|x,y,文字。
 def parse_ocr_ex_result(raw):
     items = []
@@ -257,6 +281,38 @@ def parse_find_text_result(raw, targets):
     return items
 
 
+# 解析 OP FindPicEx 返回：格式为 图片索引,x,y|图片索引,x,y。
+def parse_find_pic_result(raw):
+    items = []
+
+    for part in str(raw or "").split("|"):
+        if not part:
+            continue
+
+        fields = part.split(",", 2)
+
+        if len(fields) < 3:
+            continue
+
+        try:
+            index = int(float(fields[0]))
+            x = int(float(fields[1]))
+            y = int(float(fields[2]))
+        except ValueError:
+            continue
+
+        if index < 0 or x < 0 or y < 0:
+            continue
+
+        items.append({
+            "index": index,
+            "x": x,
+            "y": y,
+        })
+
+    return items
+
+
 # 获取 OP 版本：读取已有或临时 OP 实例的版本号。
 def get_op_version():
     if op_object:
@@ -291,7 +347,7 @@ def format_active_bind_mode():
     return f"{display_mode}/{mouse_mode}/{keypad_mode}/{mode}"
 
 
-# 获取客户区原始尺寸：统一通过 OP 窗口接口读取，避免 Win32 DPI 虚拟化。
+# 获取客户区尺寸：统一通过 OP 窗口接口读取。
 def get_client_size(hwnd):
     if not hwnd:
         return 0, 0

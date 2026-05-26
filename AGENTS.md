@@ -84,7 +84,7 @@
 - OP 绑定、点击、截图、OCR 坐标统一优先使用 `dx2/windows/windows/0`，不要在后续任务里随意切到其它显示模式。
 - `windows` 鼠标模式下不要用 `LeftClick/RightClick`，要用 `Down + Up`。
 - 后台键盘优先用绑定后的 `KeyDown + 短暂停留 + KeyUp`，不要只依赖过短的 `KeyPress`。
-- `dx2` 下不要额外把窗口尺寸、点击、截图或 OCR 坐标乘以 `0.5`，直接使用 OP/Win32 返回的客户区坐标。
+- `dx2` 下窗口尺寸、点击、截图和 OCR 坐标直接使用 OP/Win32 返回的客户区坐标，不做坐标比例换算。
 - OP 找字统一加载 `fonts/main.txt`，缺字时补大漠字库，不要重新引入 PaddleOCR。
 - 怪物攻击前按 `txt/monster.txt` 做白名单过滤，每行一个怪物关键字；怪物名 OCR 颜色按 `txt/monster_name_colors.txt` 加载，每行一个 OP 颜色格式。
 - 页面按钮“重载TXT配置”会运行时重新读取 `txt/` 下的怪物清单和怪物名 OCR 颜色。

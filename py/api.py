@@ -12,7 +12,6 @@ from ctypes import wintypes
 from pathlib import Path
 from urllib.parse import quote
 
-import cv2
 import numpy as np
 from PIL import Image
 
@@ -207,8 +206,6 @@ MONSTER_NAME_HALF_WIDTH = 50
 MONSTER_NAME_TOP_OFFSET = 32
 # 怪物名识别下边距：血条底边向下到名字区域底部的距离。
 MONSTER_NAME_BOTTOM_OFFSET = 52
-# 血条特征匹配阈值：0 表示完全一致，保留极小容差兼容截图格式差异。
-MONSTER_FEATURE_MATCH_THRESHOLD = 0.001
 # 怪物名字显示等待时间：鼠标悬停后等待游戏显示名字。
 MONSTER_HOVER_WAIT_SECONDS = 0.5
 # 附近怪物血条范围：以玩家自身血条中心为中心的屏幕矩形。
@@ -4791,7 +4788,7 @@ def read_player_health_percent():
                 "message": f"自身血量截图失败: {capture_message}",
             }
 
-        matches = find_player_blood_feature_matches(scan_file)
+        matches = find_player_blood_feature_matches(width, height)
 
         if not matches:
             return {
@@ -4823,45 +4820,15 @@ def read_player_health_percent():
 
 
 # 查找玩家自身绿色血条特征。
-def find_player_blood_feature_matches(screen_file):
-    screen = read_cv2_image(screen_file)
-    templates = get_player_blood_feature_templates()
-    matches = []
-
-    for template in templates:
-        image = template["image"]
-
-        if image.shape[0] > screen.shape[0] or image.shape[1] > screen.shape[1]:
-            continue
-
-        result = cv2.matchTemplate(screen, image, cv2.TM_SQDIFF_NORMED)
-        ys, xs = np.where(result <= MONSTER_FEATURE_MATCH_THRESHOLD)
-
-        for y, x in zip(ys, xs):
-            matches.append({
-                "x": int(x),
-                "y": int(y),
-                "width": template["blood_width"],
-                "height": template["blood_height"],
-            })
-
-    return dedupe_matches(filter_player_blood_matches(screen, matches))
-
-
-# 获取玩家自身血条匹配配置：宽度固定，高度用特征图。
-def get_player_blood_feature_templates():
-    feature = read_cv2_image(player_blood_feature_image)
-
-    return [{
-        "image": feature,
-        "blood_width": HEALTH_BAR_WIDTH_PIXELS,
-        "blood_height": feature.shape[0],
-    }]
+def find_player_blood_feature_matches(width, height):
+    search_box = clamp_box(0, 0, width, height, width, height)
+    matches = find_feature_image_matches(player_blood_feature_image, search_box)
+    return dedupe_matches(filter_player_blood_matches(height, matches))
 
 
 # 过滤底部 UI 区域，避免把界面血量槽误认为玩家头顶血条。
-def filter_player_blood_matches(screen, matches):
-    play_area_bottom = max(1, screen.shape[0] - BOTTOM_UI_HEIGHT)
+def filter_player_blood_matches(height, matches):
+    play_area_bottom = max(1, int(height) - BOTTOM_UI_HEIGHT)
     filtered = []
 
     for match in matches:
@@ -5153,10 +5120,7 @@ def find_monster_blood_bars_locked(player_info=None, scan_mode="play_area"):
                 "message": f"怪物扫描截图失败: {capture_message}",
             }
 
-        matches = find_blood_feature_matches(scan_file, ignore_bottom_ui=True)
-
-        if scan_mode == "nearby":
-            matches = filter_blood_matches_by_box(matches, search_box)
+        matches = find_blood_feature_matches(search_box)
 
         monsters = []
 
@@ -5213,6 +5177,8 @@ def get_player_screen_blood_bar(player_info):
 
 # 获取怪物血条扫描区域。
 def get_monster_blood_search_box(scan_mode, screen_blood_bar, width, height):
+    play_area_bottom = max(1, height - BOTTOM_UI_HEIGHT)
+
     if scan_mode == "nearby":
         center = screen_blood_bar["center"]
         return clamp_box(
@@ -5221,25 +5187,10 @@ def get_monster_blood_search_box(scan_mode, screen_blood_bar, width, height):
             int(center["x"]) + NEARBY_MONSTER_BLOOD_SEARCH_WIDTH / 2,
             int(center["y"]) + NEARBY_MONSTER_BLOOD_SEARCH_HEIGHT / 2,
             width,
-            height,
+            play_area_bottom,
         )
 
-    play_area_bottom = max(1, height - BOTTOM_UI_HEIGHT)
     return clamp_box(0, 0, width, play_area_bottom, width, play_area_bottom)
-
-
-# 只保留血条中心点落在指定矩形里的匹配。
-def filter_blood_matches_by_box(matches, box):
-    filtered = []
-
-    for match in matches:
-        center_x = int(match["x"]) + int(match.get("width", 0)) / 2
-        center_y = int(match["y"]) + int(match.get("height", 0)) / 2
-
-        if is_point_in_box(round(center_x), round(center_y), box):
-            filtered.append(match)
-
-    return filtered
 
 
 # 按玩家血条右上角到怪物血条左上角的距离排序。
@@ -6006,32 +5957,19 @@ def refresh_monster_blood_bar(blood_bar, width, height):
         height,
     )
 
-    with tempfile.TemporaryDirectory(prefix="mir2_monster_refresh_") as temp_dir:
-        search_file = Path(temp_dir) / "search.bmp"
-        success, _ = capture_bound_client_checked(
-            search_box["left"],
-            search_box["top"],
-            search_box["right"] - 1,
-            search_box["bottom"] - 1,
-            search_file,
-        )
-
-        if not success or not search_file.exists():
-            return original
-
-        matches = find_blood_feature_matches(search_file)
+    matches = find_blood_feature_matches(search_box)
 
     if not matches:
         return original
 
-    original_local_center = (
-        center_x - search_box["left"],
-        round((original["top"] + original["bottom"]) / 2) - search_box["top"],
+    original_center = (
+        center_x,
+        round((original["top"] + original["bottom"]) / 2),
     )
     nearest = min(
         matches,
         key=lambda match: math.dist(
-            original_local_center,
+            original_center,
             (
                 match["x"] + match.get("width", 0) / 2,
                 match["y"] + match.get("height", 0) / 2,
@@ -6039,7 +5977,7 @@ def refresh_monster_blood_bar(blood_bar, width, height):
         ),
     )
     nearest_distance = math.dist(
-        original_local_center,
+        original_center,
         (
             nearest["x"] + nearest.get("width", 0) / 2,
             nearest["y"] + nearest.get("height", 0) / 2,
@@ -6050,10 +5988,10 @@ def refresh_monster_blood_bar(blood_bar, width, height):
         return original
 
     return {
-        "left": search_box["left"] + int(nearest["x"]),
-        "top": search_box["top"] + int(nearest["y"]),
-        "right": search_box["left"] + int(nearest["x"]) + int(nearest.get("width", 0)),
-        "bottom": search_box["top"] + int(nearest["y"]) + int(nearest.get("height", 0)),
+        "left": int(nearest["x"]),
+        "top": int(nearest["y"]),
+        "right": int(nearest["x"]) + int(nearest.get("width", 0)),
+        "bottom": int(nearest["y"]) + int(nearest.get("height", 0)),
     }
 
 
@@ -6281,111 +6219,39 @@ def get_bound_player_name():
 
 
 # 查找血条左侧特征：返回所有精确匹配的左上角坐标。
-def find_blood_feature_matches(screen_file, ignore_bottom_ui=False):
-    screen = read_cv2_image(screen_file)
-    templates = get_blood_feature_templates()
-    matches = []
-
-    for template in templates:
-        image = template["image"]
-
-        if image.shape[0] > screen.shape[0] or image.shape[1] > screen.shape[1]:
-            continue
-
-        result = cv2.matchTemplate(screen, image, cv2.TM_SQDIFF_NORMED)
-        ys, xs = np.where(result <= MONSTER_FEATURE_MATCH_THRESHOLD)
-
-        for y, x in zip(ys, xs):
-            matches.append({
-                "x": int(x),
-                "y": int(y),
-                "width": template["blood_width"],
-                "height": template["blood_height"],
-            })
-
-    if ignore_bottom_ui:
-        matches = filter_play_area_blood_matches(screen, matches)
-
-    if not matches:
-        matches = find_red_bar_component_matches(screen, ignore_bottom_ui)
-
-    return dedupe_matches(matches)
+def find_blood_feature_matches(search_box):
+    return find_feature_image_matches(monster_blood_feature_image, search_box)
 
 
-# 过滤底部界面里的误匹配：怪物点击点落到底栏时不当作可攻击怪物。
-def filter_play_area_blood_matches(screen, matches):
-    play_area_bottom = max(1, screen.shape[0] - BOTTOM_UI_HEIGHT)
-    filtered = []
+# 查找指定特征图：OP 返回客户区绝对坐标，这里补齐血条框尺寸。
+def find_feature_image_matches(feature_image_file, search_box):
+    if not is_valid_box(search_box):
+        return []
 
-    for match in matches:
-        bar_bottom = int(match["y"]) + int(match.get("height", 0))
-        hover_y = bar_bottom + MONSTER_HOVER_OFFSET_Y
+    feature_image_file = Path(feature_image_file)
 
-        if hover_y >= play_area_bottom:
-            continue
+    if not feature_image_file.exists():
+        return []
 
-        filtered.append(match)
-
-    return filtered
-
-
-# 获取怪物血条匹配配置：宽度固定，高度用特征图。
-def get_blood_feature_templates():
-    feature = read_cv2_image(monster_blood_feature_image)
-
-    return [{
-        "image": feature,
-        "blood_width": HEALTH_BAR_WIDTH_PIXELS,
-        "blood_height": feature.shape[0],
-    }]
-
-
-# 查找红色水平血条组件：作为特征模板未命中时的兜底。
-def find_red_bar_component_matches(screen, ignore_bottom_ui=False):
-    red_mask = (
-        (screen[:, :, 2] > 140)
-        & (screen[:, :, 1] < 100)
-        & (screen[:, :, 0] < 100)
+    blood_width, blood_height = get_blood_bar_match_size(feature_image_file)
+    found = op.find_pic(
+        search_box["left"],
+        search_box["top"],
+        search_box["right"] - 1,
+        search_box["bottom"] - 1,
+        feature_image_file,
     )
-    component_count, _, stats, _ = cv2.connectedComponentsWithStats(red_mask.astype("uint8"), 8)
     matches = []
-    play_area_bottom = max(1, screen.shape[0] - BOTTOM_UI_HEIGHT)
 
-    for index in range(1, component_count):
-        x, y, width, height, area = stats[index]
-
-        if ignore_bottom_ui and y + height + MONSTER_HOVER_OFFSET_Y >= play_area_bottom:
-            continue
-
-        if width < 8 or width > 90:
-            continue
-
-        if height < 1 or height > 4:
-            continue
-
-        if area < width * height * 0.8:
-            continue
-
+    for item in found:
         matches.append({
-            "x": max(0, int(x) - 1),
-            "y": max(0, int(y) - 1),
-            "width": int(width) + 2,
-            "height": int(height) + 2,
+            "x": int(item["x"]),
+            "y": int(item["y"]),
+            "width": blood_width,
+            "height": blood_height,
         })
 
-    return matches
-
-
-# 读取 OpenCV 图片：兼容 Windows 中文路径。
-def read_cv2_image(image_file):
-    image_path = Path(image_file)
-    data = np.fromfile(str(image_path), dtype=np.uint8)
-    image = cv2.imdecode(data, cv2.IMREAD_COLOR)
-
-    if image is None:
-        raise RuntimeError(f"读取图片失败: {image_path}")
-
-    return image
+    return dedupe_matches(matches)
 
 
 # 去重匹配点：避免同一血条附近重复命中。
