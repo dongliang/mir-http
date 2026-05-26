@@ -60,6 +60,7 @@ def configure_output_dir(run_dir):
     coordinate_image = screenshot_dir / "map_coordinate.bmp"
     map_max_coordinate_image = screenshot_dir / "map_max_coordinate.bmp"
     output_dir.mkdir(parents=True, exist_ok=True)
+    op.configure_find_debug_images(image_dir=debug_image_dir)
     return output_dir
 
 
@@ -211,6 +212,9 @@ MONSTER_HOVER_WAIT_SECONDS = 0.5
 # 附近怪物血条范围：以玩家自身血条中心为中心的屏幕矩形。
 NEARBY_MONSTER_BLOOD_SEARCH_WIDTH = 150
 NEARBY_MONSTER_BLOOD_SEARCH_HEIGHT = 120
+# 中距离怪物血条范围：以玩家自身血条中心为中心，用于边走边打检测。
+MIDDLE_MONSTER_BLOOD_SEARCH_WIDTH = 500
+MIDDLE_MONSTER_BLOOD_SEARCH_HEIGHT = 280
 # 怪物名字识别最大截图次数：第一次未截到字或识别为空时短暂重试。
 MONSTER_NAME_OCR_MAX_ATTEMPTS = 2
 # 怪物名字识别重试等待时间：给 hover 名字显示留出额外缓冲。
@@ -909,11 +913,12 @@ def create_default_app_settings():
         "pet_heal_key": PET_HEAL_DEFAULT_KEY,
         "idle_stuck_enabled": True,
         "idle_stuck_seconds": IDLE_STUCK_DEFAULT_SECONDS,
-        "monster_name_debug_enabled": False,
+        "op_find_debug_enabled": False,
         "getitem_enabled": True,
         "getitem_step_wait_ms": GETITEM_DEFAULT_STEP_WAIT_MS,
         "no_monster_scan_limit": NO_MONSTER_SCAN_LIMIT_DEFAULT,
         "battle_duration_seconds": BATTLE_DURATION_SECONDS_DEFAULT,
+        "fight_while_moving_enabled": False,
     }
 
 
@@ -997,9 +1002,9 @@ def normalize_app_settings(settings):
         IDLE_STUCK_MIN_SECONDS,
         IDLE_STUCK_MAX_SECONDS,
     )
-    normalized["monster_name_debug_enabled"] = normalize_app_setting_bool(
-        data.get("monster_name_debug_enabled", defaults["monster_name_debug_enabled"]),
-        defaults["monster_name_debug_enabled"],
+    normalized["op_find_debug_enabled"] = normalize_app_setting_bool(
+        data.get("op_find_debug_enabled", defaults["op_find_debug_enabled"]),
+        defaults["op_find_debug_enabled"],
     )
     normalized["getitem_enabled"] = normalize_app_setting_bool(
         data.get("getitem_enabled", defaults["getitem_enabled"]),
@@ -1022,6 +1027,10 @@ def normalize_app_settings(settings):
         defaults["battle_duration_seconds"],
         BATTLE_DURATION_SECONDS_MIN,
         BATTLE_DURATION_SECONDS_MAX,
+    )
+    normalized["fight_while_moving_enabled"] = normalize_app_setting_bool(
+        data.get("fight_while_moving_enabled", defaults["fight_while_moving_enabled"]),
+        defaults["fight_while_moving_enabled"],
     )
     return normalized
 
@@ -1160,6 +1169,11 @@ def apply_app_settings(app_settings):
         app_settings["map_corner_hotkey"] = configure_map_corner_hotkey(hotkey)
     except ValueError:
         app_settings["map_corner_hotkey"] = configure_map_corner_hotkey(MAP_CORNER_HOTKEY_DEFAULT)
+
+    op.configure_find_debug_images(
+        enabled=bool(app_settings.get("op_find_debug_enabled", False)),
+        image_dir=debug_image_dir,
+    )
 
 
 # 清理账号目录名：保留可读名称，只替换 Windows 文件名非法字符。
@@ -1947,7 +1961,7 @@ def make_app_settings_status(app_settings):
     return {
         "map_corner_hotkey": app_settings.get("map_corner_hotkey", MAP_CORNER_HOTKEY_DEFAULT),
         "map_corner_hotkey_last_message": get_map_corner_hotkey_last_message(),
-        "monster_name_debug_enabled": bool(app_settings.get("monster_name_debug_enabled", False)),
+        "op_find_debug_enabled": bool(app_settings.get("op_find_debug_enabled", False)),
     }
 
 
@@ -1998,6 +2012,7 @@ def make_battle_status(battle_control, app_settings=None, battle_runtime_state=N
         "enabled": bool((battle_control or {}).get("enabled", False)),
         "no_monster_scan_limit": limit,
         "battle_duration_seconds": get_battle_duration_seconds(app_settings or {}),
+        "fight_while_moving_enabled": bool((app_settings or {}).get("fight_while_moving_enabled", False)),
         "no_monster_count": normalize_number(runtime.get("no_monster_count"), 0, 0, limit),
         "last_no_monster_reason": runtime.get("last_no_monster_reason", ""),
         "current_target": make_battle_target_status(current_target),
@@ -3064,6 +3079,64 @@ def move_to_logic_point(point, current_map):
     }
 
 
+# 点击绑定窗口客户区坐标。
+def click_client_point(x, y, button="left"):
+    if not op.is_window_bound():
+        return {
+            "success": False,
+            "message": "还没有绑定窗口",
+        }
+
+    width, height = get_bound_client_size()
+
+    if width <= 0 or height <= 0:
+        return {
+            "success": False,
+            "message": f"窗口尺寸异常 size={width}x{height}",
+        }
+
+    try:
+        client_x = int(x)
+        client_y = int(y)
+    except (TypeError, ValueError):
+        return {
+            "success": False,
+            "message": f"点击坐标异常 x={x} y={y}",
+        }
+
+    client_x = clamp_number(client_x, 0, width - 1)
+    client_y = clamp_number(client_y, 0, height - 1)
+    success, message = op.click_mouse_at(client_x, client_y, button)
+
+    return {
+        "success": success,
+        "x": client_x,
+        "y": client_y,
+        "button": button,
+        "message": f"{message} client_size={width}x{height}",
+    }
+
+
+# 点击客户区左上角：用于移动前取消当前攻击。
+def click_client_top_left():
+    return click_client_point(1, 1, "left")
+
+
+# 点击角色脚底点：用于取消正在进行的移动。
+def click_player_foot_point():
+    try:
+        player_x, player_y, position = get_bound_player_foot_point()
+    except ValueError as error:
+        return {
+            "success": False,
+            "message": str(error),
+        }
+
+    result = click_client_point(player_x, player_y, "left")
+    result["player_position"] = position
+    return result
+
+
 # 点击怪物 hover 点：battle 状态只负责施加一次打怪点击。
 def click_monster_hover(monster):
     if not op.is_window_bound():
@@ -3105,7 +3178,7 @@ def click_monster_hover(monster):
 
 
 # 攻击怪物：左键点击怪物 hover 点，让游戏自动跑过去攻击。
-def attack_monster(monster, save_name_debug=False):
+def attack_monster(monster):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -3141,7 +3214,6 @@ def attack_monster(monster, save_name_debug=False):
         y,
         width,
         height,
-        save_name_debug=save_name_debug,
     )
 
     if not filter_result["allowed"]:
@@ -3201,7 +3273,7 @@ def attack_monster(monster, save_name_debug=False):
 
 
 # 攻击前校验怪物名：只有完整等于 txt/monster.txt 中的一行才允许点击。
-def verify_monster_name_before_attack(monster, x, y, width, height, save_name_debug=False):
+def verify_monster_name_before_attack(monster, x, y, width, height):
     keyword_status = load_monster_keywords(force=False)
     keywords = keyword_status.get("keywords", [])
 
@@ -3231,7 +3303,7 @@ def verify_monster_name_before_attack(monster, x, y, width, height, save_name_de
             "message": "怪物缺少血条坐标，无法做名字过滤",
         }
 
-    name_result = recognize_monster_name(x, y, blood_bar, save_debug=save_name_debug)
+    name_result = recognize_monster_name(x, y, blood_bar)
     move_success = name_result.get("move_success", True)
     move_message = name_result.get("move_message", "")
     name_message = name_result.get("message", "")
@@ -3316,7 +3388,7 @@ def verify_monster_name_before_attack(monster, x, y, width, height, save_name_de
 
 
 # 捡取安全校验怪物名：必须完整等于 txt/monster.txt 中的一行，避免宝宝名被短关键字误伤。
-def verify_monster_full_name_for_getitem_safety(monster, x, y, width, height, save_name_debug=False):
+def verify_monster_full_name_for_getitem_safety(monster, x, y, width, height):
     keyword_status = load_monster_keywords(force=False)
     keywords = keyword_status.get("keywords", [])
 
@@ -3348,7 +3420,7 @@ def verify_monster_full_name_for_getitem_safety(monster, x, y, width, height, sa
             "message": "怪物缺少血条坐标，无法做名字过滤",
         }
 
-    name_result = recognize_monster_name(x, y, blood_bar, save_debug=save_name_debug)
+    name_result = recognize_monster_name(x, y, blood_bar)
     move_success = name_result.get("move_success", True)
     move_message = name_result.get("move_message", "")
     name_message = name_result.get("message", "")
@@ -4198,14 +4270,15 @@ def update_map_corner_hotkey_settings(app_settings, data):
     }
 
 
-# 更新怪物名 Debug 图保存开关。
-def update_monster_name_debug_settings(app_settings, data):
+# 更新 OP 找字找图 Debug 图保存开关。
+def update_op_find_debug_settings(app_settings, data):
     data = data if isinstance(data, dict) else {}
-    enabled = normalize_bool(data.get("enabled", app_settings.get("monster_name_debug_enabled", False)))
+    enabled = normalize_bool(data.get("enabled", app_settings.get("op_find_debug_enabled", False)))
 
-    app_settings["monster_name_debug_enabled"] = enabled
+    app_settings["op_find_debug_enabled"] = enabled
+    op.configure_find_debug_images(enabled=enabled, image_dir=debug_image_dir)
     state_text = "开" if enabled else "关"
-    message = f"怪物名Debug图保存已{state_text}"
+    message = f"找字找图Debug图保存已{state_text}"
 
     return {
         "success": True,
@@ -4342,10 +4415,21 @@ def update_battle_settings(app_settings, battle_runtime_state, data):
         BATTLE_DURATION_SECONDS_MIN,
         BATTLE_DURATION_SECONDS_MAX,
     )
+    fight_while_moving_enabled = normalize_bool(
+        data.get(
+            "fight_while_moving_enabled",
+            app_settings.get("fight_while_moving_enabled", False),
+        )
+    )
 
     app_settings["no_monster_scan_limit"] = limit
     app_settings["battle_duration_seconds"] = duration
-    message = f"战斗设置已更新: no_monster_scan_limit={limit} battle_duration_seconds={duration}"
+    app_settings["fight_while_moving_enabled"] = fight_while_moving_enabled
+    fight_while_moving_text = "开" if fight_while_moving_enabled else "关"
+    message = (
+        f"战斗设置已更新: no_monster_scan_limit={limit} "
+        f"battle_duration_seconds={duration} fight_while_moving={fight_while_moving_text}"
+    )
 
     if battle_runtime_state is not None:
         clamp_no_monster_count(battle_runtime_state, limit)
@@ -5033,6 +5117,19 @@ def findNearbyMonsterBloodBars(player_info=None):
             }
 
 
+# 找人物中距离范围内的怪物血条。
+def findMiddleMonsterBloodBars(player_info=None):
+    with monster_scan_lock:
+        try:
+            return find_monster_blood_bars_locked(player_info, "middle")
+        except Exception as error:
+            return {
+                "success": False,
+                "monsters": [],
+                "message": f"中距离怪物血条扫描异常: {error}",
+            }
+
+
 # 找除底部 UI 以外的怪物血条。
 def findMonsterBloodBars(player_info=None):
     with monster_scan_lock:
@@ -5143,7 +5240,7 @@ def find_monster_blood_bars_locked(player_info=None, scan_mode="play_area"):
 
     logic_available = add_monsters_logic(monsters, player_info, player_x, player_y)
     sort_monster_blood_bars_by_player(monsters, screen_blood_bar)
-    message_prefix = "附近怪物血条扫描完成" if scan_mode == "nearby" else "怪物血条扫描完成"
+    message_prefix = get_monster_blood_scan_message_prefix(scan_mode)
 
     return {
         "success": True,
@@ -5190,7 +5287,29 @@ def get_monster_blood_search_box(scan_mode, screen_blood_bar, width, height):
             play_area_bottom,
         )
 
+    if scan_mode == "middle":
+        center = screen_blood_bar["center"]
+        return clamp_box(
+            int(center["x"]) - MIDDLE_MONSTER_BLOOD_SEARCH_WIDTH / 2,
+            int(center["y"]) - MIDDLE_MONSTER_BLOOD_SEARCH_HEIGHT / 2,
+            int(center["x"]) + MIDDLE_MONSTER_BLOOD_SEARCH_WIDTH / 2,
+            int(center["y"]) + MIDDLE_MONSTER_BLOOD_SEARCH_HEIGHT / 2,
+            width,
+            play_area_bottom,
+        )
+
     return clamp_box(0, 0, width, play_area_bottom, width, play_area_bottom)
+
+
+# 获取怪物血条扫描日志前缀。
+def get_monster_blood_scan_message_prefix(scan_mode):
+    if scan_mode == "nearby":
+        return "附近怪物血条扫描完成"
+
+    if scan_mode == "middle":
+        return "中距离怪物血条扫描完成"
+
+    return "怪物血条扫描完成"
 
 
 # 按玩家血条右上角到怪物血条左上角的距离排序。
@@ -5761,10 +5880,10 @@ def find_locked_monster(monsters, locked_target, player_info, player_screen):
 
 
 # 识别单个怪物名称：按表格传入的位置和血条信息补充名称。
-def recognize_monster_name(position_x, position_y, blood_bar=None, save_debug=False):
+def recognize_monster_name(position_x, position_y, blood_bar=None):
     with monster_scan_lock:
         try:
-            return recognize_monster_name_locked(position_x, position_y, blood_bar, save_debug)
+            return recognize_monster_name_locked(position_x, position_y, blood_bar)
         except Exception as error:
             return {
                 "success": False,
@@ -5775,7 +5894,7 @@ def recognize_monster_name(position_x, position_y, blood_bar=None, save_debug=Fa
 
 
 # 执行单个怪物名称识别：只悬停并 OCR 当前指定怪物。
-def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_debug=False):
+def recognize_monster_name_locked(position_x, position_y, blood_bar=None):
     if not op.is_window_bound():
         return {
             "success": False,
@@ -5846,7 +5965,7 @@ def recognize_monster_name_locked(position_x, position_y, blood_bar=None, save_d
 
     time.sleep(MONSTER_HOVER_WAIT_SECONDS)
 
-    name_result = recognize_monster_name_box(name_box, save_debug)
+    name_result = recognize_monster_name_box(name_box)
     name_text = name_result["text"]
     name = name_result["name"]
     debug_points = []
@@ -6048,7 +6167,7 @@ def is_health_bar_fill_pixel(pixel, target_rgb, tolerance):
 
 
 # 识别怪物名区域：用 OP 大漠字库直接识别绑定窗口文字。
-def recognize_monster_name_box(box, save_debug=False):
+def recognize_monster_name_box(box):
     empty_result = {
         "name": "未识别",
         "text": "",
@@ -6064,10 +6183,6 @@ def recognize_monster_name_box(box, save_debug=False):
     if not is_valid_box(box):
         return empty_result
 
-    if save_debug:
-        debug_image_dir.mkdir(parents=True, exist_ok=True)
-        debug_prefix = get_debug_image_prefix("monster_name")
-
     last_result = empty_result
     ocr_colors = get_monster_name_ocr_colors()
     ocr_logs = []
@@ -6075,40 +6190,6 @@ def recognize_monster_name_box(box, save_debug=False):
     for attempt in range(1, MONSTER_NAME_OCR_MAX_ATTEMPTS + 1):
         if attempt > 1:
             time.sleep(MONSTER_NAME_OCR_RETRY_DELAY_SECONDS)
-
-        raw_file = ""
-
-        if save_debug:
-            raw_file = debug_image_dir / f"{debug_prefix}_raw_{attempt}.bmp"
-            success, _ = capture_bound_client_checked(
-                box["left"],
-                box["top"],
-                box["right"] - 1,
-                box["bottom"] - 1,
-                raw_file,
-            )
-
-            if not success:
-                ocr_logs.append(
-                    f"怪物名OCR截图失败 attempt={attempt} "
-                    f"box={box.get('left')},{box.get('top')},{box.get('right')},{box.get('bottom')} "
-                    f"file={raw_file}"
-                )
-                last_result = {
-                    **last_result,
-                    "used_attempt": attempt,
-                    "ocr_logs": list(ocr_logs),
-                    "debug_images": [
-                        *last_result["debug_images"],
-                        {
-                            "attempt": attempt,
-                            "raw": str(raw_file),
-                            "raw_text": "",
-                            "mask_text": "",
-                        },
-                    ],
-                }
-                continue
 
         for ocr_color in ocr_colors:
             raw_text = op.ocr_text(
@@ -6126,22 +6207,9 @@ def recognize_monster_name_box(box, save_debug=False):
             ocr_logs.append(
                 f"怪物名OCR调用 attempt={attempt} color={ocr_color} sim={MONSTER_NAME_OCR_SIM} "
                 f"raw={raw_text!r} reject={reject_reason} "
-                f"box={box.get('left')},{box.get('top')},{box.get('right')},{box.get('bottom')} "
-                f"file={raw_file}"
+                f"box={box.get('left')},{box.get('top')},{box.get('right')},{box.get('bottom')}"
             )
             debug_images = last_result["debug_images"]
-
-            if save_debug:
-                debug_images = [
-                    *debug_images,
-                    {
-                        "attempt": attempt,
-                        "raw": str(raw_file),
-                        "color": ocr_color,
-                        "raw_text": raw_text,
-                        "mask_text": mask_text,
-                    },
-                ]
 
             if reject_reason:
                 last_result = {
@@ -6173,13 +6241,6 @@ def recognize_monster_name_box(box, save_debug=False):
                 return last_result
 
     return last_result
-
-
-# 创建本次调试图片文件名前缀：时间戳加短序号，便于按一次识别归档。
-def get_debug_image_prefix(prefix):
-    timestamp = time.strftime("%Y%m%d_%H%M%S")
-    sequence = time.time_ns() % 1_000_000
-    return f"{prefix}_{timestamp}_{sequence:06d}"
 
 
 # 判断 OCR 结果是否像是误读到了主角名。

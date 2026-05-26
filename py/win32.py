@@ -3,10 +3,18 @@ import ctypes
 import win32gui
 
 
+# 不允许绑定的系统窗口标题片段。
+IGNORED_WINDOW_TITLE_PARTS = [
+    "文件资源管理器",
+    "File Explorer",
+]
+
+
 # 查找窗口标题：遍历可见窗口并返回第一个标题匹配项。
 def find_window_by_title(title_part):
     # 匹配结果列表：收集标题包含关键字的可见窗口。
     result = []
+    title_part = str(title_part or "").strip()
 
     # 检查单个窗口：作为 EnumWindows 回调用于筛选标题。
     def check_window(hwnd, extra):
@@ -16,7 +24,7 @@ def find_window_by_title(title_part):
         # 当前窗口标题：读取候选窗口标题用于关键字匹配。
         title = win32gui.GetWindowText(hwnd)
 
-        if title_part in title:
+        if title_part in title and not is_ignored_window_title(title):
             result.append((hwnd, title))
 
         return True
@@ -27,6 +35,11 @@ def find_window_by_title(title_part):
         return result[0]
 
     return None, ""
+
+
+# 判断标题是否属于明显不该绑定的系统窗口。
+def is_ignored_window_title(title):
+    return any(part in str(title or "") for part in IGNORED_WINDOW_TITLE_PARTS)
 
 
 # 客户区坐标转屏幕坐标：用于前台真实鼠标移动。

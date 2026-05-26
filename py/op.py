@@ -2,6 +2,7 @@ import os
 import platform
 import re
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -41,6 +42,10 @@ bind_mode_candidates = [
 ]
 # 当前绑定模式：记录成功绑定时采用的模式，供绑定状态和点击方式判断。
 active_bind_mode = None
+# 找字找图调试截图：由业务层同步开关和当前账号 DebugImage 目录。
+find_debug_enabled = False
+find_debug_image_dir = base_dir / "DebugImage"
+find_debug_lock = threading.Lock()
 
 
 # 创建 OP 对象：加载 pyop 并实例化 64 位免注册 OP。
@@ -134,6 +139,54 @@ def load_ocr_dict(op=None):
     return False, f"OP 字库加载失败 set={set_result} use={use_result} last_error={last_error}"
 
 
+# 配置找字找图调试截图：只保存截图，不影响 OP 调用结果。
+def configure_find_debug_images(enabled=None, image_dir=None):
+    global find_debug_enabled
+    global find_debug_image_dir
+
+    if enabled is not None:
+        find_debug_enabled = bool(enabled)
+
+    if image_dir is not None:
+        find_debug_image_dir = Path(image_dir)
+
+
+# 保存本次找字找图调用前的目标区域截图。
+def save_find_debug_image(kind, x1, y1, x2, y2):
+    if not find_debug_enabled or not bound_hwnd:
+        return ""
+
+    try:
+        left = int(x1)
+        top = int(y1)
+        right = int(x2)
+        bottom = int(y2)
+    except (TypeError, ValueError):
+        return ""
+
+    if right < left or bottom < top:
+        return ""
+
+    try:
+        with find_debug_lock:
+            find_debug_image_dir.mkdir(parents=True, exist_ok=True)
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            sequence = time.time_ns() % 1_000_000
+            file_path = find_debug_image_dir / (
+                f"{kind}_{timestamp}_{sequence:06d}_{left}_{top}_{right}_{bottom}.bmp"
+            )
+
+        op = get_op()
+        result = op.Capture(left, top, right, bottom, str(file_path))
+
+        if result == 1:
+            return str(file_path)
+    except Exception:
+        return ""
+
+    return ""
+
+
 # 识别绑定窗口区域文字：返回 OP 字库识别出的文本。
 def ocr_text(x1, y1, x2, y2, color=None, sim=None):
     if not bound_hwnd:
@@ -147,6 +200,7 @@ def ocr_text(x1, y1, x2, y2, color=None, sim=None):
     op = get_op()
     color = color or OCR_DEFAULT_COLOR
     sim = OCR_DEFAULT_SIM if sim is None else sim
+    save_find_debug_image("ocr_text", x1, y1, x2, y2)
 
     try:
         return str(op.Ocr(int(x1), int(y1), int(x2), int(y2), color, float(sim)) or "")
@@ -167,6 +221,7 @@ def ocr_text_ex(x1, y1, x2, y2, color=None, sim=None):
     op = get_op()
     color = color or OCR_DEFAULT_COLOR
     sim = OCR_DEFAULT_SIM if sim is None else sim
+    save_find_debug_image("ocr_text_ex", x1, y1, x2, y2)
 
     try:
         raw = op.OcrEx(int(x1), int(y1), int(x2), int(y2), color, float(sim))
@@ -189,6 +244,7 @@ def find_text(x1, y1, x2, y2, text, color=None, sim=None):
     op = get_op()
     color = color or OCR_DEFAULT_COLOR
     sim = OCR_DEFAULT_SIM if sim is None else sim
+    save_find_debug_image("find_text", x1, y1, x2, y2)
 
     try:
         raw = op.FindStrEx(int(x1), int(y1), int(x2), int(y2), str(text), color, float(sim))
@@ -204,6 +260,7 @@ def find_pic(x1, y1, x2, y2, image_file, delta_color="000000", sim=1.0, directio
         return []
 
     op = get_op()
+    save_find_debug_image("find_pic", x1, y1, x2, y2)
 
     try:
         raw = op.FindPicEx(

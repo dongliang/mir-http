@@ -6,8 +6,8 @@ import uvicorn
 
 import api
 import log
-import move_to_next_patrol_point as patrol_move_state
 import player as player_state
+from state import move_to_next_patrol_point as patrol_move_state
 
 
 DEFAULT_SERVER_PORT = 8765
@@ -565,8 +565,7 @@ def create_server(
                 "bottom": bar_bottom,
             }
 
-        save_debug = bool(app_settings.get("monster_name_debug_enabled", False))
-        result = api.recognize_monster_name(x, y, blood_bar, save_debug=save_debug)
+        result = api.recognize_monster_name(x, y, blood_bar)
         for entry in result.get("ocr_logs", []):
             log.write(entry)
 
@@ -780,15 +779,15 @@ def create_server(
             "status": current_status(),
         })
 
-    # 怪物名 Debug 图开关接口：只控制是否保存本次运行的识别截图。
-    @rt("/api/monster-name-debug/settings")
+    # OP 找字找图 Debug 图开关接口：保存 OP OCR、找字、找图调用前的搜索区域截图。
+    @rt("/api/op-find-debug/settings")
     async def post(request: Request):
         try:
             data = await request.json()
         except Exception:
             data = {}
 
-        result = api.update_monster_name_debug_settings(app_settings, data)
+        result = api.update_op_find_debug_settings(app_settings, data)
         result = save_account_settings_after_update(app_settings, result)
         log.write(result["message"])
         return JSONResponse({
@@ -1015,7 +1014,7 @@ def create_debug_panel(app_settings):
             ),
             create_section(
                 "调试设置",
-                create_monster_name_debug_controls(app_settings),
+                create_op_find_debug_controls(app_settings),
             ),
             create_section(
                 "截图",
@@ -1192,6 +1191,15 @@ def create_pet_heal_controls(app_settings):
 
 # 创建战斗控制栏：连续无怪次数用于刷空跳点，战斗秒数用于单次点击后的等待。
 def create_battle_controls(app_settings):
+    fight_while_moving_attrs = {
+        "id": "fight-while-moving-enabled",
+        "type": "checkbox",
+        "onchange": "saveBattleSettings()",
+    }
+
+    if app_settings.get("fight_while_moving_enabled", False):
+        fight_while_moving_attrs["checked"] = True
+
     return Div(
         Label(
             Span("连续无怪次数"),
@@ -1219,6 +1227,11 @@ def create_battle_controls(app_settings):
                 cls="battle-duration-input",
             ),
             cls="battle-settings-field battle-duration-field",
+        ),
+        Label(
+            Input(**fight_while_moving_attrs),
+            Span("边走边打"),
+            cls="battle-settings-toggle",
         ),
         Div("", id="battle-settings-message", cls="battle-settings-message"),
         cls="battle-settings-controls",
@@ -1296,25 +1309,25 @@ def create_getitem_controls(app_settings):
     )
 
 
-# 创建怪物名 Debug 图控制栏：默认关闭，需要每次运行后手动打开。
-def create_monster_name_debug_controls(app_settings):
+# 创建 OP 找字找图 Debug 图控制栏。
+def create_op_find_debug_controls(app_settings):
     enabled_attrs = {
-        "id": "monster-name-debug-enabled",
+        "id": "op-find-debug-enabled",
         "type": "checkbox",
-        "onchange": "saveMonsterNameDebugSettings()",
+        "onchange": "saveOpFindDebugSettings()",
     }
 
-    if app_settings.get("monster_name_debug_enabled", False):
+    if app_settings.get("op_find_debug_enabled", False):
         enabled_attrs["checked"] = True
 
     return Div(
         Label(
             Input(**enabled_attrs),
-            Span("保存怪物名Debug图"),
-            cls="monster-name-debug-toggle",
+            Span("保存找字找图Debug图"),
+            cls="op-find-debug-toggle",
         ),
-        Div("", id="monster-name-debug-message", cls="monster-name-debug-message"),
-        cls="monster-name-debug-controls",
+        Div("", id="op-find-debug-message", cls="op-find-debug-message"),
+        cls="op-find-debug-controls",
     )
 
 
@@ -1660,7 +1673,7 @@ h2 {
 .section > .battle-settings-controls,
 .section > .idle-stuck-controls,
 .section > .getitem-controls,
-.section > .monster-name-debug-controls,
+.section > .op-find-debug-controls,
 .section > .map-corner-hotkey-controls,
 .section > .move-pads {
     margin-bottom: 10px;
@@ -1720,7 +1733,7 @@ h2 {
 }
 .battle-settings-controls {
     display: grid;
-    grid-template-columns: minmax(140px, 170px) max-content minmax(180px, 1fr);
+    grid-template-columns: minmax(140px, 170px) max-content minmax(110px, 130px) minmax(180px, 1fr);
     gap: 8px;
     align-items: center;
 }
@@ -1730,7 +1743,7 @@ h2 {
     gap: 8px;
     align-items: center;
 }
-.monster-name-debug-controls {
+.op-find-debug-controls {
     display: grid;
     grid-template-columns: minmax(180px, 220px) minmax(180px, 1fr);
     gap: 8px;
@@ -1748,10 +1761,11 @@ h2 {
 .pet-heal-field,
 .idle-stuck-toggle,
 .idle-stuck-field,
+.battle-settings-toggle,
 .battle-settings-field,
 .getitem-toggle,
 .getitem-field,
-.monster-name-debug-toggle,
+.op-find-debug-toggle,
 .map-corner-hotkey-field {
     display: flex;
     align-items: center;
@@ -1766,8 +1780,9 @@ h2 {
 .auto-heal-toggle input,
 .pet-heal-toggle input,
 .idle-stuck-toggle input,
+.battle-settings-toggle input,
 .getitem-toggle input,
-.monster-name-debug-toggle input {
+.op-find-debug-toggle input {
     width: 16px;
     height: 16px;
     padding: 0;
@@ -1795,7 +1810,7 @@ h2 {
 .idle-stuck-message,
 .battle-settings-message,
 .getitem-message,
-.monster-name-debug-message,
+.op-find-debug-message,
 .map-corner-hotkey-message {
     min-height: 34px;
     box-sizing: border-box;
@@ -1995,7 +2010,7 @@ th {
     .battle-settings-controls,
     .idle-stuck-controls,
     .getitem-controls,
-    .monster-name-debug-controls,
+    .op-find-debug-controls,
     .map-corner-hotkey-controls,
     .utility-buttons,
     .status,
@@ -2162,12 +2177,14 @@ async function saveAutoHealSettings() {
 async function saveBattleSettings() {
     const limit = document.getElementById("no-monster-scan-limit").value;
     const duration = document.getElementById("battle-duration-seconds").value;
+    const fightWhileMovingEnabled = document.getElementById("fight-while-moving-enabled").checked;
     const response = await fetch("/api/battle/settings", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             no_monster_scan_limit: limit,
             battle_duration_seconds: duration,
+            fight_while_moving_enabled: fightWhileMovingEnabled,
         }),
     });
     const data = await response.json();
@@ -2243,9 +2260,9 @@ async function saveGetitemSettings() {
     await refreshLogs();
 }
 
-async function saveMonsterNameDebugSettings() {
-    const enabled = document.getElementById("monster-name-debug-enabled").checked;
-    const response = await fetch("/api/monster-name-debug/settings", {
+async function saveOpFindDebugSettings() {
+    const enabled = document.getElementById("op-find-debug-enabled").checked;
+    const response = await fetch("/api/op-find-debug/settings", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({enabled}),
@@ -2594,7 +2611,7 @@ function applyStatus(data) {
     updatePetHealPanel(data.pet_heal || {});
     updateIdleStuckPanel(data.idle_stuck || {});
     updateGetitemPanel(data.getitem || {});
-    updateMonsterNameDebugPanel(data.settings || {});
+    updateOpFindDebugPanel(data.settings || {});
     updateMapCornerHotkeyPanel(data.settings || {});
 
     const oldMapUrl = currentMapUrl;
@@ -2724,6 +2741,7 @@ function updateBattlePanel(battle) {
     const count = battle.no_monster_count ?? 0;
     const limit = battle.no_monster_scan_limit ?? 3;
     const duration = battle.battle_duration_seconds ?? 5;
+    const fightWhileMovingEnabled = !!battle.fight_while_moving_enabled;
     const remaining = battle.battle_remaining_seconds ?? 0;
     const target = battle.current_target || {};
     const position = target.position || {};
@@ -2736,10 +2754,12 @@ function updateBattlePanel(battle) {
     setTextIfExists("battle-toggle", enabled ? "结束战斗" : "开始战斗");
     setInputValueIfIdle("no-monster-scan-limit", limit);
     setInputValueIfIdle("battle-duration-seconds", duration);
+    setCheckedIfExists("fight-while-moving-enabled", fightWhileMovingEnabled);
     setTextIfExists(
         "battle-settings-message",
         "无怪=" + String(count) + "/" + String(limit)
         + " 战斗=" + String(duration) + "s"
+        + " 边走边打=" + (fightWhileMovingEnabled ? "开" : "关")
         + " 剩余=" + String(remaining) + "s"
         + " target=" + targetName
         + " pos=" + positionText
@@ -2805,12 +2825,12 @@ function updateMapCornerHotkeyPanel(settings) {
     );
 }
 
-function updateMonsterNameDebugPanel(settings) {
-    const enabled = !!settings.monster_name_debug_enabled;
+function updateOpFindDebugPanel(settings) {
+    const enabled = !!settings.op_find_debug_enabled;
     const stateText = enabled ? "开" : "关";
-    setTextIfExists("monster-name-debug-enabled-text", stateText);
-    setCheckedIfExists("monster-name-debug-enabled", enabled);
-    setTextIfExists("monster-name-debug-message", "Debug图保存=" + stateText);
+    setTextIfExists("op-find-debug-enabled-text", stateText);
+    setCheckedIfExists("op-find-debug-enabled", enabled);
+    setTextIfExists("op-find-debug-message", "找字找图Debug图保存=" + stateText);
 }
 
 function setInputValueIfIdle(id, value) {

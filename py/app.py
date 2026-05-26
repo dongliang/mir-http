@@ -10,11 +10,11 @@ import time
 import api
 import httpserver
 import log
-import move_to_next_patrol_point
 import player
 from state import battle
 from state import getitem
 from state import idle
+from state import move_to_next_patrol_point
 from state import select_monster
 
 

@@ -5,6 +5,10 @@ import api
 
 # 到达判断时间：玩家逻辑坐标连续不变达到该时长后认为已到达。
 ARRIVE_STATIONARY_SECONDS = 2.0
+# 边走边打：点击地图开始移动后等待 2 秒，再每秒扫描一次附近血条。
+FIGHT_WHILE_MOVING_START_DELAY_SECONDS = 2.0
+FIGHT_WHILE_MOVING_SCAN_INTERVAL_SECONDS = 1.0
+FIGHT_WHILE_MOVING_BLOOD_BAR_LIMIT = 2
 
 
 # 巡逻移动状态：移动到下一个巡逻点，并等待玩家坐标稳定。
@@ -34,9 +38,15 @@ def update_frame(game_data, state_data):
         state_data["target_index"] = result.get("index", -1)
         state_data["last_coordinate"] = get_player_coordinate(game_data)
         state_data["stationary_started_at"] = now
+        state_data["next_walk_fight_scan_at"] = now + FIGHT_WHILE_MOVING_START_DELAY_SECONDS
         return {
             "message": result.get("message", ""),
         }
+
+    fight_while_moving_result = update_fight_while_moving(game_data, state_data)
+
+    if fight_while_moving_result:
+        return fight_while_moving_result
 
     coordinate = get_player_coordinate(game_data)
 
@@ -87,6 +97,18 @@ def move_once(game_data, commit_index=True):
     current_index = int(patrol_state.get("index", -1))
     next_index = (current_index + 1) % len(patrol_points)
     point = patrol_points[next_index]
+
+    cancel_click = api.click_client_top_left()
+
+    if not cancel_click.get("success", False):
+        return {
+            "success": False,
+            "point": point,
+            "index": next_index,
+            "cancel_click": cancel_click,
+            "message": f"取消当前攻击失败: {cancel_click.get('message', '')}",
+        }
+
     move = api.move_to_logic_point(point, current_map)
 
     if move.get("success") and commit_index:
@@ -97,9 +119,56 @@ def move_once(game_data, commit_index=True):
         "success": move.get("success", False),
         "point": point,
         "move": move,
+        "cancel_click": cancel_click,
         "index": next_index,
         "message": f"巡逻点 index={next_index} {move.get('message', '')}",
     }
+
+
+# 边走边打扫描：发现附近血条超过阈值时取消移动，并让 idle 重新找怪。
+def update_fight_while_moving(game_data, state_data):
+    if not should_fight_while_moving(game_data):
+        return None
+
+    now = time.time()
+    next_scan_at = float(state_data.get("next_walk_fight_scan_at") or 0)
+
+    if next_scan_at <= 0:
+        started_at = float(state_data.get("move_started_at") or now)
+        state_data["next_walk_fight_scan_at"] = started_at + FIGHT_WHILE_MOVING_START_DELAY_SECONDS
+        return None
+
+    if now < next_scan_at:
+        return None
+
+    state_data["next_walk_fight_scan_at"] = now + FIGHT_WHILE_MOVING_SCAN_INTERVAL_SECONDS
+    scan = api.findMiddleMonsterBloodBars(game_data.get("player", {}))
+
+    if not scan.get("success", False):
+        return None
+
+    monsters = list(scan.get("monsters", []))
+
+    if len(monsters) <= FIGHT_WHILE_MOVING_BLOOD_BAR_LIMIT:
+        return None
+
+    stop_click = api.click_player_foot_point()
+    return {
+        "state": "idle",
+        "message": (
+            f"边走边打触发，附近血条 {len(monsters)} 个，取消移动回到 idle: "
+            f"{stop_click.get('message', '')}"
+        ),
+    }
+
+
+# 判断本次巡逻移动是否启用边走边打。
+def should_fight_while_moving(game_data):
+    settings = game_data.get("settings", {})
+    return (
+        bool(settings.get("fight_while_moving_enabled", False))
+        and bool(game_data["battle_control"].get("enabled", False))
+    )
 
 
 # 选中指定巡逻点：只更新当前 index，不执行移动。

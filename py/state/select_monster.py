@@ -30,8 +30,7 @@ def update_frame(game_data, state_data):
 
     monsters = list(result.get("monsters", []))
     logs = []
-    save_name_debug = bool(game_data.get("settings", {}).get("monster_name_debug_enabled", False))
-    target = select_first_target(monsters, width, height, save_name_debug, logs)
+    target = select_first_target(monsters, width, height, logs)
 
     if target:
         message = (
@@ -54,7 +53,7 @@ def update_frame(game_data, state_data):
 
 
 # 按血条顺序识别怪名，返回第一个完整匹配清单的目标。
-def select_first_target(monsters, width, height, save_name_debug, logs):
+def select_first_target(monsters, width, height, logs):
     for monster in monsters:
         position = monster.get("position", {})
 
@@ -71,7 +70,6 @@ def select_first_target(monsters, width, height, save_name_debug, logs):
             y,
             width,
             height,
-            save_name_debug=save_name_debug,
         )
         append_name_logs(logs, filter_result)
 
