@@ -51,6 +51,30 @@ def client_to_screen(hwnd, x, y):
     return int(screen_x), int(screen_y)
 
 
+# 屏幕坐标转客户区坐标：用于判断真实鼠标是否在绑定窗口内。
+def screen_to_client(hwnd, x, y):
+    if not hwnd:
+        return 0, 0
+
+    client_x, client_y = win32gui.ScreenToClient(hwnd, (int(x), int(y)))
+    return int(client_x), int(client_y)
+
+
+# 获取系统真实鼠标屏幕坐标。
+def get_cursor_pos():
+    screen_x, screen_y = win32gui.GetCursorPos()
+    return int(screen_x), int(screen_y)
+
+
+# 获取虚拟桌面范围，兼容多显示器和负坐标显示器。
+def get_virtual_screen_rect():
+    left = ctypes.windll.user32.GetSystemMetrics(76)
+    top = ctypes.windll.user32.GetSystemMetrics(77)
+    width = ctypes.windll.user32.GetSystemMetrics(78)
+    height = ctypes.windll.user32.GetSystemMetrics(79)
+    return int(left), int(top), int(left + width - 1), int(top + height - 1)
+
+
 # 移动系统鼠标到屏幕坐标。
 def move_cursor_to_screen(x, y):
     result = ctypes.windll.user32.SetCursorPos(int(x), int(y))

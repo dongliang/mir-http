@@ -191,6 +191,8 @@ MAP_AUTO_HIDE_KEY = "M"
 MAP_AUTO_HIDE_HOLD_MS = 120
 MAP_AUTO_HIDE_REPEAT = 1
 MAP_AUTO_HIDE_INTERVAL_MS = 80
+# 打开大地图前，真实鼠标若在游戏窗口内就水平甩开 600px。
+MAP_FOREGROUND_MOUSE_AWAY_OFFSET_X = 600
 # 玩家名称识别：绑定时在旧中心点附近用 OP 字库定位名字和脚底点。
 PLAYER_NAME_SEARCH_HALF_WIDTH = 220
 PLAYER_NAME_SEARCH_TOP_PADDING = 100
@@ -3045,6 +3047,152 @@ def logic_to_client_point(logic_x, logic_y, current_map):
     }
 
 
+# 大地图操作前移走真实鼠标：避免 windows 后台鼠标模式混入前台光标位置。
+def move_foreground_mouse_away_for_map():
+    bound = op.get_bound_window()
+    hwnd = bound.get("hwnd")
+
+    if not hwnd:
+        return {
+            "moved": False,
+            "restore": False,
+            "message": "前台鼠标保护跳过: 还没有绑定窗口",
+        }
+
+    width, height = get_bound_client_size()
+
+    if width <= 0 or height <= 0:
+        return {
+            "moved": False,
+            "restore": False,
+            "message": f"前台鼠标保护跳过: 窗口尺寸异常 size={width}x{height}",
+        }
+
+    screen_x, screen_y = win32.get_cursor_pos()
+    client_x, client_y = win32.screen_to_client(hwnd, screen_x, screen_y)
+
+    if client_x < 0 or client_y < 0 or client_x >= width or client_y >= height:
+        return {
+            "moved": False,
+            "restore": False,
+            "inside": False,
+            "screen_x": screen_x,
+            "screen_y": screen_y,
+            "client_x": client_x,
+            "client_y": client_y,
+            "message": f"前台鼠标不在窗口内 screen={screen_x},{screen_y} client={client_x},{client_y}",
+        }
+
+    away_point = get_foreground_mouse_away_screen_point(hwnd, width, height, screen_x, screen_y)
+
+    if not away_point:
+        return {
+            "moved": False,
+            "restore": False,
+            "inside": True,
+            "screen_x": screen_x,
+            "screen_y": screen_y,
+            "client_x": client_x,
+            "client_y": client_y,
+            "message": f"前台鼠标保护失败: 找不到窗口外安全点 client={client_x},{client_y}",
+        }
+
+    away_x, away_y = away_point
+    moved = win32.move_cursor_to_screen(away_x, away_y)
+
+    return {
+        "moved": moved,
+        "restore": moved,
+        "inside": True,
+        "screen_x": screen_x,
+        "screen_y": screen_y,
+        "client_x": client_x,
+        "client_y": client_y,
+        "away_screen_x": away_x,
+        "away_screen_y": away_y,
+        "message": (
+            f"前台鼠标保护 {'成功' if moved else '失败'} "
+            f"client={client_x},{client_y} screen={screen_x},{screen_y} "
+            f"away={away_x},{away_y}"
+        ),
+    }
+
+
+# 计算窗口外安全屏幕点：只水平移动真实鼠标，Y 坐标不变。
+def get_foreground_mouse_away_screen_point(hwnd, width, height, screen_x, screen_y):
+    left, top = win32.client_to_screen(hwnd, 0, 0)
+    right, bottom = win32.client_to_screen(hwnd, max(0, width - 1), max(0, height - 1))
+    offset = MAP_FOREGROUND_MOUSE_AWAY_OFFSET_X
+    vleft, vtop, vright, vbottom = win32.get_virtual_screen_rect()
+
+    candidates = [
+        (screen_x + offset, screen_y),
+        (screen_x - offset, screen_y),
+    ]
+
+    for x, y in candidates:
+        if (
+            vleft <= x <= vright
+            and vtop <= y <= vbottom
+            and not is_screen_point_in_rect(x, y, left, top, right, bottom)
+        ):
+            return int(x), int(y)
+
+    edge_candidates = [
+        (right + offset, screen_y),
+        (left - offset, screen_y),
+    ]
+
+    for x, y in edge_candidates:
+        if (
+            vleft <= x <= vright
+            and vtop <= y <= vbottom
+            and not is_screen_point_in_rect(x, y, left, top, right, bottom)
+        ):
+            return int(x), int(y)
+
+    return None
+
+
+# 判断屏幕点是否落在客户区屏幕矩形内。
+def is_screen_point_in_rect(x, y, left, top, right, bottom):
+    return left <= int(x) <= right and top <= int(y) <= bottom
+
+
+# 关闭大地图后恢复真实鼠标位置。
+def restore_foreground_mouse_after_map(mouse_guard):
+    if not mouse_guard or not mouse_guard.get("restore"):
+        return {
+            "success": True,
+            "message": "前台鼠标无需恢复",
+        }
+
+    bound = op.get_bound_window()
+    hwnd = bound.get("hwnd")
+    client_x = int(mouse_guard.get("client_x", 0))
+    client_y = int(mouse_guard.get("client_y", 0))
+
+    if hwnd:
+        screen_x, screen_y = win32.client_to_screen(hwnd, client_x, client_y)
+    else:
+        screen_x = int(mouse_guard.get("screen_x", 0))
+        screen_y = int(mouse_guard.get("screen_y", 0))
+
+    success = win32.move_cursor_to_screen(screen_x, screen_y)
+
+    return {
+        "success": success,
+        "screen_x": screen_x,
+        "screen_y": screen_y,
+        "client_x": client_x,
+        "client_y": client_y,
+        "message": (
+            f"前台鼠标恢复 {'成功' if success else '失败'} "
+            f"client={client_x},{client_y} screen={screen_x},{screen_y}"
+        ),
+    }
+
+
 # 移动到指定逻辑巡逻点：打开地图、点击目标点、关闭地图。
 def move_to_logic_point(point, current_map):
     if not op.is_window_bound():
@@ -3063,14 +3211,21 @@ def move_to_logic_point(point, current_map):
             "message": str(error),
         }
 
+    mouse_guard = move_foreground_mouse_away_for_map()
     open_result = press_keyboard("M", hold_ms=120, repeat=2, interval_ms=120)
 
     if not open_result["success"]:
+        restore_result = restore_foreground_mouse_after_map(mouse_guard)
         return {
             "success": False,
             "point": {"x": logic_x, "y": logic_y},
             "target": target,
-            "message": f"打开地图失败: {open_result['message']}",
+            "foreground_mouse": mouse_guard,
+            "restore_mouse": restore_result,
+            "message": (
+                f"打开地图失败: {open_result['message']} "
+                f"mouse={mouse_guard.get('message', '')} restore={restore_result.get('message', '')}"
+            ),
             "open_keyboard": open_result,
         }
 
@@ -3079,19 +3234,23 @@ def move_to_logic_point(point, current_map):
 
     time.sleep(0.1)
     close_result = press_keyboard("M", hold_ms=120, repeat=1, interval_ms=80)
+    restore_result = restore_foreground_mouse_after_map(mouse_guard)
     success = click_success and close_result["success"]
 
     return {
         "success": success,
         "point": {"x": logic_x, "y": logic_y},
         "target": target,
+        "foreground_mouse": mouse_guard,
         "open_keyboard": open_result,
         "close_keyboard": close_result,
+        "restore_mouse": restore_result,
         "message": (
             f"移动到巡逻点 {'成功' if success else '失败'} "
             f"logic={logic_x}:{logic_y} map={target['map_x']},{target['map_y']} "
             f"client={target['client_x']},{target['client_y']} "
-            f"click={click_message} close={close_result['message']}"
+            f"click={click_message} close={close_result['message']} "
+            f"mouse={mouse_guard.get('message', '')} restore={restore_result.get('message', '')}"
         ),
     }
 
