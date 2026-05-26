@@ -255,6 +255,10 @@ GETITEM_WALK_MAX_LOGIC_DISTANCE = 2
 GETITEM_DEFAULT_STEP_WAIT_MS = 100
 GETITEM_MIN_STEP_WAIT_MS = 100
 GETITEM_MAX_STEP_WAIT_MS = 10000
+# 单次进入捡取状态的最大持续时间，防止拾取异常时一直卡住。
+GETITEM_DEFAULT_TIMEOUT_SECONDS = 30
+GETITEM_MIN_TIMEOUT_SECONDS = 1
+GETITEM_MAX_TIMEOUT_SECONDS = 600
 GETITEM_SAFETY_DEFAULT_MAX_NEARBY_BLOOD_BARS = 1
 GETITEM_SAFETY_MIN_NEARBY_BLOOD_BARS = 0
 GETITEM_SAFETY_MAX_NEARBY_BLOOD_BARS = 20
@@ -921,6 +925,7 @@ def create_default_app_settings():
         "op_find_debug_enabled": False,
         "getitem_enabled": True,
         "getitem_step_wait_ms": GETITEM_DEFAULT_STEP_WAIT_MS,
+        "getitem_timeout_seconds": GETITEM_DEFAULT_TIMEOUT_SECONDS,
         "getitem_safety_enabled": True,
         "getitem_safety_max_nearby_blood_bars": GETITEM_SAFETY_DEFAULT_MAX_NEARBY_BLOOD_BARS,
         "no_monster_scan_limit": NO_MONSTER_SCAN_LIMIT_DEFAULT,
@@ -1022,6 +1027,12 @@ def normalize_app_settings(settings):
         defaults["getitem_step_wait_ms"],
         GETITEM_MIN_STEP_WAIT_MS,
         GETITEM_MAX_STEP_WAIT_MS,
+    )
+    normalized["getitem_timeout_seconds"] = normalize_number(
+        data.get("getitem_timeout_seconds"),
+        defaults["getitem_timeout_seconds"],
+        GETITEM_MIN_TIMEOUT_SECONDS,
+        GETITEM_MAX_TIMEOUT_SECONDS,
     )
     normalized["getitem_safety_enabled"] = normalize_app_setting_bool(
         data.get("getitem_safety_enabled", defaults["getitem_safety_enabled"]),
@@ -2243,6 +2254,7 @@ def make_getitem_status(app_settings):
     return {
         "enabled": bool(app_settings.get("getitem_enabled", True)),
         "step_wait_ms": get_getitem_step_wait_ms(app_settings),
+        "timeout_seconds": get_getitem_timeout_seconds(app_settings),
         "safety_enabled": is_getitem_safety_enabled(app_settings),
         "safety_max_nearby_blood_bars": get_getitem_safety_max_nearby_blood_bars(app_settings),
         "item_filter": get_item_keyword_status(),
@@ -4658,15 +4670,21 @@ def get_battle_duration_seconds(app_settings):
     )
 
 
-# 更新捡取物品设置：保存页面开关和每步等待间隔。
+# 更新捡取物品设置：保存页面开关、每步等待间隔和状态超时时间。
 def update_getitem_settings(app_settings, data):
     data = data if isinstance(data, dict) else {}
     enabled = normalize_bool(data.get("enabled", app_settings.get("getitem_enabled", True)))
     step_wait_ms = normalize_number(
-        data.get("step_wait_ms"),
+        data.get("step_wait_ms", app_settings.get("getitem_step_wait_ms")),
         GETITEM_DEFAULT_STEP_WAIT_MS,
         GETITEM_MIN_STEP_WAIT_MS,
         GETITEM_MAX_STEP_WAIT_MS,
+    )
+    timeout_seconds = normalize_number(
+        data.get("timeout_seconds", app_settings.get("getitem_timeout_seconds")),
+        GETITEM_DEFAULT_TIMEOUT_SECONDS,
+        GETITEM_MIN_TIMEOUT_SECONDS,
+        GETITEM_MAX_TIMEOUT_SECONDS,
     )
     safety_enabled = normalize_bool(data.get("safety_enabled", app_settings.get("getitem_safety_enabled", True)))
     safety_max_nearby_blood_bars = normalize_number(
@@ -4681,6 +4699,7 @@ def update_getitem_settings(app_settings, data):
 
     app_settings["getitem_enabled"] = enabled
     app_settings["getitem_step_wait_ms"] = step_wait_ms
+    app_settings["getitem_timeout_seconds"] = timeout_seconds
     app_settings["getitem_safety_enabled"] = safety_enabled
     app_settings["getitem_safety_max_nearby_blood_bars"] = safety_max_nearby_blood_bars
 
@@ -4688,6 +4707,7 @@ def update_getitem_settings(app_settings, data):
     safety_text = "开" if safety_enabled else "关"
     message = (
         f"捡取物品设置已更新: {state_text} step_wait_ms={step_wait_ms} "
+        f"timeout_seconds={timeout_seconds} "
         f"safety={safety_text} max_nearby_blood_bars={safety_max_nearby_blood_bars}"
     )
     set_getitem_runtime_status(message=message)
@@ -4705,6 +4725,16 @@ def get_getitem_step_wait_ms(app_settings):
         GETITEM_DEFAULT_STEP_WAIT_MS,
         GETITEM_MIN_STEP_WAIT_MS,
         GETITEM_MAX_STEP_WAIT_MS,
+    )
+
+
+# 读取捡取状态超时时间。
+def get_getitem_timeout_seconds(app_settings):
+    return normalize_number(
+        (app_settings or {}).get("getitem_timeout_seconds"),
+        GETITEM_DEFAULT_TIMEOUT_SECONDS,
+        GETITEM_MIN_TIMEOUT_SECONDS,
+        GETITEM_MAX_TIMEOUT_SECONDS,
     )
 
 

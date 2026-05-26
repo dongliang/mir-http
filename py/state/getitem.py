@@ -25,6 +25,24 @@ def update_frame(game_data, state_data):
         }
 
     now = time.time()
+    started_at = float(state_data.get("started_at") or 0.0)
+
+    if not started_at:
+        started_at = now
+        state_data["started_at"] = started_at
+
+    timeout_seconds = api.get_getitem_timeout_seconds(settings)
+    elapsed_seconds = max(0, int(now - started_at))
+
+    if elapsed_seconds >= timeout_seconds:
+        target = state_data.get("target") or {}
+        message = f"捡取物品超时 timeout={timeout_seconds}s elapsed={elapsed_seconds}s，进入下一个巡逻点"
+        api.set_getitem_runtime_status(message=message, target=target)
+        return {
+            "state": "move_to_next_patrol_point",
+            "message": message,
+        }
+
     next_action_at = float(state_data.get("next_action_at") or 0.0)
 
     if next_action_at and now < next_action_at:
@@ -114,7 +132,7 @@ def update_frame(game_data, state_data):
         message = (
             f"{picked_message + '；' if picked_message else ''}"
             f"已到达物品逻辑坐标，等待拾取刷新 target={api.format_getitem_target(selected)} "
-            f"wait={wait_ms}ms"
+            f"wait={wait_ms}ms timeout={timeout_seconds}s elapsed={elapsed_seconds}s"
         )
         api.set_getitem_runtime_status(message=message, target=selected)
         return {
@@ -169,7 +187,7 @@ def update_frame(game_data, state_data):
         f"{cancel_message + '；' if cancel_message else ''}"
         f"捡取物品移动 target={api.format_getitem_target(selected)} "
         f"action={move.get('action', '')} direction={move.get('direction', '')} "
-        f"wait={wait_ms}ms {move.get('message', '')}"
+        f"wait={wait_ms}ms timeout={timeout_seconds}s elapsed={elapsed_seconds}s {move.get('message', '')}"
     )
     api.set_getitem_runtime_status(message=message, target=selected)
 

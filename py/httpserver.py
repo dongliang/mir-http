@@ -750,7 +750,7 @@ def create_server(
             "status": current_status(),
         })
 
-    # 捡取物品设置接口：保存页面开关和每步等待间隔。
+    # 捡取物品设置接口：保存页面开关、每步等待间隔和状态超时时间。
     @rt("/api/getitem/settings")
     async def post(request: Request):
         try:
@@ -1280,7 +1280,7 @@ def create_idle_stuck_controls(app_settings):
     )
 
 
-# 创建捡取物品控制栏：开关和每次点击后的走路等待。
+# 创建捡取物品控制栏：开关、每次点击后的走路等待和状态超时。
 def create_getitem_controls(app_settings):
     enabled_attrs = {
         "id": "getitem-enabled",
@@ -1320,6 +1320,23 @@ def create_getitem_controls(app_settings):
             cls="getitem-field",
         ),
         Label(
+            Span("超时秒数"),
+            Input(
+                id="getitem-timeout-seconds",
+                type="number",
+                min=str(api.GETITEM_MIN_TIMEOUT_SECONDS),
+                max=str(api.GETITEM_MAX_TIMEOUT_SECONDS),
+                step="1",
+                value=str(app_settings.get(
+                    "getitem_timeout_seconds",
+                    api.GETITEM_DEFAULT_TIMEOUT_SECONDS,
+                )),
+                oninput="queueSaveGetitemSettings()",
+                onchange="saveGetitemSettings()",
+            ),
+            cls="getitem-field",
+        ),
+        Label(
             Input(**safety_attrs),
             Span("血条安全限制"),
             cls="getitem-toggle",
@@ -1338,6 +1355,7 @@ def create_getitem_controls(app_settings):
                 )),
                 oninput="queueSaveGetitemSettings()",
                 onchange="saveGetitemSettings()",
+                cls="getitem-safety-count-input",
             ),
             cls="getitem-field",
         ),
@@ -1780,6 +1798,9 @@ h2 {
     gap: 8px;
     align-items: center;
 }
+.getitem-message {
+    grid-column: 1 / -1;
+}
 .op-find-debug-controls {
     display: grid;
     grid-template-columns: minmax(180px, 220px) minmax(180px, 1fr);
@@ -1839,6 +1860,12 @@ h2 {
 .battle-settings-field .battle-duration-input {
     flex: 0 0 52px;
     width: 52px;
+    padding: 0 4px;
+    text-align: center;
+}
+.getitem-field .getitem-safety-count-input {
+    flex: 0 0 44px;
+    width: 44px;
     padding: 0 4px;
     text-align: center;
 }
@@ -2270,9 +2297,10 @@ let getitemSettingsTimer = null;
 
 function queueSaveGetitemSettings() {
     const stepWaitMs = document.getElementById("getitem-step-wait-ms").value;
+    const timeoutSeconds = document.getElementById("getitem-timeout-seconds").value;
     const safetyMaxNearbyBloodBars = document.getElementById("getitem-safety-max-nearby-blood-bars").value;
 
-    if (stepWaitMs === "" || safetyMaxNearbyBloodBars === "") {
+    if (stepWaitMs === "" || timeoutSeconds === "" || safetyMaxNearbyBloodBars === "") {
         return;
     }
 
@@ -2284,6 +2312,7 @@ async function saveGetitemSettings() {
     clearTimeout(getitemSettingsTimer);
     const enabled = document.getElementById("getitem-enabled").checked;
     const stepWaitMs = document.getElementById("getitem-step-wait-ms").value;
+    const timeoutSeconds = document.getElementById("getitem-timeout-seconds").value;
     const safetyEnabled = document.getElementById("getitem-safety-enabled").checked;
     const safetyMaxNearbyBloodBars = document.getElementById("getitem-safety-max-nearby-blood-bars").value;
     const response = await fetch("/api/getitem/settings", {
@@ -2292,6 +2321,7 @@ async function saveGetitemSettings() {
         body: JSON.stringify({
             enabled,
             step_wait_ms: stepWaitMs,
+            timeout_seconds: timeoutSeconds,
             safety_enabled: safetyEnabled,
             safety_max_nearby_blood_bars: safetyMaxNearbyBloodBars,
         }),
@@ -2841,6 +2871,7 @@ function updateGetitemPanel(getitem) {
     const safetyEnabled = getitem.safety_enabled !== false;
     const safetyText = safetyEnabled ? "开" : "关";
     const safetyMax = getitem.safety_max_nearby_blood_bars ?? 1;
+    const timeoutSeconds = getitem.timeout_seconds ?? 30;
     const target = getitem.last_target || {};
     const targetText = target.keyword
         ? target.keyword
@@ -2852,10 +2883,12 @@ function updateGetitemPanel(getitem) {
     setCheckedIfExists("getitem-enabled", enabled);
     setCheckedIfExists("getitem-safety-enabled", safetyEnabled);
     setInputValueIfIdle("getitem-step-wait-ms", getitem.step_wait_ms ?? 100);
+    setInputValueIfIdle("getitem-timeout-seconds", timeoutSeconds);
     setInputValueIfIdle("getitem-safety-max-nearby-blood-bars", safetyMax);
     setTextIfExists(
         "getitem-message",
-        stateText + " wait=" + String(getitem.step_wait_ms ?? 100) + "ms"
+        "捡取提示：" + stateText + " wait=" + String(getitem.step_wait_ms ?? 100) + "ms"
+        + " timeout=" + String(timeoutSeconds) + "s"
         + " safety=" + safetyText + " max_blood=" + String(safetyMax)
         + " target=" + targetText
         + (getitem.last_message ? " " + getitem.last_message : "")
