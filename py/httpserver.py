@@ -125,7 +125,11 @@ def create_server(
                 Script(PAGE_SCRIPT),
             ),
             Body(
-                H1("httpserver"),
+                Div(
+                    H1("httpserver"),
+                    H2("", id="header-account-name", cls="header-account-name"),
+                    cls="page-header",
+                ),
                 create_tabs(app_settings, player_info, current_state),
             ),
         )
@@ -865,13 +869,19 @@ def create_tab_panel(tab_id, *children, active=False):
 def create_account_panel():
     return Div(
         create_section(
-            "账号绑定",
+            "选择账号",
             Div(
                 Select(
                     Option("选择账号", value=""),
                     id="account-select",
                     onchange="selectAccountFromDropdown()",
                 ),
+                cls="account-select-controls",
+            ),
+        ),
+        create_section(
+            "绑定账号",
+            Div(
                 Input(
                     id="bind-keyword",
                     type="text",
@@ -1580,8 +1590,26 @@ body {
     background: #f6f6f6;
 }
 h1 {
-    margin: 0 0 12px 0;
+    margin: 0;
     font-size: 24px;
+}
+h2 {
+    margin: 0;
+}
+.page-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.header-account-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+.header-account-name:empty {
+    display: none;
 }
 .tabs {
     display: flex;
@@ -1660,9 +1688,15 @@ h1 {
     gap: 8px;
     margin-bottom: 12px;
 }
+.account-select-controls {
+    display: grid;
+    grid-template-columns: minmax(160px, 260px);
+    gap: 8px;
+    margin-bottom: 12px;
+}
 .bind-controls {
     display: grid;
-    grid-template-columns: minmax(150px, 220px) minmax(180px, 1fr) 96px 96px;
+    grid-template-columns: minmax(180px, 1fr) 96px 96px;
     gap: 8px;
     margin-bottom: 12px;
 }
@@ -1955,6 +1989,7 @@ th {
 }
 @media (max-width: 640px) {
     .bind-controls,
+    .account-select-controls,
     .auto-heal-controls,
     .pet-heal-controls,
     .battle-settings-controls,
@@ -2041,12 +2076,14 @@ async function bindWindow() {
     }
 }
 
-function selectAccountFromDropdown() {
+async function selectAccountFromDropdown() {
     const select = document.getElementById("account-select");
     const input = document.getElementById("bind-keyword");
+    const account = select.value.trim();
 
-    if (select.value) {
-        input.value = select.value;
+    if (account) {
+        input.value = account;
+        await bindWindow();
     }
 }
 
@@ -2579,6 +2616,7 @@ function updateAccountsPanel(accounts) {
     const items = accounts.items || [];
     const configDir = accounts.config_dir || "";
     document.getElementById("account-current").textContent = current || "未选择";
+    setTextIfExists("header-account-name", current);
     document.getElementById("account-config-dir").textContent = configDir || "-";
 
     const select = document.getElementById("account-select");
