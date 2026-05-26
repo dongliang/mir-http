@@ -422,17 +422,6 @@ def create_server(
             "status": current_status(),
         })
 
-    # 坐标读取接口：主动刷新一次 OCR 坐标并返回页面状态。
-    @rt("/api/coordinate/read")
-    def post():
-        update_frame_safely(update_frame)
-        return JSONResponse({
-            "map_name": player_info["map_name"],
-            "x": player_info["x"],
-            "y": player_info["y"],
-            "status": current_status(),
-        })
-
     # 移动接口：根据动作和方向触发一次角色移动点击。
     @rt("/api/move/{action}/{direction}")
     def post(action: str, direction: str):
@@ -805,18 +794,16 @@ def create_server(
             "status": current_status(),
         })
 
-    # 测试按钮接口：写入一条测试日志用于验证页面操作链路。
-    @rt("/api/test/{number}")
-    def post(number: int):
-        # 测试消息：记录被点击的测试按钮编号。
-        message = f"测试按钮 {number} 被点击"
-        log.write(message)
-        return JSONResponse({"success": True, "message": message})
-
     # 日志读取接口：返回当前日志文本供前端展示。
     @rt("/api/logs")
     def get():
         return PlainTextResponse(log.read())
+
+    # 日志清空接口：清空当前运行日志文件。
+    @rt("/api/logs/clear")
+    def post():
+        log.clear()
+        return JSONResponse({"success": True, "message": "日志已清空"})
 
     # 程序重启接口：由 app.py 负责实际进程重启和退出清理。
     @rt("/api/app/restart")
@@ -828,22 +815,18 @@ def create_server(
     return app
 
 
-# 创建首页标签页：把账号、状态、战斗、操控和调试功能分区。
+# 创建首页标签页：把账号、战斗和调试功能分区。
 def create_tabs(app_settings, player_info, current_state):
     return Div(
         Div(
-            create_tab_button("account", "账号"),
-            create_tab_button("status", "状态", active=True),
+            create_tab_button("account", "账号", active=True),
             create_tab_button("battle", "战斗"),
-            create_tab_button("control", "操控"),
             create_tab_button("debug", "Debug"),
             cls="tabs",
         ),
         Div(
-            create_tab_panel("account", create_account_panel()),
-            create_tab_panel("status", create_status_panel(player_info, current_state), active=True),
-            create_tab_panel("battle", create_battle_panel(app_settings)),
-            create_tab_panel("control", create_control_panel()),
+            create_tab_panel("account", create_account_panel(), active=True),
+            create_tab_panel("battle", create_battle_panel(app_settings, player_info, current_state)),
             create_tab_panel("debug", create_debug_panel(app_settings)),
             cls="tab-panels",
         ),
@@ -881,95 +864,95 @@ def create_tab_panel(tab_id, *children, active=False):
 # 创建账号页：账号选择、窗口绑定和账号配置操作。
 def create_account_panel():
     return Div(
-        Div(
-            Select(
-                Option("选择账号", value=""),
-                id="account-select",
-                onchange="selectAccountFromDropdown()",
+        create_section(
+            "账号绑定",
+            Div(
+                Select(
+                    Option("选择账号", value=""),
+                    id="account-select",
+                    onchange="selectAccountFromDropdown()",
+                ),
+                Input(
+                    id="bind-keyword",
+                    type="text",
+                    placeholder="窗口标题关键字",
+                    autocomplete="off",
+                ),
+                Button("绑定", onclick="bindWindow()"),
+                Button("解除绑定", onclick="unbindWindow()"),
+                cls="bind-controls",
             ),
-            Input(
-                id="bind-keyword",
-                type="text",
-                placeholder="窗口标题关键字",
-                autocomplete="off",
+        ),
+        create_section(
+            "账号状态",
+            Div(
+                Div("账号: ", Span("未选择", id="account-current")),
+                Div("配置目录: ", Span("-", id="account-config-dir")),
+                Div("绑定窗口: ", Span("未绑定", id="bound-title")),
+                Div("怪物过滤: ", Span("-", id="monster-filter")),
+                Div("怪物字色: ", Span("-", id="monster-name-colors")),
+                Div("物品过滤: ", Span("-", id="item-filter")),
+                Div("物品字色: ", Span("-", id="item-name-colors")),
+                cls="status",
             ),
-            Button("绑定", onclick="bindWindow()"),
-            Button("解除绑定", onclick="unbindWindow()"),
-            cls="bind-controls",
         ),
-        Div(
-            Div("账号: ", Span("未选择", id="account-current")),
-            Div("配置目录: ", Span("-", id="account-config-dir")),
-            cls="status",
-        ),
-        Div(
-            Button("复写配置", onclick="postApi('/api/accounts/overwrite-configs')"),
-            Button("重载TXT配置", onclick="postApi('/api/monsters/reload-list')"),
-            cls="utility-buttons",
+        create_section(
+            "配置操作",
+            Div(
+                Button("复写配置", onclick="postApi('/api/accounts/overwrite-configs')"),
+                Button("重载TXT配置", onclick="postApi('/api/monsters/reload-list')"),
+                Button("重启程序", onclick="restartApp()"),
+                cls="utility-buttons",
+            ),
         ),
     )
 
 
-# 创建状态页：只读展示当前运行概况。
-def create_status_panel(player_info, current_state):
+# 创建战斗页：自动设置、状态切换和巡逻地图。
+def create_battle_panel(app_settings, player_info, current_state):
     return Div(
-        Div("绑定窗口: ", Span("未绑定", id="bound-title")),
-        Div("地图: ", Span(player_info["map_name"], id="map-name")),
-        Div("地图原文: ", Span("-", id="map-raw")),
-        Div("坐标: ", Span(f"{player_info['x']}:{player_info['y']}", id="coordinate")),
-        Div("状态: ", Span(current_state["name"], id="state-name")),
-        Div("巡逻: ", Span("关", id="patrol-enabled")),
-        Div("战斗: ", Span("关", id="battle-enabled")),
-        Div("连续无怪: ", Span("-", id="battle-no-monster")),
-        Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
-        Div("卡住跳点: ", Span("开", id="idle-stuck-enabled-text")),
-        Div("捡取物品: ", Span("开", id="getitem-enabled-text")),
-        Div("怪物过滤: ", Span("-", id="monster-filter")),
-        Div("怪物字色: ", Span("-", id="monster-name-colors")),
-        Div("物品过滤: ", Span("-", id="item-filter")),
-        Div("物品字色: ", Span("-", id="item-name-colors")),
-        cls="status",
-    )
-
-
-# 创建战斗页：自动战斗相关开关、参数和怪物列表。
-def create_battle_panel(app_settings):
-    return Div(
-        Div(
-            Button("开始战斗", onclick="startBattle()"),
-            Button("结束战斗", onclick="stopBattle()"),
-            cls="utility-buttons",
+        create_section(
+            "设置区",
+            create_battle_controls(app_settings),
+            create_auto_heal_controls(app_settings),
+            create_pet_heal_controls(app_settings),
+            create_getitem_controls(app_settings),
+            create_idle_stuck_controls(app_settings),
         ),
-        create_battle_controls(app_settings),
-        create_auto_heal_controls(app_settings),
-        create_pet_heal_controls(app_settings),
-        create_getitem_controls(app_settings),
-        create_idle_stuck_controls(app_settings),
-        create_monster_panel(),
-    )
-
-
-# 创建操控页：手动移动、地图巡逻和巡逻点维护。
-def create_control_panel():
-    return Div(
-        Div(
-            Button("测试坐标", onclick="postApi('/api/coordinate/read')"),
-            Button("测试键盘(M)", onclick="pressKeyboard('M')"),
-            Button("截取地图", onclick="captureMap()"),
-            Button("保存巡逻点到全局", onclick="savePatrolPoints('global')"),
-            Button("保存巡逻点到账号", onclick="savePatrolPoints('account')"),
-            Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
-            Button("移动到当前巡逻点", onclick="moveToCurrentPatrolPoint()"),
-            Button("开始巡逻", onclick="startPatrol()"),
-            Button("关闭巡逻", onclick="stopPatrol()"),
-            cls="utility-buttons",
+        create_section(
+            "状态切换",
+            Div(
+                Div("状态: ", Span(current_state["name"], id="state-name")),
+                cls="status",
+            ),
+            Div(
+                Button("开始战斗", id="battle-toggle", onclick="toggleBattle()"),
+                Button("开始巡逻", id="patrol-toggle", onclick="togglePatrol()"),
+                cls="utility-buttons action-buttons",
+            ),
         ),
-        Div(
-            create_move_pad("走", "walk"),
-            create_move_pad("跑", "run"),
-            cls="move-pads",
+        create_section(
+            "地图",
+            Div(
+                Button("截取地图", onclick="captureMap()"),
+                Button("保存巡逻点到全局", onclick="savePatrolPoints('global')"),
+                Button("保存巡逻点到账号", onclick="savePatrolPoints('account')"),
+                Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
+                Button("移动到当前巡逻点", onclick="moveToCurrentPatrolPoint()"),
+                cls="utility-buttons",
+            ),
+            Div(
+                Div(
+                    Span("地图: ", Span(player_info["map_name"], id="map-name")),
+                    Span("坐标: ", Span(f"{player_info['x']}:{player_info['y']}", id="coordinate")),
+                    Span("最大坐标: ", Span("-", id="map-max-coordinate")),
+                    Span("巡逻点: ", Span("0", id="patrol-point-summary")),
+                    cls="map-status-line map-status-inline",
+                ),
+                cls="map-status-lines",
+            ),
+            create_patrol_panel(),
         ),
-        create_patrol_panel(),
     )
 
 
@@ -977,21 +960,77 @@ def create_control_panel():
 def create_debug_panel(app_settings):
     return Div(
         Div(
-            Button("截图", onclick="takeScreenshot()"),
-            Button("地图角点", onclick="postApi('/api/map/rect-corner')"),
-            Button("找附近怪", onclick="scanMonsters('/api/monsters/scan-nearby')"),
-            Button("找全屏怪", onclick="scanMonsters('/api/monsters/scan')"),
-            Button("拾取测试", onclick="postApi('/api/getitem/test')"),
-            Button("重启程序", onclick="restartApp()"),
-            cls="utility-buttons",
+            create_section(
+                "基础测试",
+                Div(
+                    Button("测试键盘(M)", onclick="pressKeyboard('M')"),
+                    cls="utility-buttons",
+                ),
+            ),
+            create_section(
+                "找怪调试",
+                Div(
+                    Button("找附近怪", onclick="scanMonsters('/api/monsters/scan-nearby')"),
+                    Button("找全屏怪", onclick="scanMonsters('/api/monsters/scan')"),
+                    cls="utility-buttons",
+                ),
+                create_monster_panel(),
+            ),
+            create_section(
+                "地图修正",
+                Div(
+                    Button("地图角点", onclick="postApi('/api/map/rect-corner')"),
+                    cls="utility-buttons",
+                ),
+                create_map_corner_hotkey_controls(app_settings),
+                Div(
+                    Div("地图原文: ", Span("-", id="map-raw")),
+                    cls="status",
+                ),
+            ),
+            create_section(
+                "拾取调试",
+                Div(
+                    Button("拾取测试", onclick="postApi('/api/getitem/test')"),
+                    cls="utility-buttons",
+                ),
+            ),
+            create_section(
+                "移动九宫格",
+                Div(
+                    create_move_pad("走", "walk"),
+                    create_move_pad("跑", "run"),
+                    cls="move-pads",
+                ),
+            ),
+            create_section(
+                "调试设置",
+                create_monster_name_debug_controls(app_settings),
+            ),
+            create_section(
+                "截图",
+                Div(
+                    Button("截图", onclick="takeScreenshot()"),
+                    cls="utility-buttons",
+                ),
+            ),
+            cls="debug-main",
         ),
-        create_map_corner_hotkey_controls(app_settings),
-        create_monster_name_debug_controls(app_settings),
+        create_log_panel(),
+        cls="debug-layout",
+    )
+
+
+# 创建 Debug 右侧日志区：每行日志渲染为独立条目。
+def create_log_panel():
+    return Section(
+        H3("日志", cls="section-title"),
         Div(
-            Div("怪名Debug图: ", Span("关", id="monster-name-debug-enabled-text")),
-            cls="status",
+            Button("清空", onclick="clearLogs()"),
+            cls="utility-buttons log-actions",
         ),
-        Pre("", id="log-box"),
+        Div("", id="log-box", cls="log-list"),
+        cls="section log-section",
     )
 
 
@@ -1017,6 +1056,15 @@ def create_monster_panel():
             ),
         ),
         cls="monster-panel",
+    )
+
+
+# 创建功能分组：标题独占一行，内容在标题下方。
+def create_section(title, *children):
+    return Section(
+        H3(title, cls="section-title"),
+        *children,
+        cls="section",
     )
 
 
@@ -1263,7 +1311,6 @@ def create_monster_name_debug_controls(app_settings):
 # 创建巡逻地图面板：显示当前地图图片和网页点选出的巡逻点。
 def create_patrol_panel():
     return Div(
-        H3("巡逻地图"),
         Div(
             Div(
                 Div(
@@ -1559,6 +1606,55 @@ h1 {
 .tab-panel.active {
     display: block;
 }
+.debug-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+}
+.debug-main,
+.log-section {
+    min-width: 0;
+}
+.section {
+    margin-bottom: 18px;
+}
+.section-title {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+.section > .utility-buttons,
+.section > .status,
+.section > .map-status-lines,
+.section > .auto-heal-controls,
+.section > .pet-heal-controls,
+.section > .battle-settings-controls,
+.section > .idle-stuck-controls,
+.section > .getitem-controls,
+.section > .monster-name-debug-controls,
+.section > .map-corner-hotkey-controls,
+.section > .move-pads {
+    margin-bottom: 10px;
+}
+.map-status-lines {
+    display: block;
+}
+.map-status-line {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 12px;
+}
+.map-status-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    align-items: center;
+}
+.map-status-inline > span {
+    white-space: nowrap;
+}
 .controls {
     display: grid;
     gap: 8px;
@@ -1681,7 +1777,14 @@ h1 {
 .utility-buttons {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    gap: 8px;
+    gap: 10px;
+}
+.action-buttons {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 180px));
+}
+.log-actions {
+    grid-template-columns: minmax(90px, 120px);
+    margin-bottom: 10px;
 }
 input {
     height: 34px;
@@ -1730,7 +1833,7 @@ button {
 }
 .patrol-content {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 190px;
+    grid-template-columns: minmax(0, 5fr) minmax(280px, 2fr);
     gap: 12px;
     align-items: start;
 }
@@ -1739,7 +1842,7 @@ button {
 }
 .patrol-table-column {
     min-width: 0;
-    width: 190px;
+    width: 100%;
     justify-self: end;
 }
 .patrol-map-view {
@@ -1826,13 +1929,29 @@ td {
 th {
     background: #eee;
 }
-#log-box {
-    height: 420px;
+.log-list {
+    min-height: 420px;
+    max-height: calc(100vh - 170px);
     overflow: auto;
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    background: #f0f0f0;
+    padding: 10px;
+}
+.log-entry {
+    border: 1px solid #ddd;
+    background: white;
+    padding: 8px 10px;
+    font-size: 12px;
+    line-height: 1.45;
     white-space: pre-wrap;
-    background: #111;
-    color: #eee;
-    padding: 12px;
+    overflow-wrap: anywhere;
+}
+.log-entry.empty {
+    color: #777;
 }
 @media (max-width: 640px) {
     .bind-controls,
@@ -1845,6 +1964,7 @@ th {
     .map-corner-hotkey-controls,
     .utility-buttons,
     .status,
+    .debug-layout,
     .patrol-content {
         grid-template-columns: 1fr;
     }
@@ -1867,6 +1987,7 @@ let patrolPoints = [];
 let patrolIndex = -1;
 let patrolDirty = false;
 let appRestarting = false;
+let latestStatus = null;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -1881,6 +2002,22 @@ function switchTab(tabId) {
 
     for (const panel of document.querySelectorAll(".tab-panel")) {
         panel.classList.toggle("active", panel.dataset.tabPanel === tabId);
+    }
+}
+
+function setTextIfExists(id, text) {
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.textContent = text;
+    }
+}
+
+function setCheckedIfExists(id, checked) {
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.checked = checked;
     }
 }
 
@@ -2214,6 +2351,24 @@ async function stopBattle() {
     await refreshLogs();
 }
 
+async function toggleBattle() {
+    if (latestStatus && latestStatus.battle && latestStatus.battle.enabled) {
+        await stopBattle();
+        return;
+    }
+
+    await startBattle();
+}
+
+async function togglePatrol() {
+    if (latestStatus && latestStatus.patrol && latestStatus.patrol.enabled) {
+        await stopPatrol();
+        return;
+    }
+
+    await startPatrol();
+}
+
 async function scanMonsters(url = "/api/monsters/scan") {
     const response = await fetch(url, {method: "POST"});
     const data = await response.json();
@@ -2383,14 +2538,16 @@ function clearPatrolPointsFromEvent(event) {
 function applyStatus(data) {
     if (!data || !data.player) return;
 
+    latestStatus = data;
     const boundTitle = data.bound_window.title || "";
-    document.getElementById("map-name").textContent = data.player.map_name;
-    document.getElementById("map-raw").textContent = data.player.map_raw || "-";
-    document.getElementById("coordinate").textContent = data.player.x + ":" + data.player.y;
-    document.getElementById("bound-title").textContent = boundTitle || "未绑定";
-    document.getElementById("state-name").textContent = data.state ? data.state.name : "idle";
-    document.getElementById("patrol-enabled").textContent = data.patrol && data.patrol.enabled ? "开" : "关";
+    setTextIfExists("map-name", data.player.map_name);
+    setTextIfExists("map-raw", data.player.map_raw || "-");
+    setTextIfExists("coordinate", data.player.x + ":" + data.player.y);
+    setTextIfExists("bound-title", boundTitle || "未绑定");
+    setTextIfExists("state-name", data.state ? data.state.name : "idle");
+    setTextIfExists("patrol-enabled", data.patrol && data.patrol.enabled ? "开" : "关");
     updateBattlePanel(data.battle || {});
+    updatePatrolPanel(data.patrol || {});
     updateAccountsPanel(data.accounts || {});
     updateMonsterFilterPanel(data.monster_filter || {});
     updateMonsterNameColorPanel(data.monster_name_colors || {});
@@ -2488,13 +2645,15 @@ function updateAutoHealPanel(autoHeal) {
     const hpText = lastHp === "" || lastHp === null || lastHp === undefined ? "-" : String(lastHp) + "%";
     const stateText = enabled ? "开" : "关";
     const triggeredText = autoHeal.triggered_low ? " 已触发" : "";
-    document.getElementById("auto-heal-enabled-text").textContent = stateText;
-    document.getElementById("auto-heal-enabled").checked = enabled;
+    setTextIfExists("auto-heal-enabled-text", stateText);
+    setCheckedIfExists("auto-heal-enabled", enabled);
     setInputValueIfIdle("auto-heal-threshold", autoHeal.threshold_percent ?? 85);
     setInputValueIfIdle("auto-heal-interval", autoHeal.interval_ms ?? 1000);
-    document.getElementById("auto-heal-message").textContent =
+    setTextIfExists(
+        "auto-heal-message",
         stateText + " hp=" + hpText + " threshold=" + (autoHeal.threshold_percent ?? 85) + "%" + triggeredText
-        + (autoHeal.last_message ? " " + autoHeal.last_message : "");
+        + (autoHeal.last_message ? " " + autoHeal.last_message : "")
+    );
 }
 
 function updatePetHealPanel(petHeal) {
@@ -2506,17 +2665,19 @@ function updatePetHealPanel(petHeal) {
     const logic = target.logic || {};
     const logicText = logic.x === undefined ? "-" : String(logic.x) + ":" + String(logic.y);
 
-    document.getElementById("pet-heal-enabled").checked = enabled;
+    setCheckedIfExists("pet-heal-enabled", enabled);
     setInputValueIfIdle("pet-heal-threshold", petHeal.threshold_percent ?? 85);
     setInputValueIfIdle("pet-heal-key", petHeal.key ?? "F1");
-    document.getElementById("pet-heal-message").textContent =
+    setTextIfExists(
+        "pet-heal-message",
         stateText
         + " hp=" + hpText
         + " threshold=" + String(petHeal.threshold_percent ?? 85) + "%"
         + " key=" + String(petHeal.key ?? "F1")
         + " target=" + (target.name || "-")
         + " logic=" + logicText
-        + (petHeal.last_message ? " " + petHeal.last_message : "");
+        + (petHeal.last_message ? " " + petHeal.last_message : "")
+    );
 }
 
 function updateBattlePanel(battle) {
@@ -2532,11 +2693,13 @@ function updateBattlePanel(battle) {
     const targetName = target.name || target.matched_keyword || "-";
     const hpText = target.hp_percent === undefined || target.hp_percent === "" ? "-" : String(target.hp_percent) + "%";
 
-    document.getElementById("battle-enabled").textContent = stateText;
-    document.getElementById("battle-no-monster").textContent = String(count) + "/" + String(limit);
+    setTextIfExists("battle-enabled", stateText);
+    setTextIfExists("battle-no-monster", String(count) + "/" + String(limit));
+    setTextIfExists("battle-toggle", enabled ? "结束战斗" : "开始战斗");
     setInputValueIfIdle("no-monster-scan-limit", limit);
     setInputValueIfIdle("battle-duration-seconds", duration);
-    document.getElementById("battle-settings-message").textContent =
+    setTextIfExists(
+        "battle-settings-message",
         "无怪=" + String(count) + "/" + String(limit)
         + " 战斗=" + String(duration) + "s"
         + " 剩余=" + String(remaining) + "s"
@@ -2544,7 +2707,13 @@ function updateBattlePanel(battle) {
         + " pos=" + positionText
         + " hp=" + hpText
         + (battle.last_no_monster_reason ? " " + battle.last_no_monster_reason : "")
-        + (battle.last_message ? " " + battle.last_message : "");
+        + (battle.last_message ? " " + battle.last_message : "")
+    );
+}
+
+function updatePatrolPanel(patrol) {
+    const enabled = !!patrol.enabled;
+    setTextIfExists("patrol-toggle", enabled ? "关闭巡逻" : "开始巡逻");
 }
 
 function updateIdleStuckPanel(idleStuck) {
@@ -2554,14 +2723,16 @@ function updateIdleStuckPanel(idleStuck) {
     const coordinateText = coordinate.x === undefined
         ? "-"
         : String(coordinate.map_name || "未知") + " " + String(coordinate.x) + ":" + String(coordinate.y);
-    document.getElementById("idle-stuck-enabled-text").textContent = stateText;
-    document.getElementById("idle-stuck-enabled").checked = enabled;
+    setTextIfExists("idle-stuck-enabled-text", stateText);
+    setCheckedIfExists("idle-stuck-enabled", enabled);
     setInputValueIfIdle("idle-stuck-seconds", idleStuck.seconds ?? 30);
-    document.getElementById("idle-stuck-message").textContent =
+    setTextIfExists(
+        "idle-stuck-message",
         stateText + " coordinate=" + coordinateText
         + " stationary=" + String(idleStuck.stationary_seconds ?? 0) + "s"
         + " threshold=" + String(idleStuck.seconds ?? 30) + "s"
-        + (idleStuck.last_message ? " " + idleStuck.last_message : "");
+        + (idleStuck.last_message ? " " + idleStuck.last_message : "")
+    );
 }
 
 function updateGetitemPanel(getitem) {
@@ -2574,36 +2745,40 @@ function updateGetitemPanel(getitem) {
             + " dir=" + String(target.direction || "-")
             + " move=" + String(target.move_click_x ?? "") + "," + String(target.move_click_y ?? "")
         : "-";
-    document.getElementById("getitem-enabled-text").textContent = stateText;
-    document.getElementById("getitem-enabled").checked = enabled;
+    setTextIfExists("getitem-enabled-text", stateText);
+    setCheckedIfExists("getitem-enabled", enabled);
     setInputValueIfIdle("getitem-step-wait-ms", getitem.step_wait_ms ?? 100);
-    document.getElementById("getitem-message").textContent =
+    setTextIfExists(
+        "getitem-message",
         stateText + " wait=" + String(getitem.step_wait_ms ?? 100) + "ms"
         + " target=" + targetText
-        + (getitem.last_message ? " " + getitem.last_message : "");
+        + (getitem.last_message ? " " + getitem.last_message : "")
+    );
 }
 
 function updateMapCornerHotkeyPanel(settings) {
     const hotkey = settings.map_corner_hotkey ?? "F8";
     const hotkeyText = hotkey ? String(hotkey) : "禁用";
     setInputValueIfIdle("map-corner-hotkey", hotkey);
-    document.getElementById("map-corner-hotkey-message").textContent =
+    setTextIfExists(
+        "map-corner-hotkey-message",
         "快捷键=" + hotkeyText
-        + (settings.map_corner_hotkey_last_message ? " " + settings.map_corner_hotkey_last_message : "");
+        + (settings.map_corner_hotkey_last_message ? " " + settings.map_corner_hotkey_last_message : "")
+    );
 }
 
 function updateMonsterNameDebugPanel(settings) {
     const enabled = !!settings.monster_name_debug_enabled;
     const stateText = enabled ? "开" : "关";
-    document.getElementById("monster-name-debug-enabled-text").textContent = stateText;
-    document.getElementById("monster-name-debug-enabled").checked = enabled;
-    document.getElementById("monster-name-debug-message").textContent = "Debug图保存=" + stateText;
+    setTextIfExists("monster-name-debug-enabled-text", stateText);
+    setCheckedIfExists("monster-name-debug-enabled", enabled);
+    setTextIfExists("monster-name-debug-message", "Debug图保存=" + stateText);
 }
 
 function setInputValueIfIdle(id, value) {
     const input = document.getElementById(id);
 
-    if (document.activeElement !== input) {
+    if (input && document.activeElement !== input) {
         input.value = String(value);
     }
 }
@@ -2612,7 +2787,7 @@ function updatePatrolMap(mapInfo) {
     const image = document.getElementById("patrol-map-image");
     const view = document.getElementById("patrol-map-view");
 
-    if (!mapInfo || !mapInfo.url) {
+    if (!mapInfo || (!mapInfo.url && !mapInfo.max_x && !mapInfo.max_y)) {
         currentMap = null;
         currentMapUrl = "";
         image.removeAttribute("src");
@@ -2622,7 +2797,14 @@ function updatePatrolMap(mapInfo) {
     }
 
     currentMap = mapInfo;
-    currentMapUrl = mapInfo.url;
+    currentMapUrl = mapInfo.url || "";
+
+    if (!mapInfo.url) {
+        image.removeAttribute("src");
+        image.style.display = "none";
+        view.classList.add("empty");
+        return;
+    }
 
     if (image.getAttribute("src") !== mapInfo.url) {
         image.src = mapInfo.url;
@@ -2691,16 +2873,22 @@ function appendPatrolActionCell(row, label, onClick) {
 
 function updatePatrolMapInfo() {
     const info = document.getElementById("patrol-map-info");
+    const dirtyText = patrolDirty ? " 未保存" : "";
 
     if (!currentMap) {
-        info.textContent = "未加载地图";
+        setTextIfExists("map-max-coordinate", "-");
+        setTextIfExists("patrol-point-summary", String(patrolPoints.length) + " 个" + dirtyText);
+        if (info) {
+            info.textContent = "未加载地图";
+        }
         return;
     }
 
-    const dirtyText = patrolDirty ? " 未保存" : "";
-    info.textContent = "地图: " + (currentMap.name || "-")
-        + " 最大坐标: " + currentMap.max_x + ":" + currentMap.max_y
-        + " 巡逻点: " + patrolPoints.length + dirtyText;
+    setTextIfExists("map-max-coordinate", String(currentMap.max_x || 0) + ":" + String(currentMap.max_y || 0));
+    setTextIfExists("patrol-point-summary", String(patrolPoints.length) + " 个" + dirtyText);
+    if (info) {
+        info.textContent = "左键添加巡逻点，右键清空";
+    }
 }
 
 function mapPixelToLogic(pixelX, pixelY) {
@@ -2745,9 +2933,43 @@ async function refreshLogs() {
     if (appRestarting) return;
     const response = await fetch("/api/logs");
     const text = await response.text();
+    renderLogs(text);
+}
+
+function renderLogs(text) {
     const box = document.getElementById("log-box");
-    box.textContent = text;
-    box.scrollTop = box.scrollHeight;
+
+    if (!box) return;
+
+    const stayAtBottom = box.scrollTop + box.clientHeight >= box.scrollHeight - 12;
+    const lines = text.split(/\\r?\\n/).filter(line => line.trim() !== "");
+    box.textContent = "";
+
+    if (!lines.length) {
+        const entry = document.createElement("div");
+        entry.className = "log-entry empty";
+        entry.textContent = "暂无日志";
+        box.appendChild(entry);
+    } else {
+        for (const line of lines) {
+            const entry = document.createElement("div");
+            entry.className = "log-entry";
+            entry.textContent = line;
+            box.appendChild(entry);
+        }
+    }
+
+    if (stayAtBottom) {
+        box.scrollTop = box.scrollHeight;
+    }
+}
+
+async function clearLogs() {
+    if (appRestarting) return;
+    const response = await fetch("/api/logs/clear", {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    await refreshLogs();
 }
 
 setInterval(refreshStatus, POLL_INTERVAL_MS);

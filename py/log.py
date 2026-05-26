@@ -18,6 +18,12 @@ def set_log_file(path, clear=False):
         log_file.write_text("", encoding="utf-8")
 
 
+# 清空当前日志文件：供网页日志区手动清空使用。
+def clear():
+    log_file.parent.mkdir(parents=True, exist_ok=True)
+    log_file.write_text("", encoding="utf-8")
+
+
 # 按运行目录切换日志：日志文件固定叫 log.txt。
 def use_run_dir(run_dir, clear=False):
     set_log_file(Path(run_dir) / "log.txt", clear=clear)
