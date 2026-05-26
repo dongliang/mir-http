@@ -1287,9 +1287,17 @@ def create_getitem_controls(app_settings):
         "type": "checkbox",
         "onchange": "saveGetitemSettings()",
     }
+    safety_attrs = {
+        "id": "getitem-safety-enabled",
+        "type": "checkbox",
+        "onchange": "saveGetitemSettings()",
+    }
 
     if app_settings.get("getitem_enabled", True):
         enabled_attrs["checked"] = True
+
+    if app_settings.get("getitem_safety_enabled", True):
+        safety_attrs["checked"] = True
 
     return Div(
         Label(
@@ -1306,6 +1314,28 @@ def create_getitem_controls(app_settings):
                 max=str(api.GETITEM_MAX_STEP_WAIT_MS),
                 step="100",
                 value=str(app_settings.get("getitem_step_wait_ms", api.GETITEM_DEFAULT_STEP_WAIT_MS)),
+                oninput="queueSaveGetitemSettings()",
+                onchange="saveGetitemSettings()",
+            ),
+            cls="getitem-field",
+        ),
+        Label(
+            Input(**safety_attrs),
+            Span("血条安全限制"),
+            cls="getitem-toggle",
+        ),
+        Label(
+            Span("允许血条数量"),
+            Input(
+                id="getitem-safety-max-nearby-blood-bars",
+                type="number",
+                min=str(api.GETITEM_SAFETY_MIN_NEARBY_BLOOD_BARS),
+                max=str(api.GETITEM_SAFETY_MAX_NEARBY_BLOOD_BARS),
+                step="1",
+                value=str(app_settings.get(
+                    "getitem_safety_max_nearby_blood_bars",
+                    api.GETITEM_SAFETY_DEFAULT_MAX_NEARBY_BLOOD_BARS,
+                )),
                 oninput="queueSaveGetitemSettings()",
                 onchange="saveGetitemSettings()",
             ),
@@ -1746,7 +1776,7 @@ h2 {
 }
 .getitem-controls {
     display: grid;
-    grid-template-columns: minmax(110px, 130px) minmax(130px, 160px) minmax(180px, 1fr);
+    grid-template-columns: minmax(100px, 120px) minmax(120px, 150px) minmax(130px, 150px) minmax(120px, 145px) minmax(180px, 1fr);
     gap: 8px;
     align-items: center;
 }
@@ -2240,8 +2270,9 @@ let getitemSettingsTimer = null;
 
 function queueSaveGetitemSettings() {
     const stepWaitMs = document.getElementById("getitem-step-wait-ms").value;
+    const safetyMaxNearbyBloodBars = document.getElementById("getitem-safety-max-nearby-blood-bars").value;
 
-    if (stepWaitMs === "") {
+    if (stepWaitMs === "" || safetyMaxNearbyBloodBars === "") {
         return;
     }
 
@@ -2253,12 +2284,16 @@ async function saveGetitemSettings() {
     clearTimeout(getitemSettingsTimer);
     const enabled = document.getElementById("getitem-enabled").checked;
     const stepWaitMs = document.getElementById("getitem-step-wait-ms").value;
+    const safetyEnabled = document.getElementById("getitem-safety-enabled").checked;
+    const safetyMaxNearbyBloodBars = document.getElementById("getitem-safety-max-nearby-blood-bars").value;
     const response = await fetch("/api/getitem/settings", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             enabled,
             step_wait_ms: stepWaitMs,
+            safety_enabled: safetyEnabled,
+            safety_max_nearby_blood_bars: safetyMaxNearbyBloodBars,
         }),
     });
     const data = await response.json();
@@ -2803,6 +2838,9 @@ function updateIdleStuckPanel(idleStuck) {
 function updateGetitemPanel(getitem) {
     const enabled = !!getitem.enabled;
     const stateText = enabled ? "开" : "关";
+    const safetyEnabled = getitem.safety_enabled !== false;
+    const safetyText = safetyEnabled ? "开" : "关";
+    const safetyMax = getitem.safety_max_nearby_blood_bars ?? 1;
     const target = getitem.last_target || {};
     const targetText = target.keyword
         ? target.keyword
@@ -2812,10 +2850,13 @@ function updateGetitemPanel(getitem) {
         : "-";
     setTextIfExists("getitem-enabled-text", stateText);
     setCheckedIfExists("getitem-enabled", enabled);
+    setCheckedIfExists("getitem-safety-enabled", safetyEnabled);
     setInputValueIfIdle("getitem-step-wait-ms", getitem.step_wait_ms ?? 100);
+    setInputValueIfIdle("getitem-safety-max-nearby-blood-bars", safetyMax);
     setTextIfExists(
         "getitem-message",
         stateText + " wait=" + String(getitem.step_wait_ms ?? 100) + "ms"
+        + " safety=" + safetyText + " max_blood=" + String(safetyMax)
         + " target=" + targetText
         + (getitem.last_message ? " " + getitem.last_message : "")
     );

@@ -30,7 +30,7 @@ def update_frame(game_data, state_data):
     if next_action_at and now < next_action_at:
         return {}
 
-    safety = api.check_getitem_safety(game_data.get("player", {}))
+    safety = api.check_getitem_safety(game_data.get("player", {}), settings)
 
     if not safety.get("success", False):
         message = f"捡取安全检测失败，回到 idle: {safety.get('message', '')}"
@@ -122,6 +122,23 @@ def update_frame(game_data, state_data):
             "message": message,
         }
 
+    cancel_message = ""
+
+    if not state_data.get("first_move_cancel_clicked", False):
+        cancel = api.click_player_foot_point()
+
+        if not cancel.get("success", False):
+            message = f"捡取物品取消当前战斗失败，回到 idle: {cancel.get('message', '')}"
+            api.set_getitem_runtime_status(message=message, target=selected)
+            return {
+                "state": "idle",
+                "message": message,
+            }
+
+        state_data["first_move_cancel_clicked"] = True
+        cancel_message = f"首次移动前点击角色脚点取消当前战斗: {cancel.get('message', '')}"
+        api.reset_battle_runtime(game_data.get("battle_runtime_state"), cancel_message)
+
     move = api.move_getitem_toward_target(selected, state_data.get("last_direction", ""), player_info)
 
     if not move.get("success", False):
@@ -149,6 +166,7 @@ def update_frame(game_data, state_data):
     state_data["last_direction"] = move.get("direction", "")
     state_data["next_action_at"] = time.time() + wait_ms / 1000
     message = (
+        f"{cancel_message + '；' if cancel_message else ''}"
         f"捡取物品移动 target={api.format_getitem_target(selected)} "
         f"action={move.get('action', '')} direction={move.get('direction', '')} "
         f"wait={wait_ms}ms {move.get('message', '')}"
@@ -159,6 +177,9 @@ def update_frame(game_data, state_data):
 
     if picked_message:
         logs.append(picked_message)
+
+    if cancel_message:
+        logs.append(cancel_message)
 
     return {
         "logs": logs,

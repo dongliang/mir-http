@@ -253,6 +253,9 @@ GETITEM_WALK_MAX_LOGIC_DISTANCE = 2
 GETITEM_DEFAULT_STEP_WAIT_MS = 100
 GETITEM_MIN_STEP_WAIT_MS = 100
 GETITEM_MAX_STEP_WAIT_MS = 10000
+GETITEM_SAFETY_DEFAULT_MAX_NEARBY_BLOOD_BARS = 1
+GETITEM_SAFETY_MIN_NEARBY_BLOOD_BARS = 0
+GETITEM_SAFETY_MAX_NEARBY_BLOOD_BARS = 20
 # 拾取专用投影：逻辑坐标轴在游戏客户区屏幕上的像素偏移。
 GETITEM_LOGIC_X_SCREEN_DX = 51
 GETITEM_LOGIC_X_SCREEN_DY = 1
@@ -916,6 +919,8 @@ def create_default_app_settings():
         "op_find_debug_enabled": False,
         "getitem_enabled": True,
         "getitem_step_wait_ms": GETITEM_DEFAULT_STEP_WAIT_MS,
+        "getitem_safety_enabled": True,
+        "getitem_safety_max_nearby_blood_bars": GETITEM_SAFETY_DEFAULT_MAX_NEARBY_BLOOD_BARS,
         "no_monster_scan_limit": NO_MONSTER_SCAN_LIMIT_DEFAULT,
         "battle_duration_seconds": BATTLE_DURATION_SECONDS_DEFAULT,
         "fight_while_moving_enabled": False,
@@ -1015,6 +1020,16 @@ def normalize_app_settings(settings):
         defaults["getitem_step_wait_ms"],
         GETITEM_MIN_STEP_WAIT_MS,
         GETITEM_MAX_STEP_WAIT_MS,
+    )
+    normalized["getitem_safety_enabled"] = normalize_app_setting_bool(
+        data.get("getitem_safety_enabled", defaults["getitem_safety_enabled"]),
+        defaults["getitem_safety_enabled"],
+    )
+    normalized["getitem_safety_max_nearby_blood_bars"] = normalize_number(
+        data.get("getitem_safety_max_nearby_blood_bars"),
+        defaults["getitem_safety_max_nearby_blood_bars"],
+        GETITEM_SAFETY_MIN_NEARBY_BLOOD_BARS,
+        GETITEM_SAFETY_MAX_NEARBY_BLOOD_BARS,
     )
     normalized["no_monster_scan_limit"] = normalize_number(
         data.get("no_monster_scan_limit"),
@@ -2226,6 +2241,8 @@ def make_getitem_status(app_settings):
     return {
         "enabled": bool(app_settings.get("getitem_enabled", True)),
         "step_wait_ms": get_getitem_step_wait_ms(app_settings),
+        "safety_enabled": is_getitem_safety_enabled(app_settings),
+        "safety_max_nearby_blood_bars": get_getitem_safety_max_nearby_blood_bars(app_settings),
         "item_filter": get_item_keyword_status(),
         "item_name_colors": get_item_name_color_status(),
         "last_target": runtime.get("last_target", {}),
@@ -3122,7 +3139,7 @@ def click_client_top_left():
     return click_client_point(1, 1, "left")
 
 
-# 点击角色脚底点：用于取消正在进行的移动。
+# 点击角色脚底点：用于取消正在进行的移动或当前战斗目标。
 def click_player_foot_point():
     try:
         player_x, player_y, position = get_bound_player_foot_point()
@@ -3586,7 +3603,7 @@ def should_enter_getitem(game_data):
             "message": "",
         }
 
-    safety = check_getitem_safety(game_data.get("player"))
+    safety = check_getitem_safety(game_data.get("player"), settings)
 
     if not safety.get("success", False):
         message = f"捡取安全检测失败: {safety.get('message', '')}"
@@ -3633,27 +3650,45 @@ def should_enter_getitem(game_data):
     }
 
 
-# 捡取前安全检测：附近红色血条数量大于 1 时暂停捡取。
-def check_getitem_safety(player_info=None):
+# 捡取前安全检测：按设置限制附近红色血条数量。
+def check_getitem_safety(player_info=None, settings=None):
+    settings = settings or {}
+    max_nearby_count = get_getitem_safety_max_nearby_blood_bars(settings)
+
+    if not is_getitem_safety_enabled(settings):
+        return {
+            "success": True,
+            "safe": True,
+            "candidate_count": 0,
+            "max_nearby_count": max_nearby_count,
+            "logs": [],
+            "message": f"捡取血条安全限制关闭 max_nearby_blood_bars={max_nearby_count}",
+        }
+
     monster_result = findNearbyMonsterBloodBars(player_info)
 
     if not monster_result.get("success", False):
         return {
             "success": False,
             "safe": False,
+            "max_nearby_count": max_nearby_count,
             "message": monster_result.get("message", ""),
         }
 
     monsters = monster_result.get("monsters", [])
     nearby_count = len(monsters)
 
-    if nearby_count <= 1:
+    if nearby_count <= max_nearby_count:
         return {
             "success": True,
             "safe": True,
             "candidate_count": nearby_count,
+            "max_nearby_count": max_nearby_count,
             "logs": [],
-            "message": f"捡取安全检测通过 nearby_blood_bars={nearby_count}",
+            "message": (
+                f"捡取安全检测通过 nearby_blood_bars={nearby_count} "
+                f"max={max_nearby_count}"
+            ),
         }
 
     nearest = monsters[0] if monsters else {}
@@ -3666,6 +3701,7 @@ def check_getitem_safety(player_info=None):
             "hp_percent": nearest.get("hp_percent", ""),
         },
         "nearby_count": nearby_count,
+        "max_nearby_count": max_nearby_count,
     }
 
     return {
@@ -3673,8 +3709,9 @@ def check_getitem_safety(player_info=None):
         "safe": False,
         "danger": danger,
         "candidate_count": nearby_count,
+        "max_nearby_count": max_nearby_count,
         "logs": [],
-        "message": f"附近红色血条数量 {nearby_count} > 1，暂停捡取",
+        "message": f"附近红色血条数量 {nearby_count} > {max_nearby_count}，暂停捡取",
     }
 
 
@@ -4472,12 +4509,28 @@ def update_getitem_settings(app_settings, data):
         GETITEM_MIN_STEP_WAIT_MS,
         GETITEM_MAX_STEP_WAIT_MS,
     )
+    safety_enabled = normalize_bool(data.get("safety_enabled", app_settings.get("getitem_safety_enabled", True)))
+    safety_max_nearby_blood_bars = normalize_number(
+        data.get("safety_max_nearby_blood_bars"),
+        app_settings.get(
+            "getitem_safety_max_nearby_blood_bars",
+            GETITEM_SAFETY_DEFAULT_MAX_NEARBY_BLOOD_BARS,
+        ),
+        GETITEM_SAFETY_MIN_NEARBY_BLOOD_BARS,
+        GETITEM_SAFETY_MAX_NEARBY_BLOOD_BARS,
+    )
 
     app_settings["getitem_enabled"] = enabled
     app_settings["getitem_step_wait_ms"] = step_wait_ms
+    app_settings["getitem_safety_enabled"] = safety_enabled
+    app_settings["getitem_safety_max_nearby_blood_bars"] = safety_max_nearby_blood_bars
 
     state_text = "开" if enabled else "关"
-    message = f"捡取物品设置已更新: {state_text} step_wait_ms={step_wait_ms}"
+    safety_text = "开" if safety_enabled else "关"
+    message = (
+        f"捡取物品设置已更新: {state_text} step_wait_ms={step_wait_ms} "
+        f"safety={safety_text} max_nearby_blood_bars={safety_max_nearby_blood_bars}"
+    )
     set_getitem_runtime_status(message=message)
     return {
         "success": True,
@@ -4493,6 +4546,21 @@ def get_getitem_step_wait_ms(app_settings):
         GETITEM_DEFAULT_STEP_WAIT_MS,
         GETITEM_MIN_STEP_WAIT_MS,
         GETITEM_MAX_STEP_WAIT_MS,
+    )
+
+
+# 读取捡取血条安全限制开关。
+def is_getitem_safety_enabled(app_settings):
+    return normalize_bool((app_settings or {}).get("getitem_safety_enabled", True))
+
+
+# 读取捡取允许的附近红色血条数量。
+def get_getitem_safety_max_nearby_blood_bars(app_settings):
+    return normalize_number(
+        (app_settings or {}).get("getitem_safety_max_nearby_blood_bars"),
+        GETITEM_SAFETY_DEFAULT_MAX_NEARBY_BLOOD_BARS,
+        GETITEM_SAFETY_MIN_NEARBY_BLOOD_BARS,
+        GETITEM_SAFETY_MAX_NEARBY_BLOOD_BARS,
     )
 
 
@@ -6323,7 +6391,7 @@ def dedupe_matches(matches):
         duplicate = False
 
         for existing in deduped:
-            x_limit = max(4, min(match.get("width", 4), existing.get("width", 4)) // 2)
+            x_limit = max(4, min(match.get("width", 4), existing.get("width", 4)))
             y_limit = max(4, min(match.get("height", 4), existing.get("height", 4)) * 2)
 
             if (
