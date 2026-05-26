@@ -7,7 +7,7 @@
 - 这是一个 Windows Python 自动化项目，业务代码统一放在 `py/`。
 - `py/app.py` 是启动入口，负责应用启动、后台刷新循环和退出清理。
 - `py/httpserver.py` 负责 HTTP 与页面层，只调用 `api.py`。
-- `py/api.py` 是业务层，封装窗口绑定、截图、坐标读取、移动、键盘输入、Overlay 和状态聚合。
+- `py/api.py` 是业务层，封装窗口绑定、截图、坐标读取、移动、键盘输入和状态聚合。
 - `py/op.py` 只封装 OP 插件能力，`py/win32.py` 只封装 Win32 API。
 - 找字统一使用 OP 大漠字库，字库文件放在 `fonts/main.txt`。
 - 资源图片放在 `png/` 和 `ref/`；大漠字库放在 `fonts/`；文本清单放在 `txt/`；OP 依赖放在 `vendor/op/`；内置 Python 运行时放在 `runtime/`。
@@ -34,14 +34,14 @@
 
 - 当前没有正式测试框架或覆盖率要求。
 - 提交前至少运行 `runtime\python310\python.exe -m compileall py`。
-- 修改 HTTP、页面、OCR、截图、坐标或 Overlay 逻辑时，要手动验证相关功能。
+- 修改 HTTP、页面、OCR、截图或坐标逻辑时，要手动验证相关功能。
 - OCR 和坐标类问题应使用新截图对照 `png/` 或 `ref/`，临时诊断图不要提交。
 
 ### 提交与 PR 规范
 
 - Git 历史使用简短中文提交信息，例如 `新增大地图交互区域矩形计算函数`。
 - 提交信息应描述实际行为变化，不要只写工具操作。
-- PR 需要说明改动摘要、验证步骤、影响模块；涉及 UI、OCR、Overlay 或坐标变化时，补充截图或调试说明。
+- PR 需要说明改动摘要、验证步骤、影响模块；涉及 UI、OCR 或坐标变化时，补充截图或调试说明。
 - 修改 `runtime/` 或 `vendor/` 时必须明确说明原因，因为这些文件影响 OP 和 OCR 运行。
 
 ### 安全与配置
@@ -63,10 +63,9 @@
 
 - `py/app.py` 是入口，只负责启动、后台刷新循环、退出清理。
 - `py/httpserver.py` 是 HTTP 和页面层，只调用 `api.py`，不要直接调用 `op.py`。
-- `py/api.py` 是业务层，统一封装窗口绑定、截图、坐标读取、移动、键盘输入、Overlay 开关和状态聚合。
+- `py/api.py` 是业务层，统一封装窗口绑定、截图、坐标读取、移动、键盘输入和状态聚合。
 - `py/op.py` 只封装 OP 插件能力：加载 OP、绑定/解绑、截图调用、鼠标输入、键盘输入、绑定模式状态和大漠字库找字。
 - `py/win32.py` 只封装 Win32 API：窗口查找、窗口标题、客户区尺寸等。
-- `py/overlay.py` 只负责点击提示绘制，不属于 OP 插件功能。
 - `py/player.py` 保存玩家状态，先用简单 dict。
 - `py/log.py` 统一写根目录的 `log.txt`。
 
@@ -74,12 +73,11 @@
 
 - `py/app.py -> api.py / httpserver.py / player.py / log.py`
 - `py/httpserver.py -> api.py / log.py`
-- `py/api.py -> op.py / win32.py / overlay.py`
+- `py/api.py -> op.py / win32.py`
 - `py/op.py -> vendor/op/pyop.py`
-- `py/overlay.py -> pywin32`
 
 不要让 `py/app.py` 或 `py/httpserver.py` 直接依赖 `op.py`。
-不要让 `py/op.py` 依赖 `overlay.py` 或业务层模块。
+不要让 `py/op.py` 依赖业务层模块。
 
 ## OP 细节
 
@@ -91,7 +89,6 @@
 - 怪物攻击前按 `txt/monster.txt` 做白名单过滤，每行一个怪物关键字；怪物名 OCR 颜色按 `txt/monster_name_colors.txt` 加载，每行一个 OP 颜色格式。
 - 页面按钮“重载TXT配置”会运行时重新读取 `txt/` 下的怪物清单和怪物名 OCR 颜色。
 - `gdi` 在当前环境截图会黑屏；截图黑屏时优先重启 OP 并重新绑定 `dx2/windows/windows/0`。
-- Overlay 直接沿用业务有效客户区坐标，不额外再乘除 DPI。
 - 后台键盘 HTTP API 是 `/api/keyboard/press?key=M&hold_ms=120&repeat=1&interval_ms=80`。
 - 截图 API 保存到 `screenshots/screenshot_0001.bmp` 这种自增文件，并返回路径。
 

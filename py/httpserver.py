@@ -53,6 +53,7 @@ def run_server(
     idle_stuck_state,
     battle_runtime_state,
     game_data,
+    restart_app,
 ):
     # FastHTML 应用：承载页面和所有 API 路由。
     app = create_server(
@@ -70,6 +71,7 @@ def run_server(
         idle_stuck_state,
         battle_runtime_state,
         game_data,
+        restart_app,
     )
     log.write_console(f"HTTP 服务启动: http://{SERVER_HOST}:{SERVER_PORT}")
     uvicorn.run(app, host=SERVER_HOST, port=SERVER_PORT, log_level="warning")
@@ -91,6 +93,7 @@ def create_server(
     idle_stuck_state,
     battle_runtime_state,
     game_data,
+    restart_app,
 ):
     # 应用和路由器：由 FastHTML 创建页面应用和路由装饰器。
     app, rt = fast_app(static_path=str(api.base_dir))
@@ -862,6 +865,13 @@ def create_server(
     def get():
         return PlainTextResponse(log.read())
 
+    # 程序重启接口：由 app.py 负责实际进程重启和退出清理。
+    @rt("/api/app/restart")
+    def post():
+        result = restart_app()
+        log.write(result["message"])
+        return JSONResponse(result)
+
     return app
 
 
@@ -876,6 +886,7 @@ def create_buttons(app_settings):
         Button("找附近怪", onclick="scanMonsters('/api/monsters/scan-nearby')"),
         Button("找全屏怪", onclick="scanMonsters('/api/monsters/scan')"),
         Button("重载TXT配置", onclick="postApi('/api/monsters/reload-list')"),
+        Button("重启程序", onclick="restartApp()"),
         Button("拾取测试", onclick="postApi('/api/getitem/test')"),
         Button("复写配置", onclick="postApi('/api/accounts/overwrite-configs')"),
         Button("截取地图", onclick="captureMap()"),
@@ -1743,6 +1754,11 @@ let currentMapUrl = "";
 let patrolPoints = [];
 let patrolIndex = -1;
 let patrolDirty = false;
+let appRestarting = false;
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 async function postApi(url) {
     const response = await fetch(url, {method: "POST"});
@@ -1775,6 +1791,42 @@ function selectAccountFromDropdown() {
 
 async function unbindWindow() {
     await postApi("/api/window/unbind");
+}
+
+async function restartApp() {
+    if (!confirm("确定要重启程序并重新加载 Python 代码吗？")) {
+        return;
+    }
+
+    appRestarting = true;
+    const response = await fetch("/api/app/restart", {method: "POST"});
+    const data = await response.json();
+    console.log(data);
+    await waitForRestartAndReload();
+}
+
+async function waitForRestartAndReload() {
+    await sleep(1000);
+    let sawOffline = false;
+    const startedAt = Date.now();
+
+    for (let i = 0; i < 30; i++) {
+        try {
+            const response = await fetch("/api/status", {cache: "no-store"});
+
+            if (response.ok && (sawOffline || Date.now() - startedAt > 4000)) {
+                window.location.reload();
+                return;
+            }
+        } catch (error) {
+            sawOffline = true;
+            console.log(error);
+        }
+
+        await sleep(1000);
+    }
+
+    window.location.reload();
 }
 
 async function takeScreenshot() {
@@ -2552,6 +2604,7 @@ function clampNumber(value, minimum, maximum) {
 }
 
 async function refreshStatus() {
+    if (appRestarting) return;
     if (refreshStatus.busy) return;
     refreshStatus.busy = true;
 
@@ -2565,6 +2618,7 @@ async function refreshStatus() {
 }
 
 async function refreshLogs() {
+    if (appRestarting) return;
     const response = await fetch("/api/logs");
     const text = await response.text();
     const box = document.getElementById("log-box");

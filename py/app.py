@@ -1,4 +1,9 @@
 import atexit
+import ctypes
+import os
+import socket
+import subprocess
+import sys
 import threading
 import time
 
@@ -99,6 +104,8 @@ game_data = {
 }
 # 停止事件：通知后台刷新循环在程序退出时结束。
 stop_event = threading.Event()
+restart_lock = threading.Lock()
+restart_requested = False
 atexit.register(api.stop_map_corner_hotkey)
 atexit.register(stop_event.set)
 
@@ -128,7 +135,126 @@ def main() -> None:
         idle_stuck_state,
         battle_runtime_state,
         game_data,
+        restart_app,
     )
+
+
+# 等待旧进程退出：重启子进程启动时先等旧进程释放当前 HTTP 端口。
+def wait_for_restart_parent():
+    parent_pid_text = os.environ.pop("MIR2AUTO_RESTART_PARENT_PID", "").strip()
+
+    if not parent_pid_text.isdigit():
+        return
+
+    parent_pid = int(parent_pid_text)
+    deadline = time.time() + 30
+
+    while time.time() < deadline:
+        if not is_process_running(parent_pid) and is_server_port_free(httpserver.SERVER_PORT):
+            return
+
+        time.sleep(0.2)
+
+
+# 判断进程是否仍在运行：仅用于 Windows 下的重启等待。
+def is_process_running(pid):
+    if pid <= 0 or pid == os.getpid():
+        return False
+
+    kernel32 = ctypes.windll.kernel32
+    handle = kernel32.OpenProcess(0x1000, False, int(pid))
+
+    if not handle:
+        return False
+
+    exit_code = ctypes.c_ulong()
+
+    try:
+        if not kernel32.GetExitCodeProcess(handle, ctypes.byref(exit_code)):
+            return False
+
+        return exit_code.value == 259
+    finally:
+        kernel32.CloseHandle(handle)
+
+
+# 判断 HTTP 端口是否空闲：新进程接管端口前避免和旧进程抢占。
+def is_server_port_free(port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    try:
+        sock.bind((httpserver.SERVER_HOST, int(port)))
+        return True
+    except OSError:
+        return False
+    finally:
+        sock.close()
+
+
+# 网页触发的程序重启：启动新进程并安排当前进程退出。
+def restart_app():
+    global restart_requested
+
+    with restart_lock:
+        if restart_requested:
+            return {
+                "success": True,
+                "message": "程序正在重启，请稍后刷新页面",
+            }
+
+        try:
+            child = start_restart_child()
+        except Exception as error:
+            return {
+                "success": False,
+                "message": f"启动重启子进程失败: {error}",
+            }
+
+        restart_requested = True
+
+    thread = threading.Thread(target=exit_after_restart_response, daemon=True)
+    thread.start()
+
+    return {
+        "success": True,
+        "message": f"程序正在重启，新进程 PID={child.pid}",
+    }
+
+
+# 启动接管用的新 Python 进程。
+def start_restart_child():
+    env = os.environ.copy()
+    env["MIR2AUTO_RESTART_PARENT_PID"] = str(os.getpid())
+    env["MIR2AUTO_HTTP_PORT"] = str(httpserver.SERVER_PORT)
+
+    return subprocess.Popen(
+        [sys.executable, str(api.base_dir / "py" / "app.py")],
+        cwd=str(api.base_dir),
+        env=env,
+    )
+
+
+# 给 HTTP 响应留出返回时间，然后清理并退出当前进程。
+def exit_after_restart_response():
+    time.sleep(0.5)
+    cleanup_before_exit()
+    os._exit(0)
+
+
+# 退出前清理：停止后台循环、快捷键和当前 OP 绑定。
+def cleanup_before_exit():
+    stop_event.set()
+
+    try:
+        api.stop_map_corner_hotkey()
+    except Exception as error:
+        log.write(f"停止地图角点快捷键异常: {error}")
+
+    try:
+        result = api.unbind_window()
+        log.write(result.get("message", ""))
+    except Exception as error:
+        log.write(f"重启前解绑窗口异常: {error}")
 
 
 # 刷新一帧：读取当前地图坐标并写回玩家状态。
@@ -243,7 +369,7 @@ def switch_state(next_state, next_data=None):
 
     current_state["name"] = next_state
     current_state["data"] = next_data if isinstance(next_data, dict) else {}
-    log.write(f"状态切换: {old_state} -> {next_state}")
+    log.write(f"状态1切换: {old_state} -> {next_state}")
 
 
 # 启动刷新循环：创建后台线程定时更新坐标状态。
@@ -305,4 +431,5 @@ def start_op():
 
 
 if __name__ == "__main__":
+    wait_for_restart_parent()
     main()

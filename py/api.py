@@ -691,7 +691,7 @@ def bind_window(keyword):
     }
 
 
-# 解绑窗口：释放 OP 绑定并隐藏现有点击提示。
+# 解绑窗口：释放 OP 绑定并清理当前账号状态。
 def unbind_window():
     success, title, message = op.unbind_window()
 
