@@ -125,55 +125,8 @@ def create_server(
                 Script(PAGE_SCRIPT),
             ),
             Body(
-                H2("httpserver"),
-                Div(
-                    *create_buttons(app_settings),
-                    cls="controls",
-                ),
-                Div(
-                    Div("绑定窗口: ", Span("未绑定", id="bound-title")),
-                    Div("地图: ", Span(player_info["map_name"], id="map-name")),
-                    Div("地图原文: ", Span("-", id="map-raw")),
-                    Div("坐标: ", Span(f"{player_info['x']}:{player_info['y']}", id="coordinate")),
-                    Div("状态: ", Span(current_state["name"], id="state-name")),
-                    Div("巡逻: ", Span("关", id="patrol-enabled")),
-                    Div("战斗: ", Span("关", id="battle-enabled")),
-                    Div("连续无怪: ", Span("-", id="battle-no-monster")),
-                    Div("账号: ", Span("未选择", id="account-current")),
-                    Div("配置目录: ", Span("-", id="account-config-dir")),
-                    Div("怪物过滤: ", Span("-", id="monster-filter")),
-                    Div("怪物字色: ", Span("-", id="monster-name-colors")),
-                    Div("物品过滤: ", Span("-", id="item-filter")),
-                    Div("物品字色: ", Span("-", id="item-name-colors")),
-                    Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
-                    Div("卡住跳点: ", Span("开", id="idle-stuck-enabled-text")),
-                    Div("捡取物品: ", Span("开", id="getitem-enabled-text")),
-                    Div("怪名Debug图: ", Span("关", id="monster-name-debug-enabled-text")),
-                    cls="status",
-                ),
-                create_patrol_panel(),
-                Div(
-                    H3("怪物列表"),
-                    Table(
-                        Thead(
-                            Tr(
-                                Th("怪物名称"),
-                                Th("距离玩家"),
-                                Th("怪物血量"),
-                                Th("怪物位置"),
-                                Th("操作"),
-                            )
-                        ),
-                        Tbody(
-                            Tr(
-                                Td("暂无数据", colspan="5"),
-                            ),
-                            id="monster-body",
-                        ),
-                    ),
-                    cls="monster-panel",
-                ),
-                Pre("", id="log-box"),
+                H1("httpserver"),
+                create_tabs(app_settings, player_info, current_state),
             ),
         )
 
@@ -875,32 +828,59 @@ def create_server(
     return app
 
 
-# 创建控制按钮：生成绑定、工具和移动控制区域。
-def create_buttons(app_settings):
-    # 工具按钮列表：保存坐标刷新、截图和自动流程按钮。
-    utility_buttons = [
-        Button("测试坐标", onclick="postApi('/api/coordinate/read')"),
-        Button("截图", onclick="takeScreenshot()"),
-        Button("地图角点", onclick="postApi('/api/map/rect-corner')"),
-        Button("测试键盘(M)", onclick="pressKeyboard('M')"),
-        Button("找附近怪", onclick="scanMonsters('/api/monsters/scan-nearby')"),
-        Button("找全屏怪", onclick="scanMonsters('/api/monsters/scan')"),
-        Button("重载TXT配置", onclick="postApi('/api/monsters/reload-list')"),
-        Button("重启程序", onclick="restartApp()"),
-        Button("拾取测试", onclick="postApi('/api/getitem/test')"),
-        Button("复写配置", onclick="postApi('/api/accounts/overwrite-configs')"),
-        Button("截取地图", onclick="captureMap()"),
-        Button("保存巡逻点到全局", onclick="savePatrolPoints('global')"),
-        Button("保存巡逻点到账号", onclick="savePatrolPoints('account')"),
-        Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
-        Button("移动到当前巡逻点", onclick="moveToCurrentPatrolPoint()"),
-        Button("开始巡逻", onclick="startPatrol()"),
-        Button("关闭巡逻", onclick="stopPatrol()"),
-        Button("开始战斗", onclick="startBattle()"),
-        Button("结束战斗", onclick="stopBattle()"),
-    ]
+# 创建首页标签页：把账号、状态、战斗、操控和调试功能分区。
+def create_tabs(app_settings, player_info, current_state):
+    return Div(
+        Div(
+            create_tab_button("account", "账号"),
+            create_tab_button("status", "状态", active=True),
+            create_tab_button("battle", "战斗"),
+            create_tab_button("control", "操控"),
+            create_tab_button("debug", "Debug"),
+            cls="tabs",
+        ),
+        Div(
+            create_tab_panel("account", create_account_panel()),
+            create_tab_panel("status", create_status_panel(player_info, current_state), active=True),
+            create_tab_panel("battle", create_battle_panel(app_settings)),
+            create_tab_panel("control", create_control_panel()),
+            create_tab_panel("debug", create_debug_panel(app_settings)),
+            cls="tab-panels",
+        ),
+        cls="tab-shell",
+    )
 
-    return [
+
+# 创建标签按钮。
+def create_tab_button(tab_id, label, active=False):
+    cls = "tab-button active" if active else "tab-button"
+    selected = "true" if active else "false"
+    return Button(
+        label,
+        type="button",
+        onclick=f"switchTab('{tab_id}')",
+        cls=cls,
+        **{
+            "data-tab": tab_id,
+            "aria-selected": selected,
+        },
+    )
+
+
+# 创建标签内容面板。
+def create_tab_panel(tab_id, *children, active=False):
+    cls = "tab-panel active" if active else "tab-panel"
+    return Div(
+        *children,
+        id=f"tab-{tab_id}",
+        cls=cls,
+        **{"data-tab-panel": tab_id},
+    )
+
+
+# 创建账号页：账号选择、窗口绑定和账号配置操作。
+def create_account_panel():
+    return Div(
         Div(
             Select(
                 Option("选择账号", value=""),
@@ -917,20 +897,127 @@ def create_buttons(app_settings):
             Button("解除绑定", onclick="unbindWindow()"),
             cls="bind-controls",
         ),
+        Div(
+            Div("账号: ", Span("未选择", id="account-current")),
+            Div("配置目录: ", Span("-", id="account-config-dir")),
+            cls="status",
+        ),
+        Div(
+            Button("复写配置", onclick="postApi('/api/accounts/overwrite-configs')"),
+            Button("重载TXT配置", onclick="postApi('/api/monsters/reload-list')"),
+            cls="utility-buttons",
+        ),
+    )
+
+
+# 创建状态页：只读展示当前运行概况。
+def create_status_panel(player_info, current_state):
+    return Div(
+        Div("绑定窗口: ", Span("未绑定", id="bound-title")),
+        Div("地图: ", Span(player_info["map_name"], id="map-name")),
+        Div("地图原文: ", Span("-", id="map-raw")),
+        Div("坐标: ", Span(f"{player_info['x']}:{player_info['y']}", id="coordinate")),
+        Div("状态: ", Span(current_state["name"], id="state-name")),
+        Div("巡逻: ", Span("关", id="patrol-enabled")),
+        Div("战斗: ", Span("关", id="battle-enabled")),
+        Div("连续无怪: ", Span("-", id="battle-no-monster")),
+        Div("自动加血: ", Span("关", id="auto-heal-enabled-text")),
+        Div("卡住跳点: ", Span("开", id="idle-stuck-enabled-text")),
+        Div("捡取物品: ", Span("开", id="getitem-enabled-text")),
+        Div("怪物过滤: ", Span("-", id="monster-filter")),
+        Div("怪物字色: ", Span("-", id="monster-name-colors")),
+        Div("物品过滤: ", Span("-", id="item-filter")),
+        Div("物品字色: ", Span("-", id="item-name-colors")),
+        cls="status",
+    )
+
+
+# 创建战斗页：自动战斗相关开关、参数和怪物列表。
+def create_battle_panel(app_settings):
+    return Div(
+        Div(
+            Button("开始战斗", onclick="startBattle()"),
+            Button("结束战斗", onclick="stopBattle()"),
+            cls="utility-buttons",
+        ),
+        create_battle_controls(app_settings),
         create_auto_heal_controls(app_settings),
         create_pet_heal_controls(app_settings),
-        create_battle_controls(app_settings),
-        create_idle_stuck_controls(app_settings),
         create_getitem_controls(app_settings),
-        create_monster_name_debug_controls(app_settings),
-        create_map_corner_hotkey_controls(app_settings),
-        Div(*utility_buttons, cls="utility-buttons"),
+        create_idle_stuck_controls(app_settings),
+        create_monster_panel(),
+    )
+
+
+# 创建操控页：手动移动、地图巡逻和巡逻点维护。
+def create_control_panel():
+    return Div(
+        Div(
+            Button("测试坐标", onclick="postApi('/api/coordinate/read')"),
+            Button("测试键盘(M)", onclick="pressKeyboard('M')"),
+            Button("截取地图", onclick="captureMap()"),
+            Button("保存巡逻点到全局", onclick="savePatrolPoints('global')"),
+            Button("保存巡逻点到账号", onclick="savePatrolPoints('account')"),
+            Button("移动到下一个巡逻点", onclick="moveToNextPatrolPoint()"),
+            Button("移动到当前巡逻点", onclick="moveToCurrentPatrolPoint()"),
+            Button("开始巡逻", onclick="startPatrol()"),
+            Button("关闭巡逻", onclick="stopPatrol()"),
+            cls="utility-buttons",
+        ),
         Div(
             create_move_pad("走", "walk"),
             create_move_pad("跑", "run"),
             cls="move-pads",
         ),
-    ]
+        create_patrol_panel(),
+    )
+
+
+# 创建 Debug 页：截图、OCR、坐标和程序诊断工具。
+def create_debug_panel(app_settings):
+    return Div(
+        Div(
+            Button("截图", onclick="takeScreenshot()"),
+            Button("地图角点", onclick="postApi('/api/map/rect-corner')"),
+            Button("找附近怪", onclick="scanMonsters('/api/monsters/scan-nearby')"),
+            Button("找全屏怪", onclick="scanMonsters('/api/monsters/scan')"),
+            Button("拾取测试", onclick="postApi('/api/getitem/test')"),
+            Button("重启程序", onclick="restartApp()"),
+            cls="utility-buttons",
+        ),
+        create_map_corner_hotkey_controls(app_settings),
+        create_monster_name_debug_controls(app_settings),
+        Div(
+            Div("怪名Debug图: ", Span("关", id="monster-name-debug-enabled-text")),
+            cls="status",
+        ),
+        Pre("", id="log-box"),
+    )
+
+
+# 创建怪物列表面板：战斗页展示扫描结果和单只怪物名称识别入口。
+def create_monster_panel():
+    return Div(
+        H3("怪物列表"),
+        Table(
+            Thead(
+                Tr(
+                    Th("怪物名称"),
+                    Th("距离玩家"),
+                    Th("怪物血量"),
+                    Th("怪物位置"),
+                    Th("操作"),
+                )
+            ),
+            Tbody(
+                Tr(
+                    Td("暂无数据", colspan="5"),
+                ),
+                id="monster-body",
+            ),
+        ),
+        cls="monster-panel",
+    )
 
 
 # 创建地图角点快捷键控制栏。
@@ -1445,8 +1532,32 @@ body {
     font-family: "Microsoft YaHei", Arial, sans-serif;
     background: #f6f6f6;
 }
-h2 {
+h1 {
     margin: 0 0 12px 0;
+    font-size: 24px;
+}
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #ccc;
+}
+.tab-button {
+    min-width: 82px;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    background: #e9e9e9;
+}
+.tab-button.active {
+    background: white;
+    font-weight: bold;
+}
+.tab-panel {
+    display: none;
+}
+.tab-panel.active {
+    display: block;
 }
 .controls {
     display: grid;
@@ -1455,8 +1566,9 @@ h2 {
 }
 .bind-controls {
     display: grid;
-    grid-template-columns: minmax(180px, 1fr) 96px 96px;
+    grid-template-columns: minmax(150px, 220px) minmax(180px, 1fr) 96px 96px;
     gap: 8px;
+    margin-bottom: 12px;
 }
 .auto-heal-controls {
     display: grid;
@@ -1758,6 +1870,18 @@ let appRestarting = false;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function switchTab(tabId) {
+    for (const button of document.querySelectorAll(".tab-button")) {
+        const active = button.dataset.tab === tabId;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-selected", active ? "true" : "false");
+    }
+
+    for (const panel of document.querySelectorAll(".tab-panel")) {
+        panel.classList.toggle("active", panel.dataset.tabPanel === tabId);
+    }
 }
 
 async function postApi(url) {
