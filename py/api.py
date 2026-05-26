@@ -87,6 +87,8 @@ MAP_IMAGE_NAME = "image.png"
 MAP_METADATA_NAME = "map.json"
 # 巡逻点文件名：全局和账号目录下都使用同一个中文文件名。
 PATROL_POINTS_FILE_NAME = "巡逻点.txt"
+# 账号设置文件名：保存网页中可调整的运行设置。
+ACCOUNT_SETTINGS_FILE_NAME = "settings.json"
 # 怪物血条特征图：血条最左侧小片段，用于统一查找满血和残血怪物。
 monster_blood_feature_image = png_dir / "残血血条特征图.png"
 # 自身绿色血条特征图：用于自动加血检测玩家头顶血条。
@@ -896,6 +898,261 @@ def round_box(box):
 # 格式化矩形，便于错误日志查看。
 def format_box(box):
     return f"{box['left']},{box['top']},{box['right']},{box['bottom']}"
+
+
+# 创建默认应用设置：用于启动、账号首次创建和设置文件损坏回退。
+def create_default_app_settings():
+    return {
+        "map_corner_hotkey": MAP_CORNER_HOTKEY_DEFAULT,
+        "auto_heal_enabled": False,
+        "auto_heal_threshold_percent": AUTO_HEAL_DEFAULT_THRESHOLD_PERCENT,
+        "auto_heal_interval_ms": AUTO_HEAL_DEFAULT_INTERVAL_MS,
+        "pet_heal_enabled": False,
+        "pet_heal_threshold_percent": PET_HEAL_DEFAULT_THRESHOLD_PERCENT,
+        "pet_heal_key": PET_HEAL_DEFAULT_KEY,
+        "idle_stuck_enabled": True,
+        "idle_stuck_seconds": IDLE_STUCK_DEFAULT_SECONDS,
+        "monster_name_debug_enabled": False,
+        "getitem_enabled": True,
+        "getitem_step_wait_ms": GETITEM_DEFAULT_STEP_WAIT_MS,
+        "no_monster_scan_limit": NO_MONSTER_SCAN_LIMIT_DEFAULT,
+        "battle_duration_seconds": BATTLE_DURATION_SECONDS_DEFAULT,
+    }
+
+
+# 规整账号设置布尔值：无效值回退到默认值。
+def normalize_app_setting_bool(value, default):
+    if value is None:
+        return bool(default)
+
+    if isinstance(value, bool):
+        return value
+
+    text = str(value).strip().lower()
+
+    if text in {"1", "true", "yes", "on", "开", "开启"}:
+        return True
+
+    if text in {"0", "false", "no", "off", "关", "关闭"}:
+        return False
+
+    return bool(default)
+
+
+# 规整账号设置快捷键：无效快捷键回退到默认值，空值保留为禁用。
+def normalize_app_setting_hotkey(value, default):
+    if value is None:
+        return default
+
+    try:
+        hotkey, _ = normalize_hotkey(value)
+        return hotkey
+    except ValueError:
+        return default
+
+
+# 规整账号 settings.json 内容，只保留网页可调整的运行设置。
+def normalize_app_settings(settings):
+    data = settings if isinstance(settings, dict) else {}
+    defaults = create_default_app_settings()
+    normalized = dict(defaults)
+
+    normalized["map_corner_hotkey"] = normalize_app_setting_hotkey(
+        data.get("map_corner_hotkey", defaults["map_corner_hotkey"]),
+        defaults["map_corner_hotkey"],
+    )
+    normalized["auto_heal_enabled"] = normalize_app_setting_bool(
+        data.get("auto_heal_enabled", defaults["auto_heal_enabled"]),
+        defaults["auto_heal_enabled"],
+    )
+    normalized["auto_heal_threshold_percent"] = normalize_number(
+        data.get("auto_heal_threshold_percent"),
+        defaults["auto_heal_threshold_percent"],
+        AUTO_HEAL_MIN_THRESHOLD_PERCENT,
+        AUTO_HEAL_MAX_THRESHOLD_PERCENT,
+    )
+    normalized["auto_heal_interval_ms"] = normalize_number(
+        data.get("auto_heal_interval_ms"),
+        defaults["auto_heal_interval_ms"],
+        AUTO_HEAL_MIN_INTERVAL_MS,
+        AUTO_HEAL_MAX_INTERVAL_MS,
+    )
+    normalized["pet_heal_enabled"] = normalize_app_setting_bool(
+        data.get("pet_heal_enabled", defaults["pet_heal_enabled"]),
+        defaults["pet_heal_enabled"],
+    )
+    normalized["pet_heal_threshold_percent"] = normalize_number(
+        data.get("pet_heal_threshold_percent"),
+        defaults["pet_heal_threshold_percent"],
+        PET_HEAL_MIN_THRESHOLD_PERCENT,
+        PET_HEAL_MAX_THRESHOLD_PERCENT,
+    )
+    normalized["pet_heal_key"] = normalize_pet_heal_key(
+        data.get("pet_heal_key", defaults["pet_heal_key"])
+    )
+    normalized["idle_stuck_enabled"] = normalize_app_setting_bool(
+        data.get("idle_stuck_enabled", defaults["idle_stuck_enabled"]),
+        defaults["idle_stuck_enabled"],
+    )
+    normalized["idle_stuck_seconds"] = normalize_number(
+        data.get("idle_stuck_seconds"),
+        defaults["idle_stuck_seconds"],
+        IDLE_STUCK_MIN_SECONDS,
+        IDLE_STUCK_MAX_SECONDS,
+    )
+    normalized["monster_name_debug_enabled"] = normalize_app_setting_bool(
+        data.get("monster_name_debug_enabled", defaults["monster_name_debug_enabled"]),
+        defaults["monster_name_debug_enabled"],
+    )
+    normalized["getitem_enabled"] = normalize_app_setting_bool(
+        data.get("getitem_enabled", defaults["getitem_enabled"]),
+        defaults["getitem_enabled"],
+    )
+    normalized["getitem_step_wait_ms"] = normalize_number(
+        data.get("getitem_step_wait_ms"),
+        defaults["getitem_step_wait_ms"],
+        GETITEM_MIN_STEP_WAIT_MS,
+        GETITEM_MAX_STEP_WAIT_MS,
+    )
+    normalized["no_monster_scan_limit"] = normalize_number(
+        data.get("no_monster_scan_limit"),
+        defaults["no_monster_scan_limit"],
+        NO_MONSTER_SCAN_LIMIT_MIN,
+        NO_MONSTER_SCAN_LIMIT_MAX,
+    )
+    normalized["battle_duration_seconds"] = normalize_number(
+        data.get("battle_duration_seconds"),
+        defaults["battle_duration_seconds"],
+        BATTLE_DURATION_SECONDS_MIN,
+        BATTLE_DURATION_SECONDS_MAX,
+    )
+    return normalized
+
+
+# 替换运行设置字典内容，保留原 dict 引用供状态机继续使用。
+def replace_app_settings(app_settings, settings):
+    app_settings.clear()
+    app_settings.update(settings)
+    return app_settings
+
+
+# 获取账号 settings.json 文件。
+def get_account_settings_file(account):
+    return get_account_dir(account) / ACCOUNT_SETTINGS_FILE_NAME
+
+
+# 写入账号 settings.json。
+def write_account_settings_file(settings_file, settings):
+    settings_file.parent.mkdir(parents=True, exist_ok=True)
+    settings_file.write_text(
+        json.dumps(settings, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+# 加载当前账号 settings.json，缺失字段用默认值补齐。
+def load_current_account_settings(app_settings):
+    account = get_current_account()
+
+    if not account:
+        defaults = create_default_app_settings()
+        replace_app_settings(app_settings, defaults)
+        return {
+            "success": True,
+            "account": "",
+            "settings_file": "",
+            "saved": False,
+            "message": "未选择账号，已使用默认运行设置",
+            "settings": dict(defaults),
+        }
+
+    settings_file = get_account_settings_file(account)
+    raw_settings = {}
+    read_error = ""
+    created = not settings_file.exists()
+
+    if not created:
+        try:
+            raw_settings = json.loads(settings_file.read_text(encoding="utf-8"))
+            if not isinstance(raw_settings, dict):
+                read_error = "内容不是 JSON 对象"
+                raw_settings = {}
+        except Exception as error:
+            read_error = str(error)
+            raw_settings = {}
+
+    normalized = normalize_app_settings(raw_settings)
+    replace_app_settings(app_settings, normalized)
+    saved = False
+    save_error = ""
+
+    if created or (not read_error and raw_settings != normalized):
+        try:
+            write_account_settings_file(settings_file, normalized)
+            saved = True
+        except Exception as error:
+            save_error = str(error)
+
+    if read_error:
+        message = f"账号设置读取失败 account={account} path={settings_file}: {read_error}，已使用默认运行设置"
+    elif created:
+        message = f"账号设置已创建 account={account} path={settings_file}"
+    elif saved:
+        message = f"账号设置已加载并补齐 account={account} path={settings_file}"
+    else:
+        message = f"账号设置已加载 account={account} path={settings_file}"
+
+    if save_error:
+        message = f"{message}；保存失败: {save_error}"
+
+    return {
+        "success": not save_error,
+        "account": account,
+        "settings_file": str(settings_file),
+        "saved": saved,
+        "message": message,
+        "settings": dict(normalized),
+    }
+
+
+# 保存当前账号运行设置；未绑定账号时只保留内存值。
+def save_current_account_settings(app_settings):
+    normalized = normalize_app_settings(app_settings)
+    replace_app_settings(app_settings, normalized)
+    account = get_current_account()
+
+    if not account:
+        return {
+            "success": True,
+            "account": "",
+            "settings_file": "",
+            "saved": False,
+            "message": "未绑定账号，设置只保存在内存",
+            "settings": dict(normalized),
+        }
+
+    settings_file = get_account_settings_file(account)
+
+    try:
+        write_account_settings_file(settings_file, normalized)
+    except Exception as error:
+        return {
+            "success": False,
+            "account": account,
+            "settings_file": str(settings_file),
+            "saved": False,
+            "message": f"账号设置保存失败 account={account} path={settings_file}: {error}",
+            "settings": dict(normalized),
+        }
+
+    return {
+        "success": True,
+        "account": account,
+        "settings_file": str(settings_file),
+        "saved": True,
+        "message": f"账号设置已保存 account={account} path={settings_file}",
+        "settings": dict(normalized),
+    }
 
 
 # 应用运行设置：把内存中的应用设置同步到业务辅助模块。
@@ -4182,6 +4439,48 @@ def get_getitem_runtime_status_locked():
         "last_target": dict(getitem_runtime_state.get("last_target", {})),
         "last_message": getitem_runtime_state.get("last_message", ""),
     }
+
+
+# 清空自动加血运行状态。
+def reset_auto_heal_state(auto_heal_state):
+    if auto_heal_state is None:
+        return
+
+    auto_heal_state["last_checked_at"] = 0.0
+    auto_heal_state["last_hp_percent"] = ""
+    auto_heal_state["triggered_low"] = False
+    auto_heal_state["last_blood_bar"] = {}
+    auto_heal_state["last_message"] = ""
+
+
+# 清空宝宝加血运行状态。
+def reset_pet_heal_state(pet_heal_state):
+    if pet_heal_state is None:
+        return
+
+    pet_heal_state["last_healed_at"] = 0.0
+    pet_heal_state["last_hp_percent"] = ""
+    pet_heal_state["last_target"] = {}
+    pet_heal_state["last_message"] = ""
+
+
+# 清空 idle 卡住保护运行状态。
+def reset_idle_stuck_state(idle_stuck_state):
+    if idle_stuck_state is None:
+        return
+
+    idle_stuck_state["last_coordinate"] = None
+    idle_stuck_state["stationary_started_at"] = 0.0
+    idle_stuck_state["stationary_seconds"] = 0
+    idle_stuck_state["last_message"] = ""
+
+
+# 清空捡取运行状态。
+def reset_getitem_runtime_status():
+    with getitem_runtime_lock:
+        getitem_runtime_state["last_target"] = {}
+        getitem_runtime_state["last_message"] = ""
+        return get_getitem_runtime_status_locked()
 
 
 # 生成捡取目标状态。

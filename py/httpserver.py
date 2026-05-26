@@ -220,6 +220,7 @@ def create_server(
             data = {}
 
         result = api.update_battle_settings(app_settings, battle_runtime_state, data)
+        result = save_account_settings_after_update(app_settings, result)
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -423,6 +424,14 @@ def create_server(
             if output_dir:
                 log.use_run_dir(output_dir, clear=True)
 
+            settings_result = load_account_settings_after_bind(
+                app_settings,
+                auto_heal_state,
+                pet_heal_state,
+                idle_stuck_state,
+                battle_runtime_state,
+            )
+            messages.append(settings_result.get("message", ""))
             update_frame_safely(update_frame)
         else:
             player_state.clear_screen_blood_bar(player_info)
@@ -522,6 +531,7 @@ def create_server(
             data = {}
 
         result = api.update_map_corner_hotkey_settings(app_settings, data)
+        result = save_account_settings_after_update(app_settings, result)
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -740,6 +750,7 @@ def create_server(
             data = {}
 
         result = api.update_auto_heal_settings(app_settings, auto_heal_state, data)
+        result = save_account_settings_after_update(app_settings, result)
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -757,6 +768,7 @@ def create_server(
             data = {}
 
         result = api.update_pet_heal_settings(app_settings, pet_heal_state, data)
+        result = save_account_settings_after_update(app_settings, result)
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -774,6 +786,7 @@ def create_server(
             data = {}
 
         result = api.update_idle_stuck_settings(app_settings, idle_stuck_state, data)
+        result = save_account_settings_after_update(app_settings, result)
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -791,6 +804,7 @@ def create_server(
             data = {}
 
         result = api.update_getitem_settings(app_settings, data)
+        result = save_account_settings_after_update(app_settings, result)
         if current_state.get("name") == "getitem":
             current_state.get("data", {})["next_action_at"] = 0
         log.write(result["message"])
@@ -826,6 +840,7 @@ def create_server(
             data = {}
 
         result = api.update_monster_name_debug_settings(app_settings, data)
+        result = save_account_settings_after_update(app_settings, result)
         log.write(result["message"])
         return JSONResponse({
             "success": result["success"],
@@ -1045,8 +1060,9 @@ def create_battle_controls(app_settings):
                 step="1",
                 value=str(app_settings.get("battle_duration_seconds", api.BATTLE_DURATION_SECONDS_DEFAULT)),
                 onchange="saveBattleSettings()",
+                cls="battle-duration-input",
             ),
-            cls="battle-settings-field",
+            cls="battle-settings-field battle-duration-field",
         ),
         Div("", id="battle-settings-message", cls="battle-settings-message"),
         cls="battle-settings-controls",
@@ -1212,6 +1228,45 @@ def create_move_pad(title, action):
         ],
         cls="move-pad",
     )
+
+
+# 绑定账号后加载 settings.json，并清掉上一个账号留下的运行态提示。
+def load_account_settings_after_bind(
+    app_settings,
+    auto_heal_state,
+    pet_heal_state,
+    idle_stuck_state,
+    battle_runtime_state,
+):
+    result = api.load_current_account_settings(app_settings)
+    api.apply_app_settings(app_settings)
+    api.reset_auto_heal_state(auto_heal_state)
+    api.reset_pet_heal_state(pet_heal_state)
+    api.reset_idle_stuck_state(idle_stuck_state)
+    api.reset_battle_runtime(battle_runtime_state, "账号设置已加载，清空战斗运行状态")
+    api.reset_getitem_runtime_status()
+    return result
+
+
+# 设置接口更新成功后，把当前账号设置保存到 settings.json。
+def save_account_settings_after_update(app_settings, result):
+    if not result.get("success"):
+        return result
+
+    save_result = api.save_current_account_settings(app_settings)
+    result["settings_save"] = save_result
+
+    if save_result.get("message"):
+        result["message"] = "；".join(
+            message
+            for message in [result.get("message", ""), save_result.get("message", "")]
+            if message
+        )
+
+    if not save_result.get("success", False):
+        result["success"] = False
+
+    return result
 
 
 # 获取状态：聚合玩家坐标、绑定窗口、应用设置、地图、巡逻点和状态机。
@@ -1412,7 +1467,7 @@ h2 {
 }
 .battle-settings-controls {
     display: grid;
-    grid-template-columns: minmax(140px, 170px) minmax(180px, 1fr);
+    grid-template-columns: minmax(140px, 170px) max-content minmax(180px, 1fr);
     gap: 8px;
     align-items: center;
 }
@@ -1472,6 +1527,15 @@ h2 {
 .map-corner-hotkey-field input {
     min-width: 0;
     flex: 1;
+}
+.battle-duration-field {
+    justify-self: start;
+}
+.battle-settings-field .battle-duration-input {
+    flex: 0 0 52px;
+    width: 52px;
+    padding: 0 4px;
+    text-align: center;
 }
 .auto-heal-message,
 .pet-heal-message,

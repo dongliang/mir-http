@@ -16,22 +16,7 @@ from state import select_monster
 # 当前玩家状态：保存页面和后台循环共享的地图坐标信息。
 current_player = player.create_player()
 # 应用设置：集中保存运行时可切换的界面和行为开关。
-app_settings = {
-    "map_corner_hotkey": api.MAP_CORNER_HOTKEY_DEFAULT,
-    "auto_heal_enabled": False,
-    "auto_heal_threshold_percent": api.AUTO_HEAL_DEFAULT_THRESHOLD_PERCENT,
-    "auto_heal_interval_ms": 1000,
-    "pet_heal_enabled": False,
-    "pet_heal_threshold_percent": api.PET_HEAL_DEFAULT_THRESHOLD_PERCENT,
-    "pet_heal_key": api.PET_HEAL_DEFAULT_KEY,
-    "idle_stuck_enabled": True,
-    "idle_stuck_seconds": 30,
-    "monster_name_debug_enabled": False,
-    "getitem_enabled": True,
-    "getitem_step_wait_ms": api.GETITEM_DEFAULT_STEP_WAIT_MS,
-    "no_monster_scan_limit": api.NO_MONSTER_SCAN_LIMIT_DEFAULT,
-    "battle_duration_seconds": api.BATTLE_DURATION_SECONDS_DEFAULT,
-}
+app_settings = api.create_default_app_settings()
 # 当前加载的大地图状态：保存地图图片、地图矩形和最大逻辑坐标。
 current_map = {}
 # 当前识别到的地图名称：地图名变化时自动加载已保存地图。
