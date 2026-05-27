@@ -11,6 +11,8 @@ from state import move_to_next_patrol_point as patrol_move_state
 
 
 DEFAULT_SERVER_PORT = 8765
+LOG_VIEW_LINES = 200
+LOG_VIEW_LINES_MAX = 1000
 # 服务监听地址：限制 HTTP 控制台只在本机访问。
 SERVER_HOST = "127.0.0.1"
 
@@ -31,6 +33,16 @@ def get_server_port():
         return port
 
     return DEFAULT_SERVER_PORT
+
+
+# 解析日志行数限制：网页默认显示末尾 200 行，调试时允许临时拉多一点。
+def parse_log_line_count(limit_text):
+    text = str(limit_text or "").strip()
+
+    if not text.isdigit():
+        return LOG_VIEW_LINES
+
+    return min(max(int(text), 1), LOG_VIEW_LINES_MAX)
 
 
 # 服务监听端口：默认 8765，允许 start.bat 覆盖。
@@ -804,10 +816,11 @@ def create_server(
             "status": current_status(),
         })
 
-    # 日志读取接口：返回当前日志文本供前端展示。
+    # 日志读取接口：默认只返回末尾日志，避免长时间运行后拖慢页面。
     @rt("/api/logs")
-    def get():
-        return PlainTextResponse(log.read())
+    def get(request: Request):
+        line_count = parse_log_line_count(request.query_params.get("limit", ""))
+        return PlainTextResponse(log.read_tail(line_count))
 
     # 日志清空接口：清空当前运行日志文件。
     @rt("/api/logs/clear")
@@ -2094,6 +2107,7 @@ th {
 # 页面脚本：定义前端轮询、按钮请求和状态刷新逻辑。
 PAGE_SCRIPT = """
 const POLL_INTERVAL_MS = 500;
+const LOG_LINE_LIMIT = 200;
 const MAP_IMAGE_WIDTH = 550;
 const MAP_IMAGE_HEIGHT = 350;
 let currentMonsters = [];
@@ -2104,6 +2118,7 @@ let patrolIndex = -1;
 let patrolDirty = false;
 let appRestarting = false;
 let latestStatus = null;
+let latestLogText = null;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -3081,9 +3096,20 @@ async function refreshStatus() {
 
 async function refreshLogs() {
     if (appRestarting) return;
-    const response = await fetch("/api/logs");
-    const text = await response.text();
-    renderLogs(text);
+    if (refreshLogs.busy) return;
+    refreshLogs.busy = true;
+
+    try {
+        const response = await fetch("/api/logs?limit=" + encodeURIComponent(String(LOG_LINE_LIMIT)));
+        const text = await response.text();
+
+        if (text !== latestLogText) {
+            latestLogText = text;
+            renderLogs(text);
+        }
+    } finally {
+        refreshLogs.busy = false;
+    }
 }
 
 function renderLogs(text) {
@@ -3119,6 +3145,7 @@ async function clearLogs() {
     const response = await fetch("/api/logs/clear", {method: "POST"});
     const data = await response.json();
     console.log(data);
+    latestLogText = null;
     await refreshLogs();
 }
 

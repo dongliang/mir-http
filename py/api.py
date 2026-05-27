@@ -191,6 +191,13 @@ MAP_AUTO_HIDE_KEY = "M"
 MAP_AUTO_HIDE_HOLD_MS = 120
 MAP_AUTO_HIDE_REPEAT = 1
 MAP_AUTO_HIDE_INTERVAL_MS = 80
+# 巡逻点击大地图前后确认次数：用 OCR 判断坐标是否仍可见。
+MAP_MOVE_CHECK_ATTEMPTS = 2
+MAP_MOVE_CHECK_RETRY_WAIT_SECONDS = 0.15
+# 巡逻打开大地图最多按键次数：隐藏 -> 半透明 -> 打开，所以从隐藏状态最多需要两次。
+MAP_MOVE_OPEN_KEY_ATTEMPTS = 2
+# 巡逻关闭大地图最多按键次数：打开 -> 关闭，半透明 -> 打开 -> 关闭，所以最多两次。
+MAP_MOVE_CLOSE_KEY_ATTEMPTS = 2
 # 打开大地图前，真实鼠标若在游戏窗口内就水平甩开 600px。
 MAP_FOREGROUND_MOUSE_AWAY_OFFSET_X = 600
 # 玩家名称识别：绑定时在旧中心点附近用 OP 字库定位名字和脚底点。
@@ -3222,6 +3229,181 @@ def restore_foreground_mouse_after_map(mouse_guard):
     }
 
 
+# 判断大地图预检查结果是否匹配当前巡逻地图。
+def match_current_map_precheck(precheck, current_map):
+    if not precheck.get("success", False):
+        return False, precheck.get("message", "大地图未确认打开")
+
+    try:
+        expected_x, expected_y = validate_map_max_coordinate(
+            current_map.get("max_x", 0),
+            current_map.get("max_y", 0),
+        )
+        actual_x = int(precheck.get("max_x", 0))
+        actual_y = int(precheck.get("max_y", 0))
+    except (AttributeError, TypeError, ValueError) as error:
+        return False, f"地图确认失败: {error}"
+
+    if actual_x != expected_x or actual_y != expected_y:
+        return (
+            False,
+            f"地图最大坐标不匹配 expected={expected_x}:{expected_y} actual={actual_x}:{actual_y}",
+        )
+
+    return True, f"地图坐标可识别 max={actual_x}:{actual_y}"
+
+
+# 确认当前大地图是否可识别坐标：半透明和完全打开都可能返回 True。
+def check_current_map_ready_for_move(current_map):
+    messages = []
+    last_precheck = {}
+
+    for index in range(MAP_MOVE_CHECK_ATTEMPTS):
+        precheck = precheck_current_map_ready()
+        last_precheck = precheck
+        matched, message = match_current_map_precheck(precheck, current_map)
+        messages.append(f"{index + 1}/{MAP_MOVE_CHECK_ATTEMPTS} {message}")
+
+        if matched:
+            return {
+                "success": True,
+                "precheck": precheck,
+                "attempts": index + 1,
+                "message": message,
+            }
+
+        if index < MAP_MOVE_CHECK_ATTEMPTS - 1:
+            time.sleep(MAP_MOVE_CHECK_RETRY_WAIT_SECONDS)
+
+    return {
+        "success": False,
+        "precheck": last_precheck,
+        "attempts": MAP_MOVE_CHECK_ATTEMPTS,
+        "message": "；".join(messages),
+    }
+
+
+# 巡逻移动前打开大地图：识别不到坐标时固定按两次 M，避开半透明中间态。
+def ensure_current_map_open_for_move(current_map):
+    before = check_current_map_ready_for_move(current_map)
+
+    if before.get("success", False):
+        return {
+            "success": True,
+            "opened": False,
+            "precheck_before": before,
+            "message": f"地图坐标已可识别，按当前地图层继续: {before.get('message', '')}",
+        }
+
+    open_keyboard = press_keyboard(
+        MAP_AUTO_OPEN_KEY,
+        hold_ms=MAP_AUTO_OPEN_HOLD_MS,
+        repeat=MAP_MOVE_OPEN_KEY_ATTEMPTS,
+        interval_ms=MAP_AUTO_OPEN_INTERVAL_MS,
+    )
+
+    if not open_keyboard.get("success", False):
+        return {
+            "success": False,
+            "opened": False,
+            "open_press_count": MAP_MOVE_OPEN_KEY_ATTEMPTS,
+            "precheck_before": before,
+            "open_keyboard": open_keyboard,
+            "message": (
+                f"打开地图按 {MAP_AUTO_OPEN_KEY} {MAP_MOVE_OPEN_KEY_ATTEMPTS} 次失败: "
+                f"{open_keyboard.get('message', '')} before={before.get('message', '')}"
+            ),
+        }
+
+    time.sleep(MAP_AUTO_OPEN_WAIT_SECONDS)
+    after = check_current_map_ready_for_move(current_map)
+
+    if after.get("success", False):
+        return {
+            "success": True,
+            "opened": True,
+            "open_press_count": MAP_MOVE_OPEN_KEY_ATTEMPTS,
+            "precheck_before": before,
+            "precheck_after": after,
+            "open_keyboard": open_keyboard,
+            "message": (
+                f"识别不到坐标，已按 {MAP_AUTO_OPEN_KEY} {MAP_MOVE_OPEN_KEY_ATTEMPTS} 次打开地图: "
+                f"{open_keyboard.get('message', '')}；{after.get('message', '')}"
+            ),
+        }
+
+    return {
+        "success": False,
+        "opened": False,
+        "open_press_count": MAP_MOVE_OPEN_KEY_ATTEMPTS,
+        "precheck_before": before,
+        "precheck_after": after,
+        "open_keyboard": open_keyboard,
+        "message": (
+            f"按 {MAP_AUTO_OPEN_KEY} {MAP_MOVE_OPEN_KEY_ATTEMPTS} 次后仍未识别到地图坐标: "
+            f"before={before.get('message', '')} after={after.get('message', '')}"
+        ),
+    }
+
+
+# 巡逻点击后关闭大地图：先按一次；若还能识别坐标，说明状态错乱，再按一次修正。
+def close_current_map_if_open_for_move(current_map):
+    close_keyboards = []
+    after = {}
+
+    for press_index in range(MAP_MOVE_CLOSE_KEY_ATTEMPTS):
+        close_keyboard = press_keyboard(
+            MAP_AUTO_HIDE_KEY,
+            hold_ms=MAP_AUTO_HIDE_HOLD_MS,
+            repeat=MAP_AUTO_HIDE_REPEAT,
+            interval_ms=MAP_AUTO_HIDE_INTERVAL_MS,
+        )
+        close_keyboards.append(close_keyboard)
+
+        if not close_keyboard.get("success", False):
+            return {
+                "success": False,
+                "closed": False,
+                "close_press_count": press_index + 1,
+                "close_keyboards": close_keyboards,
+                "close_keyboard": close_keyboard,
+                "message": (
+                    f"关闭地图第 {press_index + 1} 次按键失败: "
+                    f"{close_keyboard.get('message', '')}"
+                ),
+            }
+
+        time.sleep(MAP_AUTO_OPEN_WAIT_SECONDS)
+        after = check_current_map_ready_for_move(current_map)
+
+        if not after.get("success", False):
+            return {
+                "success": True,
+                "closed": True,
+                "close_press_count": press_index + 1,
+                "precheck_after_close": after,
+                "close_keyboards": close_keyboards,
+                "close_keyboard": close_keyboard,
+                "message": (
+                    f"已按 {MAP_AUTO_HIDE_KEY} {press_index + 1} 次关闭地图: "
+                    f"{close_keyboard.get('message', '')}；{after.get('message', '')}"
+                ),
+            }
+
+    return {
+        "success": False,
+        "closed": False,
+        "close_press_count": len(close_keyboards),
+        "precheck_after_close": after,
+        "close_keyboards": close_keyboards,
+        "close_keyboard": close_keyboards[-1] if close_keyboards else {},
+        "message": (
+            f"按 {MAP_AUTO_HIDE_KEY} {len(close_keyboards)} 次后仍能识别地图坐标，地图状态可能错乱: "
+            f"{after.get('message', '')}"
+        ),
+    }
+
+
 # 移动到指定逻辑巡逻点：打开地图、点击目标点、关闭地图。
 def move_to_logic_point(point, current_map):
     if not op.is_window_bound():
@@ -3241,7 +3423,7 @@ def move_to_logic_point(point, current_map):
         }
 
     mouse_guard = move_foreground_mouse_away_for_map()
-    open_result = press_keyboard("M", hold_ms=120, repeat=2, interval_ms=120)
+    open_result = ensure_current_map_open_for_move(current_map)
 
     if not open_result["success"]:
         restore_result = restore_foreground_mouse_after_map(mouse_guard)
@@ -3255,14 +3437,15 @@ def move_to_logic_point(point, current_map):
                 f"打开地图失败: {open_result['message']} "
                 f"mouse={mouse_guard.get('message', '')} restore={restore_result.get('message', '')}"
             ),
-            "open_keyboard": open_result,
+            "open_map": open_result,
+            "open_keyboard": open_result.get("open_keyboard", {}),
         }
 
     time.sleep(0.2)
     click_success, click_message = op.click_mouse_at(target["client_x"], target["client_y"], "left")
 
-    time.sleep(0.1)
-    close_result = press_keyboard("M", hold_ms=120, repeat=1, interval_ms=80)
+    time.sleep(0.2)
+    close_result = close_current_map_if_open_for_move(current_map)
     restore_result = restore_foreground_mouse_after_map(mouse_guard)
     success = click_success and close_result["success"]
 
@@ -3271,13 +3454,16 @@ def move_to_logic_point(point, current_map):
         "point": {"x": logic_x, "y": logic_y},
         "target": target,
         "foreground_mouse": mouse_guard,
-        "open_keyboard": open_result,
-        "close_keyboard": close_result,
+        "open_map": open_result,
+        "close_map": close_result,
+        "open_keyboard": open_result.get("open_keyboard", {}),
+        "close_keyboard": close_result.get("close_keyboard", {}),
         "restore_mouse": restore_result,
         "message": (
             f"移动到巡逻点 {'成功' if success else '失败'} "
             f"logic={logic_x}:{logic_y} map={target['map_x']},{target['map_y']} "
             f"client={target['client_x']},{target['client_y']} "
+            f"open={open_result.get('message', '')} "
             f"click={click_message} close={close_result['message']} "
             f"mouse={mouse_guard.get('message', '')} restore={restore_result.get('message', '')}"
         ),

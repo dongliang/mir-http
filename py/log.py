@@ -5,6 +5,7 @@ import sys
 
 # 日志文件路径：保存程序运行过程中的控制台和操作日志。
 log_file = Path(__file__).resolve().parent.parent / "log.txt"
+TAIL_READ_BLOCK_SIZE = 8192
 
 
 # 切换日志文件：多开时每个进程写自己的实例或账号目录。
@@ -79,3 +80,30 @@ def read():
         return ""
 
     return log_file.read_text(encoding="utf-8")
+
+
+# 读取日志末尾若干行：网页日志区使用，避免长时间运行后反复读取完整日志。
+def read_tail(line_count=200):
+    if line_count <= 0:
+        return ""
+
+    if not log_file.exists():
+        return ""
+
+    with log_file.open("rb") as file:
+        file.seek(0, 2)
+        position = file.tell()
+        chunks = []
+        newline_count = 0
+
+        while position > 0 and newline_count <= line_count:
+            read_size = min(TAIL_READ_BLOCK_SIZE, position)
+            position -= read_size
+            file.seek(position)
+            chunk = file.read(read_size)
+            chunks.append(chunk)
+            newline_count += chunk.count(b"\n")
+
+    text = b"".join(reversed(chunks)).decode("utf-8", errors="replace")
+    lines = text.splitlines()
+    return "\n".join(lines[-line_count:])
