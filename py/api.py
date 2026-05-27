@@ -619,6 +619,7 @@ def bind_window(keyword):
             "message": f"找不到标题包含 {keyword} 的窗口",
         }
 
+    account_name = get_account_name_from_window_title(title, keyword)
     success, title, message = op.bind_window(hwnd, title)
 
     if not success:
@@ -629,7 +630,7 @@ def bind_window(keyword):
             "message": message,
         }
 
-    position_result = bind_player_position(keyword)
+    position_result = bind_player_position(account_name)
 
     if not position_result["success"]:
         unbind_success, _, unbind_message = op.unbind_window()
@@ -671,7 +672,7 @@ def bind_window(keyword):
             ),
         }
 
-    account_result = activate_account(keyword)
+    account_result = activate_account(account_name)
 
     if not account_result["success"]:
         unbind_success, _, unbind_message = op.unbind_window()
@@ -691,7 +692,8 @@ def bind_window(keyword):
         "success": success,
         "title": title,
         "message": (
-            f"{message}；{position_result['message']}；{blood_result['message']}；"
+            f"{message}；窗口关键字={keyword} 账号={account_name}；"
+            f"{position_result['message']}；{blood_result['message']}；"
             f"{account_result['message']}"
         ),
         "player_position": get_bound_player_position(),
@@ -699,6 +701,21 @@ def bind_window(keyword):
         "account": account_result,
         "output_dir": account_result.get("output_dir", str(get_output_dir())),
     }
+
+
+# 从游戏窗口标题里提取账号名，输入窗口标题关键字时也能绑定到正确账号。
+def get_account_name_from_window_title(title, fallback):
+    title = str(title or "").strip().lstrip("^").strip()
+    fallback = str(fallback or "").strip()
+
+    for separator in (" - ", "－", "—", "–", "-"):
+        if separator in title:
+            name = title.rsplit(separator, 1)[-1].strip()
+
+            if name:
+                return normalize_account_name(name)
+
+    return normalize_account_name(fallback)
 
 
 # 解绑窗口：释放 OP 绑定并清理当前账号状态。

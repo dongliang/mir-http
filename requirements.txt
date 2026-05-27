@@ -1,0 +1,6 @@
+python-fasthtml
+starlette
+uvicorn
+numpy
+Pillow
+pywin32

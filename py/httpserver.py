@@ -898,6 +898,7 @@ def create_account_panel():
                 Button("解除绑定", onclick="unbindWindow()"),
                 cls="bind-controls",
             ),
+            Div("", id="bind-message", cls="bind-message"),
         ),
         create_section(
             "账号状态",
@@ -1869,6 +1870,7 @@ h2 {
     padding: 0 4px;
     text-align: center;
 }
+.bind-message,
 .auto-heal-message,
 .pet-heal-message,
 .idle-stuck-message,
@@ -2135,24 +2137,33 @@ function setCheckedIfExists(id, checked) {
     }
 }
 
-async function postApi(url) {
+async function postApi(url, messageId = "") {
     const response = await fetch(url, {method: "POST"});
     const data = await response.json();
     console.log(data);
+
+    if (messageId) {
+        setTextIfExists(messageId, data.message || "");
+    }
+
     await refreshStatus();
     await refreshLogs();
+    return data;
 }
 
 async function bindWindow() {
     const input = document.getElementById("bind-keyword");
     const keyword = input.value.trim();
-    const params = new URLSearchParams({keyword});
-
-    await postApi("/api/window/bind?" + params.toString());
 
     if (!keyword) {
+        setTextIfExists("bind-message", "请输入窗口标题关键字或账号名");
         input.focus();
+        return;
     }
+
+    const params = new URLSearchParams({keyword});
+
+    await postApi("/api/window/bind?" + params.toString(), "bind-message");
 }
 
 async function selectAccountFromDropdown() {
@@ -2167,7 +2178,7 @@ async function selectAccountFromDropdown() {
 }
 
 async function unbindWindow() {
-    await postApi("/api/window/unbind");
+    await postApi("/api/window/unbind", "bind-message");
 }
 
 async function restartApp() {
