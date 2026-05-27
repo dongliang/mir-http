@@ -1823,6 +1823,12 @@ def read_text_file_with_fallback(path):
     return data.decode("utf-8", errors="replace")
 
 
+# 判断简单 TXT 配置行是否应跳过：空行、# 注释、行尾 - 禁用行。
+def should_skip_text_config_line(line):
+    value = str(line or "").strip()
+    return not value or value.startswith("#") or value.endswith("-")
+
+
 # 解析怪物关键字清单文本。
 def parse_monster_keywords(text):
     keywords = []
@@ -1831,7 +1837,7 @@ def parse_monster_keywords(text):
     for line in str(text or "").splitlines():
         keyword = line.strip()
 
-        if not keyword or keyword.startswith("#"):
+        if should_skip_text_config_line(keyword):
             continue
 
         if keyword in seen:
@@ -1851,7 +1857,7 @@ def parse_item_keywords(text):
     for line in str(text or "").splitlines():
         raw_line = line.strip()
 
-        if not raw_line or raw_line.startswith("#"):
+        if should_skip_text_config_line(raw_line):
             continue
 
         keyword, anchor = split_item_keyword_line(raw_line)
@@ -1911,6 +1917,9 @@ def parse_ocr_colors(text):
     seen = set()
 
     for line in str(text or "").splitlines():
+        if should_skip_text_config_line(line):
+            continue
+
         color = normalize_ocr_color_line(line)
 
         if not color or color in seen:
