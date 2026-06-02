@@ -10,15 +10,15 @@
 - `py/api.py` 是业务层，封装窗口绑定、截图、坐标读取、移动、键盘输入和状态聚合。
 - `py/op.py` 只封装 OP 插件能力，`py/win32.py` 只封装 Win32 API。
 - 找字统一使用 OP 大漠字库，字库文件放在 `fonts/main.txt`。
-- 资源图片放在 `png/` 和 `ref/`；大漠字库放在 `fonts/`；文本清单放在 `txt/`；OP 依赖放在 `vendor/op/`；内置 Python 运行时放在 `runtime/`。
+- 资源图片放在 `png/` 和 `ref/`；大漠字库放在 `fonts/`；文本清单放在 `txt/`；OP 依赖放在 `vendor/op/`。
 - `screenshots/`、`DebugImage/`、`log.txt` 是运行输出，不要提交。
 
 ### 构建、测试与本地运行
 
 - `start.bat`：使用内置 Python 启动 `py/app.py`，通常会以管理员权限运行。
-- `runtime\python310\python.exe py\app.py`：从项目根目录直接启动服务。
+- `python py\app.py`：从项目根目录直接启动服务，系统 Python 需为 64 位 Python 3.10。
 - `safe_shutdown.bat`：停止本项目 Python 服务进程，并检查它们占用过的监听端口。
-- `runtime\python310\python.exe -m compileall py`：快速检查 `py/` 代码语法。
+- `python -m compileall py`：快速检查 `py/` 代码语法。
 
 `start.bat` 每次启动会随机选择一个可用四位端口，终端会显示实际服务地址。
 
@@ -33,7 +33,7 @@
 ### 测试与验证
 
 - 当前没有正式测试框架或覆盖率要求。
-- 提交前至少运行 `runtime\python310\python.exe -m compileall py`。
+- 提交前至少运行 `python -m compileall py`。
 - 修改 HTTP、页面、OCR、截图或坐标逻辑时，要手动验证相关功能。
 - OCR 和坐标类问题应使用新截图对照 `png/` 或 `ref/`，临时诊断图不要提交。
 
@@ -42,21 +42,21 @@
 - Git 历史使用简短中文提交信息，例如 `新增大地图交互区域矩形计算函数`。
 - 提交信息应描述实际行为变化，不要只写工具操作。
 - PR 需要说明改动摘要、验证步骤、影响模块；涉及 UI、OCR 或坐标变化时，补充截图或调试说明。
-- 修改 `runtime/` 或 `vendor/` 时必须明确说明原因，因为这些文件影响 OP 和 OCR 运行。
+- 修改 `vendor/` 时必须明确说明原因，因为这些文件影响 OP 和 OCR 运行。
 
 ### 安全与配置
 
 - 不要提交 `.sesskey`、日志、截图、调试图或本地运行输出。
-- 不要随意替换 `runtime/` 和 `vendor/` 下的二进制或依赖文件。
+- 不要随意替换 `vendor/` 下的二进制或依赖文件。
 
 ## 编码偏好
 
 - 代码要少、直白，适合 Python 新手。
 - 先用函数，少用类，别提前复杂化。
-- 用项目内 `runtime/python310/python.exe` 运行，因为 OP 的 `_pyop.pyd` 依赖 `python310.dll`。
-- 搜索和改代码默认排除 `vendor/`、`runtime/`、`screenshots/`。
+- 用系统 64 位 Python 3.10 运行，因为 OP 的 `_pyop.pyd` 依赖 `python310.dll`。
+- 搜索和改代码默认排除 `vendor/`、`screenshots/`。
 - 业务 Python 脚本统一放在 `py/`，启动入口是 `py/app.py`。
-- `py/` 内脚本的路径基准仍然是项目根目录，`runtime/`、`vendor/`、`screenshots/`、`log.txt` 都留在根目录。
+- `py/` 内脚本的路径基准仍然是项目根目录，`vendor/`、`screenshots/`、`log.txt` 都留在根目录。
 - `start.bat` 每次启动随机选择一个可用四位端口，服务地址以终端输出为准。
 
 ## 依赖架构

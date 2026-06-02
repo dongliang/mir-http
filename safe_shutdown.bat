@@ -17,18 +17,7 @@ echo.
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$root=(Get-Location).Path;" ^
-  "$projectPython=(Join-Path $root 'runtime\python310\python.exe');" ^
-  "$projectPythonSlash=$projectPython -replace '\\','/';" ^
   "$projectScripts=@((Join-Path $root 'py\app.py'));" ^
-  "function Test-ProjectPython($process) { " ^
-  "  $exePath=$process.ExecutablePath; " ^
-  "  if ($exePath -and [string]::Equals($exePath, $projectPython, [StringComparison]::OrdinalIgnoreCase)) { return $true } " ^
-  "  $commandLine=$process.CommandLine; " ^
-  "  if (-not $commandLine) { return $false } " ^
-  "  $slashCommand=$commandLine -replace '\\','/'; " ^
-  "  if ($commandLine -like ('*' + $projectPython + '*') -or $slashCommand -like ('*' + $projectPythonSlash + '*')) { return $true } " ^
-  "  return $false " ^
-  "} " ^
   "function Test-ProjectCommandLine($commandLine) { " ^
   "  if (-not $commandLine) { return $false } " ^
   "  $slashCommand=$commandLine -replace '\\','/'; " ^
@@ -43,7 +32,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "} " ^
   "function Test-ProjectProcess($process) { " ^
   "  if ($process.Name -ne 'python.exe' -and $process.Name -ne 'pythonw.exe') { return $false } " ^
-  "  if (-not (Test-ProjectPython $process)) { return $false } " ^
   "  return (Test-ProjectCommandLine $process.CommandLine) " ^
   "} " ^
   "function Get-ProjectProcesses { " ^

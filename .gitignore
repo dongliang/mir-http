@@ -20,6 +20,7 @@ dist/
 .venv
 env/
 venv/
+runtime/
 
 # Unit test / coverage reports
 htmlcov/
@@ -55,6 +56,7 @@ $RECYCLE.BIN/
 .sesskey
 
 # Runtime screenshots/log captures
+.codex/
 screenshot.bmp
 log.txt
 screenshots/

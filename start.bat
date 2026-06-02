@@ -3,7 +3,6 @@ setlocal
 
 set "ROOT=%~dp0"
 set "ROOT=%ROOT:~0,-1%"
-set "PYTHON_EXE=runtime\python310\python.exe"
 set "APP_SCRIPT=py\app.py"
 
 pushd "%ROOT%" >nul 2>nul
@@ -13,18 +12,22 @@ if errorlevel 1 (
   exit /b 1
 )
 
-if not exist "%PYTHON_EXE%" (
-  echo Missing portable Python runtime: %CD%\%PYTHON_EXE%
-  popd >nul
-  pause
-  exit /b 1
-)
-
 if not exist "%APP_SCRIPT%" (
   echo Missing app script: %CD%\%APP_SCRIPT%
   popd >nul
   pause
   exit /b 1
+)
+
+where py.exe >nul 2>nul
+if errorlevel 1 (
+  where python.exe >nul 2>nul
+  if errorlevel 1 (
+    echo Missing Python 3.10. Install Python or add it to PATH.
+    popd >nul
+    pause
+    exit /b 1
+  )
 )
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
@@ -55,7 +58,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "if (-not $targetWindow) { $targetWindow='0' };" ^
   "$rootData=[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($root));" ^
   "$portData=[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes([string]$httpPort));" ^
-  "$inner='$env:MIR2AUTO_HTTP_PORT = [Text.Encoding]::Unicode.GetString([Convert]::FromBase64String(' + [char]39 + $portData + [char]39 + ')); Set-Location -LiteralPath ([Text.Encoding]::Unicode.GetString([Convert]::FromBase64String(' + [char]39 + $rootData + [char]39 + '))); & ' + [char]39 + '.\runtime\python310\python.exe' + [char]39 + ' ' + [char]39 + '.\py\app.py' + [char]39;" ^
+  "$inner='$env:MIR2AUTO_HTTP_PORT = [Text.Encoding]::Unicode.GetString([Convert]::FromBase64String(' + [char]39 + $portData + [char]39 + ')); Set-Location -LiteralPath ([Text.Encoding]::Unicode.GetString([Convert]::FromBase64String(' + [char]39 + $rootData + [char]39 + '))); $py=Get-Command py.exe -ErrorAction SilentlyContinue; if ($py) { & $py.Source -3.10 ' + [char]39 + '.\py\app.py' + [char]39 + ' } else { & python.exe ' + [char]39 + '.\py\app.py' + [char]39 + ' }';" ^
   "$encoded=[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($inner));" ^
   "$title='gateway-' + [string]$httpPort;" ^
   "Start-Process -Verb RunAs -WorkingDirectory $root -FilePath $terminal -ArgumentList @('-w', $targetWindow, 'new-tab', '--title', $title, '-d', $root, $shell, '-NoExit', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-EncodedCommand', $encoded)"
